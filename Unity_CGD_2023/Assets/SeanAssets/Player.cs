@@ -33,9 +33,13 @@ public class PlayerController : MonoBehaviour
         ForceToApply /= ForceDamping; ///so you arent just constantly adding the same force
         rb.velocity = MoveForce2; ///actually where movment happens
 
-        Vector2 MouseDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        var angle =Mathf.Atan2(MouseDir.y, MouseDir.x) * Mathf.Rad2Deg;
+
+
+        Vector2 MouseDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;  ///these three lines make the player look at the mouse
+        var angle = Mathf.Atan2(MouseDir.y, MouseDir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+
 
 
         if (Input.GetMouseButtonDown(0)) ///this function checks where the mouse is clicked and applies force to the player in the opposite direction
@@ -79,12 +83,6 @@ public class PlayerController : MonoBehaviour
 
         }
 
-
-        print("collision");
-        ///i cant figure out how to make the player bounce of walls effectivly
-        ///right now, the player will hit a wall but their velocity can keep increasing, so if you try accelerate in a different direction it will take a second because of the build up
-        ///solution to this is to chnge the force to another direction when hitting the wall (bouncing off, even a little) but i cant figure it out rn
-        ///might need to do something with raycasts, or a jank solution with one collide box for each side, and then depending on which side is hit push them that way proportinal to 
       
     }
 }
