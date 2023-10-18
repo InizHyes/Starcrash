@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    {
+    { ///this whole section does collision, its buggy as hell but it gets the job done for now as proof of concept
 
         Vector2 CollDir = (collision.transform.position - transform.position).normalized;
         if (collision.transform.position.y > transform.position.y)
@@ -85,7 +85,6 @@ public class PlayerController : MonoBehaviour
         ///right now, the player will hit a wall but their velocity can keep increasing, so if you try accelerate in a different direction it will take a second because of the build up
         ///solution to this is to chnge the force to another direction when hitting the wall (bouncing off, even a little) but i cant figure it out rn
         ///might need to do something with raycasts, or a jank solution with one collide box for each side, and then depending on which side is hit push them that way proportinal to 
-        ///current velocity
-
+      
     }
 }
