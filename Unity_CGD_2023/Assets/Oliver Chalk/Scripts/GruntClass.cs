@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class GruntClass : EnemyClass
 {
-    // rb movement variables
-    private Vector2 forceToApply;
-    private Vector2 moveForce;
-    public float forceMultiplier = 1f;
-    public Rigidbody2D rb;
-
     void Start()
     {
         // Set starting state and variables
@@ -22,20 +16,7 @@ public class GruntClass : EnemyClass
         switch (enemyState)
         {
             case State.Initiating:
-                // On spawn state, find closest player
-                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                float lowestDistance = 0;
-                for (int i = 0; i < players.Length; i++)
-                {
-                    //If target isnt set or distance is lower for other player, set player as target
-                    if (target == null || Vector3.Distance(this.transform.position, players[i].transform.position) < lowestDistance)
-                    {
-                        target = players[i];
-                        lowestDistance = Vector3.Distance(this.transform.position, players[i].transform.position);
-                    }
-                    // Else do nothing
-                }
-                enemyState = State.Targeting;
+                targetClosestPlayer();
                 break;
 
             case State.Targeting:
@@ -58,12 +39,7 @@ public class GruntClass : EnemyClass
                  * Maybe check if near to attack, maybe just change state on collision
                  */
 
-                // Use target position and add to forceToApply
-                forceToApply = ((target.transform.position - this.transform.position).normalized) * forceMultiplier;
-                // Add every frame for excelleration (/100 cause too fast)
-                moveForce += forceToApply / 100;
-                rb.velocity = moveForce;
-
+                moveTowardsTarget0G();
                 break;
         }
     }
