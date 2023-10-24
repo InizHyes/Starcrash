@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class GruntClass : EnemyClass
 {
+    // rb movement variables
+    private Vector2 forceToApply;
+    private Vector2 moveForce;
+    public float forceMultiplier = 1f;
+    public Rigidbody2D rb;
+
     void Start()
     {
         // Set starting state and variables
@@ -51,6 +57,13 @@ public class GruntClass : EnemyClass
                  * Move towards player with velocity
                  * Maybe check if near to attack, maybe just change state on collision
                  */
+
+                // Use target position and add to forceToApply
+                forceToApply = ((target.transform.position - this.transform.position).normalized) * forceMultiplier;
+                // Add every frame for excelleration (/100 cause too fast)
+                moveForce += forceToApply / 100;
+                rb.velocity = moveForce;
+
                 break;
         }
     }
