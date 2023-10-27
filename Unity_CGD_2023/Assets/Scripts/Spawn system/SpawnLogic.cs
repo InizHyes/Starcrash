@@ -14,12 +14,6 @@ public class SpawnLogic : MonoBehaviour
     //Get the Enemy prefabs
     public List<GameObject> NPCEnemies;
 
-    //public GameObject NPC1;
-
-
-
-
-
     #endregion
 
     #region [Trigger wave list]
@@ -28,19 +22,13 @@ public class SpawnLogic : MonoBehaviour
     //Get the trigger points in the room
     public List<GameObject> TriggerPoints;
 
-    //public Transform TriggerPoint1;
-
-
-
     #endregion
 
     #region [Spawn location list]
     [Header("Spawn location list")]
 
     //Get the spawn points in the room
-    public List<GameObject> SpawnPoints;
-
-    //public Transform SpawnPoint1;
+    public List<Transform> spawnPoints;
 
     #endregion
 
@@ -79,33 +67,53 @@ public class SpawnLogic : MonoBehaviour
         SetupWaveBool = false; // Do not spawn NPCs at start
 
         triggerInput = true; // Enable Trigger points at start 
+
+        nPCMaxOnScreen = 5; // Set maxiumim amount of NPCs on screen;
     }
 
     // Update is called once per frame
     void Update()
     {
         // If player hits trigger point, start chance counter
-        if (CompareTag("") && triggerInput == true && SetupWaveBool == false)
+        if (CompareTag("SpawnTrigger") && triggerInput == true && SetupWaveBool == false && readySpawn == false)
         {
             ChanceCounter();
             triggerInput = false;
         }
 
+        // Trigger wave set up function
         if (SetupWaveBool == true)
         {
             WaveRestart();
         }
 
+        // Start wave and NPC spawn after set up is done / whilst keeping to max screen limit
+        if (readySpawn == true && nPCurrent != 0 && nPCMaxOnScreen >= 5)
+        {
+            SpawnEnemyNPC();
+            nPCMaxOnScreen += 1;
+
+            // (Need to try to make sure there is no enemy overlaping spawn point in future!)
+        }
+
+        // If all NPCs are dead, do not spawn anymore
         if (nPCurrent == 0)
         {
+            readySpawn = false;
             // end the wave and start the next wave after some time
+
+            
         }
 
         if (waveCurrent > waveMax)
         {
             // end wave system altogether
 
-            //This ends the wave sytem loop
+            triggerInput = true;
+            SetupWaveBool = false;
+            readySpawn = false;
+
+            //This ends the wave sytem loop, return to trigger mode
         }
     }
 
@@ -123,6 +131,7 @@ public class SpawnLogic : MonoBehaviour
         if (chanceNumber == 1)
         {
             SetupWaveBool = true;
+            WaveRestart();
             Debug.Log("Start wave set up");
         }
 
@@ -133,46 +142,58 @@ public class SpawnLogic : MonoBehaviour
             Debug.Log("Do not set up waves");
         }
 
-    } //Done
+    }
 
-    public void WaveRestart() //Need to double check
+    // Randomise lengh of wave total
+    public void WaveRestart()
     {
-        waveCurrent = 1;
+        waveCurrent = 1; //Set wave system to begining
 
         //Randomise max waves
         waveMax = (Random.Range(1, 10));
         
         Debug.Log("The max wave number is set to: " + waveMax);
+
+        SetupWaveBool = false;
+
+        NPCCounter();
     }
 
-    public void NPCCounter() //Done, need to intergrate
+    //Randomise max total number of NPCs to spawn each wave
+    public void NPCCounter()
     {
-        //Randomise max total number of NPCs to spawn each wave
         nPCTotal = (Random.Range(10, 50));
 
         nPCTotal = nPCurrent;
 
-        Debug.Log("For current wave, spawn: " + nPCTotal + "Enemies");
+        Debug.Log("For wave " + waveCurrent + ", spawn: " + nPCTotal + "Enemies");
+
+        readySpawn = true; // Both WaveResart or WaveNext and NPCCounter are done
     }
 
-    public void WaveBegin() // Work in progress
+    // 1 function trigger = 1 enemy spawn at random location
+    public void SpawnEnemyNPC()
     {
         // Get enemy list, randomise what enemy should be spawned
+        GameObject selectedEnemy = NPCEnemies[Random.Range(0, NPCEnemies.Count)];
 
-        // If there is no enemy overlaping spawn point and nPCMaxOnScreen is not greater, then spawn that NPC.
+        // Spawn random enemy at random spawn point
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
 
-
+        Instantiate(selectedEnemy, spawnPoint.position, Quaternion.identity);
     }
 
-    public void WaveNext() //Need to double check
+    // Small Delay before new wave spawn
+    public IEnumerator WaveNext()
     {
+        yield return new WaitForSeconds(5);
+
         waveCurrent += 1;
 
         NPCCounter();
 
         Debug.Log("Next wave has started: Wave " + waveMax);
     }
-
     #endregion
 
 }
