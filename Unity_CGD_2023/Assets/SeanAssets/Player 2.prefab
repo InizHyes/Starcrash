@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1737652366934382606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3320732868248803031}
+  m_Layer: 3
+  m_Name: Firepoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3320732868248803031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737652366934382606}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.6, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 405230350808294393}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &2153184341289991508
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3331619571933971867}
   - component: {fileID: 5116763200915005420}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6469104319281070065}
   - component: {fileID: 191168712150162417}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: reer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +214,8 @@ GameObject:
   - component: {fileID: 9119004986373559324}
   - component: {fileID: 821481322392218327}
   - component: {fileID: -1708436674007983254}
-  m_Layer: 0
+  - component: {fileID: -8502082703975131464}
+  m_Layer: 3
   m_Name: Player 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,6 +236,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3331619571933971867}
+  - {fileID: 3320732868248803031}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6411494277640039633
@@ -281,6 +314,8 @@ MonoBehaviour:
   attack: {fileID: 3734495484655796333, guid: fb0b84b678f316041905ccfa1d8e4778, type: 3}
   rotate: {fileID: 2664800122413868106, guid: fb0b84b678f316041905ccfa1d8e4778, type: 3}
   playerinput: {fileID: -1708436674007983254}
+  gunPoint: {fileID: 0}
+  bullet: {fileID: 0}
 --- !u!50 &9119004986373559324
 Rigidbody2D:
   serializedVersion: 4
@@ -373,3 +408,15 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-8502082703975131464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6087901998665851953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a44f6468a1c2d149a3221a7163a0cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

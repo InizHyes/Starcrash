@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 { /// some variables below may be uselss, was testing many things
     public Rigidbody2D rb;
     public float MoveSpeed = 100;
-    public float GunForce = 10;
+    public float GunForce = 5;
     public Vector2 ForceToApply;
     public float ForceDamping;
     Vector2 MoveForce2;
@@ -24,8 +24,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerInput playerinput;
 
 
+    /// Bullet work - Arch
+    [SerializeField]
+    private Transform gunPoint;
 
-   
+    [SerializeField]
+    private GameObject bullet;
+
+
+
     
     private void OnEnable() ///handles the inputs, buttons only get detected like this
     {
@@ -74,6 +81,7 @@ public class PlayerController : MonoBehaviour
                 ///print(ForceDir);
                 ForceToApply = (ForceDir * GunForce * -1.0f); ///change gunforce to change knockback effect
                                                               ///rb.AddForce(ForceDir * GunForce * -1.0f);
+                FireBullet();
             }
 
         }
@@ -96,6 +104,7 @@ public class PlayerController : MonoBehaviour
 
                 ForceDir = transform.right;
                 ForceToApply = (ForceDir * GunForce * -1.0f); ///change gunforce to change knockback effect
+                FireBullet();
                 shoot = false;
                                                               
                     
@@ -110,6 +119,12 @@ public class PlayerController : MonoBehaviour
 
 
 
+    }
+
+    private void FireBullet() // called every time fire is pressed - Arch
+    {
+        GameObject firedBullet = Instantiate(bullet, gunPoint.position, gunPoint.rotation); //creates an instance of bullet at the position of the "gun" - Arch
+        firedBullet.GetComponent<Rigidbody2D>().velocity = gunPoint.up * 10f; //adds force to the bullet - Arch
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
