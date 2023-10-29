@@ -8,14 +8,13 @@ using UnityEngine.Audio;
 public class Settings : MonoBehaviour
 {
     public Toggle fullscreenTog, vsyncTog;
+
     public List<ResItem> resolutions = new List<ResItem>();
-
     private int selectedRes;
-
     public TMP_Text resolutionLabel;
+
     public TMP_Text masterNum, sfxNum, musicNum;
     public Slider masterSlider, sfxSlider, musicSlider;
-
     public AudioMixer mixer;
 
 
@@ -104,7 +103,6 @@ public class Settings : MonoBehaviour
 
     public void ApplyGrphics()
     {
-        // Screen.fullScreen = fullscreenTog.isOn;
         if (vsyncTog.isOn)
         {
             QualitySettings.vSyncCount = 1;
