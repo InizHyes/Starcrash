@@ -49,9 +49,7 @@ public class SpawnLogic : MonoBehaviour
 
     public int nPCTotal;
 
-    public int nPCurrent;
-
-    public int nPCMaxOnScreen;
+    public int nPCCounter;
 
     #endregion
 
@@ -68,7 +66,7 @@ public class SpawnLogic : MonoBehaviour
 
         triggerInput = true; // Enable Trigger points at start 
 
-        nPCMaxOnScreen = 5; // Set maxiumim amount of NPCs on screen;
+        nPCCounter = 0; // Set maxiumim amount of NPCs on screen;
     }
 
     // Update is called once per frame
@@ -77,7 +75,7 @@ public class SpawnLogic : MonoBehaviour
         // If player hits trigger point, start chance counter
         if (CompareTag("SpawnTrigger") && triggerInput == true && SetupWaveBool == false && readySpawn == false)
         {
-            ChanceCounter();
+            StartSpawning();
             triggerInput = false;
         }
 
@@ -88,16 +86,16 @@ public class SpawnLogic : MonoBehaviour
         }
 
         // Start wave and NPC spawn after set up is done / whilst keeping to max screen limit
-        if (readySpawn == true && nPCurrent != 0 && nPCMaxOnScreen >= 5)
+        if (readySpawn == true && nPCCounter <= nPCTotal)
         {
             SpawnEnemyNPC();
-            nPCMaxOnScreen += 1;
+            nPCCounter += 1;
 
             // (Need to try to make sure there is no enemy overlaping spawn point in future!)
         }
 
         // If all NPCs are dead, do not spawn anymore
-        if (nPCurrent == 0)
+        if (nPCCounter == 0)
         {
             readySpawn = false;
             // end the wave and start the next wave after some time
@@ -122,26 +120,11 @@ public class SpawnLogic : MonoBehaviour
     #region [Other functions]
 
     //Will wave set up happen?
-    public void ChanceCounter()
+    public void StartSpawning()
     {
-        //Genrate randomnumber
-        chanceNumber = (Random.Range(1, 4));
-
-        // Outcome conditions
-        if (chanceNumber == 1)
-        {
-            SetupWaveBool = true;
-            WaveRestart();
-            Debug.Log("Start wave set up");
-        }
-
-        if (chanceNumber != 1)
-        {
-            SetupWaveBool = false;
-            triggerInput = true; //Rearm trigger point
-            Debug.Log("Do not set up waves");
-        }
-
+        SetupWaveBool = true;
+        WaveRestart();
+        Debug.Log("Start wave set up");
     }
 
     // Randomise lengh of wave total
@@ -163,8 +146,6 @@ public class SpawnLogic : MonoBehaviour
     public void NPCCounter()
     {
         nPCTotal = (Random.Range(10, 50));
-
-        nPCTotal = nPCurrent;
 
         Debug.Log("For wave " + waveCurrent + ", spawn: " + nPCTotal + "Enemies");
 
