@@ -37,11 +37,7 @@ public class SpawnLogic : MonoBehaviour
 
     public bool readySpawn;
 
-    public bool SetupWaveBool;
-
     public bool triggerInput;
-
-    public int chanceNumber;
 
     public int waveCurrent;
 
@@ -60,9 +56,7 @@ public class SpawnLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        readySpawn = false; // Make sure the process for SetupWaveBool is ready
-
-        SetupWaveBool = false; // Do not spawn NPCs at start
+        readySpawn = false; //Do not spawn NPCs at start
 
         triggerInput = true; // Enable Trigger points at start 
 
@@ -73,20 +67,14 @@ public class SpawnLogic : MonoBehaviour
     void Update()
     {
         // If player hits trigger point, start chance counter
-        if (CompareTag("SpawnTrigger") && triggerInput == true && SetupWaveBool == false && readySpawn == false)
+        if (CompareTag("SpawnTrigger") && triggerInput == true && readySpawn == false)
         {
-            StartSpawning();
+            WaveRestart();
             triggerInput = false;
         }
 
-        // Trigger wave set up function
-        if (SetupWaveBool == true)
-        {
-            WaveRestart();
-        }
-
         // Start wave and NPC spawn after set up is done / whilst keeping to max screen limit
-        if (readySpawn == true && nPCCounter <= nPCTotal)
+        if (readySpawn == true && nPCCounter <= 5)
         {
             SpawnEnemyNPC();
             nPCCounter += 1;
@@ -98,9 +86,7 @@ public class SpawnLogic : MonoBehaviour
         if (nPCCounter == 0)
         {
             readySpawn = false;
-            // end the wave and start the next wave after some time
-
-            
+            // end the wave and start the next wave after some time            
         }
 
         if (waveCurrent > waveMax)
@@ -108,7 +94,6 @@ public class SpawnLogic : MonoBehaviour
             // end wave system altogether
 
             triggerInput = true;
-            SetupWaveBool = false;
             readySpawn = false;
 
             //This ends the wave sytem loop, return to trigger mode
@@ -119,14 +104,6 @@ public class SpawnLogic : MonoBehaviour
 
     #region [Other functions]
 
-    //Will wave set up happen?
-    public void StartSpawning()
-    {
-        SetupWaveBool = true;
-        WaveRestart();
-        Debug.Log("Start wave set up");
-    }
-
     // Randomise lengh of wave total
     public void WaveRestart()
     {
@@ -136,8 +113,6 @@ public class SpawnLogic : MonoBehaviour
         waveMax = (Random.Range(1, 10));
         
         Debug.Log("The max wave number is set to: " + waveMax);
-
-        SetupWaveBool = false;
 
         NPCCounter();
     }
@@ -173,8 +148,15 @@ public class SpawnLogic : MonoBehaviour
 
         NPCCounter();
 
-        Debug.Log("Next wave has started: Wave " + waveMax);
+        Debug.Log("Next wave has started: Wave " + waveCurrent);
     }
+
+    public void NPCdeath()
+    {
+        //If player kills a NPC allow another NPC to spawn if other conditions are vaild 
+        nPCCounter -= 1;
+    }
+
     #endregion
 
 }
