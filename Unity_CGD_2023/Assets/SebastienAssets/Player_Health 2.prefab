@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2035589640117802207
+--- !u!1 &2571214839400137458
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1942326425691573439}
-  - component: {fileID: 216644792080763097}
+  - component: {fileID: 6242306781193423938}
+  - component: {fileID: 1559040417278619051}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -17,28 +17,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1942326425691573439
+--- !u!4 &6242306781193423938
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035589640117802207}
+  m_GameObject: {fileID: 2571214839400137458}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.30821228, w: 0.9513176}
-  m_LocalPosition: {x: 42.701, y: -35.331, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.008780001, w: 0.99996144}
+  m_LocalPosition: {x: -0.061998114, y: -34.266, z: 0}
   m_LocalScale: {x: 1, y: 0.1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6479438185454167170}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -35.903}
---- !u!212 &216644792080763097
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1.006}
+--- !u!212 &1559040417278619051
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035589640117802207}
+  m_GameObject: {fileID: 2571214839400137458}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.9528302, g: 0.030562414, b: 0.030562414, a: 1}
+  m_Color: {r: 0.9528302, g: 0.057529315, b: 0.057529315, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6479438185454167170}
   m_Layer: 5
-  m_Name: Player_Health
+  m_Name: Player_Health 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,16 +107,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7514548202752336191}
-  m_LocalRotation: {x: -0, y: -0, z: 0.33697233, w: 0.9415146}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1942326425691573439}
+  - {fileID: 6242306781193423938}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -55.423767, y: 0.42147827}
+  m_AnchoredPosition: {x: -0.0000038147, y: 34.5}
   m_SizeDelta: {x: 50, y: 12.5}
   m_Pivot: {x: 0.5, y: 0.5}
