@@ -119,9 +119,9 @@ public class GruntClass : EnemyClass
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.tag == "Bullet")
+        if (collision.gameObject.tag == "Bullet")
         {
             Destroy(this.gameObject);
         }

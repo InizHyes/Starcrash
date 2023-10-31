@@ -186,7 +186,6 @@ GameObject:
   - component: {fileID: 4771733949618339815}
   - component: {fileID: 3469607613227155108}
   - component: {fileID: 4415298594212500451}
-  - component: {fileID: 145823736884646132}
   m_Layer: 0
   m_Name: Test Grunt 1
   m_TagString: Enemy
@@ -278,7 +277,7 @@ MonoBehaviour:
   health: 0
   target: {fileID: 0}
   forceMultiplier: 2
-  maxVelocity: {x: 100, y: 100}
+  maxVelocity: {x: 5, y: 5}
   rb: {fileID: 4771733949618339815}
   enemyState: 0
 --- !u!50 &4771733949618339815
@@ -364,38 +363,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!58 &145823736884646132
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5551923173195952751}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.2
