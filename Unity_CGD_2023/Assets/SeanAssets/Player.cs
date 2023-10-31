@@ -17,6 +17,10 @@ public class PlayerController : MonoBehaviour
     Vector2 PlayerPos;
     Vector2 ForceDir;
     Vector2 LastVel;
+    Vector2 RightStickOld;
+    public Camera view;
+    public GameObject otherPlayer; //For vertical slice
+
     public float SpeedCap = 10;
     public int player = 0;
     [SerializeField] private InputActionReference movement, attack, rotate;
@@ -37,7 +41,6 @@ public class PlayerController : MonoBehaviour
     private void OnEnable() ///handles the inputs, buttons only get detected like this
     {
         attack.action.performed += AttackPressed;
-        print("yes");
         
     }
     private void OnDisable() ///disables the function when the button is released
@@ -95,8 +98,13 @@ public class PlayerController : MonoBehaviour
             ForceToApply /= ForceDamping; ///so you arent just constantly adding the same force
             rb.velocity = MoveForce2; ///actually where movment happen
             Vector2 RightStick = rotate.action.ReadValue<Vector2>();
-            var angle = Mathf.Atan2(RightStick.y, RightStick.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            if (RightStick != RightStickOld)
+            {
+                var angle = Mathf.Atan2(RightStick.y, RightStick.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            }
+
             if (shoot == true)  ///this function checks if shoot is true, then "shoots"
             {
                 print("GunFired");
@@ -150,7 +158,20 @@ public class PlayerController : MonoBehaviour
             MoveForce2.x = (CollDir.x * 1 * -1.0f);
 
         }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
 
-      
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            Vector3 floorLocation = collision.gameObject.transform.position;
+            floorLocation.z = -10;
+            view.transform.position = floorLocation;
+            print("MOOOVE FUCKING CAMERA");
+
+            Vector2 playerLocation = transform.position;
+            playerLocation.x = playerLocation.x - 0.1f;
+            otherPlayer.transform.position = playerLocation;
+        }
     }
 }

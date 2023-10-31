@@ -58,7 +58,7 @@ public class SpawnLogic : MonoBehaviour
     {
         readySpawn = false; //Do not spawn NPCs at start
 
-        triggerInput = true; // Enable Trigger points at start 
+        triggerInput = false; // Enable Trigger points at start 
 
         nPCCounter = 0; // Set maxiumim amount of NPCs on screen;
     }
@@ -155,6 +155,14 @@ public class SpawnLogic : MonoBehaviour
     {
         //If player kills a NPC allow another NPC to spawn if other conditions are vaild 
         nPCCounter -= 1;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            triggerInput = true;
+        }
     }
 
     #endregion

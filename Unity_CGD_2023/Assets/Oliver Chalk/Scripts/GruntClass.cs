@@ -118,4 +118,12 @@ public class GruntClass : EnemyClass
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Bullet")
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }
