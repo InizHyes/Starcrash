@@ -3,15 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bullet
+  - BulletCollision
+  - Floor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ignore Bullets
   - Water
   - UI
-  - 
+  - Walls
   - 
   - 
   - 
@@ -40,4 +43,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 239967053
+    locked: 0
+  - name: Walls
+    uniqueID: 2676364389
+    locked: 0
+  - name: Scenery
+    uniqueID: 2604695505
+    locked: 0
+  - name: Player
+    uniqueID: 2876185985
+    locked: 0
+  - name: UI
+    uniqueID: 4006518309
     locked: 0
