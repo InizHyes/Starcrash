@@ -1,64 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using UnityEngine.Audio;
+using TMPro;
+using UnityEngine.UI;
 
-public class Settings : MonoBehaviour
-{
-    public SettingsManager settingsManager;
-
-    private void Start()
-    {
-        settingsManager.LoadSettings();
-    }
-
-    public void ApplyGraphics()
-    {
-        settingsManager.ApplySettings();
-    }
-
-    public void ResetToDefaults()
-    {
-        settingsManager.ResetToDefaults();
-    }
-
-    public void SetMasterVolume()
-    {
-        settingsManager.SetMasterVolume();
-    }
-
-    public void SetSfxVolume()
-    {
-        settingsManager.SetSfxVolume();
-    }
-
-    public void SetMusicVolume()
-    {
-        settingsManager.SetMusicVolume();
-    }
-
-    public void FrameRateLeft()
-    {
-        settingsManager.FrameRateLeft();
-    }
-
-    public void FrameRateRight()
-    {
-        settingsManager.FrameRateRight();
-    }
-
-    public void ResLeft()
-    {
-        settingsManager.ResLeft();
-    }
-    public void ResRight()
-    {
-        settingsManager.ResRight();
-    }
-}
-
-/*public class Settings : MonoBehaviour
+public class SettingsManager : MonoBehaviour
 {
     [Header("UI Elements")]
     public Toggle fullscreenToggle;
@@ -89,45 +35,35 @@ public class Settings : MonoBehaviour
 
     private void Start()
     {
-        LoadGraphicsSettings();
-        LoadAudioSettings();
+        LoadSettings();
     }
 
-    private void LoadGraphicsSettings()
+    public void ApplySettings()
     {
-        fullscreenToggle.isOn = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
-        vsyncToggle.isOn = PlayerPrefs.GetInt("VSync", 1) == 1;
-        LoadResolution();
+        ApplyResolution();
+        ApplyScreenMode();
+        ApplyVolumeSettings();
+        SaveSettings();
         if (vsyncToggle.isOn)
         {
             Application.targetFrameRate = 60;
             frameRateLabel.text = "60";
+            selectedFrameRateIndex = 1;
         }
         else
         {
-            LoadFrameRate();
+            ApplyFrameRate();
         }
     }
 
-    private void LoadResolution()
+    public void ResetToDefaults()
     {
-        selectedResolutionIndex = PlayerPrefs.GetInt("SelectedResolution", 0);
-        UpdateResolutionLabel();
-        ApplyResolution();
-    }
+        PlayerPrefs.DeleteAll();
+        LoadSettings();
 
-    private void LoadFrameRate()
-    {
-        selectedFrameRateIndex = PlayerPrefs.GetInt("SelectedFrameRate", 0);
-        UpdateFrameRateLabel();
-        ApplyFrameRate();
-    }
-
-    private void LoadAudioSettings()
-    {
-        cachedMasterVolume = PlayerPrefs.GetFloat("MasterVolume", 0f);
-        cachedSfxVolume = PlayerPrefs.GetFloat("SfxVolume", 0f);
-        cachedMusicVolume = PlayerPrefs.GetFloat("MusicVolume", 0f);
+        cachedMasterVolume = 0f;
+        cachedSfxVolume = 0f;
+        cachedMusicVolume = 0f;
 
         masterVolumeSlider.value = cachedMasterVolume;
         sfxVolumeSlider.value = cachedSfxVolume;
@@ -193,37 +129,35 @@ public class Settings : MonoBehaviour
         musicVolumeLabel.text = (musicVolumeSlider.value + 80).ToString();
     }
 
-    public void ApplyGraphics()
+    public void LoadSettings()
     {
+        fullscreenToggle.isOn = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
+        vsyncToggle.isOn = PlayerPrefs.GetInt("VSync", 1) == 1;
+        selectedResolutionIndex = PlayerPrefs.GetInt("SelectedResolution", 1);
+        selectedFrameRateIndex = PlayerPrefs.GetInt("SelectedFrameRate", 1);
+        cachedMasterVolume = PlayerPrefs.GetFloat("MasterVolume", 0f);
+        cachedSfxVolume = PlayerPrefs.GetFloat("SfxVolume", 0f);
+        cachedMusicVolume = PlayerPrefs.GetFloat("MusicVolume", 0f);
+
+        UpdateResolutionLabel();
+        UpdateFrameRateLabel();
+        UpdateVolumeLabels();
+
         ApplyResolution();
+        ApplyFrameRate();
         ApplyScreenMode();
-        if (vsyncToggle.isOn)
-        {
-            Application.targetFrameRate = 60;
-            frameRateLabel.text = "60";
-            PlayerPrefs.SetInt("SelectedFrameRate", 0);
-        }
-        else
-        {
-            ApplyFrameRate();
-            PlayerPrefs.SetInt("SelectedFrameRate", selectedFrameRateIndex);
-        }
+        ApplyVolumeSettings();
+    }
+
+    public void SaveSettings()
+    {
         PlayerPrefs.SetInt("Fullscreen", fullscreenToggle.isOn ? 1 : 0);
         PlayerPrefs.SetInt("VSync", vsyncToggle.isOn ? 1 : 0);
         PlayerPrefs.SetInt("SelectedResolution", selectedResolutionIndex);
-    }
-    public void ResetToDefaults()
-    {
-        PlayerPrefs.DeleteKey("Fullscreen");
-        PlayerPrefs.DeleteKey("VSync");
-        PlayerPrefs.DeleteKey("SelectedResolution");
-        PlayerPrefs.DeleteKey("SelectedFrameRate");
-        PlayerPrefs.DeleteKey("MasterVolume");
-        PlayerPrefs.DeleteKey("SfxVolume");
-        PlayerPrefs.DeleteKey("MusicVolume");
-
-        LoadGraphicsSettings();
-        LoadAudioSettings();
+        PlayerPrefs.SetInt("SelectedFrameRate", selectedFrameRateIndex);
+        PlayerPrefs.SetFloat("MasterVolume", cachedMasterVolume);
+        PlayerPrefs.SetFloat("SfxVolume", cachedSfxVolume);
+        PlayerPrefs.SetFloat("MusicVolume", cachedMusicVolume);
     }
 
     private void ApplyResolution()
@@ -243,50 +177,54 @@ public class Settings : MonoBehaviour
         QualitySettings.vSyncCount = vsyncToggle.isOn ? 1 : 0;
     }
 
+    private void ApplyVolumeSettings()
+    {
+        audioMixer.SetFloat("MasterVolume", cachedMasterVolume);
+        audioMixer.SetFloat("SfxVolume", cachedSfxVolume);
+        audioMixer.SetFloat("MusicVolume", cachedMusicVolume);
+    }
+
     public void SetMasterVolume()
     {
         cachedMasterVolume = masterVolumeSlider.value;
-        audioMixer.SetFloat("MasterVolume", cachedMasterVolume);
-        PlayerPrefs.SetFloat("MasterVolume", cachedMasterVolume);
         UpdateVolumeLabels();
+        ApplyVolumeSettings();
     }
 
     public void SetSfxVolume()
     {
         cachedSfxVolume = sfxVolumeSlider.value;
-        audioMixer.SetFloat("SfxVolume", cachedSfxVolume);
-        PlayerPrefs.SetFloat("SfxVolume", cachedSfxVolume);
         UpdateVolumeLabels();
+        ApplyVolumeSettings();
     }
 
     public void SetMusicVolume()
     {
         cachedMusicVolume = musicVolumeSlider.value;
-        audioMixer.SetFloat("MusicVolume", cachedMusicVolume);
-        PlayerPrefs.SetFloat("MusicVolume", cachedMusicVolume);
         UpdateVolumeLabels();
+        ApplyVolumeSettings();
+    }
+
+    [System.Serializable]
+    public class ResolutionOption
+    {
+        public int width;
+        public int height;
+
+        public override string ToString()
+        {
+            return $"{width} X {height}";
+        }
+    }
+
+    [System.Serializable]
+    public class FrameRateOption
+    {
+        public int frameRate;
+
+        public override string ToString()
+        {
+            return frameRate.ToString();
+        }
     }
 }
-
-[System.Serializable]
-public class ResolutionOption
-{
-    public int width;
-    public int height;
-
-    public override string ToString()
-    {
-        return $"{width} X {height}";
-    }
-}
-
-[System.Serializable]
-public class FrameRateOption
-{
-    public int frameRate;
-
-    public override string ToString()
-    {
-        return frameRate.ToString();
-    }
-}*/
