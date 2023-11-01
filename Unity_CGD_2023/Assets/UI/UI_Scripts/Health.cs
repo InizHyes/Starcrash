@@ -11,17 +11,17 @@ public class Player_health : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             TakeDamage(20);
         }
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Heal(5);
         }
@@ -32,7 +32,7 @@ public class Player_health : MonoBehaviour
         healthAmount -= damage;
         healthBar.fillAmount = healthAmount / 100f;
     }
-    public void Heal(float healingAmount) 
+    public void Heal(float healingAmount)
     {
         healthAmount += healingAmount;
         healthAmount = Mathf.Clamp(healthAmount, 0, 100);
