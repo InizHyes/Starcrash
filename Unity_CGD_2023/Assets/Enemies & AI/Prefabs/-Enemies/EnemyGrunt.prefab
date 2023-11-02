@@ -248,8 +248,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1418781311
-  m_SortingLayer: 4
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: -262926459, guid: 78c4d28622f215c47b63743866b6c20f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -274,11 +274,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c15ab3d84ce09f43ab7f1f76ddf3944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 1
   target: {fileID: 0}
   forceMultiplier: 2
   maxVelocity: {x: 5, y: 5}
   rb: {fileID: 4771733949618339815}
+  NPCdeathCheck: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+  spawnLogic: {fileID: 0}
   enemyState: 0
 --- !u!50 &4771733949618339815
 Rigidbody2D:

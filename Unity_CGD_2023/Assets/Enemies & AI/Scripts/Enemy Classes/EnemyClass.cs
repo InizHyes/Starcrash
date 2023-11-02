@@ -15,6 +15,11 @@ public class EnemyClass : MonoBehaviour
     public Vector2 maxVelocity = new Vector2(100f, 100f);
     public Rigidbody2D rb;
 
+    // Set spawnlogic prefab onto NPCdeathCheck, will find and assign script to spawnLogic
+    public GameObject NPCdeathCheck;
+    public SpawnLogic spawnLogic;
+
+
     // States
     public enum State
     {

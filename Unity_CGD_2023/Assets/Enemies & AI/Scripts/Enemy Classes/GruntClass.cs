@@ -11,8 +11,6 @@ public class GruntClass : EnemyClass
     private Animator animate;
     private BoxCollider2D playerDetect;
 
-    public SpawnLogic NPCdeathCheck;
-
 
     void Start()
     {
@@ -20,10 +18,11 @@ public class GruntClass : EnemyClass
         enemyState = State.Initiating;
         health = 1;
         animate = GetComponent<Animator>();
+        spawnLogic = NPCdeathCheck.GetComponent<SpawnLogic>();
 
-        if (NPCdeathCheck != null)
+        if (spawnLogic != null)
         {
-            NPCdeathCheck.NPCdeath();
+            spawnLogic.NPCdeath();
         }
 
     }
@@ -129,9 +128,9 @@ public class GruntClass : EnemyClass
             }
         }
 
-        if (health == 0 && NPCdeathCheck != null)
+        if (health == 0 && spawnLogic != null)
         {
-            NPCdeathCheck.NPCdeath();
+            spawnLogic.NPCdeath();
         }
     }
 

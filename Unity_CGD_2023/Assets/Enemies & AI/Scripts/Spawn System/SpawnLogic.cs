@@ -56,7 +56,7 @@ public class SpawnLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        readySpawn = false; //Do not spawn NPCs at start
+        readySpawn = true; //Do not spawn NPCs at start
 
         triggerInput = false; // Enable Trigger points at start 
 
