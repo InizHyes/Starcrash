@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GruntClass : EnemyClass
@@ -9,12 +10,22 @@ public class GruntClass : EnemyClass
     bool playerInConeZone = false;
     private Animator animate;
     private BoxCollider2D playerDetect;
+
+    public SpawnLogic NPCdeathCheck;
+
+
     void Start()
     {
         // Set starting state and variables
         enemyState = State.Initiating;
         health = 1;
         animate = GetComponent<Animator>();
+
+        if (NPCdeathCheck != null)
+        {
+            NPCdeathCheck.NPCdeath();
+        }
+
     }
     private void Update()
     {
@@ -117,6 +128,11 @@ public class GruntClass : EnemyClass
                 playerInConeZone = childscript.playerTriggered;
             }
         }
+
+        if (health == 0 && NPCdeathCheck != null)
+        {
+            NPCdeathCheck.NPCdeath();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -126,4 +142,6 @@ public class GruntClass : EnemyClass
             Destroy(this.gameObject);
         }
     }
+
+
 }

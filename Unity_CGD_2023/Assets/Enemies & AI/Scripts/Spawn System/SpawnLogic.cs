@@ -86,12 +86,17 @@ public class SpawnLogic : MonoBehaviour
         if (nPCCounter == 0)
         {
             readySpawn = false;
+
             // end the wave and start the next wave after some time            
+
+            StartCoroutine(WaveNext());
         }
 
         if (waveCurrent > waveMax)
         {
             // end wave system altogether
+
+            StopCoroutine(WaveNext());
 
             triggerInput = true;
             readySpawn = false;
@@ -143,6 +148,8 @@ public class SpawnLogic : MonoBehaviour
     public IEnumerator WaveNext()
     {
         yield return new WaitForSeconds(5);
+
+        StopCoroutine(WaveNext());
 
         waveCurrent += 1;
 
