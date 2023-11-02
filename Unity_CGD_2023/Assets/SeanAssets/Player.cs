@@ -18,12 +18,14 @@ public class PlayerController : MonoBehaviour
     Vector2 ForceDir;
     Vector2 LastVel;
     Vector2 RightStickOld;
+    Vector2 noMove = new Vector2(0, 0);
+    private bool sticking = false;
     public Camera view;
     public GameObject otherPlayer; //For vertical slice
 
     public float SpeedCap = 10;
     public int player = 0;
-    [SerializeField] private InputActionReference movement, attack, rotate;
+    [SerializeField] private InputActionReference movement, attack, rotate, stickToSurface;
     private bool shoot = false;
     [SerializeField] PlayerInput playerinput;
 
@@ -40,32 +42,66 @@ public class PlayerController : MonoBehaviour
     
     private void OnEnable() ///handles the inputs, buttons only get detected like this
     {
+        stickToSurface.action.performed += stickingToSurface;
         attack.action.performed += AttackPressed;
-        
+
+
     }
+
     private void OnDisable() ///disables the function when the button is released
     {
         attack.action.performed -= AttackPressed;
+        stickToSurface.action.performed -= stickingToSurface;
+        
+
     }
+
+
 
     private void AttackPressed(InputAction.CallbackContext context) ///makes shoot true which makes the chcrater shoot in update
     {
         shoot = true;
     }
 
+    private void stickingToSurface(InputAction.CallbackContext context) ///used to make the player "stick" to the ground. Starts timer to initilise 
+    {
+        StartCoroutine(stickTimer2());
+        
+
+    }
+
+    IEnumerator stickTimer2() ///this start a timer to tick to ground then flips the variable. So it takes a second to stick and unstick, as a drawback 
+    {
+        yield return new WaitForSeconds(1);
+        sticking = !sticking;
+        print("sticked");
+
+    }
+
+
+
+
+
     // Update is called once per frame
     void Update()
     {
+        if (!sticking)
+        {
+            rb.velocity = MoveForce2; ///actually where movment happen
+        }
+        else
+        {
+            print("no move");
+            rb.velocity = noMove;
+        }
         
-        rb.velocity = MoveForce2; ///actually where movment happen
-        if (player == 1) ///KEYBOARD CONTROLLS
+        if (player == 1) ///THIS WHOLE BIT IS OLD CODE, I WILL REMOVE IT WHEN TWO CONTOLLERS WORK.
         {
             Vector2 PlayerInput = new Vector2(Input.GetAxisRaw("HorizontalKeyboard"), Input.GetAxisRaw("VerticalKeyboard")).normalized; ///gets playerinput
             Vector2 MoveForce = PlayerInput * MoveSpeed; ///applies the speed to player input
             MoveForce2 = MoveForce2 + PlayerInput * MoveSpeed; ///adding the players input onto the current move vector 2, never loses momentum as it is adding rather than setting
             MoveForce2 += ForceToApply; ///force to apply is instant force, e.g if you wanted to fire a gun (below in mouse section) change apply force to alter current movement
             ForceToApply /= ForceDamping; ///so you arent just constantly adding the same force
-            rb.velocity = MoveForce2; ///actually where movment happen
             Vector2 MouseDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;  ///these three lines make the player look at the mouse
             var angle = Mathf.Atan2(MouseDir.y, MouseDir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -90,13 +126,24 @@ public class PlayerController : MonoBehaviour
         }
         else if (player == 2) ///CONTROLLER CONTROLS
         {
+
            
             Vector2 PlayerInput = movement.action.ReadValue<Vector2>();
             Vector2 MoveForce = PlayerInput * MoveSpeed; ///applies the speed to player input
-            MoveForce2 = MoveForce2 + PlayerInput * MoveSpeed; ///adding the players input onto the current move vector 2, never loses momentum as it is adding rather than setting
-            MoveForce2 += ForceToApply; ///force to apply is instant force, e.g if you wanted to fire a gun (below in mouse section) change apply force to alter current movement
-            ForceToApply /= ForceDamping; ///so you arent just constantly adding the same force
-            rb.velocity = MoveForce2; ///actually where movment happen
+            if (!sticking) ///if the player is not supposed to be sticking to the ground, do movement normally
+            {
+                rb.velocity = MoveForce2; ///actually where movment happen
+                MoveForce2 = MoveForce2 + PlayerInput * MoveSpeed; ///adding the players input onto the current move vector 2, never loses momentum as it is adding rather than setting
+                MoveForce2 += ForceToApply; ///force to apply is instant force, e.g if you wanted to fire a gun (below in mouse section) change apply force to alter current movement
+                ForceToApply /= ForceDamping; ///so you arent just constantly adding the same force
+            }
+            else ///else if the player is supposed to be sticking, stop all momentum and momentum gain
+            {
+                print("no move");
+                rb.velocity = noMove;
+                MoveForce2 = noMove;
+            }
+
             Vector2 RightStick = rotate.action.ReadValue<Vector2>();
 
             if (RightStick != RightStickOld)
@@ -122,12 +169,16 @@ public class PlayerController : MonoBehaviour
 
 
 
+
         }
 
 
 
 
     }
+
+
+
 
     private void FireBullet() // called every time fire is pressed - Arch
     {
