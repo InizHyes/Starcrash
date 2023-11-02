@@ -6,14 +6,16 @@ public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private Transform StartingRoom;
     [SerializeField] private List<Transform> roomList;
+    [SerializeField] private int roomsToSpawn;
+    [SerializeField] private bool allowRoomRepetition = false;
+    [SerializeField] private int minRoomsBeforeHard = 5; // Minimum number of rooms before harder levels start.
 
     private Vector3 lastRoomExit;
-    [SerializeField] private int roomsToSpawn;
+    private int playerProgress = 1; // Represents the player's progression level.
 
-    // Create a list to keep track of spawned rooms.
+    // A list to keep track of spawned rooms.
     private List<Transform> spawnedRooms = new List<Transform>();
-
-    [SerializeField] private bool allowRoomRepetition = false; // Toggle for room repetition.
+    private bool hardRoomsUnlocked = false;
 
     private void Start()
     {
@@ -33,21 +35,80 @@ public class LevelGenerator : MonoBehaviour
             return;
         }
 
-        Transform roomListSelect = roomList[Random.Range(0, roomList.Count)];
+        // Adjust the difficulty level based on player progression.
+        int difficultyLevel = Mathf.Max(1, playerProgress - minRoomsBeforeHard);
 
-        // Check if the selected room has not already been spawned, or room repetition is allowed.
-        if (!allowRoomRepetition && spawnedRooms.Contains(roomListSelect))
+        if (difficultyLevel >= 2)
         {
-            Debug.Log("Selected room already spawned. Skipping.");
+            hardRoomsUnlocked = true;
         }
-        else
+
+        // Select a room from the list based on the current difficulty level.
+        List<Transform> roomListForDifficulty = roomList;
+
+        if (hardRoomsUnlocked)
         {
-            Transform lastRoomTransform = RoomSpawner(roomListSelect, lastRoomExit);
+            roomListForDifficulty = roomListHard;
+        }
+
+        // Select a room randomly based on room repetition settings.
+        Transform roomListSelect = SelectRandomRoom(roomListForDifficulty);
+
+        if (roomListSelect == null)
+        {
+            // Handle the case when no room can be selected (all rooms have been spawned).
+            Debug.Log("All rooms have been spawned.");
+            return;
+        }
+
+        Transform lastRoomTransform = RoomSpawner(roomListSelect, lastRoomExit);
+
+        if (lastRoomTransform != null)
+        {
             lastRoomExit = lastRoomTransform.Find("RoomExit").position;
-
-            // Add the spawned room to the list of spawned rooms.
             spawnedRooms.Add(roomListSelect);
+
+            // Increase the player's progression.
+            playerProgress++;
         }
+    }
+
+    private Transform SelectRandomRoom(List<Transform> roomListForDifficulty)
+    {
+        if (!allowRoomRepetition)
+        {
+            // Create a list of unspawned rooms for the current difficulty level.
+            List<Transform> unspawnedRooms = new List<Transform>();
+
+            foreach (Transform room in roomListForDifficulty)
+            {
+                if (!spawnedRooms.Contains(room))
+                {
+                    unspawnedRooms.Add(room);
+                }
+            }
+
+            // Check if there are unspawned rooms left.
+            if (unspawnedRooms.Count > 0)
+            {
+                // Select a random unspawned room from the list.
+                int randomIndex = Random.Range(0, unspawnedRooms.Count);
+                return unspawnedRooms[randomIndex];
+            }
+            else
+            {
+                // No unspawned rooms left for this difficulty level.
+                return null;
+            }
+        }
+        else if (roomListForDifficulty.Count > 0)
+        {
+            // Allow room repetition, so select a random room from the entire list.
+            int randomIndex = Random.Range(0, roomListForDifficulty.Count);
+            return roomListForDifficulty[randomIndex];
+        }
+
+        return null;
     }
 
     private Transform RoomSpawner(Transform roomPrefab, Vector3 spawnLocation)
@@ -55,4 +116,7 @@ public class LevelGenerator : MonoBehaviour
         Transform roomTransform = Instantiate(roomPrefab, spawnLocation, Quaternion.identity);
         return roomTransform;
     }
+
+    // define the room lists for different difficulty levels in the Inspector.
+    [SerializeField] private List<Transform> roomListHard;
 }

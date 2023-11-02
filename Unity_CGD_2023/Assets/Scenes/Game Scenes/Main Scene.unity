@@ -180,11 +180,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8092261bb93574362bce7876edb03eed, type: 3}
---- !u!4 &986119690 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3584150258458699509, guid: 8092261bb93574362bce7876edb03eed, type: 3}
-  m_PrefabInstance: {fileID: 83274958}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1549376507
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,12 +209,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c37d700bfcbf4343bebbba285f7c861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingRoom: {fileID: 986119690}
+  StartingRoom: {fileID: 3584150258458699509, guid: 8092261bb93574362bce7876edb03eed, type: 3}
   roomList:
   - {fileID: 1567123129343427144, guid: 2b1a215f40fab4170a04884e29baa3e1, type: 3}
-  - {fileID: 2027407888609673617, guid: 523199ad049aa4fcab001d95ada70787, type: 3}
-  roomsToSpawn: 5
+  roomsToSpawn: 11
   allowRoomRepetition: 1
+  minRoomsBeforeHard: 5
+  roomListHard:
+  - {fileID: 2027407888609673617, guid: 523199ad049aa4fcab001d95ada70787, type: 3}
+  - {fileID: 1567123129343427144, guid: 2b1a215f40fab4170a04884e29baa3e1, type: 3}
 --- !u!4 &1549376509
 Transform:
   m_ObjectHideFlags: 0
