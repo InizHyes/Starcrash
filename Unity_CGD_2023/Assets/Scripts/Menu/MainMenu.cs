@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject playScreen, optionScreen, controlScreen, creditScreen;
-    public GameObject playButton, optionsButton, controlsButton, creditsButton, firstPlayButton, firstOptionsButton;
+    public GameObject menuScreen, settingsScreen, controlScreen, creditScreen;
+    public GameObject campaignButton, settingsButton, controlsButton, creditsButton, firstSettingsButton;
 
     private GameObject lastActiveScreen;
 
@@ -23,44 +23,39 @@ public class MainMenu : MonoBehaviour
     public void CloseAllScreens()
     {
         // Close all screens and set the selected button based on the last active screen
-        foreach (GameObject screen in new[] { playScreen, controlScreen, optionScreen, creditScreen })
+        foreach (GameObject screen in new[] { controlScreen, settingsScreen, creditScreen })
         {
             if (screen.activeSelf)
             {
                 screen.SetActive(false);
                 lastActiveScreen = screen;
             }
+            else 
+            {
+                lastActiveScreen = menuScreen;
+            }
         }
 
         EventSystem.current.SetSelectedGameObject(null);
 
         // Set the selected button based on the last active screen
-        if (lastActiveScreen == playScreen)
+        if (lastActiveScreen == menuScreen)
         {
-            EventSystem.current.SetSelectedGameObject(playButton);
+            EventSystem.current.SetSelectedGameObject(campaignButton);
         }
         else if (lastActiveScreen == controlScreen)
         {
             EventSystem.current.SetSelectedGameObject(controlsButton);
         }
-        else if (lastActiveScreen == optionScreen)
+        else if (lastActiveScreen == settingsScreen)
         {
-            EventSystem.current.SetSelectedGameObject(optionsButton);
+            EventSystem.current.SetSelectedGameObject(settingsButton);
         }
         else if (lastActiveScreen == creditScreen)
         {
             EventSystem.current.SetSelectedGameObject(creditsButton);
         }
     }
-
-    public void OpenPlay()
-    {
-        // Open the play screen and set the selected button
-        playScreen.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(firstPlayButton);
-    }
-
     public void OpenControls()
     {
         // Open the control screen and set the selected button
@@ -71,9 +66,9 @@ public class MainMenu : MonoBehaviour
     public void OpenOptions()
     {
         // Open the options screen and set the selected button
-        optionScreen.SetActive (true);
+        settingsScreen.SetActive (true);
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(firstOptionsButton);
+        EventSystem.current.SetSelectedGameObject(firstSettingsButton);
     }
 
     public void OpenCredits()
