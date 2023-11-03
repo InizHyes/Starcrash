@@ -35,6 +35,7 @@ public class SettingsManager : MonoBehaviour
 
     private void Start()
     {
+        // Load settings when the game starts
         LoadSettings();
     }
 
@@ -44,6 +45,7 @@ public class SettingsManager : MonoBehaviour
         ApplyScreenMode();
         ApplyVolumeSettings();
         SaveSettings();
+
         if (vsyncToggle.isOn)
         {
             Application.targetFrameRate = 60;
@@ -61,14 +63,15 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         LoadSettings();
 
+        // Reset cached volume settings
         cachedMasterVolume = 0f;
         cachedSfxVolume = 0f;
         cachedMusicVolume = 0f;
 
+        // Update volume sliders and labels
         masterVolumeSlider.value = cachedMasterVolume;
         sfxVolumeSlider.value = cachedSfxVolume;
         musicVolumeSlider.value = cachedMusicVolume;
-
         UpdateVolumeLabels();
     }
 
@@ -131,6 +134,7 @@ public class SettingsManager : MonoBehaviour
 
     public void LoadSettings()
     {
+        // Load settings from PlayerPrefs
         fullscreenToggle.isOn = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
         vsyncToggle.isOn = PlayerPrefs.GetInt("VSync", 1) == 1;
         selectedResolutionIndex = PlayerPrefs.GetInt("SelectedResolution", 1);
@@ -139,10 +143,12 @@ public class SettingsManager : MonoBehaviour
         cachedSfxVolume = PlayerPrefs.GetFloat("SfxVolume", 0f);
         cachedMusicVolume = PlayerPrefs.GetFloat("MusicVolume", 0f);
 
+        // Update UI elements with loaded settings
         UpdateResolutionLabel();
         UpdateFrameRateLabel();
         UpdateVolumeLabels();
 
+        // Apply the loaded settings
         ApplyResolution();
         ApplyFrameRate();
         ApplyScreenMode();
@@ -151,6 +157,7 @@ public class SettingsManager : MonoBehaviour
 
     public void SaveSettings()
     {
+        // Save current settings to PlayerPrefs
         PlayerPrefs.SetInt("Fullscreen", fullscreenToggle.isOn ? 1 : 0);
         PlayerPrefs.SetInt("VSync", vsyncToggle.isOn ? 1 : 0);
         PlayerPrefs.SetInt("SelectedResolution", selectedResolutionIndex);

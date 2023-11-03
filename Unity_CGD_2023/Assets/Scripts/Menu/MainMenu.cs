@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-using Unity.VisualScripting;
 
 public class MainMenu : MonoBehaviour
 {
@@ -14,6 +13,7 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
+        // Check if the "Cancel" button is pressed to close active screens
         if (Input.GetButtonDown("Cancel"))
         {
             CloseAllScreens();
@@ -22,6 +22,7 @@ public class MainMenu : MonoBehaviour
 
     public void CloseAllScreens()
     {
+        // Close all screens and set the selected button based on the last active screen
         foreach (GameObject screen in new[] { playScreen, controlScreen, optionScreen, creditScreen })
         {
             if (screen.activeSelf)
@@ -33,6 +34,7 @@ public class MainMenu : MonoBehaviour
 
         EventSystem.current.SetSelectedGameObject(null);
 
+        // Set the selected button based on the last active screen
         if (lastActiveScreen == playScreen)
         {
             EventSystem.current.SetSelectedGameObject(playButton);
@@ -53,6 +55,7 @@ public class MainMenu : MonoBehaviour
 
     public void OpenPlay()
     {
+        // Open the play screen and set the selected button
         playScreen.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstPlayButton);
@@ -60,25 +63,29 @@ public class MainMenu : MonoBehaviour
 
     public void OpenControls()
     {
+        // Open the control screen and set the selected button
         controlScreen.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void OpenOptions()
     {
-        optionScreen.SetActive(true);
+        // Open the options screen and set the selected button
+        optionScreen.SetActive (true);
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstOptionsButton);
     }
 
     public void OpenCredits()
     {
+        // Open the credits screen and set the selected button
         creditScreen.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void QuitGame()
     {
+        // Quit the game
         Application.Quit();
     }
 }
