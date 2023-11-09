@@ -32,6 +32,24 @@ public class EnemyClass : MonoBehaviour
     }
     public State enemyState;
 
+    public void initiateEnemy(int iHealth)
+    {
+        /*
+         * Assignes and runs all the common variables/functions between all enemy types
+         * Health, state, spawnLogic, etc.
+         * Set health with the iHealth variable
+         */
+
+        enemyState = State.Initiating;
+        health = iHealth;
+
+        spawnLogic = NPCdeathCheck.GetComponent<SpawnLogic>();
+        if (spawnLogic != null)
+        {
+            spawnLogic.NPCdeath();
+        }
+    }
+
     public void targetClosestPlayer()
     {
         /*
@@ -62,6 +80,19 @@ public class EnemyClass : MonoBehaviour
             // Add every frame for excelleration (/100 cause too fast)
             moveForce += forceToApply / 100;
             rb.velocity = moveForce;
+        }
+    }
+
+    public void damageDetection(Collision2D collision)
+    {
+        /*
+         * Detects when hit by an object with the "Bullet" tag
+         * ---Currently just destorys the enemy on collision---
+         */
+
+        if (collision.gameObject.tag == "Bullet")
+        {
+            Destroy(this.gameObject);
         }
     }
 }

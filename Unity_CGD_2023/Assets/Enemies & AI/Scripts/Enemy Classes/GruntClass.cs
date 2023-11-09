@@ -9,26 +9,19 @@ public class GruntClass : EnemyClass
     bool playerInAtkZone = false;
     bool playerInConeZone = false;
     private Animator animate;
-    private BoxCollider2D playerDetect;
+    //private BoxCollider2D playerDetect;
 
 
     void Start()
     {
         // Set starting state and variables
-        enemyState = State.Initiating;
-        health = 1;
-        animate = GetComponent<Animator>();
-        spawnLogic = NPCdeathCheck.GetComponent<SpawnLogic>();
-
-        if (spawnLogic != null)
-        {
-            spawnLogic.NPCdeath();
-        }
-
+        initiateEnemy(1);
+        animate = GetComponent<Animator>(); // Maybe move into init function
     }
+
     private void Update()
     {
-        Debug.Log(enemyState);
+        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:
@@ -136,11 +129,7 @@ public class GruntClass : EnemyClass
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
-        {
-            Destroy(this.gameObject);
-        }
+        // Damage detection
+        damageDetection(collision);
     }
-
-
 }

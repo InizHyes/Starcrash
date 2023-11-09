@@ -7,27 +7,19 @@ public class LaserSniperClass : EnemyClass
 {
     public GameObject childLaser;
     public int atktimer = 1;
-    bool laserReference = false;
-    private BoxCollider2D playerDetect;
+    //bool laserReference = false;
+    //private BoxCollider2D playerDetect;
 
 
     void Start()
     {
         // Set starting state and variables
-        enemyState = State.Initiating;
-        health = 1;
-        spawnLogic = NPCdeathCheck.GetComponent<SpawnLogic>();
-
-        if (spawnLogic != null)
-        {
-            spawnLogic.NPCdeath();
-        }
-
-
+        initiateEnemy(10);
     }
+
     private void Update()
     {
-        Debug.Log(enemyState);
+        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:
@@ -109,11 +101,7 @@ public class LaserSniperClass : EnemyClass
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
-        {
-            Destroy(this.gameObject);
-        }
+        // Damage detection
+        damageDetection(collision);
     }
-
-
 }
