@@ -34,6 +34,7 @@ public class TEMPLATECLASS : EnemyClass
                  */
 
                 targetClosestPlayer();
+                enemyState = State.Targeting;
                 break;
 
             case State.Targeting:

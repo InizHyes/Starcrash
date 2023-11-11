@@ -26,6 +26,7 @@ public class GruntClass : EnemyClass
         {
             case State.Initiating:
                 targetClosestPlayer();
+                enemyState = State.Targeting;
                 break;
 
             case State.Targeting:

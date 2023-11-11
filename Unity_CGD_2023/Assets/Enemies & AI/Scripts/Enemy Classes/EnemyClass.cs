@@ -67,7 +67,8 @@ public class EnemyClass : MonoBehaviour
             }
             // Else do nothing
         }
-        enemyState = State.Targeting;
+        //---Moved due to Jumper needing constant acceess to this function---
+        //enemyState = State.Targeting;
     }
 
     public void moveTowardsTarget0G()

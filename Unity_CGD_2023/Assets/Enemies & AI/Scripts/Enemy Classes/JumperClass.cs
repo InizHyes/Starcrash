@@ -21,7 +21,7 @@ public class JumperClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                targetClosestPlayer();
+                enemyState = State.Targeting;
                 break;
 
             case State.Targeting:
@@ -31,6 +31,7 @@ public class JumperClass : EnemyClass
                  * But not needed now so im just assuming no LOS block
                  */
 
+                targetClosestPlayer();
                 enemyState = State.Moving;
                 break;
 
