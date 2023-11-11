@@ -68,12 +68,6 @@ public class TEMPLATECLASS : EnemyClass
             case State.Attacking:
                 break;
         }
-
-        // Check if dead (might move to function and call in Moving and Attacking
-        if (health == 0 && spawnLogic != null)
-        {
-            spawnLogic.NPCdeath();
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

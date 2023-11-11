@@ -5,10 +5,16 @@ using UnityEngine;
 
 public class JumperClass : EnemyClass
 {
+    private float attackCooldown;
+    public float ATTACKCOOLDOWN = 10f; // In seconds, can be set in inspector
+    public int moveSpeed = 200;
+
     void Start()
     {
         // Set starting state and variables
         initiateEnemy(10);
+
+        attackCooldown = 0f;
     }
 
     private void Update()
@@ -46,27 +52,53 @@ public class JumperClass : EnemyClass
                 * Maybe check if near to attack, maybe just change state on collision
                 */
 
-                moveTowardsTarget0G();
+                pushTowardsPlayer();
 
-                // look at player
+                // Start attack cooldown
+                attackCooldown = ATTACKCOOLDOWN;
+                enemyState = State.Attacking;
+
+                //moveTowardsTarget0G();
+
+                /* //look at player
                 Vector3 direction = target.transform.position - transform.position;
                 transform.up = direction;
+                */
                 break;
 
             case State.Attacking:
+                // Count-down timer
+                if (attackCooldown > 0f)
+                {
+                    attackCooldown -= Time.deltaTime;
+                }
+                // Change back to targeting/moving
+                else
+                {
+                    enemyState = State.Targeting;
+                }
                 break;
-        }
-
-        // Check if dead (might move to function and call in Moving and Attacking
-        if (health == 0 && spawnLogic != null)
-        {
-            spawnLogic.NPCdeath();
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Collision with wall stops momentum
+        if (collision.gameObject.tag == "OuterWall")
+        {
+            rb.velocity = Vector3.zero;
+        }
+
         // Damage detection
         damageDetection(collision);
+    }
+
+    private void pushTowardsPlayer()
+    {
+        /*
+         * Applies velocity in one large burst towards player
+         */
+        Vector2 playerDirection = (target.transform.position - this.transform.position).normalized;
+        rb.AddForce(playerDirection * moveSpeed);
     }
 }

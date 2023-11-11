@@ -121,11 +121,6 @@ public class GruntClass : EnemyClass
                 playerInConeZone = childscript.playerTriggered;
             }
         }
-
-        if (health == 0 && spawnLogic != null)
-        {
-            spawnLogic.NPCdeath();
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

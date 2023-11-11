@@ -93,11 +93,6 @@ public class LaserSniperClass : EnemyClass
                 break;
 
         }
-
-        if (health == 0 && spawnLogic != null)
-        {
-            spawnLogic.NPCdeath();
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

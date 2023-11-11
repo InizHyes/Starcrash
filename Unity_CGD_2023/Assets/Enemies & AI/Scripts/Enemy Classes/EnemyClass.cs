@@ -15,9 +15,9 @@ public class EnemyClass : MonoBehaviour
     public Vector2 maxVelocity = new Vector2(100f, 100f);
     public Rigidbody2D rb;
 
-    // Set spawnlogic prefab onto NPCdeathCheck, will find and assign script to spawnLogic
-    public GameObject NPCdeathCheck;
-    public SpawnLogic spawnLogic;
+    // Set spawnlogic prefab onto spawnLogic, will find and assign script to NPCdeathCheck
+    public GameObject spawnLogic;
+    public SpawnLogic NPCdeathCheck;
 
 
     // States
@@ -42,11 +42,12 @@ public class EnemyClass : MonoBehaviour
 
         enemyState = State.Initiating;
         health = iHealth;
+        rb = GetComponent<Rigidbody2D>();
 
-        spawnLogic = NPCdeathCheck.GetComponent<SpawnLogic>();
-        if (spawnLogic != null)
+        NPCdeathCheck = spawnLogic.GetComponent<SpawnLogic>();
+        if (NPCdeathCheck != null)
         {
-            spawnLogic.NPCdeath();
+            NPCdeathCheck.NPCdeath();
         }
     }
 
@@ -94,6 +95,16 @@ public class EnemyClass : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             Destroy(this.gameObject);
+        }
+        deathCheck();
+    }
+
+    public void deathCheck()
+    {
+        // Check if dead after damage detection
+        if (health == 0 && spawnLogic != null)
+        {
+            NPCdeathCheck.NPCdeath();
         }
     }
 }
