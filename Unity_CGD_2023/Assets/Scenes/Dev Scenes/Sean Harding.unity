@@ -444,6 +444,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 191168712150162417, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 405230350808294393, guid: bb8b524f01a90884787e895bd4763264, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.76
@@ -490,12 +494,28 @@ PrefabInstance:
       objectReference: {fileID: 9099253716168194602, guid: 0366f21fadf554043bbf5f23003b72b8, type: 3}
     - target: {fileID: 729188681102843628, guid: bb8b524f01a90884787e895bd4763264, type: 3}
       propertyPath: player
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 729188681102843628, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+      propertyPath: GunForce
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 729188681102843628, guid: bb8b524f01a90884787e895bd4763264, type: 3}
       propertyPath: gunPoint
       value: 
       objectReference: {fileID: 929965698}
+    - target: {fileID: 729188681102843628, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+      propertyPath: MoveSpeed
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 729188681102843628, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+      propertyPath: stickToSurface
+      value: 
+      objectReference: {fileID: -4573028448917826045, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
+    - target: {fileID: 5116763200915005420, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6087901998665851953, guid: bb8b524f01a90884787e895bd4763264, type: 3}
       propertyPath: m_Name
       value: Player
@@ -941,6 +961,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 405230350808294393, guid: f5567231c7daa7e4b8931974a743eb97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 729188681102843628, guid: f5567231c7daa7e4b8931974a743eb97, type: 3}
+      propertyPath: player
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6087901998665851953, guid: f5567231c7daa7e4b8931974a743eb97, type: 3}

@@ -273,18 +273,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 9119004986373559324}
-  MoveSpeed: 0.01
-  GunForce: 0.5
+  MoveSpeed: 0.005
+  GunForce: 0.2
   ForceToApply: {x: 0, y: 0}
   ForceDamping: 1.2
+  view: {fileID: 0}
+  otherPlayer: {fileID: 0}
   SpeedCap: 10
   player: 2
   movement: {fileID: 2303050120065896387, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   attack: {fileID: 3734495484655796333, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   rotate: {fileID: 2664800122413868106, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
+  stickToSurface: {fileID: -4573028448917826045, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   playerinput: {fileID: -1708436674007983254}
   gunPoint: {fileID: 0}
-  bullet: {fileID: 0}
+  bullet: {fileID: 9099253716168194602, guid: 0366f21fadf554043bbf5f23003b72b8, type: 3}
 --- !u!50 &9119004986373559324
 Rigidbody2D:
   serializedVersion: 4
