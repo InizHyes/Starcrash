@@ -6,21 +6,19 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     public AudioMixer mixer;
-
-    // Start is called before the first frame update
     void Start()
     {
-       if(PlayerPrefs.HasKey("masterVol"))
+       if(PlayerPrefs.HasKey("MasterVolume"))
         {
-            mixer.SetFloat("masterVol", PlayerPrefs.GetFloat("masterVol"));
+            mixer.SetFloat("MasterVolume", PlayerPrefs.GetFloat("MasterVolume"));
         }
-        if (PlayerPrefs.HasKey("sfxVol"))
+        if (PlayerPrefs.HasKey("SfxVolume"))
         {
-            mixer.SetFloat("sfxVol", PlayerPrefs.GetFloat("sfxVol"));
+            mixer.SetFloat("SfxVolume", PlayerPrefs.GetFloat("SfxVolume"));
         }
-        if (PlayerPrefs.HasKey("musicVol"))
+        if (PlayerPrefs.HasKey("MusicVolume"))
         {
-            mixer.SetFloat("musicVol", PlayerPrefs.GetFloat("musicVol"));
+            mixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat("MusicVolume"));
         }
     }
 }
