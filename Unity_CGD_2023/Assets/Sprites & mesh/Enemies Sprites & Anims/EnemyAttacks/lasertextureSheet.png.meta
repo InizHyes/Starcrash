@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8d4257ebe6498c348acaf068e5a9ba76
+guid: 5f75a54e98ae37e47959def5a767d13c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 1920
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,19 +69,6 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -120,11 +107,24 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -137,7 +137,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -150,7 +150,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -162,64 +162,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TV_Green_0
+      name: lasertextureSheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 1920
+        height: 1080
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4661c916f9bd2754cb065635445af530
-      internalID: -1790940845
+      spriteID: 048f62a96f94d80429dc2d0fd589aeed
+      internalID: -452278303
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TV_Green_1
+      name: lasertextureSheet_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 1920
         y: 0
-        width: 32
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 1920
+        height: 1080
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a3f0c382a11032440b3d3eaf5969e0e5
-      internalID: -789297267
+      spriteID: 07a84e1481a9faf44b7304f2e4f2e263
+      internalID: 1034508354
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TV_Green_2
+      name: lasertextureSheet_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 3840
         y: 0
-        width: 32
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 1920
+        height: 1080
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c04fefcf403fa9f4e9046d9ef0da3311
-      internalID: 1235295201
+      spriteID: f97eea0deda573449b3fb8782f579ba4
+      internalID: 1326851682
       vertices: []
       indices: 
       edges: []
@@ -235,9 +235,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TV_Green_0: -1790940845
-      TV_Green_1: -789297267
-      TV_Green_2: 1235295201
+      lasertextureSheet_0: -452278303
+      lasertextureSheet_1: 1034508354
+      lasertextureSheet_2: 1326851682
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
