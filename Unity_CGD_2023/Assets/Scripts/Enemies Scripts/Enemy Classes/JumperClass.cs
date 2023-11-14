@@ -12,7 +12,7 @@ public class JumperClass : EnemyClass
     void Start()
     {
         // Set starting state and variables
-        initiateEnemy(10);
+        initiateEnemy();
 
         attackCooldown = 0f;
     }
@@ -93,9 +93,6 @@ public class JumperClass : EnemyClass
                 rb.bodyType = RigidbodyType2D.Static;
             }
         }
-
-        // Damage detection
-        damageDetection(collision);
     }
 
     private void pushTowardsPlayer()
@@ -104,6 +101,7 @@ public class JumperClass : EnemyClass
          * Applies velocity in one large burst towards player
          */
         rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.velocity = Vector2.zero;
         Vector2 playerDirection = (target.transform.position - this.transform.position).normalized;
         rb.AddForce(playerDirection * moveSpeed);
     }

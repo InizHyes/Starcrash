@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyClass : MonoBehaviour
 {
     // Enemy common variables
-    public int health;
+    public int health = 10;
     public GameObject target;
     public GameObject targetfollow;
 
@@ -33,16 +33,14 @@ public class EnemyClass : MonoBehaviour
     }
     public State enemyState;
 
-    public void initiateEnemy(int iHealth)
+    public void initiateEnemy()
     {
         /*
          * Assignes and runs all the common variables/functions between all enemy types
          * Health, state, spawnLogic, etc.
-         * Set health with the iHealth variable
          */
 
         enemyState = State.Initiating;
-        health = iHealth;
         rb = GetComponent<Rigidbody2D>();
 
         NPCdeathCheck = spawnLogic.GetComponent<SpawnLogic>();
@@ -146,17 +144,15 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
-    public void damageDetection(Collision2D collision)
+    public void damageDetection(int damage)
     {
         /*
-         * Detects when hit by an object with the "Bullet" tag
-         * ---Currently just destorys the enemy on collision---
+         * Deals damage to the enemy, called by the bullet itself
          */
 
-        if (collision.gameObject.tag == "Bullet")
-        {
-            Destroy(this.gameObject);
-        }
+        // -= 1 for now but will take into account bullet damage variables
+        health -= 1;
+
         deathCheck();
     }
 
@@ -166,6 +162,7 @@ public class EnemyClass : MonoBehaviour
         if (health == 0 && spawnLogic != null)
         {
             NPCdeathCheck.NPCdeath();
+            Destroy(this.gameObject);
         }
     }
 }
