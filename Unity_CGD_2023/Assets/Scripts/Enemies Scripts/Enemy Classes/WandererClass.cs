@@ -14,7 +14,7 @@ public class WandererClass : EnemyClass
     void Start()
     {
         // Set starting state and variables
-        initiateEnemy(10);
+        initiateEnemy();
 
         animate = GetComponent<Animator>(); // Maybe move into init function
     }
@@ -72,11 +72,5 @@ public class WandererClass : EnemyClass
                 break;
         }
 
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Damage detection
-        damageDetection(collision);
     }
 }

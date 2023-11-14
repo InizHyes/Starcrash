@@ -100,13 +100,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6374a1dc96807e4284774af67d32540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 5
   target: {fileID: 0}
+  targetfollow: {fileID: 0}
+  moveForce: {x: 0, y: 0}
   forceMultiplier: 1
   maxVelocity: {x: 100, y: 100}
   rb: {fileID: 2835826047115813253}
-  NPCdeathCheck: {fileID: 0}
   spawnLogic: {fileID: 0}
+  NPCdeathCheck: {fileID: 0}
   enemyState: 0
   childLaser: {fileID: 6487800848474636369}
   atktimer: 1

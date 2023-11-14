@@ -14,7 +14,7 @@ public class LaserSniperClass : EnemyClass
     void Start()
     {
         // Set starting state and variables
-        initiateEnemy(10);
+        initiateEnemy();
     }
 
     private void Update()
@@ -93,11 +93,5 @@ public class LaserSniperClass : EnemyClass
                 break;
 
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Damage detection
-        damageDetection(collision);
     }
 }
