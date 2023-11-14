@@ -205,7 +205,6 @@ public class PlayerController : MonoBehaviour
             Vector3 floorLocation = collision.gameObject.transform.position;
             floorLocation.z = -10;
             view.transform.position = floorLocation;
-            print("MOOOVE FUCKING CAMERA");
 
             Vector2 playerLocation = transform.position;
             playerLocation.x = playerLocation.x - 0.1f;
