@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun_UI : MonoBehaviour
+public class Gun : MonoBehaviour
 {
     public Sprite sp1, sp2;
     // Start is called before the first frame update
