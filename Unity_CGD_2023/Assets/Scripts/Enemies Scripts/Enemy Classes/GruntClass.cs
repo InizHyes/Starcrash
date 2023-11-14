@@ -138,6 +138,13 @@ public class GruntClass : EnemyClass
     {
         // Damage detection
         damageDetection(collision);
+
+        // Wall detection
+        if (collision.gameObject.tag == "OuterWall")
+        {
+            rb.velocity = Vector2.zero;
+            moveForce = Vector2.zero;
+        }
     }
 
     void summonHitbox() // eventually i plan to make this in the enemyclass/somewhere, with passable variables

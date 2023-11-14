@@ -84,9 +84,14 @@ public class JumperClass : EnemyClass
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Collision with wall stops momentum
-        if (collision.gameObject.tag == "OuterWall")
+        if (enemyState == State.Attacking)
         {
-            rb.velocity = Vector3.zero;
+            // Do not check for collision instantly
+            if (collision.gameObject.tag == "OuterWall" && attackCooldown < ATTACKCOOLDOWN - 1)
+            {
+                rb.velocity = Vector2.zero;
+                rb.bodyType = RigidbodyType2D.Static;
+            }
         }
 
         // Damage detection
@@ -98,6 +103,7 @@ public class JumperClass : EnemyClass
         /*
          * Applies velocity in one large burst towards player
          */
+        rb.bodyType = RigidbodyType2D.Dynamic;
         Vector2 playerDirection = (target.transform.position - this.transform.position).normalized;
         rb.AddForce(playerDirection * moveSpeed);
     }

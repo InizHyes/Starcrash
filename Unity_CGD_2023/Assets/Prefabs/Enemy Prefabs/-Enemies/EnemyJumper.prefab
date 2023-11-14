@@ -103,13 +103,14 @@ MonoBehaviour:
   health: 0
   target: {fileID: 0}
   targetfollow: {fileID: 0}
+  moveForce: {x: 0, y: 0}
   forceMultiplier: 1
   maxVelocity: {x: 100, y: 100}
   rb: {fileID: 0}
   spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
   NPCdeathCheck: {fileID: 3176452598389735688, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
   enemyState: 0
-  ATTACKCOOLDOWN: 10
+  ATTACKCOOLDOWN: 5
   moveSpeed: 200
 --- !u!50 &4771733949618339815
 Rigidbody2D:

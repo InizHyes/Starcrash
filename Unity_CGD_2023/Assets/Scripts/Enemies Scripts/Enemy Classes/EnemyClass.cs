@@ -11,7 +11,7 @@ public class EnemyClass : MonoBehaviour
 
     // rb movement variables
     private Vector2 forceToApply;
-    private Vector2 moveForce;
+    [HideInInspector] public Vector2 moveForce;
     public float forceMultiplier = 1f;
     public Vector2 maxVelocity = new Vector2(100f, 100f);
     public Rigidbody2D rb;
