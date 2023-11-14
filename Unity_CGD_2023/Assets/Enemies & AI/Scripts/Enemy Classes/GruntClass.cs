@@ -5,16 +5,19 @@ using UnityEngine;
 
 public class GruntClass : EnemyClass
 {
+    // Variable to store hitbox prefab
+    public GameObject superHitbox;
+
     int atktimer = 41;
     bool playerInAtkZone = false;
     bool playerInConeZone = false;
-    private Animator animate;
+    public Animator animate;
     //private BoxCollider2D playerDetect;
 
 
     void Start()
     {
-        // Set starting state and variables
+        //Set starting state and variables
         initiateEnemy(1);
         animate = GetComponent<Animator>(); // Maybe move into init function
     }
@@ -44,20 +47,21 @@ public class GruntClass : EnemyClass
                 break;
 
             case State.Moving:
+                if (atktimer < 100)
+                {
+                    atktimer = atktimer + 1;
+                }
                 if (playerInAtkZone)
                 {
-                   if (atktimer > 39)
+                   if (atktimer > 99)
                     {
-                        atktimer = 0;
                         animate.SetTrigger("gruntATTACK");
+                        atktimer = 0;
                         enemyState = State.Attacking;
                     }
 
                 }
-                if (atktimer < 40)
-                {
-                    atktimer = atktimer + 1;
-                }
+                
 
 
                 /* didn't actually check if the cone works properly */
@@ -79,20 +83,27 @@ public class GruntClass : EnemyClass
                 break;
 
             case State.Attacking:
-                moveTowardsTarget0G();
-                if (atktimer < 40)
+                if (atktimer == 2)
                 {
+                    lungeForward();
+                }
+                slowDownAndStop();
+                if (atktimer < 60)
+                {
+                    if (atktimer == 45)
+                    {
+                        /* before the animation finishes, 
+                         * will spawn a hitbox prefab (ideally 0.25 seconds) in
+                         * that damages the player tag & self deletes */
+                        summonHitbox();
+                    }
                     atktimer = atktimer + 1;
                 }
-                if (atktimer > 30)
+                else
                 {
                     enemyState = State.Moving;
+                    atktimer = 0;
                 }
-                /* before the animation finishes, 
-                 * will spawn a hitbox prefab (ideally 0.25 seconds) in
-                 * that damages the player tag & self deletes */
-
-
 
                 break;
 
@@ -127,5 +138,40 @@ public class GruntClass : EnemyClass
     {
         // Damage detection
         damageDetection(collision);
+    }
+
+    void summonHitbox() // eventually i plan to make this in the enemyclass/somewhere, with passable variables
+    {
+        // Load the hitbox
+        GameObject hitboxPrefab = Resources.Load<GameObject>("SuperHitBox");
+
+        if (hitboxPrefab != null)
+        {
+            // Instantiate the hitbox prefab
+            GameObject hitboxInstance = Instantiate(hitboxPrefab, transform.position, Quaternion.identity);
+
+            hitboxInstance.transform.parent = transform; // used to make it a child (hitbox sticks to the entity)
+            // Access the Hitbox script on the instance to set its variables
+            SuperHitboxScript hitboxScript = hitboxInstance.GetComponent<SuperHitboxScript>();
+
+            if (hitboxScript != null)
+            {
+                // Set relevant variable information for the hitbox (IMPORTANT)
+                hitboxScript.damageAmount = 10;
+                hitboxScript.size = new Vector2(0.6f, 0.8f); // these numbers need to be very small lol
+                hitboxScript.rotationAngle = transform.eulerAngles.z;
+                hitboxScript.offsetAmount = new Vector2(0f, 0.2f);
+                hitboxScript.lifetime = 0.1f;
+                hitboxScript.deleteOnConnect = false; // make sure this is true
+            }
+            else
+            {
+                Debug.LogError("brokey");
+            }
+        }
+        else
+        {
+            Debug.LogError("dont worke");
+        }
     }
 }

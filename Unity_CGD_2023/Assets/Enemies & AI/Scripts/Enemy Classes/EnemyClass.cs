@@ -131,6 +131,21 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
+    public void slowDownAndStop()
+    {
+        rb.velocity *= 0.98f;
+        moveForce = rb.velocity;
+    }
+    public void lungeForward()
+    {
+        if (rb.velocity.x < maxVelocity.x && rb.velocity.y < maxVelocity.y)
+        {
+            forceToApply = ((target.transform.position - this.transform.position).normalized) * forceMultiplier;
+            moveForce += forceToApply;
+            rb.velocity = moveForce;
+        }
+    }
+
     public void damageDetection(Collision2D collision)
     {
         /*
