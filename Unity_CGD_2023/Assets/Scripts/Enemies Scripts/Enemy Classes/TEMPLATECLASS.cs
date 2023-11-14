@@ -20,7 +20,7 @@ public class TEMPLATECLASS : EnemyClass
     void Start()
     {
         // Set starting state and variables
-        initiateEnemy(10);
+        initiateEnemy();
     }
 
     private void Update()
@@ -68,11 +68,5 @@ public class TEMPLATECLASS : EnemyClass
             case State.Attacking:
                 break;
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Damage detection
-        damageDetection(collision);
     }
 }

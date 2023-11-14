@@ -18,7 +18,7 @@ public class GruntClass : EnemyClass
     void Start()
     {
         //Set starting state and variables
-        initiateEnemy(1);
+        initiateEnemy();
         animate = GetComponent<Animator>(); // Maybe move into init function
     }
 
@@ -136,9 +136,6 @@ public class GruntClass : EnemyClass
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Damage detection
-        damageDetection(collision);
-
         // Wall detection
         if (collision.gameObject.tag == "OuterWall")
         {

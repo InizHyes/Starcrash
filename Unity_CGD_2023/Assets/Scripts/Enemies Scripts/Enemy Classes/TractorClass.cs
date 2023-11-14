@@ -14,7 +14,7 @@ public class TractorClass : EnemyClass
     void Start()
     {
         // Set starting state and variables
-        initiateEnemy(10);
+        initiateEnemy();
 
         Tbeam.SetActive(false); // Ablity off to start
 
@@ -84,11 +84,5 @@ public class TractorClass : EnemyClass
         {
             //spawnLogic.NPCdeath(); //New error cause unknown
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Damage detection
-        damageDetection(collision);
     }
 }
