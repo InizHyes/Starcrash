@@ -148,16 +148,17 @@ public class EnemyClass : MonoBehaviour
     {
         /*
          * Deals damage to the enemy, called by the bullet itself
+         * Checks if itself is dead ._.
          */
 
-        // -= 1 for now but will take into account bullet damage variables
-        health -= 1;
+        health -= damage;
 
         deathCheck();
     }
 
     public void deathCheck()
     {
+        // Might move to damageDetection function
         // Check if dead after damage detection
         if (health == 0 && spawnLogic != null)
         {
