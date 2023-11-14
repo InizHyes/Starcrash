@@ -7,6 +7,7 @@ public class EnemyClass : MonoBehaviour
     // Enemy common variables
     public int health;
     public GameObject target;
+    public GameObject targetfollow;
 
     // rb movement variables
     private Vector2 forceToApply;
@@ -72,6 +73,51 @@ public class EnemyClass : MonoBehaviour
         //enemyState = State.Targeting;
     }
 
+    public void targetRangedClosestPlayer()
+    {
+        /*
+         * Finds the closest object with the tag "Player" and sets "target" as that player, but from distance
+         */
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        float lowestDistance = 5;
+        for (int i = 0; i < players.Length; i++)
+        {
+            //If target isnt set or distance is lower for other player, set player as target
+            if (target == null || Vector3.Distance(this.transform.position, players[i].transform.position) < lowestDistance)
+            {
+                target = players[i];
+                lowestDistance = Vector3.Distance(this.transform.position, players[i].transform.position);
+            }
+            // Else do nothing
+        }
+        //---Moved due to Jumper needing constant acceess to this function---
+        //enemyState = State.Targeting;
+    }
+
+    // Function will allow for stronger enemies to hide behind grunts for tactical play,
+    // But seprate moveTowardsTarget0G function may need to be set up to allow,
+    // For the stronger enemey to follow grunt whilst keeping the correct target at the player.
+    // Unless simple bug fixes can be made without out getting to complex!
+    public void targetClosestGrunt()
+    {
+        /*
+         * Finds the closest object with the tag "grunt" and sets "targetfollow" as that grunt
+         */
+        GameObject[] grunts = GameObject.FindGameObjectsWithTag("grunts");
+        float lowestDistance = 1;
+        for (int i = 0; i < grunts.Length; i++)
+        {
+            //If targetfollow isnt set or distance is lower for other grunt, set grunt as targetfollow
+            if (targetfollow == null || Vector3.Distance(this.transform.position, grunts[i].transform.position) < lowestDistance)
+            {
+                targetfollow = grunts[i];
+                lowestDistance = Vector3.Distance(this.transform.position, grunts[i].transform.position);
+            }
+            // Else do nothing
+        }
+        enemyState = State.Targeting;
+    }
+
     public void moveTowardsTarget0G()
     {
         // If not at max velocity
@@ -81,6 +127,21 @@ public class EnemyClass : MonoBehaviour
             forceToApply = ((target.transform.position - this.transform.position).normalized) * forceMultiplier;
             // Add every frame for excelleration (/100 cause too fast)
             moveForce += forceToApply / 100;
+            rb.velocity = moveForce;
+        }
+    }
+
+    public void slowDownAndStop()
+    {
+        rb.velocity *= 0.98f;
+        moveForce = rb.velocity;
+    }
+    public void lungeForward()
+    {
+        if (rb.velocity.x < maxVelocity.x && rb.velocity.y < maxVelocity.y)
+        {
+            forceToApply = ((target.transform.position - this.transform.position).normalized) * forceMultiplier;
+            moveForce += forceToApply;
             rb.velocity = moveForce;
         }
     }
