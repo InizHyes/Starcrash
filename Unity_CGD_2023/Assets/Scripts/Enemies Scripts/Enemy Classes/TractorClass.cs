@@ -9,14 +9,15 @@ public class TractorClass : EnemyClass
 
     private Animator animate;
 
-    public GameObject Tbeam;
+    [Header("Tractor Specific")]
+    [SerializeField] private GameObject tractorBeam;
 
     void Start()
     {
         // Set starting state and variables
         initiateEnemy();
 
-        Tbeam.SetActive(false); // Ablity off to start
+        tractorBeam.SetActive(false); // Ablity off to start
 
         animate = GetComponent<Animator>(); // Maybe move into init function
     }
@@ -35,7 +36,7 @@ public class TractorClass : EnemyClass
 
                 targetClosestGrunt();
 
-                Tbeam.SetActive(false);
+                tractorBeam.SetActive(false);
 
                 break;
 
@@ -74,7 +75,7 @@ public class TractorClass : EnemyClass
 
 
                 // Use trackor beam ablity
-                Tbeam.SetActive(true);
+                tractorBeam.SetActive(true);
 
                 break;
         }

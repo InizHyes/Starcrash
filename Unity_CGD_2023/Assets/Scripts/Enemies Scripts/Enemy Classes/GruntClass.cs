@@ -6,12 +6,13 @@ using UnityEngine;
 public class GruntClass : EnemyClass
 {
     // Variable to store hitbox prefab
-    public GameObject superHitbox;
+    private GameObject superHitbox;
 
-    int atktimer = 41;
-    bool playerInAtkZone = false;
-    bool playerInConeZone = false;
-    public Animator animate;
+    [Header("Grunt Specific")]
+    [SerializeField] private int attackTimer = 41;
+    private bool playerInAtkZone = false;
+    private bool playerInConeZone = false;
+    private Animator animate;
     //private BoxCollider2D playerDetect;
 
 
@@ -47,16 +48,16 @@ public class GruntClass : EnemyClass
                 break;
 
             case State.Moving:
-                if (atktimer < 100)
+                if (attackTimer < 100)
                 {
-                    atktimer = atktimer + 1;
+                    attackTimer = attackTimer + 1;
                 }
                 if (playerInAtkZone)
                 {
-                   if (atktimer > 99)
+                   if (attackTimer > 99)
                     {
                         animate.SetTrigger("gruntATTACK");
-                        atktimer = 0;
+                        attackTimer = 0;
                         enemyState = State.Attacking;
                     }
 
@@ -83,26 +84,26 @@ public class GruntClass : EnemyClass
                 break;
 
             case State.Attacking:
-                if (atktimer == 2)
+                if (attackTimer == 2)
                 {
                     lungeForward();
                 }
                 slowDownAndStop();
-                if (atktimer < 60)
+                if (attackTimer < 60)
                 {
-                    if (atktimer == 45)
+                    if (attackTimer == 45)
                     {
                         /* before the animation finishes, 
                          * will spawn a hitbox prefab (ideally 0.25 seconds) in
                          * that damages the player tag & self deletes */
                         summonHitbox();
                     }
-                    atktimer = atktimer + 1;
+                    attackTimer = attackTimer + 1;
                 }
                 else
                 {
                     enemyState = State.Moving;
-                    atktimer = 0;
+                    attackTimer = 0;
                 }
 
                 break;

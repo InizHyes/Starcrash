@@ -7,7 +7,7 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class WandererClass : EnemyClass
 {
-
+    [Header("Wanderer Specific")]
 
     private Animator animate;
 

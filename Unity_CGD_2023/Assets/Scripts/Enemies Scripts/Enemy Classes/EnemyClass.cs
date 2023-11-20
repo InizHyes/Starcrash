@@ -5,20 +5,21 @@ using UnityEngine;
 public class EnemyClass : MonoBehaviour
 {
     // Enemy common variables
-    public int health = 10;
-    public GameObject target;
-    public GameObject targetfollow;
+    [Header("Common Variables")]
+    [SerializeField] protected int health = 10;
+    protected GameObject target;
+    private GameObject targetfollow;
 
     // rb movement variables
     private Vector2 forceToApply;
-    [HideInInspector] public Vector2 moveForce;
-    public float forceMultiplier = 1f;
-    public Vector2 maxVelocity = new Vector2(100f, 100f);
-    public Rigidbody2D rb;
+    protected Vector2 moveForce;
+    [SerializeField] private float forceMultiplier = 1f;
+    [SerializeField] private Vector2 maxVelocity = new Vector2(100f, 100f);
+    protected Rigidbody2D rb;
 
     // Set spawnlogic prefab onto spawnLogic, will find and assign script to NPCdeathCheck
-    public GameObject spawnLogic;
-    public SpawnLogic NPCdeathCheck;
+    [SerializeField] protected GameObject spawnLogic;
+    protected SpawnLogic NPCdeathCheck;
 
 
     // States
@@ -31,7 +32,7 @@ public class EnemyClass : MonoBehaviour
         Attacking, // Run attack animation, will prevent Sans-like attacking (-1 hp every frame)
         Dead // Dead. Run drop item script (may be part of this code)
     }
-    public State enemyState;
+    protected State enemyState;
 
     public void initiateEnemy()
     {
@@ -160,7 +161,7 @@ public class EnemyClass : MonoBehaviour
     {
         // Might move to damageDetection function
         // Check if dead after damage detection
-        if (health == 0 && spawnLogic != null)
+        if (health == 0)
         {
             NPCdeathCheck.NPCdeath();
             Destroy(this.gameObject);

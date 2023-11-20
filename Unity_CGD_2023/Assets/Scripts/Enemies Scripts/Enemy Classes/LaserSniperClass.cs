@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class LaserSniperClass : EnemyClass
 {
-    public GameObject childLaser;
-    public int atktimer = 1;
+    [Header("Laser Sniper Specific")]
+    [SerializeField] private GameObject childLaser;
+    [SerializeField] private int attackTimer = 1;
     //bool laserReference = false;
     //private BoxCollider2D playerDetect;
 
@@ -42,14 +43,14 @@ public class LaserSniperClass : EnemyClass
                 break;
 
             case State.Moving:
-                if (atktimer > 199)
+                if (attackTimer > 199)
                 {
-                    atktimer = 0;
+                    attackTimer = 0;
                     enemyState = State.Attacking;
                 }
-                if (atktimer < 200)
+                if (attackTimer < 200)
                 {
-                    atktimer = atktimer + 1;
+                    attackTimer = attackTimer + 1;
                 }
 
                 Vector3 direction = target.transform.position - transform.position; // look at player
@@ -66,14 +67,14 @@ public class LaserSniperClass : EnemyClass
                     // Accessing child's variable
 
                     script.laserState = 1;
-                    atktimer = atktimer + 1;
-                    if (atktimer > 250)
+                    attackTimer = attackTimer + 1;
+                    if (attackTimer > 250)
                     {
                         script.laserState = 2;
-                        if (atktimer > 400)
+                        if (attackTimer > 400)
                         {
                             script.laserState = 0;
-                            atktimer = 1;
+                            attackTimer = 1;
                             enemyState = State.Targeting;
                         }
                     }

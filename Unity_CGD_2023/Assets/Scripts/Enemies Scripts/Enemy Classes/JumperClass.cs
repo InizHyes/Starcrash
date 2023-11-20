@@ -5,16 +5,18 @@ using UnityEngine;
 
 public class JumperClass : EnemyClass
 {
-    private float attackCooldown;
-    public float ATTACKCOOLDOWN = 10f; // In seconds, can be set in inspector
-    public int moveSpeed = 200;
+    private float attackCooldownValue;
+
+    [Header("Jumper Specific")]
+    [SerializeField] private float attackCooldown = 5f; // In seconds, can be set in inspector
+    [SerializeField] private int moveSpeed = 200;
 
     void Start()
     {
         // Set starting state and variables
         initiateEnemy();
 
-        attackCooldown = 0f;
+        attackCooldownValue = 0f;
     }
 
     private void Update()
@@ -55,7 +57,7 @@ public class JumperClass : EnemyClass
                 pushTowardsPlayer();
 
                 // Start attack cooldown
-                attackCooldown = ATTACKCOOLDOWN;
+                attackCooldownValue = attackCooldown;
                 enemyState = State.Attacking;
 
                 //moveTowardsTarget0G();
@@ -68,9 +70,9 @@ public class JumperClass : EnemyClass
 
             case State.Attacking:
                 // Count-down timer
-                if (attackCooldown > 0f)
+                if (attackCooldownValue > 0f)
                 {
-                    attackCooldown -= Time.deltaTime;
+                    attackCooldownValue -= Time.deltaTime;
                 }
                 // Change back to targeting/moving
                 else
@@ -87,7 +89,7 @@ public class JumperClass : EnemyClass
         if (enemyState == State.Attacking)
         {
             // Do not check for collision instantly
-            if (collision.gameObject.tag == "OuterWall" && attackCooldown < ATTACKCOOLDOWN - 1)
+            if (collision.gameObject.tag == "OuterWall" && attackCooldownValue < attackCooldown - 1)
             {
                 rb.velocity = Vector2.zero;
                 rb.bodyType = RigidbodyType2D.Static;
