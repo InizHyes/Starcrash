@@ -278,6 +278,8 @@ MonoBehaviour:
   forceMultiplier: 1
   maxVelocity: {x: 0.5, y: 0.5}
   spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+  droppedObejcts: []
+  dropOdds: 1
 --- !u!50 &4771733949618339815
 Rigidbody2D:
   serializedVersion: 4
@@ -300,7 +302,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

@@ -9,8 +9,6 @@ public class EnemyClass : MonoBehaviour
     [SerializeField] protected int health = 10;
     protected GameObject target;
     private GameObject targetfollow;
-    [SerializeField] private GameObject[] droppedObejcts;
-    [Tooltip("Odds of dropping, 1/x chance")][SerializeField] private int dropOdds = 1;
 
     // rb movement variables
     private Vector2 forceToApply;
@@ -23,6 +21,9 @@ public class EnemyClass : MonoBehaviour
     [SerializeField] protected GameObject spawnLogic;
     protected SpawnLogic NPCdeathCheck;
 
+    //Item drop variables
+    [SerializeField] private GameObject[] droppedObejcts;
+    [Tooltip("Odds of dropping, 1/x chance")][SerializeField] private int dropOdds = 1;
 
     // States
     public enum State
@@ -187,6 +188,13 @@ public class EnemyClass : MonoBehaviour
          * droppedOjects could be an array of objects or singular
          */
 
-
+        for (int i = 0; i < droppedObejcts.Length; i++)
+        {
+            if (Random.Range(1, dropOdds) == 1)
+            {
+                // Sucess! Spawn object
+                Instantiate(droppedObejcts[i], this.transform.position, Quaternion.identity);
+            }
+        }
     }
 }
