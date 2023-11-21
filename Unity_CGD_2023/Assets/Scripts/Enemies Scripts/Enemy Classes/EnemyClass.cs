@@ -61,6 +61,7 @@ public class EnemyClass : MonoBehaviour
          */
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         float lowestDistance = 0;
+        target = null;
         for (int i = 0; i < players.Length; i++)
         {
             //If target isnt set or distance is lower for other player, set player as target
