@@ -33,7 +33,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Lock Down",
+                    "name": "LockDown",
                     "type": "Button",
                     "id": "9e8a4bba-1625-481a-a2c5-1b9e71341102",
                     "expectedControlType": "Button",
@@ -54,6 +54,15 @@
                     "name": "Controls",
                     "type": "Button",
                     "id": "21d3d711-f69f-4b0a-8b35-d920865fd2e2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Join",
+                    "type": "Button",
+                    "id": "0ead7501-f54f-4eaa-9a8d-265fdd4a2525",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -97,11 +106,11 @@
                 {
                     "name": "",
                     "id": "e99d5722-8151-4f61-826b-b76ffc97fd05",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lock Down",
+                    "action": "LockDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -124,6 +133,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Controls",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bbe28d02-430b-4492-a68a-338bb207b5b1",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Join",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

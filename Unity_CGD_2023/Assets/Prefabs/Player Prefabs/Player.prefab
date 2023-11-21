@@ -73,9 +73,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -157,9 +157,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 9119004986373559324}
   - component: {fileID: 821481322392218327}
   - component: {fileID: -1708436674007983254}
+  - component: {fileID: -2230233386937007182}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -249,7 +250,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -279,12 +280,18 @@ MonoBehaviour:
   view: {fileID: 0}
   otherPlayer: {fileID: 0}
   SpeedCap: 10
-  player: 1
+  player: 2
   movement: {fileID: 2303050120065896387, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   attack: {fileID: 3734495484655796333, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   rotate: {fileID: 2664800122413868106, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   stickToSurface: {fileID: -4573028448917826045, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   playerinput: {fileID: -1708436674007983254}
+  playerControl:
+    m_Name: Player Control
+    m_Id: 121d9568-3fb3-440d-87d3-437778c70db4
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
 --- !u!50 &9119004986373559324
 Rigidbody2D:
   serializedVersion: 4
@@ -377,6 +384,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-2230233386937007182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6087901998665851953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30e0b82b5dc370646b6571a602e5d9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7303935899086399053
 GameObject:
   m_ObjectHideFlags: 0
