@@ -26,28 +26,45 @@ public class PlayerController : MonoBehaviour
     public int player = 0;
     [SerializeField] private InputActionReference movement, attack, rotate, stickToSurface;
     private bool shoot = false;
+
     [SerializeField] PlayerInput playerinput;
+    private InputActionAsset inputAsset;
+    public InputActionMap playerControl;
+    private InputAction move;
+    private InputAction look;
 
 
     /// Bullet work again, whilst very angry due to github eating all my work, apologies if it doesn't work yet - Arch
     shootingScript shooting;
 
 
+    private void Awake()
+    {
+        inputAsset = this.GetComponent<PlayerInput>().actions;  ///these pieces of code identify the players unique inputs, allowing for multiple controllers
+        playerControl = inputAsset.FindActionMap("Player");     /// only janky thing about it is the "" for each control map variable name, but it works!
+        
+    }
 
-    
+
+
+
+
     private void OnEnable() ///handles the inputs, buttons only get detected like this
     {
-        stickToSurface.action.performed += stickingToSurface;
-        attack.action.performed += AttackPressed;
+        playerControl.FindAction("attack").started += AttackPressed;  ///using this as an example, when the action is "started" (pressed) it calls the function that does the thing
+        move = playerControl.FindAction("Move");  ///assigns the unique controllers move and look (once again part oif what allows multiple controllers)
+        look = playerControl.FindAction("Look");
+        playerControl.FindAction("LockDown").started += stickingToSurface;
 
 
     }
 
     private void OnDisable() ///disables the function when the button is released
     {
-        attack.action.performed -= AttackPressed;
+        playerControl.FindAction("attack").started -= AttackPressed;   ///this disables the function almost immediatly, so when it is pressed it only happens once
         stickToSurface.action.performed -= stickingToSurface;
-        
+        playerControl.FindAction("LockDown").started -= stickingToSurface;
+
 
     }
 
@@ -56,11 +73,13 @@ public class PlayerController : MonoBehaviour
     private void AttackPressed(InputAction.CallbackContext context) ///makes shoot true which makes the chcrater shoot in update
     {
         shoot = true;
+        
     }
 
     private void stickingToSurface(InputAction.CallbackContext context) ///used to make the player "stick" to the ground. Starts timer to initilise 
     {
         StartCoroutine(stickTimer2());
+        
         
 
     }
@@ -69,7 +88,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         sticking = !sticking;
-        print("sticked");
+        
 
     }
 
@@ -124,7 +143,7 @@ public class PlayerController : MonoBehaviour
         {
 
            
-            Vector2 PlayerInput = movement.action.ReadValue<Vector2>();
+            Vector2 PlayerInput = move.ReadValue<Vector2>(); ///reading the specific controllers movement
             Vector2 MoveForce = PlayerInput * MoveSpeed; ///applies the speed to player input
             if (!sticking) ///if the player is not supposed to be sticking to the ground, do movement normally
             {
@@ -140,7 +159,7 @@ public class PlayerController : MonoBehaviour
                 MoveForce2 = noMove;
             }
 
-            Vector2 RightStick = rotate.action.ReadValue<Vector2>();
+            Vector2 RightStick = look.ReadValue<Vector2>();
 
             if (RightStick != RightStickOld)
             {
