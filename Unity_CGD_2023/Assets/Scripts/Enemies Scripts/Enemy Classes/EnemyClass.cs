@@ -9,6 +9,8 @@ public class EnemyClass : MonoBehaviour
     [SerializeField] protected int health = 10;
     protected GameObject target;
     private GameObject targetfollow;
+    [SerializeField] private GameObject[] droppedObejcts;
+    [Tooltip("Odds of dropping, 1/x chance")][SerializeField] private int dropOdds = 1;
 
     // rb movement variables
     private Vector2 forceToApply;
@@ -154,17 +156,37 @@ public class EnemyClass : MonoBehaviour
 
         health -= damage;
 
-        deathCheck();
-    }
-
-    public void deathCheck()
-    {
-        // Might move to damageDetection function
         // Check if dead after damage detection
-        if (health == 0)
+        if (health <= 0)
         {
+            enemyState = State.Dead;
+            /*
+             * Change state instead, move this to function
+             * This is so different enemies can drop different items on death
             NPCdeathCheck.NPCdeath();
             Destroy(this.gameObject);
+            */
         }
+    }
+
+    public void initiateDeath()
+    {
+        /*
+         * Runs general functions for on death
+         */
+        NPCdeathCheck.NPCdeath();
+        Destroy(this.gameObject);
+    }
+
+    public void itemDropLogic()
+    {
+        /*
+         * If used, run before initiateDeath()
+         * Spawns assigned gameobject(s) on this position
+         * Uses dropOdds to determine if the object is spawned at a ratio of 1/x chance 
+         * droppedOjects could be an array of objects or singular
+         */
+
+
     }
 }

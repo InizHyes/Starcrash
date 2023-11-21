@@ -80,6 +80,16 @@ public class JumperClass : EnemyClass
                     enemyState = State.Targeting;
                 }
                 break;
+
+            case State.Dead:
+                /*
+                 * Runs item drop logic then runs the logic associated with the enemy leaving the scene
+                 * Can run death animation before running these functions
+                 */
+
+                itemDropLogic();
+                initiateDeath();
+                break;
         }
     }
 

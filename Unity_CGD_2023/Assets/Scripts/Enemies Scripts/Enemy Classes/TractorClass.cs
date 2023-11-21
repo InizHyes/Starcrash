@@ -78,12 +78,16 @@ public class TractorClass : EnemyClass
                 tractorBeam.SetActive(true);
 
                 break;
-        }
 
-        // Check if dead (might move to function and call in Moving and Attacking
-        if (health == 0 && spawnLogic != null)
-        {
-            //spawnLogic.NPCdeath(); //New error cause unknown
+            case State.Dead:
+                /*
+                 * Runs item drop logic then runs the logic associated with the enemy leaving the scene
+                 * Can run death animation before running these functions
+                 */
+
+                itemDropLogic();
+                initiateDeath();
+                break;
         }
     }
 }
