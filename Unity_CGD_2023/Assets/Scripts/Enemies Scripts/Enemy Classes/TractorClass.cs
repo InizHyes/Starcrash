@@ -17,7 +17,7 @@ public class TractorClass : EnemyClass
         // Set starting state and variables
         initiateEnemy();
 
-        tractorBeam.SetActive(false); // Ablity off to start
+        tractorBeam.SetActive(true); // Ablity off to start
 
         animate = GetComponent<Animator>(); // Maybe move into init function
     }
@@ -36,7 +36,7 @@ public class TractorClass : EnemyClass
 
                 targetClosestGrunt();
 
-                tractorBeam.SetActive(false);
+                //tractorBeam.SetActive(false);
 
                 break;
 
