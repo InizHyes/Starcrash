@@ -17,7 +17,7 @@ public class TEMPLATECLASS : EnemyClass
      * -Dies when hit by "Bullet" tag
      */
 
-    void Start()
+    private void Start()
     {
         // Set starting state and variables
         initiateEnemy();
@@ -25,7 +25,6 @@ public class TEMPLATECLASS : EnemyClass
 
     private void Update()
     {
-        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:

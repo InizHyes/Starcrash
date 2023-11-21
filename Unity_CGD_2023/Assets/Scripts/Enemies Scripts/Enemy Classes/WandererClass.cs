@@ -11,7 +11,7 @@ public class WandererClass : EnemyClass
 
     private Animator animate;
 
-    void Start()
+    private void Start()
     {
         // Set starting state and variables
         initiateEnemy();
@@ -21,7 +21,6 @@ public class WandererClass : EnemyClass
 
     private void Update()
     {
-        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:
@@ -30,7 +29,6 @@ public class WandererClass : EnemyClass
                  */
 
                 targetRangedClosestPlayer();
-
                 break;
 
             case State.Targeting:
@@ -65,10 +63,6 @@ public class WandererClass : EnemyClass
                 break;
 
             case State.Attacking:
-
-
-               
-
                 break;
 
             case State.Dead:

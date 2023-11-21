@@ -11,7 +11,7 @@ public class JumperClass : EnemyClass
     [SerializeField] private float attackCooldown = 5f; // In seconds, can be set in inspector
     [SerializeField] private int moveSpeed = 200;
 
-    void Start()
+    private void Start()
     {
         // Set starting state and variables
         initiateEnemy();
@@ -21,7 +21,6 @@ public class JumperClass : EnemyClass
 
     private void Update()
     {
-        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:
@@ -69,6 +68,10 @@ public class JumperClass : EnemyClass
                 break;
 
             case State.Attacking:
+                /*
+                 * Used to wait and count down attack timer
+                 */
+
                 // Count-down timer
                 if (attackCooldownValue > 0f)
                 {
@@ -79,6 +82,7 @@ public class JumperClass : EnemyClass
                 {
                     enemyState = State.Targeting;
                 }
+
                 break;
 
             case State.Dead:

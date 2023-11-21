@@ -12,7 +12,7 @@ public class LaserSniperClass : EnemyClass
     //private BoxCollider2D playerDetect;
 
 
-    void Start()
+    private void Start()
     {
         // Set starting state and variables
         initiateEnemy();
@@ -20,7 +20,6 @@ public class LaserSniperClass : EnemyClass
 
     private void Update()
     {
-        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:
@@ -55,8 +54,6 @@ public class LaserSniperClass : EnemyClass
 
                 Vector3 direction = target.transform.position - transform.position; // look at player
                 transform.right = direction;
-
-
                 break;
 
             case State.Attacking:
@@ -78,18 +75,12 @@ public class LaserSniperClass : EnemyClass
                             enemyState = State.Targeting;
                         }
                     }
-
-
-
                 }
                 
                 else
                 {
                     Debug.Log("laserenemy dont work");
                 }
-
-
-
 
                 break;
 

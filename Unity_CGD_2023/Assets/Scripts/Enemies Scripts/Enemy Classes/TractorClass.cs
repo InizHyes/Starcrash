@@ -12,7 +12,7 @@ public class TractorClass : EnemyClass
     [Header("Tractor Specific")]
     [SerializeField] private GameObject tractorBeam;
 
-    void Start()
+    private void Start()
     {
         // Set starting state and variables
         initiateEnemy();
@@ -24,7 +24,6 @@ public class TractorClass : EnemyClass
 
     private void Update()
     {
-        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:
@@ -61,9 +60,7 @@ public class TractorClass : EnemyClass
                 * Maybe check if near to attack, maybe just change state on collision
                 */
 
-
                 // Move towards tartget but stay away at a minimuim length to avoid player fire
-
                 moveTowardsTarget0G();
 
                 // look at player
@@ -72,11 +69,8 @@ public class TractorClass : EnemyClass
                 break;
 
             case State.Attacking:
-
-
                 // Use trackor beam ablity
                 tractorBeam.SetActive(true);
-
                 break;
 
             case State.Dead:

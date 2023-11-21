@@ -25,7 +25,6 @@ public class GruntClass : EnemyClass
 
     private void Update()
     {
-        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:
@@ -45,9 +44,11 @@ public class GruntClass : EnemyClass
 
             case State.Pathfinding:
                 // Pathfind if line of sight is blocked
+
                 break;
 
             case State.Moving:
+                // Attack timer logic
                 if (attackTimer < 100)
                 {
                     attackTimer = attackTimer + 1;
@@ -60,17 +61,13 @@ public class GruntClass : EnemyClass
                         attackTimer = 0;
                         enemyState = State.Attacking;
                     }
-
                 }
                 
-
-
                 /* didn't actually check if the cone works properly */
                 if (playerInConeZone)
                 {
                     // do something
                 }
-
 
                 /*
                 * Move towards player with velocity
@@ -80,6 +77,28 @@ public class GruntClass : EnemyClass
                 Vector3 direction = target.transform.position - transform.position; // look at player
                 transform.up = direction;
 
+                // Get collision from child triggers
+                Transform atkZoneTransform = transform.Find("DetectAttackZone");
+                if (atkZoneTransform != null)
+                {
+                    // Accessing child
+                    DetectAttack childscript = atkZoneTransform.GetComponent<DetectAttack>();
+                    if (childscript != null)
+                    {
+                        // Accessing child's variable
+                        playerInAtkZone = childscript.playerTriggered;
+                    }
+                }
+
+                Transform coneZoneTransform = transform.Find("DetectConeZone");
+                if (coneZoneTransform != null)
+                {
+                    DetectAttack childscript = coneZoneTransform.GetComponent<DetectAttack>();
+                    if (childscript != null)
+                    {
+                        playerInConeZone = childscript.playerTriggered;
+                    }
+                }
 
                 break;
 
@@ -118,30 +137,6 @@ public class GruntClass : EnemyClass
                 initiateDeath();
                 break;
         }
-
-
-        // getting collision from child triggers
-        Transform atkZoneTransform = transform.Find("DetectAttackZone");
-        if (atkZoneTransform != null)
-        {
-            // Accessing child
-            DetectAttack childscript = atkZoneTransform.GetComponent<DetectAttack>();
-            if (childscript != null)
-            {
-                // Accessing child's variable
-                playerInAtkZone = childscript.playerTriggered;
-            }
-        }
-
-        Transform coneZoneTransform = transform.Find("DetectConeZone");
-        if (coneZoneTransform != null)
-        {
-            DetectAttack childscript = coneZoneTransform.GetComponent<DetectAttack>();
-            if (childscript != null)
-            {
-                playerInConeZone = childscript.playerTriggered;
-            }
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -154,7 +149,7 @@ public class GruntClass : EnemyClass
         }
     }
 
-    void summonHitbox() // eventually i plan to make this in the enemyclass/somewhere, with passable variables
+    private void summonHitbox() // eventually i plan to make this in the enemyclass/somewhere, with passable variables
     {
         // Load the hitbox
         GameObject hitboxPrefab = Resources.Load<GameObject>("SuperHitBox");

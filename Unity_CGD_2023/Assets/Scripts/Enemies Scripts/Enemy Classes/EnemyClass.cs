@@ -26,7 +26,7 @@ public class EnemyClass : MonoBehaviour
     [Tooltip("Odds of dropping, 1/x chance")][SerializeField] private int dropOdds = 1;
 
     // States
-    public enum State
+    protected enum State
     {
         Initiating, // Can be used to freeze enemies while the player is loading into the room
         Targeting, // Running script to find nearest player on first spawn, or change targeting to closer player on cone collision
@@ -37,7 +37,7 @@ public class EnemyClass : MonoBehaviour
     }
     protected State enemyState;
 
-    public void initiateEnemy()
+    protected void initiateEnemy()
     {
         /*
          * Assignes and runs all the common variables/functions between all enemy types
@@ -54,7 +54,7 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
-    public void targetClosestPlayer()
+    protected void targetClosestPlayer()
     {
         /*
          * Finds the closest object with the tag "Player" and sets "target" as that player
@@ -75,7 +75,7 @@ public class EnemyClass : MonoBehaviour
         //enemyState = State.Targeting;
     }
 
-    public void targetRangedClosestPlayer()
+    protected void targetRangedClosestPlayer()
     {
         /*
          * Finds the closest object with the tag "Player" and sets "target" as that player, but from distance
@@ -100,7 +100,7 @@ public class EnemyClass : MonoBehaviour
     // But seprate moveTowardsTarget0G function may need to be set up to allow,
     // For the stronger enemey to follow grunt whilst keeping the correct target at the player.
     // Unless simple bug fixes can be made without out getting to complex!
-    public void targetClosestGrunt()
+    protected void targetClosestGrunt()
     {
         /*
          * Finds the closest object with the tag "grunt" and sets "targetfollow" as that grunt
@@ -120,7 +120,7 @@ public class EnemyClass : MonoBehaviour
         enemyState = State.Targeting;
     }
 
-    public void moveTowardsTarget0G()
+    protected void moveTowardsTarget0G()
     {
         // If not at max velocity
         if (rb.velocity.x < maxVelocity.x && rb.velocity.y < maxVelocity.y)
@@ -133,12 +133,12 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
-    public void slowDownAndStop()
+    protected void slowDownAndStop()
     {
         rb.velocity *= 0.98f;
         moveForce = rb.velocity;
     }
-    public void lungeForward()
+    protected void lungeForward()
     {
         if (rb.velocity.x < maxVelocity.x && rb.velocity.y < maxVelocity.y)
         {
@@ -170,7 +170,7 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
-    public void initiateDeath()
+    protected void initiateDeath()
     {
         /*
          * Runs general functions for on death
@@ -179,7 +179,7 @@ public class EnemyClass : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public void itemDropLogic()
+    protected void itemDropLogic()
     {
         /*
          * If used, run before initiateDeath()
