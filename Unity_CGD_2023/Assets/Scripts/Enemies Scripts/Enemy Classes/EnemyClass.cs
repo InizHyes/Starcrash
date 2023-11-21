@@ -8,13 +8,12 @@ public class EnemyClass : MonoBehaviour
     [Header("Common Variables")]
     [SerializeField] protected int health = 10;
     protected GameObject target;
-    private GameObject targetfollow;
 
     // rb movement variables
-    private Vector2 forceToApply;
+    protected Vector2 forceToApply;
     protected Vector2 moveForce;
-    [SerializeField] private float forceMultiplier = 1f;
-    [SerializeField] private Vector2 maxVelocity = new Vector2(100f, 100f);
+    [SerializeField] protected float forceMultiplier = 1f;
+    [SerializeField] protected Vector2 maxVelocity = new Vector2(100f, 100f);
     protected Rigidbody2D rb;
 
     // Set spawnlogic prefab onto spawnLogic, will find and assign script to NPCdeathCheck
@@ -97,30 +96,6 @@ public class EnemyClass : MonoBehaviour
         //enemyState = State.Targeting;
     }
 
-    // Function will allow for stronger enemies to hide behind grunts for tactical play,
-    // But seprate moveTowardsTarget0G function may need to be set up to allow,
-    // For the stronger enemey to follow grunt whilst keeping the correct target at the player.
-    // Unless simple bug fixes can be made without out getting to complex!
-    protected void targetClosestGrunt()
-    {
-        /*
-         * Finds the closest object with the tag "grunt" and sets "targetfollow" as that grunt
-         */
-        GameObject[] grunts = GameObject.FindGameObjectsWithTag("grunts");
-        float lowestDistance = 1;
-        for (int i = 0; i < grunts.Length; i++)
-        {
-            //If targetfollow isnt set or distance is lower for other grunt, set grunt as targetfollow
-            if (targetfollow == null || Vector3.Distance(this.transform.position, grunts[i].transform.position) < lowestDistance)
-            {
-                targetfollow = grunts[i];
-                lowestDistance = Vector3.Distance(this.transform.position, grunts[i].transform.position);
-            }
-            // Else do nothing
-        }
-        enemyState = State.Targeting;
-    }
-
     protected void moveTowardsTarget0G()
     {
         // If not at max velocity
@@ -197,5 +172,10 @@ public class EnemyClass : MonoBehaviour
                 Instantiate(droppedObejcts[i], this.transform.position, Quaternion.identity);
             }
         }
+    }
+
+    public void changestate(int stateValue)
+    {
+        enemyState = (State)Mathf.Clamp(stateValue, 0, 4);
     }
 }

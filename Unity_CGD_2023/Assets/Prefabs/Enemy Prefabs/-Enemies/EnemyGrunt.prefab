@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 4415298594212500451}
   m_Layer: 0
   m_Name: EnemyGrunt
-  m_TagString: Enemy
+  m_TagString: grunts
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -275,6 +275,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  droppedObejcts: []
+  dropOdds: 1
   forceMultiplier: 2
   maxVelocity: {x: 5, y: 5}
   spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}

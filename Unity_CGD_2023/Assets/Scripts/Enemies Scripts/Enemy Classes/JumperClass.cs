@@ -38,6 +38,8 @@ public class JumperClass : EnemyClass
                  * But not needed now so im just assuming no LOS block
                  */
 
+
+
                 targetClosestPlayer();
                 enemyState = State.Moving;
                 break;
