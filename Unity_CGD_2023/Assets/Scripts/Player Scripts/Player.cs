@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     Vector2 LastVel;
     Vector2 RightStickOld;
     Vector2 noMove = new Vector2(0, 0);
-    private bool sticking = false;
+    public bool sticking = false;
     public Camera view;
     public GameObject otherPlayer; //For vertical slice
 
