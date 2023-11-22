@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public int player = 0;
     [SerializeField] private InputActionReference movement, attack, rotate, stickToSurface;
     private bool shoot = false;
+    public int HP = 10;
 
     [SerializeField] PlayerInput playerinput;
     private InputActionAsset inputAsset;
