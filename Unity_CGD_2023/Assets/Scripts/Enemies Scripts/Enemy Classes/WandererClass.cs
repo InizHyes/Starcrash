@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.RuleTile.TilingRuleOutput;
@@ -10,6 +11,15 @@ public class WandererClass : EnemyClass
     [Header("Wanderer Specific")]
 
     private Animator animate;
+
+    public GameObject bulletPrefab;
+
+    private float bulletSpeed = 1f;
+
+    private bool playerInAtkZone = false;
+    private bool playerInConeZone = false;
+
+    private int attackTimer;
 
     private void Start()
     {
@@ -28,7 +38,7 @@ public class WandererClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                targetRangedClosestPlayer();
+                enemyState = State.Targeting;
                 break;
 
             case State.Targeting:
@@ -37,7 +47,8 @@ public class WandererClass : EnemyClass
                  * It would be if(line of sight blocked){ enemyState = Pathfinding }
                  * But not needed now so im just assuming no LOS block
                  */
-
+                //targetRangedClosestPlayer();
+                targetClosestPlayer();
                 enemyState = State.Moving;
                 break;
 
@@ -60,9 +71,64 @@ public class WandererClass : EnemyClass
                 // look at player
                 Vector3 direction = target.transform.position - transform.position;
                 transform.up = direction;
+
+                // Get collision from child triggers
+                UnityEngine.Transform atkZoneTransform = transform.Find("DetectAttackZone"); // Had to manually had UnityEngine.Transform to make it work?
+                if (atkZoneTransform != null)
+                {
+                    // Accessing child
+                    DetectAttack childscript = atkZoneTransform.GetComponent<DetectAttack>();
+                    if (childscript != null)
+                    {
+                        // Accessing child's variable
+                        playerInAtkZone = childscript.playerTriggered;
+                    }
+                }
+
+                UnityEngine.Transform coneZoneTransform = transform.Find("DetectConeZone"); // Had to manually had UnityEngine.Transform to make it work?
+                if (coneZoneTransform != null)
+                {
+                    DetectAttack childscript = coneZoneTransform.GetComponent<DetectAttack>();
+                    if (childscript != null)
+                    {
+                        playerInConeZone = childscript.playerTriggered;
+                    }
+                }
+
+                if (playerInAtkZone)
+                {
+                    enemyState = State.Attacking;
+                }
+
+                if (playerInConeZone)
+                {
+                    enemyState = State.Attacking;
+                }
+
                 break;
 
+
             case State.Attacking:
+                Debug.Log("attacking");
+
+                shot();
+
+                // Attack timer logic
+                if (attackTimer < 100)
+                {
+                    attackTimer = attackTimer + 1;
+                }
+                if (playerInAtkZone)
+                {
+                    if (attackTimer > 99)
+                    {
+                        //animate.SetTrigger("gruntATTACK");
+                        attackTimer = 0;
+                        shot();
+                        enemyState = State.Attacking;
+                    }
+                }
+
                 break;
 
             case State.Dead:
@@ -75,5 +141,19 @@ public class WandererClass : EnemyClass
                 initiateDeath();
                 break;
         }
+    }
+
+    private void shot()
+    {
+        Vector2 newPosition = new Vector2(0, 5);
+        GameObject newBullet = Instantiate(bulletPrefab, newPosition, this.transform.rotation);
+        newBullet.GetComponent<Rigidbody2D>().velocity = this.transform.position * bulletSpeed;
+        SpriteRenderer bulletRenderer = newBullet.GetComponent<SpriteRenderer>();
+
+        bulletRenderer.color = Color.red;
+
+        Debug.Log("shot fired");
+
+        //Instantiate(bulletPrefab, this.transform.position, Quaternion.identity);
     }
 }
