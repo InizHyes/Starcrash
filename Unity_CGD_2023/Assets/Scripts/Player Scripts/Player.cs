@@ -129,7 +129,6 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0)) ///this function checks where the mouse is clicked and applies force to the player in the opposite direction
             {
-                print("GunFired");
                 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 ///print(MousePos);
                 PlayerPos = transform.position;

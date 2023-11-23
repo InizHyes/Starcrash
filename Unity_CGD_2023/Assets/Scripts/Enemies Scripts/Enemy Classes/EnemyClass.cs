@@ -176,6 +176,9 @@ public class EnemyClass : MonoBehaviour
 
     public void changestate(int stateValue)
     {
-        enemyState = (State)Mathf.Clamp(stateValue, 0, 4);
+        if (enemyState != State.Dead)
+        {
+            enemyState = (State)Mathf.Clamp(stateValue, 0, 4);
+        }
     }
 }
