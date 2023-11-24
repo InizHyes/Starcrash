@@ -25,7 +25,7 @@ public class GasDamage : MonoBehaviour
                     damageIntervalTimer = 0;
 
                     //CHANGES HP IN PLAYER SCRIPT IF SOMEONE ADDS DAMAGE SYSTEM CHANGE SCRIPT AND VARIABLE NAMES
-                    collision.GetComponent<PlayerController>().HP = collision.GetComponent<PlayerController>().HP - damage;
+                    collision.GetComponent<PlayerStats>().health = collision.GetComponent<PlayerStats>().health - damage;
                 }
             }
         }
