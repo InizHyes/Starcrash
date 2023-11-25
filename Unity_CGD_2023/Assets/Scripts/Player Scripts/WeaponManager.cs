@@ -14,6 +14,7 @@ public class WeaponManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         totalWeapons = weaponHolder.transform.childCount;
         weapons = new GameObject[totalWeapons];
 
