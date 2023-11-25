@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class WandererClass : EnemyClass
 {
@@ -11,16 +9,43 @@ public class WandererClass : EnemyClass
 
     private Animator animate;
 
+    public GameObject bulletPrefab;
+
+    public Transform gunPoint;
+
+    private float bulletSpeed = 5f;
+
+    private bool playerInAtkZone = false;
+    //private bool playerInConeZone = false;
+
+    public bool canAttack;
+
     private void Start()
     {
         // Set starting state and variables
         initiateEnemy();
+
+        canAttack = false;
 
         animate = GetComponent<Animator>(); // Maybe move into init function
     }
 
     private void Update()
     {
+
+        // Get collision from child triggers
+        Transform atkZoneTransform = transform.Find("DetectAttackZone");
+        if (atkZoneTransform != null)
+        {
+            // Accessing child
+            DetectAttack childscript = atkZoneTransform.GetComponent<DetectAttack>();
+            if (childscript != null)
+            {
+                // Accessing child's variable
+                playerInAtkZone = childscript.playerTriggered;
+            }
+        }
+
         switch (enemyState)
         {
             case State.Initiating:
@@ -28,7 +53,7 @@ public class WandererClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                targetRangedClosestPlayer();
+                enemyState = State.Targeting;
                 break;
 
             case State.Targeting:
@@ -37,7 +62,8 @@ public class WandererClass : EnemyClass
                  * It would be if(line of sight blocked){ enemyState = Pathfinding }
                  * But not needed now so im just assuming no LOS block
                  */
-
+                //targetRangedClosestPlayer();
+                targetClosestPlayer();
                 enemyState = State.Moving;
                 break;
 
@@ -60,9 +86,30 @@ public class WandererClass : EnemyClass
                 // look at player
                 Vector3 direction = target.transform.position - transform.position;
                 transform.up = direction;
+
+                if (playerInAtkZone == true)
+                {
+                    StartCoroutine(delayShot());
+                    enemyState = State.Attacking;
+                }
+
                 break;
 
+
             case State.Attacking:
+                Debug.Log("attacking");
+
+                if (canAttack == true)
+                {
+                    fireShot();
+                    StartCoroutine(delayShot());
+                }
+
+                if (playerInAtkZone == false)
+                {
+                    StopCoroutine(delayShot());
+                    enemyState = State.Targeting;
+                }
                 break;
 
             case State.Dead:
@@ -75,5 +122,28 @@ public class WandererClass : EnemyClass
                 initiateDeath();
                 break;
         }
+    }
+
+    //How long should it take to fire at player
+    private IEnumerator delayShot()
+    {
+        canAttack = false;
+
+        yield return new WaitForSeconds(3);
+
+        canAttack = true;
+    }
+
+    //Fire at target
+    private void fireShot()
+    {   
+        GameObject firedBullet = Instantiate(bulletPrefab, gunPoint.position, gunPoint.rotation);
+        Vector2 bulletDir = gunPoint.right ;
+        firedBullet.GetComponent<Rigidbody2D>().velocity = bulletDir * bulletSpeed;
+
+        SpriteRenderer bulletRenderer = firedBullet.GetComponent<SpriteRenderer>();
+        bulletRenderer.color = Color.red;
+
+        Debug.Log("shot fired");
     }
 }
