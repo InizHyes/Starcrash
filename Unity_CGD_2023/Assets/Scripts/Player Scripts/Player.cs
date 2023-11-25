@@ -8,13 +8,9 @@ public class PlayerController : MonoBehaviour
 { /// some variables below may be uselss, was testing many things
     public Rigidbody2D rb;
     public float MoveSpeed = 100;
-    public float GunForce = 5;
     public Vector2 ForceToApply;
     public float ForceDamping;
     Vector2 MoveForce2;
-    Vector2 MousePos;
-    Vector2 PlayerPos;
-    Vector2 ForceDir;
     Vector2 LastVel;
     Vector2 RightStickOld;
     Vector2 noMove = new Vector2(0, 0);
@@ -100,7 +96,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         shooting = GetComponentInChildren<shootingScript>();
-        shooting.shoot(player, shoot);
+        shooting.Shoot(player, shoot);
 
         if (!sticking)
         {
@@ -122,11 +118,9 @@ public class PlayerController : MonoBehaviour
             Vector2 MouseDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;  ///these three lines make the player look at the mouse
             var angle = Mathf.Atan2(MouseDir.y, MouseDir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            
 
-
-
-
-            if (Input.GetMouseButtonDown(0)) ///this function checks where the mouse is clicked and applies force to the player in the opposite direction
+            /*if (Input.GetMouseButtonDown(0)) ///this function checks where the mouse is clicked and applies force to the player in the opposite direction
             {
                 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 ///print(MousePos);
@@ -135,8 +129,7 @@ public class PlayerController : MonoBehaviour
                 ForceDir = (MousePos - PlayerPos).normalized;
                 ///print(ForceDir);
                 ForceToApply = (ForceDir * GunForce * -1.0f); ///change gunforce to change knockback effect
-            }
-
+            }*/
         }
         else if (player == 2) ///CONTROLLER CONTROLS
         {
@@ -150,6 +143,7 @@ public class PlayerController : MonoBehaviour
                 MoveForce2 = MoveForce2 + PlayerInput * MoveSpeed; ///adding the players input onto the current move vector 2, never loses momentum as it is adding rather than setting
                 MoveForce2 += ForceToApply; ///force to apply is instant force, e.g if you wanted to fire a gun (below in mouse section) change apply force to alter current movement
                 ForceToApply /= ForceDamping; ///so you arent just constantly adding the same force
+                
             }
             else ///else if the player is supposed to be sticking, stop all momentum and momentum gain
             {
@@ -169,10 +163,8 @@ public class PlayerController : MonoBehaviour
             if (shoot == true)  ///this function checks if shoot is true, then "shoots"
             {
                 print("GunFired");
-                MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                ForceDir = transform.right;
-                ForceToApply = (ForceDir * GunForce * -1.0f); ///change gunforce to change knockback effect
+                 ///change gunforce to change knockback effect
                 shoot = false;
                                                               
                     
@@ -191,7 +183,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+private void OnCollisionEnter2D(Collision2D collision)
     { ///this whole section does collision, its buggy as hell but it gets the job done for now as proof of concept
 
         Vector2 CollDir = (collision.transform.position - transform.position).normalized;
