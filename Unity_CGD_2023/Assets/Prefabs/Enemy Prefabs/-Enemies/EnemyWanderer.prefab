@@ -275,12 +275,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 9999
-  forceMultiplier: 1
-  maxVelocity: {x: 0.5, y: 0.5}
+  forceMultiplier: 2
+  maxVelocity: {x: 5, y: 5}
   spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
   droppedObejcts:
   - {fileID: 4249462830458335497, guid: 7fa2961ff40a8ba4d86515543563d845, type: 3}
   dropOdds: 1
+  bulletPrefab: {fileID: 9099253716168194602, guid: 0366f21fadf554043bbf5f23003b72b8, type: 3}
 --- !u!50 &4771733949618339815
 Rigidbody2D:
   serializedVersion: 4
