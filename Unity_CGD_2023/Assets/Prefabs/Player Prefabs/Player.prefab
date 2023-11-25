@@ -278,14 +278,17 @@ MonoBehaviour:
   GunForce: 0.2
   ForceToApply: {x: 0, y: 0}
   ForceDamping: 1.2
+  sticking: 0
   view: {fileID: 0}
   otherPlayer: {fileID: 0}
+  interactInput: 0
   SpeedCap: 10
   player: 2
   movement: {fileID: 2303050120065896387, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   attack: {fileID: 3734495484655796333, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   rotate: {fileID: 2664800122413868106, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   stickToSurface: {fileID: -4573028448917826045, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
+  HP: 10
   playerinput: {fileID: -1708436674007983254}
   playerControl:
     m_Name: Player Control
@@ -293,6 +296,13 @@ MonoBehaviour:
     m_Asset: {fileID: 0}
     m_Actions: []
     m_Bindings: []
+  menuControl:
+    m_Name: Menu Control
+    m_Id: 2474c37a-b765-46d3-a46e-fd3002ba4e6e
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
+  pauseManager: {fileID: 7648100658287719044, guid: 9aac4d41f33dda64098931cb1e336be4, type: 3}
 --- !u!114 &1345583903540891380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,7 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: e3af5e53f9214944c968ada09532e20e, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -397,7 +407,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: PlayerControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &-2230233386937007182

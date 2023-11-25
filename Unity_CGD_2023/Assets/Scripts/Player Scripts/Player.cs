@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,32 +23,33 @@ public class PlayerController : MonoBehaviour
     public Camera view;
     public GameObject otherPlayer; //For vertical slice
 
+    public bool interactInput;
+
     public float SpeedCap = 10;
     public int player = 0;
     [SerializeField] private InputActionReference movement, attack, rotate, stickToSurface;
     private bool shoot = false;
     public int HP = 10;
 
-    [SerializeField] PlayerInput playerinput;
+    [SerializeField] public PlayerInput playerinput;
     private InputActionAsset inputAsset;
     public InputActionMap playerControl;
+    public InputActionMap menuControl;
     private InputAction move;
     private InputAction look;
 
+    PauseMenu pauseMenu;
 
     /// Bullet work again, whilst very angry due to github eating all my work, apologies if it doesn't work yet - Arch
     shootingScript shooting;
 
-
     private void Awake()
     {
         inputAsset = this.GetComponent<PlayerInput>().actions;  ///these pieces of code identify the players unique inputs, allowing for multiple controllers
-        playerControl = inputAsset.FindActionMap("Player");     /// only janky thing about it is the "" for each control map variable name, but it works!
-        
+        playerControl = inputAsset.FindActionMap("PlayerControls");
+        menuControl = inputAsset.FindActionMap("MenuControls"); /// only janky thing about it is the "" for each control map variable name, but it works!
+        pauseMenu = FindObjectOfType<PauseMenu>();
     }
-
-
-
 
 
     private void OnEnable() ///handles the inputs, buttons only get detected like this
@@ -55,7 +57,9 @@ public class PlayerController : MonoBehaviour
         playerControl.FindAction("attack").started += AttackPressed;  ///using this as an example, when the action is "started" (pressed) it calls the function that does the thing
         move = playerControl.FindAction("Move");  ///assigns the unique controllers move and look (once again part oif what allows multiple controllers)
         look = playerControl.FindAction("Look");
-        playerControl.FindAction("LockDown").started += stickingToSurface;
+        playerControl.FindAction("Lockdown").started += stickingToSurface;
+        playerControl.FindAction("Pause").started += i => Pause();
+        menuControl.FindAction("Resume").started += i => Resume();
 
 
     }
@@ -64,16 +68,27 @@ public class PlayerController : MonoBehaviour
     {
         playerControl.FindAction("attack").started -= AttackPressed;   ///this disables the function almost immediatly, so when it is pressed it only happens once
         stickToSurface.action.performed -= stickingToSurface;
-        playerControl.FindAction("LockDown").started -= stickingToSurface;
+        playerControl.FindAction("Lockdown").started -= stickingToSurface;
+        playerControl.FindAction("Pause").started -= i => Pause();
+        menuControl.FindAction("Resume").started -= i => Resume();
 
 
     }
+    private void Pause()
+    {
+        playerinput.SwitchCurrentActionMap("MenuControls");
+        pauseMenu.Pause();
+    }
 
-
-
+    public void Resume()
+    {
+        playerinput.SwitchCurrentActionMap("PlayerControls");
+        pauseMenu.ResumeGame();
+    }
     private void AttackPressed(InputAction.CallbackContext context) ///makes shoot true which makes the chcrater shoot in update
     {
         shoot = true;
+        
         
     }
 
@@ -112,7 +127,7 @@ public class PlayerController : MonoBehaviour
             print("no move");
             rb.velocity = noMove;
         }
-        
+
         if (player == 1) ///THIS WHOLE BIT IS OLD CODE, I WILL REMOVE IT WHEN TWO CONTOLLERS WORK.
         {
             Vector2 PlayerInput = new Vector2(Input.GetAxisRaw("HorizontalKeyboard"), Input.GetAxisRaw("VerticalKeyboard")).normalized; ///gets playerinput
