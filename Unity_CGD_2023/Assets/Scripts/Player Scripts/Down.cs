@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Down : MonoBehaviour
 {
-    private bool downed = false;  /// change this to true when health reaches 0 (not yet implemented)
+    public bool downed = false;  /// change this to true when health reaches 0 (not yet implemented)
     private Rigidbody2D rb;   ///rigidbody referecne
     // Start is called before the first frame update
 
@@ -33,6 +33,7 @@ public class Down : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            this.GetComponent<CharacterStats>().Heal(20);
             downed = false;
             this.GetComponent<PlayerController>().playerControl.Enable();
         }

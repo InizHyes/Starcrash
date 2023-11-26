@@ -9,9 +9,11 @@ public class PlayerController : MonoBehaviour
 { /// some variables below may be uselss, was testing many things
     public Rigidbody2D rb;
     public float MoveSpeed = 100;
+    public float stickSpeed = 2;
     public float GunForce = 5;
     public Vector2 ForceToApply;
     public float ForceDamping;
+    private Vector3 lastVelocity;
     Vector2 MoveForce2;
     Vector2 MousePos;
     Vector2 PlayerPos;
@@ -101,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator stickTimer2() ///this start a timer to tick to ground then flips the variable. So it takes a second to stick and unstick, as a drawback 
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         sticking = !sticking;
         
 
@@ -114,18 +116,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        lastVelocity = rb.velocity;
         shooting = GetComponentInChildren<shootingScript>();
         shooting.shoot(player, shoot);
 
-        if (!sticking)
-        {
-            rb.velocity = MoveForce2; ///actually where movment happen
-        }
-        else
-        {
-            print("no move");
-            rb.velocity = noMove;
-        }
+        
 
         if (player == 1) ///THIS WHOLE BIT IS OLD CODE, I WILL REMOVE IT WHEN TWO CONTOLLERS WORK.
         {
@@ -144,11 +140,8 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonDown(0)) ///this function checks where the mouse is clicked and applies force to the player in the opposite direction
             {
                 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                ///print(MousePos);
                 PlayerPos = transform.position;
-                ///print(PlayerPos);
                 ForceDir = (MousePos - PlayerPos).normalized;
-                ///print(ForceDir);
                 ForceToApply = (ForceDir * GunForce * -1.0f); ///change gunforce to change knockback effect
             }
 
@@ -168,8 +161,7 @@ public class PlayerController : MonoBehaviour
             }
             else ///else if the player is supposed to be sticking, stop all momentum and momentum gain
             {
-                print("no move");
-                rb.velocity = noMove;
+                rb.velocity = PlayerInput * stickSpeed;
                 MoveForce2 = noMove;
             }
 
@@ -192,6 +184,7 @@ public class PlayerController : MonoBehaviour
                                                               
                     
             }
+           
 
 
 
@@ -207,28 +200,11 @@ public class PlayerController : MonoBehaviour
 
 
     private void OnCollisionEnter2D(Collision2D collision)
-    { ///this whole section does collision, its buggy as hell but it gets the job done for now as proof of concept
+    { ///collisions! works well now, halfs speed when colliding with anything
 
-        Vector2 CollDir = (collision.transform.position - transform.position).normalized;
-        if (collision.transform.position.y > transform.position.y)
-        {
-            MoveForce2.y = (CollDir.y * 1 * -1.0f);
-        }
-        if (collision.transform.position.y < transform.position.y)
-        {
-            MoveForce2.y = (CollDir.y * 1 * -1.0f);
-         
-        }
-        if (collision.transform.position.x < transform.position.x)
-        {
-            MoveForce2.x = (CollDir.x * 1 * -1.0f);
-
-        }
-        if (collision.transform.position.x > transform.position.x)
-        {
-            MoveForce2.x = (CollDir.x * 1 * -1.0f);
-
-        }
+        var collisionSpeed = lastVelocity.magnitude * 0.5f;
+        var direction2 = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
+        MoveForce2 = direction2 * Mathf.Max(collisionSpeed, 0f);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
