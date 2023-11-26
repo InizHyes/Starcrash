@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class MainMenu : MonoBehaviour
 {
     public GameObject menuScreen, settingsScreen, controlScreen, creditScreen;
-    public GameObject campaignButton, settingsButton, controlsButton, creditsButton, firstSettingsButton;
+    public GameObject playButton, settingsButton, controlsButton, creditsButton, firstSettingsButton;
 
     private GameObject lastActiveScreen;
 
@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
         if (Input.GetButtonDown("Cancel"))
         {
             CloseAllScreens();
+            menuScreen.SetActive(true);
         }
     }
 
@@ -41,7 +42,7 @@ public class MainMenu : MonoBehaviour
         // Set the selected button based on the last active screen
         if (lastActiveScreen == menuScreen)
         {
-            EventSystem.current.SetSelectedGameObject(campaignButton);
+            EventSystem.current.SetSelectedGameObject(playButton);
         }
         else if (lastActiveScreen == controlScreen)
         {
@@ -60,6 +61,7 @@ public class MainMenu : MonoBehaviour
     {
         // Open the control screen and set the selected button
         controlScreen.SetActive(true);
+        menuScreen.SetActive(false);
         EventSystem.current.SetSelectedGameObject(null);
     }
 
@@ -67,6 +69,7 @@ public class MainMenu : MonoBehaviour
     {
         // Open the options screen and set the selected button
         settingsScreen.SetActive (true);
+        menuScreen.SetActive(false);
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstSettingsButton);
     }
@@ -75,6 +78,7 @@ public class MainMenu : MonoBehaviour
     {
         // Open the credits screen and set the selected button
         creditScreen.SetActive(true);
+        menuScreen.SetActive(false);
         EventSystem.current.SetSelectedGameObject(null);
     }
 
