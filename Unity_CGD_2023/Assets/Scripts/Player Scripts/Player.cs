@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            print("no move");
+            //print("no move");
             rb.velocity = noMove;
         }
         
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
             }
             else ///else if the player is supposed to be sticking, stop all momentum and momentum gain
             {
-                print("no move");
+               // print("no move");
                 rb.velocity = noMove;
                 MoveForce2 = noMove;
             }
