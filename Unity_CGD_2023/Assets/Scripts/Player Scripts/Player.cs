@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     public float SpeedCap = 10;
     public int player = 0;
-    [SerializeField] private InputActionReference movement, attack, rotate, stickToSurface;
+    [SerializeField] private InputActionReference movement, attack, rotate, stickToSurface, WeaponSwapDown, WeaponSwapUp;
     private bool shoot = false;
 
     [SerializeField] PlayerInput playerinput;
@@ -32,6 +32,14 @@ public class PlayerController : MonoBehaviour
 
     /// Bullet work again, whilst very angry due to github eating all my work, apologies if it doesn't work yet - Arch
     shootingScript shooting;
+
+    // Weapon swapping using player controls - Arch
+    private InputAction swapBack;
+    private InputAction swapForward;
+    private bool swapForwardButton = false;
+    private bool swapBackButton = false;
+    public bool swapForwardTriggered = false;
+    public bool swapBackTriggered = false;
 
 
     private void Awake()
@@ -51,6 +59,8 @@ public class PlayerController : MonoBehaviour
         move = playerControl.FindAction("Move");  ///assigns the unique controllers move and look (once again part oif what allows multiple controllers)
         look = playerControl.FindAction("Look");
         playerControl.FindAction("LockDown").started += stickingToSurface;
+        playerControl.FindAction("WeaponSwapUp").started += WeaponSwappingUp;
+        playerControl.FindAction("WeaponSwapDown").started += WeaponSwappingDown;
 
 
     }
@@ -60,10 +70,19 @@ public class PlayerController : MonoBehaviour
         playerControl.FindAction("attack").started -= AttackPressed;   ///this disables the function almost immediatly, so when it is pressed it only happens once
         stickToSurface.action.performed -= stickingToSurface;
         playerControl.FindAction("LockDown").started -= stickingToSurface;
-
-
+        playerControl.FindAction("WeaponSwapUp").started -= WeaponSwappingUp;
+        playerControl.FindAction("WeaponSwapDown").started -= WeaponSwappingDown;
     }
 
+    private void WeaponSwappingUp(InputAction.CallbackContext context)
+    {
+        swapForwardButton = true;
+    }
+
+    private void WeaponSwappingDown(InputAction.CallbackContext context)
+    {
+        swapBackButton = true;
+    }
 
 
     private void AttackPressed(InputAction.CallbackContext context) ///makes shoot true which makes the chcrater shoot in update
@@ -163,11 +182,19 @@ public class PlayerController : MonoBehaviour
             if (shoot == true)  ///this function checks if shoot is true, then "shoots"
             {
                 print("GunFired");
+                shoot = false;     
+            }
 
-                 ///change gunforce to change knockback effect
-                shoot = false;
-                                                              
-                    
+            if(swapForwardButton)//checks if flag to set to true before setting the flag for swapping the weapon forward to true (handled by another script)
+            {
+                swapForwardTriggered = true;
+                swapForwardButton = false;
+            }
+
+            if(swapBackButton)//checks if flag to set to true before setting the flag for swapping the weapon backward to true (handled by another script)
+            {
+                swapBackTriggered = true;
+                swapBackButton = false;
             }
 
 

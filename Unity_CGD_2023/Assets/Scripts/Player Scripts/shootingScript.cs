@@ -124,4 +124,6 @@ public class shootingScript : MonoBehaviour
             firedBullet.GetComponent<Rigidbody2D>().velocity = (bulletDir + spreader) * bulletSpeed; //adds force to the bullet - Arch
         }
     }
+
+
 }
