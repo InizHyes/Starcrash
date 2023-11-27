@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -6,7 +7,19 @@ using UnityEngine;
 
 public class BossClass : EnemyClass
 {
+    // List of players
     private GameObject[] allPlayers;
+    private int currentPlayerNumeral;
+
+    // Attack cooldown
+    [Header("Boss Specific")]
+    [SerializeField] private float attackCooldown = 5f; // In seconds, can be set in inspector
+    private float attackCooldownValue = 0f;
+
+    // Damageable
+    private bool vulnerable = false; // Use setVulnerability() to change
+    private int maxHealth = 0;
+    private int threshold = 0;
 
     private void Start()
     {
@@ -29,18 +42,44 @@ public class BossClass : EnemyClass
                 // Make array of players and randomize it
                 allPlayers = GameObject.FindGameObjectsWithTag("Player");
                 shuffleArray(allPlayers);
+                currentPlayerNumeral = 0;
+
+                // Set health threshold (to 2/3rds, aka 20 health)
+                maxHealth = health;
+                threshold = Convert.ToInt32(maxHealth) * 2/3;
 
                 enemyState = State.Targeting;
                 break;
 
             case State.Targeting:
                 /*
-                 * This is where it would determine whether or not to spend time computating pathfinding
-                 * It would be if(line of sight blocked){ enemyState = Pathfinding }
-                 * But not needed now so im just assuming no LOS block
+                 * Countdown attack
+                 * Set target to next in the list of randomized players
                  */
 
-                enemyState = State.Attacking;
+                // Attack cooldown countdown
+                if (attackCooldownValue > 0f)
+                {
+                    attackCooldownValue -= Time.deltaTime;
+                }
+
+                // Countdown over, re-target and attack
+                else
+                {
+                    // Target next player in array
+                    if (currentPlayerNumeral >= allPlayers.Length)
+                    {
+                        //Reset numeral and reshuffle list
+                        shuffleArray(allPlayers);
+                        currentPlayerNumeral = 0;
+                    }
+                    target = allPlayers[currentPlayerNumeral];
+                    currentPlayerNumeral++;
+
+                    // Start attack cooldown
+                    attackCooldownValue = attackCooldown;
+                    enemyState = State.Attacking;
+                }
                 break;
 
             case State.Pathfinding:
@@ -48,10 +87,15 @@ public class BossClass : EnemyClass
                 break;
 
             case State.Moving:
-                //REDUNDANT
+                //REDUNDANT (use as "stunned"?)
                 break;
 
             case State.Attacking:
+                /*
+                 * Attack logic
+                 * (multiple attacks?)
+                 */
+
                 break;
 
             case State.Dead:
@@ -81,10 +125,51 @@ public class BossClass : EnemyClass
         {
             // Store old value, move random value, put back old value
             temp = gameObjectArray[i];
-            rng = Random.Range(i, gameObjectArray.Length);
+            rng = UnityEngine.Random.Range(i, gameObjectArray.Length);
 
             gameObjectArray[i] = gameObjectArray[rng];
             gameObjectArray[rng] = temp;
         }
+    }
+
+    public override void damageDetection(int damage)
+    {
+        /*
+         * Deals damage to the enemy, called by the bullet itself
+         * Checks if itself is dead ._.
+         * 
+         * OVERRIDE of EnemyClass damageDetection
+         */
+
+        // Check if vulnerable
+        if (vulnerable)
+        {
+            health -= damage;
+
+            // Check if dead after damage detection
+            if (health <= 0)
+            {
+                enemyState = State.Dead;
+            }
+
+            // Check if damage reached threshold
+            else if (health <= threshold)
+            {
+                // Reset vulnerability and set new threshold
+                vulnerable = false;
+                threshold -= Convert.ToInt32(maxHealth * 1/3); // Aka 20-10, or 10-10
+            }
+        }
+    }
+
+    public void setVulnerability(bool value)
+    {
+        /*
+         * Set boss vulnerability here
+         * Set to True or False
+         * Done here so that logic can be run in the event of bug fixes being required
+         */
+
+        vulnerable = value;
     }
 }

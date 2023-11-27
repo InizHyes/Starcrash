@@ -124,7 +124,7 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
-    public void damageDetection(int damage)
+    public virtual void damageDetection(int damage)
     {
         /*
          * Deals damage to the enemy, called by the bullet itself
