@@ -6,23 +6,12 @@ using UnityEngine.InputSystem;
 public class playerManager : MonoBehaviour
 {
     public int playerCount = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
 
     private void OnPlayerJoined(PlayerInput playerInput)
     {
-        playerCount++;
-        print(playerCount);
-        if (playerCount == 1)
+        playerCount++;  ///adds to playercount, can keep track of how many players in the game
+        if (playerCount == 1)   ///these if and else assign coloured based on playercount
         {
             playerInput.GetComponent<SpriteRenderer>().color = new Color(0, 0, 255);
         }

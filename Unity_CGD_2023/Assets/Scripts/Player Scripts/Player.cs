@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
     private void OnEnable() ///handles the inputs, buttons only get detected like this
     {
         playerControl.FindAction("attack").started += AttackPressed;  ///using this as an example, when the action is "started" (pressed) it calls the function that does the thing
+        playerControl.FindAction("attack").canceled += AttackReleased;
         move = playerControl.FindAction("Move");  ///assigns the unique controllers move and look (once again part oif what allows multiple controllers)
         look = playerControl.FindAction("Look");
         playerControl.FindAction("Lockdown").started += stickingToSurface;
@@ -68,6 +69,7 @@ public class PlayerController : MonoBehaviour
     private void OnDisable() ///disables the function when the button is released
     {
         playerControl.FindAction("attack").started -= AttackPressed;   ///this disables the function almost immediatly, so when it is pressed it only happens once
+        playerControl.FindAction("attack").started -= AttackReleased;
         stickToSurface.action.performed -= stickingToSurface;
         playerControl.FindAction("Lockdown").started -= stickingToSurface;
         playerControl.FindAction("Pause").started -= i => Pause();
@@ -90,7 +92,14 @@ public class PlayerController : MonoBehaviour
     {
         shoot = true;
         
-        
+    }
+
+    private void AttackReleased(InputAction.CallbackContext context) ///makes shoot flase on release
+    {
+        shoot = false;
+
+
+
     }
 
     private void stickingToSurface(InputAction.CallbackContext context) ///used to make the player "stick" to the ground. Starts timer to initilise 
@@ -175,12 +184,12 @@ public class PlayerController : MonoBehaviour
 
             if (shoot == true)  ///this function checks if shoot is true, then "shoots"
             {
-                print("GunFired");
+                
                 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
                 ForceDir = transform.right;
-                ForceToApply = (ForceDir * GunForce * -1.0f); ///change gunforce to change knockback effect
-                shoot = false;
+                ///ForceToApply = (ForceDir * GunForce * -1.0f); ///change gunforce to change knockback effect
+                
                                                               
                     
             }
