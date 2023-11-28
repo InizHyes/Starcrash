@@ -170,6 +170,15 @@ public class PlayerController : MonoBehaviour
         shooting = GetComponentInChildren<shootingScript>();
         shooting.Shoot(player, shoot);
 
+        if (!sticking)
+        {
+            rb.velocity = MoveForce2; ///actually where movment happen
+        }
+        else
+        {
+            //print("no move");
+            rb.velocity = noMove;
+        }
         
 
         if (player == 1) ///THIS WHOLE BIT IS OLD CODE, I WILL REMOVE IT WHEN TWO CONTOLLERS WORK.
