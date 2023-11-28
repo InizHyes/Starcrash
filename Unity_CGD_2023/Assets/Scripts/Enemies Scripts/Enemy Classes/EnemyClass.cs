@@ -20,9 +20,13 @@ public class EnemyClass : MonoBehaviour
     [SerializeField] protected GameObject spawnLogic;
     protected SpawnLogic NPCdeathCheck;
 
-    //Item drop variables
+    // Item drop variables
     [SerializeField] private GameObject[] droppedObejcts;
     [Tooltip("Odds of dropping, 1/x chance")][SerializeField] private int dropOdds = 1;
+
+    // Attack cooldown
+    [SerializeField] protected float attackCooldown = 5f; // In seconds, can be set in inspector
+    protected float attackCooldownValue = 0f;
 
     // States
     protected enum State
@@ -179,6 +183,28 @@ public class EnemyClass : MonoBehaviour
         if (enemyState != State.Dead)
         {
             enemyState = (State)Mathf.Clamp(stateValue, 0, 4);
+        }
+    }
+
+    protected bool attackCooldwonLogic()
+    {
+        /*
+         * Counts down the attack timer
+         * Returns true if attackCooldown is reached
+         * Run every update
+         */
+
+        if (attackCooldownValue > 0f)
+        {
+            // Countdown attack
+            attackCooldownValue -= Time.deltaTime;
+            return false;
+        }
+        else
+        {
+            // Reset attack cooldown
+            attackCooldownValue = attackCooldown;
+            return true;
         }
     }
 }

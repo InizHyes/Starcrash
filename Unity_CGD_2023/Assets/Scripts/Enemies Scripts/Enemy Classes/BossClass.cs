@@ -11,10 +11,7 @@ public class BossClass : EnemyClass
     private GameObject[] allPlayers;
     private int currentPlayerNumeral;
 
-    // Attack cooldown
-    [Header("Boss Specific")]
-    [SerializeField] private float attackCooldown = 5f; // In seconds, can be set in inspector
-    private float attackCooldownValue = 0f;
+    //[Header("Boss Specific")]
 
     // Damageable
     private bool vulnerable = false; // Use setVulnerability() to change
@@ -58,13 +55,7 @@ public class BossClass : EnemyClass
                  */
 
                 // Attack cooldown countdown
-                if (attackCooldownValue > 0f)
-                {
-                    attackCooldownValue -= Time.deltaTime;
-                }
-
-                // Countdown over, re-target and attack
-                else
+                if (attackCooldwonLogic())
                 {
                     // Target next player in array
                     if (currentPlayerNumeral >= allPlayers.Length)
@@ -76,8 +67,6 @@ public class BossClass : EnemyClass
                     target = allPlayers[currentPlayerNumeral];
                     currentPlayerNumeral++;
 
-                    // Start attack cooldown
-                    attackCooldownValue = attackCooldown;
                     enemyState = State.Attacking;
                 }
                 break;
