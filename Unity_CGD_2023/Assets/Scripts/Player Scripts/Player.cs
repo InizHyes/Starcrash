@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     Vector2 MousePos;
     Vector2 PlayerPos;
     Vector2 ForceDir;
+    Vector2 MoveForce2;
     Vector2 LastVel;
     Vector2 RightStickOld;
     public Vector2 noMove = new Vector2(0, 0);
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     public float SpeedCap = 10;
     public int player = 0;
-    [SerializeField] private InputActionReference movement, attack, rotate, stickToSurface;
+    [SerializeField] private InputActionReference movement, attack, rotate, stickToSurface, WeaponSwapDown, WeaponSwapUp;
     private bool shoot = false;
 
     [SerializeField] public PlayerInput playerinput;
@@ -44,6 +45,15 @@ public class PlayerController : MonoBehaviour
 
     /// Bullet work again, whilst very angry due to github eating all my work, apologies if it doesn't work yet - Arch
     shootingScript shooting;
+
+    // Weapon swapping using player controls - Arch
+    private InputAction swapBack;
+    private InputAction swapForward;
+    private bool swapForwardButton = false;
+    private bool swapBackButton = false;
+    public bool swapForwardTriggered = false;
+    public bool swapBackTriggered = false;
+
 
     private void Awake()
     {
@@ -64,6 +74,9 @@ public class PlayerController : MonoBehaviour
         playerControl.FindAction("Pause").started += i => Pause();
         menuControl.FindAction("Resume").started += i => Resume();
         playerControl.FindAction("Interact").started += i => Interact();
+        playerControl.FindAction("LockDown").started += stickingToSurface;
+        playerControl.FindAction("WeaponSwapUp").started += WeaponSwappingUp;
+        playerControl.FindAction("WeaponSwapDown").started += WeaponSwappingDown;
 
 
     }
@@ -77,6 +90,10 @@ public class PlayerController : MonoBehaviour
         playerControl.FindAction("Pause").started -= i => Pause();
         menuControl.FindAction("Resume").started -= i => Resume();
         playerControl.FindAction("Interact").started -= i => Interact();
+        playerControl.FindAction("LockDown").started -= stickingToSurface;
+        playerControl.FindAction("WeaponSwapUp").started -= WeaponSwappingUp;
+        playerControl.FindAction("WeaponSwapDown").started -= WeaponSwappingDown;
+    }
 
     }
     private void Pause()
@@ -84,11 +101,18 @@ public class PlayerController : MonoBehaviour
         playerinput.SwitchCurrentActionMap("MenuControls");
         pauseMenu.Pause();
     }
+    private void WeaponSwappingUp(InputAction.CallbackContext context)
+    {
+        swapForwardButton = true;
+    }
 
     public void Resume()
     {
         playerinput.SwitchCurrentActionMap("PlayerControls");
         pauseMenu.ResumeGame();
+    private void WeaponSwappingDown(InputAction.CallbackContext context)
+    {
+        swapBackButton = true;
     }
 
     private void Interact()
@@ -145,7 +169,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         shooting = GetComponentInChildren<shootingScript>();
-        shooting.shoot(player, shoot);
+        shooting.Shoot(player, shoot);
 
         
 
@@ -159,18 +183,15 @@ public class PlayerController : MonoBehaviour
             Vector2 MouseDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;  ///these three lines make the player look at the mouse
             var angle = Mathf.Atan2(MouseDir.y, MouseDir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            
 
-
-
-
-            if (Input.GetMouseButtonDown(0)) ///this function checks where the mouse is clicked and applies force to the player in the opposite direction
+            /*if (Input.GetMouseButtonDown(0)) ///this function checks where the mouse is clicked and applies force to the player in the opposite direction
             {
                 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 PlayerPos = transform.position;
                 ForceDir = (MousePos - PlayerPos).normalized;
                 ForceToApply = (ForceDir * GunForce * -1.0f); ///change gunforce to change knockback effect
-            }
-
+            }*/
         }
         else if (player == 2) ///CONTROLLER CONTROLS
         {
@@ -184,6 +205,7 @@ public class PlayerController : MonoBehaviour
                 MoveForce2 = MoveForce2 + PlayerInput * MoveSpeed; ///adding the players input onto the current move vector 2, never loses momentum as it is adding rather than setting
                 MoveForce2 += ForceToApply; ///force to apply is instant force, e.g if you wanted to fire a gun (below in mouse section) change apply force to alter current movement
                 ForceToApply /= ForceDamping; ///so you arent just constantly adding the same force
+                
             }
             else ///else if the player is supposed to be sticking, stop all momentum and momentum gain
             {
@@ -203,14 +225,27 @@ public class PlayerController : MonoBehaviour
             {
                 
                 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                print("GunFired");
+                shoot = false;     
+            }
 
                 ForceDir = transform.right;
                 ///ForceToApply = (ForceDir * GunForce * -1.0f); ///change gunforce to change knockback effect
                 
                                                               
                     
+            if(swapForwardButton)//checks if flag to set to true before setting the flag for swapping the weapon forward to true (handled by another script)
+            {
+                swapForwardTriggered = true;
+                swapForwardButton = false;
             }
            
+
+            if(swapBackButton)//checks if flag to set to true before setting the flag for swapping the weapon backward to true (handled by another script)
+            {
+                swapBackTriggered = true;
+                swapBackButton = false;
+            }
 
 
 
@@ -227,6 +262,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     { ///collisions! works well now, halfs speed when colliding with anything
+private void OnCollisionEnter2D(Collision2D collision)
+    { ///this whole section does collision, its buggy as hell but it gets the job done for now as proof of concept
 
         var collisionSpeed = lastVelocity.magnitude * 0.5f;
         var direction2 = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
