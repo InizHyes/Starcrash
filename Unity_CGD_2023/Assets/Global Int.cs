@@ -42,6 +42,7 @@ public class GlobalIntegerScript : MonoBehaviour
 
     private void CheckForActivation(ColorType color)
     {
+        /*
         switch (color)
         {
             case ColorType.Orange:
@@ -73,6 +74,7 @@ public class GlobalIntegerScript : MonoBehaviour
                 }
                 break;
         }
+        */
     }
 
     private bool IsColorActivated(ColorType color)

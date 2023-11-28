@@ -17,6 +17,10 @@ public class PressurePlateScript : MonoBehaviour
     // Variable to check if this is the first pressure plate
     public bool isFirstPressurePlate = false;
 
+    // Keep track of players on each plate
+    private bool playerOnThisPlate = false;
+    private bool playerOnOtherPlate = false;
+
     private void Update()
     {
         if (isActivated)
@@ -27,16 +31,18 @@ public class PressurePlateScript : MonoBehaviour
             {
                 if (isFirstPressurePlate)
                 {
-                    Debug.Log("First pressure plate (" + colorType + ") activated.");
-                    globalIntegerScript.IncreaseGlobalInteger(colorType);
+                    //Debug.Log("First pressure plate (" + colorType + ") activated.");
                     isFirstPressurePlateActivated = true;
+                    if (playerOnOtherPlate)
+                    {
+                        // Both players have stood on plates with the same color tag
+                        globalIntegerScript.IncreaseGlobalInteger();
+                        Debug.Log("Global integer increased.");
+                        ResetPressurePlate(); // Reset for future activations
+                    }
                 }
-
-                ResetPressurePlate();
             }
         }
-
-        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -45,6 +51,22 @@ public class PressurePlateScript : MonoBehaviour
         {
             Debug.Log("Player touched the pressure plate.");
             isActivated = true;
+
+            if (isFirstPressurePlate)
+            {
+                playerOnThisPlate = true;
+            }
+            else
+            {
+                playerOnOtherPlate = true;
+                if (isFirstPressurePlateActivated && playerOnThisPlate)
+                {
+                    // Both players have stood on plates with the same color tag
+                    globalIntegerScript.IncreaseGlobalInteger();
+                    Debug.Log("Global integer increased.");
+                    ResetPressurePlate(); // Reset for future activations
+                }
+            }
         }
     }
 
@@ -52,6 +74,14 @@ public class PressurePlateScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (isFirstPressurePlate)
+            {
+                playerOnThisPlate = false;
+            }
+            else
+            {
+                playerOnOtherPlate = false;
+            }
             ResetPressurePlate();
         }
     }
@@ -61,19 +91,6 @@ public class PressurePlateScript : MonoBehaviour
         isActivated = false;
         currentTime = 0f;
     }
-    public void ActivateSecondPressurePlate()
-    {
-        Debug.Log("Second pressure plate (" + colorType + ") activated.");
-
-        if (isFirstPressurePlateActivated && isActivated)
-        {
-            globalIntegerScript.IncreaseGlobalInteger();
-            Debug.Log("Second pressure plate activated. Global integer increased.");
-            isFirstPressurePlateActivated = false; // Reset for future activations
-        }
-        // Implement the logic for activating the second pressure plate
-    }
-
 }
 
 // Enum to represent different color types
