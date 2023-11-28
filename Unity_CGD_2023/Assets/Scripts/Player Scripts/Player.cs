@@ -12,13 +12,13 @@ public class PlayerController : MonoBehaviour
     public float GunForce = 5;
     public Vector2 ForceToApply;
     public float ForceDamping;
-    Vector2 MoveForce2;
+    public Vector2 MoveForce2;
     Vector2 MousePos;
     Vector2 PlayerPos;
     Vector2 ForceDir;
     Vector2 LastVel;
     Vector2 RightStickOld;
-    Vector2 noMove = new Vector2(0, 0);
+    public Vector2 noMove = new Vector2(0, 0);
     public bool sticking = false;
     public Camera view;
     public GameObject otherPlayer; //For vertical slice
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     private InputAction look;
 
     PauseMenu pauseMenu;
+    Interactable currentInteractable;
 
     /// Bullet work again, whilst very angry due to github eating all my work, apologies if it doesn't work yet - Arch
     shootingScript shooting;
@@ -59,6 +60,7 @@ public class PlayerController : MonoBehaviour
         playerControl.FindAction("Lockdown").started += stickingToSurface;
         playerControl.FindAction("Pause").started += i => Pause();
         menuControl.FindAction("Resume").started += i => Resume();
+        playerControl.FindAction("Interact").started += i => Interact();
 
 
     }
@@ -70,7 +72,7 @@ public class PlayerController : MonoBehaviour
         playerControl.FindAction("Lockdown").started -= stickingToSurface;
         playerControl.FindAction("Pause").started -= i => Pause();
         menuControl.FindAction("Resume").started -= i => Resume();
-
+        playerControl.FindAction("Interact").started -= i => Interact();
 
     }
     private void Pause()
@@ -84,6 +86,23 @@ public class PlayerController : MonoBehaviour
         playerinput.SwitchCurrentActionMap("PlayerControls");
         pauseMenu.ResumeGame();
     }
+
+    private void Interact()
+    {
+        if (currentInteractable != null)
+        {
+            currentInteractable.Interact();
+        }
+    }
+    public void SwitchActionMapToPlayer()
+    {
+        playerinput.SwitchCurrentActionMap("PlayerControls");
+    }
+    public void SwitchActionMapToMenu()
+    {
+        playerinput.SwitchCurrentActionMap("MenuControls");
+    }
+
     private void AttackPressed(InputAction.CallbackContext context) ///makes shoot true which makes the chcrater shoot in update
     {
         shoot = true;
@@ -114,6 +133,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentInteractable = FindAnyObjectByType<Interactable>();
         shooting = GetComponentInChildren<shootingScript>();
         shooting.shoot(player, shoot);
 
