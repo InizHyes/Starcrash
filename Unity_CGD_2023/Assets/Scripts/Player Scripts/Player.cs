@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     Vector2 MousePos;
     Vector2 PlayerPos;
     Vector2 ForceDir;
-    Vector2 MoveForce2;
     Vector2 LastVel;
     Vector2 RightStickOld;
     public Vector2 noMove = new Vector2(0, 0);
@@ -70,11 +69,10 @@ public class PlayerController : MonoBehaviour
         playerControl.FindAction("attack").canceled += AttackReleased;
         move = playerControl.FindAction("Move");  ///assigns the unique controllers move and look (once again part oif what allows multiple controllers)
         look = playerControl.FindAction("Look");
-        playerControl.FindAction("Lockdown").started += stickingToSurface;
         playerControl.FindAction("Pause").started += i => Pause();
         menuControl.FindAction("Resume").started += i => Resume();
         playerControl.FindAction("Interact").started += i => Interact();
-        playerControl.FindAction("LockDown").started += stickingToSurface;
+        playerControl.FindAction("Lockdown").started += stickingToSurface;
         playerControl.FindAction("WeaponSwapUp").started += WeaponSwappingUp;
         playerControl.FindAction("WeaponSwapDown").started += WeaponSwappingDown;
 
@@ -85,17 +83,16 @@ public class PlayerController : MonoBehaviour
     {
         playerControl.FindAction("attack").started -= AttackPressed;   ///this disables the function almost immediatly, so when it is pressed it only happens once
         playerControl.FindAction("attack").started -= AttackReleased;
-        stickToSurface.action.performed -= stickingToSurface;
         playerControl.FindAction("Lockdown").started -= stickingToSurface;
         playerControl.FindAction("Pause").started -= i => Pause();
         menuControl.FindAction("Resume").started -= i => Resume();
         playerControl.FindAction("Interact").started -= i => Interact();
-        playerControl.FindAction("LockDown").started -= stickingToSurface;
         playerControl.FindAction("WeaponSwapUp").started -= WeaponSwappingUp;
         playerControl.FindAction("WeaponSwapDown").started -= WeaponSwappingDown;
     }
 
-    }
+
+
     private void Pause()
     {
         playerinput.SwitchCurrentActionMap("MenuControls");
@@ -110,6 +107,8 @@ public class PlayerController : MonoBehaviour
     {
         playerinput.SwitchCurrentActionMap("PlayerControls");
         pauseMenu.ResumeGame();
+    }
+
     private void WeaponSwappingDown(InputAction.CallbackContext context)
     {
         swapBackButton = true;
@@ -260,8 +259,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    { ///collisions! works well now, halfs speed when colliding with anything
 private void OnCollisionEnter2D(Collision2D collision)
     { ///this whole section does collision, its buggy as hell but it gets the job done for now as proof of concept
 
