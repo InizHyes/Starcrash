@@ -225,7 +225,6 @@ public class PlayerController : MonoBehaviour
                 
                 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 print("GunFired");
-                shoot = false;     
             }
 
                 ForceDir = transform.right;
