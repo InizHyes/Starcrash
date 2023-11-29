@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7521929107562234851}
   - component: {fileID: 5873436331731796754}
   m_Layer: 3
-  m_Name: Gun 1
+  m_Name: L2022 Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6375, y: 0.1375, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1698640159382196524}
@@ -47,16 +47,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunPoint: {fileID: 1698640159382196524}
   bullet: {fileID: 9099253716168194602, guid: 0366f21fadf554043bbf5f23003b72b8, type: 3}
-  fireRate: 15
+  fireRate: 3
   readyToShoot: 0
-  recoilPower: 0.075
-  bulletSpeed: 15
+  recoilPower: 0.05
+  bulletSpeed: 10
   numberOfBullets: 1
-  spread: 0.05
-  magSize: 100
-  ammoReserve: 400
+  spread: 0.1
+  magSize: 10
+  maxAmmoReserves: 0
+  ammoReserve: 100
   ammoLoaded: 0
-  reloadTime: 0.2
+  totalAmmoAllowed: 0
+  totalAmmoHeld: 0
+  reloadTime: 1
 --- !u!1 &5597418569736140652
 GameObject:
   m_ObjectHideFlags: 0
