@@ -6,33 +6,33 @@ using UnityEngine.UI;
 public class Timer_UI : MonoBehaviour
 {
     // Variables
-    public Image uifil;
+    public Image uifill;
 
-    public int TotalTime;
+    public int totalTime;
 
-    private int TimeRemaining;
+    private int timeRemaining;
 
     // Start is called before the first frame update
     private void Start()
     {
         // Sets the start time
-        being(TotalTime);
+        being(totalTime);
     }
 
     private void being(int Second)
     {
         // Starts the timer
-        TimeRemaining = Second;
+        timeRemaining = Second;
         StartCoroutine(UpdateTimer());
     }
 
     private IEnumerator UpdateTimer()
     {
         // Updates the timer every second
-        while(TimeRemaining >= 0)
+        while(timeRemaining >= 0)
         {
-            uifil.fillAmount = Mathf.InverseLerp(0, TotalTime, TimeRemaining);
-            TimeRemaining--;
+            uifill.fillAmount = Mathf.InverseLerp(0, totalTime, timeRemaining);
+            timeRemaining--;
             yield return new WaitForSeconds(1f);
         }
         OnEnd();
