@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class shootingScript : MonoBehaviour
 {
+    AudioSource audio;
+
+    [SerializeField]
+    private AudioClip gunShot;
+
+    [SerializeField]
+    private AudioClip unload;
+
+    [SerializeField]
+    private AudioClip reload;
+
     [SerializeField]
     private Transform gunPoint;
 
@@ -51,6 +62,8 @@ public class shootingScript : MonoBehaviour
 
     [SerializeField]
     private float maximumAmmoPickup;
+
+    private float finishReload;
   
 
     Vector2 MousePos; //Part of Sean's recoil scripting
@@ -61,6 +74,7 @@ public class shootingScript : MonoBehaviour
 
     private void Awake()
     {
+        audio = GetComponent<AudioSource>();
         Player = GetComponentInParent<PlayerController>();
         ammoLoaded = magSize;
         totalAmmoAllowed = magSize + maxAmmoReserves;
@@ -71,11 +85,12 @@ public class shootingScript : MonoBehaviour
     {
         if (playerNum == 1)
         {
-            if (Input.GetMouseButton(0))
+            if (ammoLoaded > 0)
             {
-                if (ammoLoaded > 0)
+
+                if (Time.time > readyToShoot)
                 {
-                    if (Time.time > readyToShoot)
+                    if (Input.GetMouseButton(0))
                     {
                         MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);//Part of Sean's recoil scripting
                         PlayerPos = Player.gameObject.transform.position;
@@ -83,21 +98,25 @@ public class shootingScript : MonoBehaviour
                         readyToShoot = Time.time + 1 / fireRate;
                         FireBullet();
                         Player.ForceToApply = (ForceDir * recoilPower * -1.0f); //Part of Sean's recoil scripting         
+                        audio.clip = gunShot;
+                        audio.Play();
                         ammoLoaded -= 1;
                         totalAmmoHeld = ammoLoaded + ammoReserve;
                     }
                 }
+            }
 
-                else if (ammoLoaded <= 0)
+            if (ammoLoaded <= 0)
+            {
+                if (ammoReserve > 0)
                 {
-                    if (ammoReserve > 0)
+                    if (Time.time > readyToShoot)
                     {
-                        if (Time.time > readyToShoot)
-                        {
-                            readyToShoot = Time.time + 1 / reloadTime;
-                            ammoLoaded = magSize;
-                            ammoReserve -= magSize;
-                        }
+                        readyToShoot = Time.time + 1 * reloadTime;
+                        audio.clip = reload;
+                        audio.Play();
+                        ammoLoaded = magSize;
+                        ammoReserve -= magSize;
                     }
                 }
             }
@@ -115,21 +134,25 @@ public class shootingScript : MonoBehaviour
                         readyToShoot = Time.time + 1 / fireRate;
                         FireBullet();
                         Player.ForceToApply = (ForceDir * recoilPower * -1.0f); //Part of Sean's recoil scripting         
+                        audio.clip = gunShot;
+                        audio.Play();
                         ammoLoaded -= 1;
                         totalAmmoHeld = ammoLoaded + ammoReserve;
                     }
                 }
+            }
 
-                else if (ammoLoaded <= 0)
+            if (ammoLoaded <= 0)
+            {
+                if (ammoReserve > 0)
                 {
-                    if (ammoReserve > 0)
+                    if (Time.time > readyToShoot)
                     {
-                        if (Time.time > readyToShoot)
-                        {
-                            readyToShoot = Time.time + 1 / reloadTime;
-                            ammoLoaded = magSize;
-                            ammoReserve -= magSize;
-                        }
+                        readyToShoot = Time.time + 1 / reloadTime;
+                        audio.clip = reload;
+                        audio.Play();
+                        ammoLoaded = magSize;      
+                        ammoReserve -= magSize;
                     }
                 }
             }
