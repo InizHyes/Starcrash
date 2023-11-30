@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7521929107562234851}
   - component: {fileID: 5873436331731796754}
+  - component: {fileID: 7750553006808106226}
   m_Layer: 3
   m_Name: Goretti M8 Shotgun
   m_TagString: Untagged
@@ -45,6 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e060e6de865b69e47b6dc820a39d4000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunShot: {fileID: 8300000, guid: b096c64debbe7c0418beee33bda00974, type: 3}
+  unload: {fileID: 8300000, guid: 04d82a4cf1d87cf4cba9ef7a33b0561a, type: 3}
+  reload: {fileID: 8300000, guid: dc51b51a42c07d744bfe53a9c3728426, type: 3}
   gunPoint: {fileID: 1698640159382196524}
   bullet: {fileID: 9099253716168194602, guid: 70ca23ef80cd04d4381ea38d55307e5d, type: 3}
   fireRate: 1
@@ -53,13 +57,110 @@ MonoBehaviour:
   bulletSpeed: 15
   numberOfBullets: 10
   spread: 1
+  ammoLoaded: 0
+  ammoReserve: 32
   magSize: 8
   maxAmmoReserves: 0
-  ammoReserve: 32
-  ammoLoaded: 0
   totalAmmoAllowed: 0
   totalAmmoHeld: 0
-  reloadTime: 0.4
+  reloadTime: 2.5
+  maximumAmmoPickup: 0
+--- !u!82 &7750553006808106226
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891161243228588003}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5597418569736140652
 GameObject:
   m_ObjectHideFlags: 0
