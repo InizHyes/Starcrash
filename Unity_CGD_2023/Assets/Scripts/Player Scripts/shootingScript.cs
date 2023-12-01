@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class shootingScript : MonoBehaviour
 {
+    AudioSource audio;
+
+    [SerializeField]
+    private AudioClip gunShot;
+
+    [SerializeField]
+    private AudioClip unload;
+
+    [SerializeField]
+    private AudioClip reload;
+
     [SerializeField]
     private Transform gunPoint;
 
@@ -29,16 +40,16 @@ public class shootingScript : MonoBehaviour
     private float spread;
 
     [SerializeField]
-    private int magSize;
-
-    [SerializeField]
-    private int maxAmmoReserves;
+    public int ammoLoaded;
 
     [SerializeField]
     public int ammoReserve;
 
     [SerializeField]
-    public int ammoLoaded;
+    private int magSize;
+
+    [SerializeField]
+    private int maxAmmoReserves;
 
     [SerializeField]
     public int totalAmmoAllowed;
@@ -49,6 +60,12 @@ public class shootingScript : MonoBehaviour
     [SerializeField]
     private float reloadTime;
 
+    [SerializeField]
+    private float maximumAmmoPickup;
+
+    private float finishReload;
+  
+
     Vector2 MousePos; //Part of Sean's recoil scripting
     Vector2 PlayerPos; //Part of Sean's recoil scripting
     Vector2 ForceDir; //Part of Sean's recoil scripting
@@ -57,20 +74,23 @@ public class shootingScript : MonoBehaviour
 
     private void Awake()
     {
+        audio = GetComponent<AudioSource>();
         Player = GetComponentInParent<PlayerController>();
         ammoLoaded = magSize;
         totalAmmoAllowed = magSize + maxAmmoReserves;
+        maximumAmmoPickup = totalAmmoAllowed - totalAmmoHeld;
     }
 
     public void Shoot(int playerNum, bool controllerShoot)
     {
         if (playerNum == 1)
         {
-            if (Input.GetMouseButton(0))
+            if (ammoLoaded > 0)
             {
-                if (ammoLoaded > 0)
+
+                if (Time.time > readyToShoot)
                 {
-                    if (Time.time > readyToShoot)
+                    if (Input.GetMouseButton(0))
                     {
                         MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);//Part of Sean's recoil scripting
                         PlayerPos = Player.gameObject.transform.position;
@@ -78,37 +98,62 @@ public class shootingScript : MonoBehaviour
                         readyToShoot = Time.time + 1 / fireRate;
                         FireBullet();
                         Player.ForceToApply = (ForceDir * recoilPower * -1.0f); //Part of Sean's recoil scripting         
+                        audio.clip = gunShot;
+                        audio.Play();
                         ammoLoaded -= 1;
                         totalAmmoHeld = ammoLoaded + ammoReserve;
                     }
                 }
+            }
 
-                else if (ammoLoaded <= 0)
+            if (ammoLoaded <= 0)
+            {
+                if (ammoReserve > 0)
                 {
-                    if (ammoReserve > 0)
+                    if (Time.time > readyToShoot)
                     {
-                        if (Time.time > readyToShoot)
-                        {
-                            readyToShoot = Time.time + 1 / reloadTime;
-                            ammoLoaded = magSize;
-                            ammoReserve -= magSize;
-                        }
+                        readyToShoot = Time.time + 1 * reloadTime;
+                        audio.clip = reload;
+                        audio.Play();
+                        ammoLoaded = magSize;
+                        ammoReserve -= magSize;
                     }
                 }
             }
         }
 
-        else if (playerNum == 2)
+        if (playerNum == 2)
         {
             if (controllerShoot)
             {
-                if (Time.time > readyToShoot)
+                if (ammoLoaded > 0)
                 {
-                    ForceDir = Player.gameObject.transform.right;
-                    
-                    readyToShoot = Time.time + 1 / fireRate;
-                    FireBullet();
-                    Player.ForceToApply = (ForceDir * recoilPower * -1.0f);
+                    if (Time.time > readyToShoot)
+                    {
+                        ForceDir = Player.gameObject.transform.right;//Part of Sean's recoil scripting
+                        readyToShoot = Time.time + 1 / fireRate;
+                        FireBullet();
+                        Player.ForceToApply = (ForceDir * recoilPower * -1.0f); //Part of Sean's recoil scripting         
+                        audio.clip = gunShot;
+                        audio.Play();
+                        ammoLoaded -= 1;
+                        totalAmmoHeld = ammoLoaded + ammoReserve;
+                    }
+                }
+            }
+
+            if (ammoLoaded <= 0)
+            {
+                if (ammoReserve > 0)
+                {
+                    if (Time.time > readyToShoot)
+                    {
+                        readyToShoot = Time.time + 1 / reloadTime;
+                        audio.clip = reload;
+                        audio.Play();
+                        ammoLoaded = magSize;      
+                        ammoReserve -= magSize;
+                    }
                 }
             }
         }
