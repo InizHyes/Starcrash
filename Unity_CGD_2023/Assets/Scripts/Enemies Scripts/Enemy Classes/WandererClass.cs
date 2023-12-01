@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class WandererClass : EnemyClass
 {
-    [Header("Wanderer Specific")]
-
     private Animator animate;
 
+    [Header("Wanderer Specific")]
     public GameObject bulletPrefab;
 
     public Transform gunPoint;

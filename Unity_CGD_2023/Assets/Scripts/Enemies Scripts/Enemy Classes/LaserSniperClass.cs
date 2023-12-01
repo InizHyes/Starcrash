@@ -8,6 +8,7 @@ public class LaserSniperClass : EnemyClass
     [Header("Laser Sniper Specific")]
     [SerializeField] private GameObject childLaser;
     [SerializeField] private int attackTimer = 1;
+    public int laserDamage = 1; // This is public but should not be accessed outside of Laserdetection Script
     //bool laserReference = false;
     //private BoxCollider2D playerDetect;
 

@@ -6,10 +6,9 @@ using static UnityEngine.GraphicsBuffer;
 
 public class TractorClass : EnemyClass
 {
-
-    [Header("Tractor Specific")]
     private Animator animate;
 
+    [Header("Tractor Specific")]
     [SerializeField] public GameObject tractorBeam;
 
     protected GameObject targetfollow;
