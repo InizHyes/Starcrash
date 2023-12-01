@@ -19,6 +19,14 @@ public class ColourChange : MonoBehaviour
 
     bool startPuzzle = false;
 
+    //Audio
+    public AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource.volume = 0.05f;
+    }
+
     private void OnTriggerStay2D(Collider2D collision) 
     {
         if (!startPuzzle)
@@ -50,6 +58,10 @@ public class ColourChange : MonoBehaviour
                 //Set & track tile node
                 tilemap.SetTile(tileLocation, playerTile);
                 playerTileList.Add(pos);
+
+                //Play ding sound 
+                if (!audioSource.isPlaying)
+                audioSource.PlayOneShot(audioSource.clip);
             }
            
             else if (collision.gameObject.tag == "Enemy")

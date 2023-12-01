@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 //myParticlePrefab references the GasRoomParticleSystem in the Game Systems Prefabs folder
+//GasLeakSOund is in auidoFolder put this as the clip on the audiSource on liquid floor on gasRoom
 
 public class GasVentLogic : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class GasVentLogic : MonoBehaviour
     public float gasVentDamage = 0.1f;
     private float speedBeforeEnteredGas;
 
+    //Audio
+    public AudioSource audioSource;
+
     // Enter Gas logic
     private void OnTriggerEnter2D(Collider2D collision) 
     {
@@ -24,6 +28,10 @@ public class GasVentLogic : MonoBehaviour
         {
             if (collision.gameObject.tag == "Player")
             {
+                //Play gas sound if no players have entered gas yet
+                if (particleDictionary.Count == 0)
+                    audioSource.PlayOneShot(audioSource.clip);
+
                 //Instantiate a new particleSystem prefab &
                 //store current player's gameObject and particleSystem as key values in a dictionary
                 ParticleSystem myParticle = Instantiate(
@@ -83,6 +91,10 @@ public class GasVentLogic : MonoBehaviour
                     particleSystem.Stop();
                     Destroy(particleSystem);
                 }
+
+                //Stop gas sound if there are no players in gas
+                if (particleDictionary.Count == 0)
+                 audioSource.Stop();
 
                 // Set players speed to normal
                 plrScript.MoveSpeed = speedBeforeEnteredGas; 
