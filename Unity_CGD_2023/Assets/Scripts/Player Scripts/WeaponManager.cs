@@ -102,79 +102,87 @@ public class WeaponManager : MonoBehaviour
     */
     private void Swap()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (swapInputs.player == 1)
         {
-            if (currentWeaponIndex < totalWeapons - 1)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                weapons[currentWeaponIndex].SetActive(false);
-                currentWeaponIndex += 1;
-                weapons[currentWeaponIndex].SetActive(true);
-                previousWeapon = true;
+                if (currentWeaponIndex < totalWeapons - 1)
+                {
+                    weapons[currentWeaponIndex].SetActive(false);
+                    currentWeaponIndex += 1;
+                    weapons[currentWeaponIndex].SetActive(true);
+                    previousWeapon = true;
+                }
+                else if (currentWeaponIndex == totalWeapons - 1)
+                {
+                    weapons[currentWeaponIndex].SetActive(false);
+                    currentWeaponIndex = 0;
+                    weapons[currentWeaponIndex].SetActive(true);
+                    previousWeapon = true;
+                }
             }
-            else if (currentWeaponIndex == totalWeapons - 1)
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                weapons[currentWeaponIndex].SetActive(false);
-                currentWeaponIndex = 0;
-                weapons[currentWeaponIndex].SetActive(true);
-                previousWeapon = true;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (currentWeaponIndex > 0)
-            {
-                weapons[currentWeaponIndex].SetActive(false);
-                currentWeaponIndex -= 1;
-                weapons[currentWeaponIndex].SetActive(true);
-                previousWeapon = false;
-            }
+                if (currentWeaponIndex > 0)
+                {
+                    weapons[currentWeaponIndex].SetActive(false);
+                    currentWeaponIndex -= 1;
+                    weapons[currentWeaponIndex].SetActive(true);
+                    previousWeapon = false;
+                }
 
-            else if (currentWeaponIndex == 0)
-            {
-                weapons[currentWeaponIndex].SetActive(false);
-                currentWeaponIndex = totalWeapons - 1;
-                weapons[currentWeaponIndex].SetActive(true);
-                previousWeapon = false;
+                else if (currentWeaponIndex == 0)
+                {
+                    weapons[currentWeaponIndex].SetActive(false);
+                    currentWeaponIndex = totalWeapons - 1;
+                    weapons[currentWeaponIndex].SetActive(true);
+                    previousWeapon = false;
+                }
             }
         }
-        if (swapInputs.swapForwardTriggered)
-        {
-            if (currentWeaponIndex < totalWeapons - 1)
-            {
-                weapons[currentWeaponIndex].SetActive(false);
-                currentWeaponIndex += 1;
-                swapInputs.swapForwardTriggered = false;
-                weapons[currentWeaponIndex].SetActive(true);
-                previousWeapon = true;
-            }
-            else if (currentWeaponIndex == totalWeapons - 1)
-            {
-                weapons[currentWeaponIndex].SetActive(false);
-                currentWeaponIndex = 0;
-                swapInputs.swapForwardTriggered = false;
-                weapons[currentWeaponIndex].SetActive(true);
-                previousWeapon = true;
-            }
-        }
-        if (swapInputs.swapBackTriggered)
-        {
-            if (currentWeaponIndex > 0)
-            {
-                weapons[currentWeaponIndex].SetActive(false);
-                currentWeaponIndex -= 1;
-                swapInputs.swapBackTriggered = false;
-                weapons[currentWeaponIndex].SetActive(true);
-                previousWeapon = false;
-            }
 
-            else if (currentWeaponIndex == 0)
+        if (swapInputs.player == 2)
+        {
+            if (swapInputs.swapForwardTriggered)
             {
-                weapons[currentWeaponIndex].SetActive(false);
-                currentWeaponIndex = totalWeapons - 1;
-                swapInputs.swapBackTriggered = false;
-                weapons[currentWeaponIndex].SetActive(true);
-                previousWeapon = false;
+                if (currentWeaponIndex < totalWeapons - 1)
+                {
+                    weapons[currentWeaponIndex].SetActive(false);
+                    currentWeaponIndex += 1;
+                    swapInputs.swapForwardTriggered = false;
+                    weapons[currentWeaponIndex].SetActive(true);
+                    previousWeapon = true;
+                }
+                else if (currentWeaponIndex == totalWeapons - 1)
+                {
+                    weapons[currentWeaponIndex].SetActive(false);
+                    currentWeaponIndex = 0;
+                    swapInputs.swapForwardTriggered = false;
+                    weapons[currentWeaponIndex].SetActive(true);
+                    previousWeapon = true;
+                }
+            }
+            if (swapInputs.swapBackTriggered)
+            {
+                if (currentWeaponIndex > 0)
+                {
+                    weapons[currentWeaponIndex].SetActive(false);
+                    currentWeaponIndex -= 1;
+                    swapInputs.swapBackTriggered = false;
+                    weapons[currentWeaponIndex].SetActive(true);
+                    previousWeapon = false;
+                }
+
+                else if (currentWeaponIndex == 0)
+                {
+                    weapons[currentWeaponIndex].SetActive(false);
+                    currentWeaponIndex = totalWeapons - 1;
+                    swapInputs.swapBackTriggered = false;
+                    weapons[currentWeaponIndex].SetActive(true);
+                    previousWeapon = false;
+                }
             }
         }
+
     }
 }
