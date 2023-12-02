@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 1902341037, guid: 9af6de37ff7645b43bbce86bfb97a257, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d6f34366ce2c5f047b25f2d447a983f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,15 +102,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  bumpDamage: 1
   forceMultiplier: 1
   maxVelocity: {x: 100, y: 100}
   spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
   droppedObejcts:
   - {fileID: 4249462830458335497, guid: 7fa2961ff40a8ba4d86515543563d845, type: 3}
   dropOdds: 1
-  bumpDamage: 1
   childLaser: {fileID: 6487800848474636369}
   attackTimer: 1
+  laserDamage: 1
 --- !u!50 &2835826047115813253
 Rigidbody2D:
   serializedVersion: 4
