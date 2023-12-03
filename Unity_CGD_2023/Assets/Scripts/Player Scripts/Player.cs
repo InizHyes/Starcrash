@@ -167,6 +167,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        lastVelocity = rb.velocity;
         shooting = GetComponentInChildren<shootingScript>();
         shooting.Shoot(player, shoot);
 

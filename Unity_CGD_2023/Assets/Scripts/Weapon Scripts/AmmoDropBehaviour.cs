@@ -11,11 +11,22 @@ public class AmmoDropBehaviour : MonoBehaviour
      */
 
     [Tooltip("Ammount of ammo given within a range")][SerializeField][Range(0, 100)] private int[] ammoRange = { 1, 10 };
+    AudioSource audioPlayer;
+    [SerializeField] private AudioClip ammoPickup;
+
+    private void Awake()
+    {
+        
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
+            audioPlayer = collision.GetComponent<AudioSource>();
+            audioPlayer.clip = ammoPickup; ///audio pickup noise, simple so change if wanted
+            audioPlayer.Play();
+            print("hello");
             /*
              * "Pseudocode" for giving ammo to the player
              * Re-write where needed

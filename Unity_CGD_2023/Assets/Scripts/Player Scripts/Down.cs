@@ -21,7 +21,6 @@ public class Down : MonoBehaviour
         ///downed = true;
         if (downed)   ///if downed then stop all movement
         {
-            ///rb.velocity = new Vector2(0, 0);
             this.GetComponent<PlayerController>().playerControl.Disable();
 
         }
