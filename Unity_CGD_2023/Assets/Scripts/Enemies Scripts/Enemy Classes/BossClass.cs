@@ -43,7 +43,7 @@ public class BossClass : EnemyClass
 
                 // Set health threshold (to 2/3rds, aka 20 health)
                 maxHealth = health;
-                threshold = Convert.ToInt32(maxHealth) * 2/3;
+                threshold = Convert.ToInt32(maxHealth) * 2 / 3;
 
                 enemyState = State.Targeting;
                 break;
@@ -146,7 +146,7 @@ public class BossClass : EnemyClass
             {
                 // Reset vulnerability and set new threshold
                 vulnerable = false;
-                threshold -= Convert.ToInt32(maxHealth * 1/3); // Aka 20-10, or 10-10
+                threshold -= Convert.ToInt32(maxHealth * 1 / 3); // Aka 20-10, or 10-10
             }
         }
     }

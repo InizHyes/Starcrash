@@ -6,28 +6,23 @@ public class EnemyClass : MonoBehaviour
 {
     // Enemy common variables
     [Header("Common Variables")]
-    [Header("Health/Damage")]
     [SerializeField] protected int health = 10;
-    // Attack value
-    [SerializeField] private int bumpDamage = 1; // Used when collision with player
+    protected GameObject target;
 
     // rb movement variables
-    [Header("Movement")]
-    [SerializeField] protected float forceMultiplier = 1f;
-    [SerializeField] protected Vector2 maxVelocity = new Vector2(100f, 100f);
-    protected GameObject target;
-    protected Rigidbody2D rb;
     protected Vector2 forceToApply;
     protected Vector2 moveForce;
+    [SerializeField] protected float forceMultiplier = 1f;
+    [SerializeField] protected Vector2 maxVelocity = new Vector2(100f, 100f);
+    protected Rigidbody2D rb;
 
     // Set spawnlogic prefab onto spawnLogic, will find and assign script to NPCdeathCheck
-    [Header("Spawning/Drops")]
     [SerializeField] protected GameObject spawnLogic;
     protected SpawnLogic NPCdeathCheck;
 
     // Item drop variables
     [SerializeField] private GameObject[] droppedObejcts;
-    [Tooltip("Odds of dropping, 1/x chance")][SerializeField] private int dropOdds = 1;
+    [Tooltip("Odds of dropping, 1/x chance")] [SerializeField] private int dropOdds = 1;
 
     // Attack cooldown
     [SerializeField] protected float attackCooldown = 5f; // In seconds, can be set in inspector
@@ -191,20 +186,25 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
-    public bool playerCollisonCheck(Collider2D collision)
+    protected bool attackCooldwonLogic()
     {
         /*
-         * Call in OnCollisionEnter2D()
-         * Checks if the collsion is the player
-         * Deals damage to the player based on bump attack value
+         * Counts down the attack timer
+         * Returns true if attackCooldown is reached
+         * Run every update
          */
 
-        if (collision.gameObject.tag == "Player")
+        if (attackCooldownValue > 0f)
         {
-            collision.gameObject.GetComponent<PlayerStats>().TakeDamage(bumpDamage);
+            // Countdown attack
+            attackCooldownValue -= Time.deltaTime;
+            return false;
+        }
+        else
+        {
+            // Reset attack cooldown
+            attackCooldownValue = attackCooldown;
             return true;
         }
-
-        return false;
     }
 }
