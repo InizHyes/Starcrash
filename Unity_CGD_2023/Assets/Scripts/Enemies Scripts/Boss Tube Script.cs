@@ -7,20 +7,25 @@ public class BossTubeLogic : TubeLogic
 {
     [Header("Boss Tube Specific")]
     [Header("Color Pressure Plate")]
-    public PressurePlateScript connectedPressurePlate;
+   
+    private bool connectedPlate;
+    public string TubeColor;
 
-    public GlobalIntegerScript globalIntegerScript;
+    public BossDMGPhase TubeCol;
 
+    
     public override void OnCollisionEnter2D(Collision2D collision)
     {
-        if (connectedPressurePlate != null && connectedPressurePlate.isFirstPressurePlateActivated && IsBroken == false)
+        if (TubeCol != null && TubeCol.IsTubeColorActivated(TubeColor))
         {
+            Debug.Log(TubeCol);
             // Check if the collision is with the object you want to trigger the destruction
             if (collision.gameObject.CompareTag("Bullet"))
-            {
-                IsBroken = true;
-                entitySpawn();
-            }
+                {
+                    IsBroken = true;
+                    entitySpawn();
+                }
+            
         }
     }
 }

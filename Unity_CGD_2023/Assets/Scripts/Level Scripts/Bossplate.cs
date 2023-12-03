@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DualPlate : MonoBehaviour
+public class BossPlate : MonoBehaviour
 {
     public string plateColor;  // Assign the color (e.g., "orange", "green", "blue", "purple") in the Unity Editor
-    public DoorScript doorScript;  // Reference to the DoorScript attached to the corresponding door
+    public BossDMGPhase BossDMG;  // Reference to the DoorScript attached to the corresponding door
 
     private bool isActivated = false;
     private float activationTime = 0f;
@@ -45,7 +43,7 @@ public class DualPlate : MonoBehaviour
             if (activationTime >= 7.5f)
             {
                 Debug.Log(plateColor + " pressure plates activated for 7.5 seconds.");
-                doorScript.AddActivatedPlate(plateColor);
+                BossDMG.AddActivatedPlate(plateColor);
                 isActivated = false;
             }
         }
@@ -58,8 +56,8 @@ public class DualPlate : MonoBehaviour
             Debug.Log(plateColor + " pressure plate activated.");
             isActivated = true;
             activationTime = 0f;
-           
-            
+
+
         }
     }
 
@@ -70,8 +68,8 @@ public class DualPlate : MonoBehaviour
             Debug.Log(plateColor + " pressure plate deactivated.");
             isActivated = false;
             activationTime = 0f;
-           
-            doorScript.RemoveActivatedPlate(plateColor);
+
+            BossDMG.RemoveActivatedPlate(plateColor);
         }
     }
 }

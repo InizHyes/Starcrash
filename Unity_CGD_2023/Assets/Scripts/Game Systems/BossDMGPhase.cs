@@ -1,22 +1,26 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorScript : MonoBehaviour
+public class BossDMGPhase : MonoBehaviour
 {
     private int activationCounter = 0;
     private List<string> activatedPlates = new List<string>();
 
-    public int requiredPlatesToOpen = 2;  // Adjust this value in the Unity Editor
+    public int requiredPlatesToOpen = 4; // Adjust this value in the Unity Editor
+
+    
+    
 
     public void IncreaseCounter()
     {
-       
+        activationCounter++;
 
         // Check if the required number of pressure plates are activated
         if (activationCounter == requiredPlatesToOpen)
         {
             Debug.Log($"Required number of plates ({requiredPlatesToOpen}) activated. Opening the door!");
-            OpenDoor();
+            PlayerDPSPhase();
         }
     }
 
@@ -24,18 +28,26 @@ public class DoorScript : MonoBehaviour
     {
         if (activationCounter < requiredPlatesToOpen)
         {
+
             if (!activatedPlates.Contains(plateColor))
             {
                 activatedPlates.Add(plateColor);
                 Debug.Log(plateColor + " pressure plate added to the activated list.");
+                
             }
             else if (activatedPlates.Contains(plateColor))
             {
-                activationCounter++;
+
+                IncreaseCounter();
                 Debug.Log(activationCounter);
                 activatedPlates.Clear();
             }
         }
+    }
+
+    public bool IsTubeColorActivated(string tubeColor)
+    {
+        return activatedPlates.Contains(tubeColor);
     }
 
 
@@ -48,12 +60,17 @@ public class DoorScript : MonoBehaviour
         }
     }
 
-    private void OpenDoor()
+    private void PlayerDPSPhase()
     {
-        // Implement your door opening logic here
-        Debug.Log("Door is open!");
-       
+        //Add player damage phase
     }
-}
 
-//else if (activatedPlates.Contains(plateColor))
+    public void MechanicReset()
+    {
+        //MechanicReset pressure plates and tubes
+        activationCounter = 0;
+        //BossTubeLogic.IsBroken = false;
+
+    }
+
+}

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GlobalIntegerScript : MonoBehaviour
 {
+    /*
     private int globalInteger = 0;
 
     private int orangeTubesDestroyed = 0;
@@ -74,7 +75,7 @@ public class GlobalIntegerScript : MonoBehaviour
                 }
                 break;
         }
-        */
+        
     }
 
     private bool IsColorActivated(ColorType color)
@@ -102,5 +103,5 @@ public class GlobalIntegerScript : MonoBehaviour
         // You can add any additional logic here when the global integer increases.
     }
 
-  
+  */
 }
