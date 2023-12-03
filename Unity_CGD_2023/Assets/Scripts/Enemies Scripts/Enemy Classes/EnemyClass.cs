@@ -29,10 +29,6 @@ public class EnemyClass : MonoBehaviour
     [SerializeField] private GameObject[] droppedObejcts;
     [Tooltip("Odds of dropping, 1/x chance")][SerializeField] private int dropOdds = 1;
 
-    // Attack cooldown
-    [SerializeField] protected float attackCooldown = 5f; // In seconds, can be set in inspector
-    protected float attackCooldownValue = 0f;
-
     // States
     protected enum State
     {
@@ -133,7 +129,7 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
-    public virtual void damageDetection(int damage)
+    public void damageDetection(int damage)
     {
         /*
          * Deals damage to the enemy, called by the bullet itself
