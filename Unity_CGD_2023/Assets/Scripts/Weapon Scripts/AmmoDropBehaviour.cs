@@ -14,7 +14,10 @@ public class AmmoDropBehaviour : MonoBehaviour
     AudioSource audioPlayer;
     [SerializeField] private AudioClip ammoPickup;
 
-    
+    private void Awake()
+    {
+        
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,6 +26,7 @@ public class AmmoDropBehaviour : MonoBehaviour
             audioPlayer = collision.GetComponent<AudioSource>();
             audioPlayer.clip = ammoPickup; ///audio pickup noise, simple so change if wanted
             audioPlayer.Play();
+            print("hello");
             /*
              * "Pseudocode" for giving ammo to the player
              * Re-write where needed
