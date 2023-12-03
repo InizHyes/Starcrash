@@ -63,6 +63,7 @@ public class BossDMGPhase : MonoBehaviour
     private void PlayerDPSPhase()
     {
         //Add player damage phase
+        this.gameObject.GetComponent<BossClass>().setVulnerability(true);
     }
 
     public void MechanicReset()

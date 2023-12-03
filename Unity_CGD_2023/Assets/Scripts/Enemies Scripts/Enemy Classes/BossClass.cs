@@ -147,6 +147,9 @@ public class BossClass : EnemyClass
                 // Reset vulnerability and set new threshold
                 vulnerable = false;
                 threshold -= Convert.ToInt32(maxHealth * 1 / 3); // Aka 20-10, or 10-10
+
+                // Reset Plates
+                this.gameObject.GetComponent<BossDMGPhase>().MechanicReset();
             }
         }
     }
