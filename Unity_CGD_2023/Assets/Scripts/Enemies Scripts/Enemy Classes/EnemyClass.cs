@@ -6,17 +6,22 @@ public class EnemyClass : MonoBehaviour
 {
     // Enemy common variables
     [Header("Common Variables")]
+    [Header("Health/Damage")]
     [SerializeField] protected int health = 10;
-    protected GameObject target;
+    // Attack value
+    [SerializeField] private int bumpDamage = 1; // Used when collision with the player
 
     // rb movement variables
-    protected Vector2 forceToApply;
-    protected Vector2 moveForce;
+    [Header("Movement")]
     [SerializeField] protected float forceMultiplier = 1f;
     [SerializeField] protected Vector2 maxVelocity = new Vector2(100f, 100f);
+    protected GameObject target;
     protected Rigidbody2D rb;
+    protected Vector2 forceToApply;
+    protected Vector2 moveForce;
 
     // Set spawnlogic prefab onto spawnLogic, will find and assign script to NPCdeathCheck
+    [Header("Spawning/Drops")]
     [SerializeField] protected GameObject spawnLogic;
     protected SpawnLogic NPCdeathCheck;
 
@@ -206,5 +211,22 @@ public class EnemyClass : MonoBehaviour
             attackCooldownValue = attackCooldown;
             return true;
         }
+    }
+
+    public bool playerCollisionCheck(Collider2D collider)
+    {
+        /*
+         * Call in CollisionEnter2D()
+         * Checks if the collision is the player
+         * Deals damage to the player based on bump attack value
+         */
+
+        if (collider.gameObject.tag == "Player")
+        {
+            collider.gameObject.GetComponent<PlayerStats>().TakeDamage(bumpDamage);
+            return true;
+        }
+
+        return false;
     }
 }
