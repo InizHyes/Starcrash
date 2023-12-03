@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
             {
                 
                 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                print("GunFired");
+                
             }
 
                 ForceDir = transform.right;
@@ -259,7 +259,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     { ///this whole section does collision, its buggy as hell but it gets the job done for now as proof of concept
 
         var collisionSpeed = lastVelocity.magnitude * 0.5f;
