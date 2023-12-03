@@ -18,6 +18,13 @@ public class BossClass : EnemyClass
     private int maxHealth = 0;
     private int threshold = 0;
 
+    // Attack zones
+    [Header("Boss Specific")]
+    [SerializeField] private GameObject bossAttackZone1;
+    public int attack1Damage = 1;
+    private int attack1Uptime = 3; // In seconds
+    private float attack1UptimeValue = 0f;
+
     private void Start()
     {
         // Set starting state and variables
@@ -67,6 +74,11 @@ public class BossClass : EnemyClass
                     target = allPlayers[currentPlayerNumeral];
                     currentPlayerNumeral++;
 
+                    // Point attack at player
+                    //---To-Do---
+
+                    // Activate attack and wait to deactivate
+                    bossAttackZone1.gameObject.SetActive(true);
                     enemyState = State.Attacking;
                 }
                 break;
@@ -84,6 +96,12 @@ public class BossClass : EnemyClass
                  * Attack logic
                  * (multiple attacks?)
                  */
+
+                if (timerLogic(attack1UptimeValue, attack1Uptime))
+                {
+                    bossAttackZone1.SetActive(false);
+                    enemyState = State.Targeting;
+                }
 
                 break;
 
@@ -163,5 +181,27 @@ public class BossClass : EnemyClass
          */
 
         vulnerable = value;
+    }
+
+    private bool timerLogic(float current, float max)
+    {
+        /*
+         * Counts down the attack timer
+         * Returns true if attackCooldown is reached
+         * Run every update
+         */
+
+        if (current > 0f)
+        {
+            // Countdown attack
+            current -= Time.deltaTime;
+            return false;
+        }
+        else
+        {
+            // Reset attack cooldown
+            current = max;
+            return true;
+        }
     }
 }
