@@ -5,10 +5,7 @@ using UnityEngine;
 
 public class JumperClass : EnemyClass
 {
-    private float attackCooldownValue;
-
     [Header("Jumper Specific")]
-    [SerializeField] private float attackCooldown = 5f; // In seconds, can be set in inspector
     [SerializeField] private int moveSpeed = 200;
 
     private void Start()
@@ -75,12 +72,7 @@ public class JumperClass : EnemyClass
                  */
 
                 // Count-down timer
-                if (attackCooldownValue > 0f)
-                {
-                    attackCooldownValue -= Time.deltaTime;
-                }
-                // Change back to targeting/moving
-                else
+                if (attackCooldwonLogic())
                 {
                     enemyState = State.Targeting;
                 }

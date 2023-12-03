@@ -25,10 +25,8 @@ public class TubeLogic : MonoBehaviour
     {
         IsBroken = false;
     }
-
-
     
-    public void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Bullet" && IsBroken == false)
         {
@@ -38,7 +36,6 @@ public class TubeLogic : MonoBehaviour
     }
 
     #endregion
-
 
     public void entitySpawn()
     {
@@ -61,5 +58,4 @@ public class TubeLogic : MonoBehaviour
             Destroy(UnBrokenTube);
         }
     }
-
 }
