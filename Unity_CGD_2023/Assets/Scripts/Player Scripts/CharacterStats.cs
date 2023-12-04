@@ -13,6 +13,9 @@ public class CharacterStats : MonoBehaviour
     [Header("Stats Flags")]
     [SerializeField] protected bool isDead;
 
+    //Audio
+    public AudioSource audioSource;
+
     private void Start()
     {
         InitVariables();
@@ -44,6 +47,9 @@ public class CharacterStats : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (!audioSource.isPlaying)
+          audioSource.PlayOneShot(audioSource.clip);
+
         float healthAfterDamage = health - damage;
         SetStatsTo(healthAfterDamage);
     }

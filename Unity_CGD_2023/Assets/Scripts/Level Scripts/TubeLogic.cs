@@ -21,6 +21,9 @@ public class TubeLogic : MonoBehaviour
 
     #region [Start and OnCollision]
 
+    //Audio
+    public AudioSource audioSource; // Add Tube_Broken_2 as audio source
+
     public void Start()
     {
         IsBroken = false;
@@ -32,6 +35,9 @@ public class TubeLogic : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet" && IsBroken == false)
         {
+            if (!audioSource.isPlaying)
+                audioSource.Play();
+         
             IsBroken = true;
             entitySpawn();
         }

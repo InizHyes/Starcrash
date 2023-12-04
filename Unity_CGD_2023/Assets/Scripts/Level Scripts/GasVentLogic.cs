@@ -87,7 +87,6 @@ public class GasVentLogic : MonoBehaviour
                 //Removes the current player's key value pair from dictionary and destroys their particleSystem
                 if (particleDictionary.Remove(collision.gameObject, out ParticleSystem particleSystem))
                 {
-                    print("Destroyed " + particleSystem);
                     particleSystem.Stop();
                     Destroy(particleSystem);
                 }
