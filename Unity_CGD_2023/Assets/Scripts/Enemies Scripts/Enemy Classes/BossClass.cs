@@ -22,8 +22,11 @@ public class BossClass : EnemyClass
     // Attack zones
     [Header("Boss Specific")]
     [SerializeField] private float rotationSpeed = 100;
+
+    //Death
     [SerializeField] private GameObject fade;
-    private float fadeSpeed = 0.1f;
+    private float fadeSpeed = 0.2f;
+    private Animator animator;
 
     [Header("Attack 1")]
     [SerializeField] private GameObject bossAttackZone1;
@@ -38,6 +41,9 @@ public class BossClass : EnemyClass
         initiateEnemy();
 
         attack1UptimeValue = attack1Uptime;
+        animator = GetComponent<Animator>();
+
+        //enemyState = State.Dead;
     }
 
     private void Update()
@@ -126,6 +132,7 @@ public class BossClass : EnemyClass
                 fade.GetComponent<Image>().color = new Color(225, 225, 225, fade.GetComponent<Image>().color.a + Time.deltaTime * fadeSpeed);
 
                 // Ending Animation
+                animator.Play("Death");
 
                 //itemDropLogic();
                 //initiateDeath();
