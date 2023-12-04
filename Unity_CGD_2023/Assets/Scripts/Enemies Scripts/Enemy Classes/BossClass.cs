@@ -20,15 +20,21 @@ public class BossClass : EnemyClass
 
     // Attack zones
     [Header("Boss Specific")]
+    [SerializeField] private float rotationSpeed = 100;
+
+    [Header("Attack 1")]
     [SerializeField] private GameObject bossAttackZone1;
     public int attack1Damage = 1;
-    private int attack1Uptime = 3; // In seconds
+    [SerializeField] private float attack1Uptime = 3f; // In seconds
     private float attack1UptimeValue = 0f;
+    public float ticksPerSecond = 10;
 
     private void Start()
     {
         // Set starting state and variables
         initiateEnemy();
+
+        attack1UptimeValue = attack1Uptime;
     }
 
     private void Update()
@@ -74,13 +80,15 @@ public class BossClass : EnemyClass
                     target = allPlayers[currentPlayerNumeral];
                     currentPlayerNumeral++;
 
-                    // Point attack at player
-                    //---To-Do---
-
                     // Activate attack and wait to deactivate
                     bossAttackZone1.gameObject.SetActive(true);
                     enemyState = State.Attacking;
                 }
+
+                // Point attack at player
+                //transform.forward = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotationSpeed * Time.deltaTime, 1);
+                transform.right = target.transform.position - transform.position;
+
                 break;
 
             case State.Pathfinding:
@@ -97,7 +105,7 @@ public class BossClass : EnemyClass
                  * (multiple attacks?)
                  */
 
-                if (timerLogic(attack1UptimeValue, attack1Uptime))
+                if (attack1UptimeLogic())
                 {
                     bossAttackZone1.SetActive(false);
                     enemyState = State.Targeting;
@@ -183,7 +191,7 @@ public class BossClass : EnemyClass
         vulnerable = value;
     }
 
-    private bool timerLogic(float current, float max)
+    private bool attack1UptimeLogic()
     {
         /*
          * Counts down the attack timer
@@ -191,16 +199,16 @@ public class BossClass : EnemyClass
          * Run every update
          */
 
-        if (current > 0f)
+        if (attack1UptimeValue > 0f)
         {
             // Countdown attack
-            current -= Time.deltaTime;
+            attack1UptimeValue -= Time.deltaTime;
             return false;
         }
         else
         {
             // Reset attack cooldown
-            current = max;
+            attack1UptimeValue = attack1Uptime;
             return true;
         }
     }
