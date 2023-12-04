@@ -10,6 +10,8 @@ public class GasDamage : MonoBehaviour
     private float damageIntervalTimer;
     public int damage;
 
+    //Audio
+    public AudioSource audioSource;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -22,8 +24,10 @@ public class GasDamage : MonoBehaviour
                 damageIntervalTimer += Time.deltaTime;
                 if(damageIntervalTimer >= damageInterval)
                 {
-                    damageIntervalTimer = 0;
+                    if (!audioSource.isPlaying)
+                        audioSource.PlayOneShot(audioSource.clip);
 
+                    damageIntervalTimer = 0;
                     //CHANGES HP IN PLAYER SCRIPT IF SOMEONE ADDS DAMAGE SYSTEM CHANGE SCRIPT AND VARIABLE NAMES
                     collision.GetComponent<PlayerStats>().health = collision.GetComponent<PlayerStats>().health - damage;
                 }
