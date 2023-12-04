@@ -13,12 +13,21 @@ public class CharacterStats : MonoBehaviour
     [Header("Stats Flags")]
     [SerializeField] protected bool isDead;
 
+    
+
+    AudioSource audioPlayer;
+
+    [SerializeField] private AudioClip takeDMG;
+
+
+
     private void Start()
     {
         InitVariables();
     }
     public virtual void CheckStats()
     {
+        
         if(health <= 0)
         {
             health = 0;
@@ -44,6 +53,8 @@ public class CharacterStats : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        audioPlayer.clip = takeDMG;
+        audioPlayer.Play();
         float healthAfterDamage = health - damage;
         SetStatsTo(healthAfterDamage);
     }
@@ -55,6 +66,7 @@ public class CharacterStats : MonoBehaviour
     }
     public virtual void InitVariables()
     {
+        audioPlayer = GetComponent<AudioSource>();
         maxHealth = 100;
         SetStatsTo(maxHealth);
         isDead = false;

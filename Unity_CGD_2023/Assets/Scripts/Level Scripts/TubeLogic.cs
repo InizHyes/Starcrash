@@ -21,24 +21,27 @@ public class TubeLogic : MonoBehaviour
 
     #region [Start and OnCollision]
 
+    //Audio
+    public AudioSource audioSource; // Add Tube_Broken_2 as audio source
+
     public void Start()
     {
         IsBroken = false;
     }
-
-
     
-    public void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Bullet" && IsBroken == false)
         {
+            if (!audioSource.isPlaying)
+                audioSource.Play();
+         
             IsBroken = true;
             entitySpawn();
         }
     }
 
     #endregion
-
 
     public void entitySpawn()
     {
@@ -61,5 +64,4 @@ public class TubeLogic : MonoBehaviour
             Destroy(UnBrokenTube);
         }
     }
-
 }

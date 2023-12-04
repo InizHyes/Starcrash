@@ -17,6 +17,6 @@ public class PlayerCollisionScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        parentScript.playerCollisonCheck(collision);
+        parentScript.playerCollisionCheck(collision);
     }
 }

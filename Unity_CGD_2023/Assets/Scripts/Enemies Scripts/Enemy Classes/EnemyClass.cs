@@ -9,7 +9,7 @@ public class EnemyClass : MonoBehaviour
     [Header("Health/Damage")]
     [SerializeField] protected int health = 10;
     // Attack value
-    [SerializeField] private int bumpDamage = 1; // Used when collision with player
+    [SerializeField] private int bumpDamage = 1; // Used when collision with the player
 
     // rb movement variables
     [Header("Movement")]
@@ -27,7 +27,11 @@ public class EnemyClass : MonoBehaviour
 
     // Item drop variables
     [SerializeField] private GameObject[] droppedObejcts;
-    [Tooltip("Odds of dropping, 1/x chance")][SerializeField] private int dropOdds = 1;
+    [Tooltip("Odds of dropping, 1/x chance")] [SerializeField] private int dropOdds = 1;
+
+    // Attack cooldown
+    [SerializeField] protected float attackCooldown = 5f; // In seconds, can be set in inspector
+    protected float attackCooldownValue = 0f;
 
     // States
     protected enum State
@@ -129,7 +133,7 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
-    public void damageDetection(int damage)
+    public virtual void damageDetection(int damage)
     {
         /*
          * Deals damage to the enemy, called by the bullet itself
@@ -187,17 +191,39 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
-    public bool playerCollisonCheck(Collider2D collision)
+    protected bool attackCooldwonLogic()
     {
         /*
-         * Call in OnCollisionEnter2D()
-         * Checks if the collsion is the player
+         * Counts down the attack timer
+         * Returns true if attackCooldown is reached
+         * Run every update
+         */
+
+        if (attackCooldownValue > 0f)
+        {
+            // Countdown attack
+            attackCooldownValue -= Time.deltaTime;
+            return false;
+        }
+        else
+        {
+            // Reset attack cooldown
+            attackCooldownValue = attackCooldown;
+            return true;
+        }
+    }
+
+    public bool playerCollisionCheck(Collider2D collider)
+    {
+        /*
+         * Call in CollisionEnter2D()
+         * Checks if the collision is the player
          * Deals damage to the player based on bump attack value
          */
 
-        if (collision.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<PlayerStats>().TakeDamage(bumpDamage);
+            collider.gameObject.GetComponent<PlayerStats>().TakeDamage(bumpDamage);
             return true;
         }
 

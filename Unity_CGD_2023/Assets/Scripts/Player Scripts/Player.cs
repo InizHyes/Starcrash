@@ -53,6 +53,9 @@ public class PlayerController : MonoBehaviour
     public bool swapForwardTriggered = false;
     public bool swapBackTriggered = false;
 
+    //Audio
+    public AudioSource audioSource; // Add ClampSound as audio source
+
 
     private void Awake()
     {
@@ -143,13 +146,13 @@ public class PlayerController : MonoBehaviour
 
 
     }
-
+    //Make clamp sound here
     private void stickingToSurface(InputAction.CallbackContext context) ///used to make the player "stick" to the ground. Starts timer to initilise 
     {
-        StartCoroutine(stickTimer2());
-        
-        
+        if (!audioSource.isPlaying)
+            audioSource.Play();
 
+        StartCoroutine(stickTimer2());
     }
 
     IEnumerator stickTimer2() ///this start a timer to tick to ground then flips the variable. So it takes a second to stick and unstick, as a drawback 
@@ -167,10 +170,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentInteractable = FindAnyObjectByType<Interactable>();
+        lastVelocity = rb.velocity;
         shooting = GetComponentInChildren<shootingScript>();
         shooting.Shoot(player, shoot);
 
+        if (!sticking)
+        {
+            rb.velocity = MoveForce2; ///actually where movment happen
+        }
+        else
+        {
+            //print("no move");
+            rb.velocity = noMove;
+        }
         
 
         if (player == 1) ///THIS WHOLE BIT IS OLD CODE, I WILL REMOVE IT WHEN TWO CONTOLLERS WORK.
