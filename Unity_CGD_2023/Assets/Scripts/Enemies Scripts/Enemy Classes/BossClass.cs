@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossClass : EnemyClass
 {
@@ -21,6 +22,8 @@ public class BossClass : EnemyClass
     // Attack zones
     [Header("Boss Specific")]
     [SerializeField] private float rotationSpeed = 100;
+    [SerializeField] private GameObject fade;
+    private float fadeSpeed = 0.1f;
 
     [Header("Attack 1")]
     [SerializeField] private GameObject bossAttackZone1;
@@ -119,8 +122,13 @@ public class BossClass : EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                itemDropLogic();
-                initiateDeath();
+                // Fade
+                fade.GetComponent<Image>().color = new Color(225, 225, 225, fade.GetComponent<Image>().color.a + Time.deltaTime * fadeSpeed);
+
+                // Ending Animation
+
+                //itemDropLogic();
+                //initiateDeath();
                 break;
         }
     }
