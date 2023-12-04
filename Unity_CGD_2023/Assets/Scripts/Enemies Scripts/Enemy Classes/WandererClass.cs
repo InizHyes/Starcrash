@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class WandererClass : EnemyClass
 {
-    [Header("Wanderer Specific")]
-
     private Animator animate;
-
+    AudioSource sound;
+    [Header("Wanderer Specific")]
     public GameObject bulletPrefab;
-
+    public AudioClip spawnsound;
+    public AudioClip shootsound;
     public Transform gunPoint;
-
     private float bulletSpeed = 5f;
 
     private bool playerInAtkZone = false;
@@ -23,10 +22,11 @@ public class WandererClass : EnemyClass
     private void Start()
     {
         // Set starting state and variables
+        sound = GetComponent<AudioSource>();
         initiateEnemy();
-
+        sound.clip = spawnsound;
+        sound.Play();
         canAttack = false;
-
         animate = GetComponent<Animator>(); // Maybe move into init function
     }
 
@@ -140,6 +140,9 @@ public class WandererClass : EnemyClass
         GameObject firedBullet = Instantiate(bulletPrefab, gunPoint.position, gunPoint.rotation);
         Vector2 bulletDir = gunPoint.right ;
         firedBullet.GetComponent<Rigidbody2D>().velocity = bulletDir * bulletSpeed;
+
+        sound.clip = shootsound;
+        sound.Play();
 
         SpriteRenderer bulletRenderer = firedBullet.GetComponent<SpriteRenderer>();
         bulletRenderer.color = Color.red;

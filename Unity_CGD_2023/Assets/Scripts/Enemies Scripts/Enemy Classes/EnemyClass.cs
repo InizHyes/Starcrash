@@ -6,23 +6,32 @@ public class EnemyClass : MonoBehaviour
 {
     // Enemy common variables
     [Header("Common Variables")]
+    [Header("Health/Damage")]
     [SerializeField] protected int health = 10;
-    protected GameObject target;
+    // Attack value
+    [SerializeField] private int bumpDamage = 1; // Used when collision with the player
 
     // rb movement variables
-    protected Vector2 forceToApply;
-    protected Vector2 moveForce;
+    [Header("Movement")]
     [SerializeField] protected float forceMultiplier = 1f;
     [SerializeField] protected Vector2 maxVelocity = new Vector2(100f, 100f);
+    protected GameObject target;
     protected Rigidbody2D rb;
+    protected Vector2 forceToApply;
+    protected Vector2 moveForce;
 
     // Set spawnlogic prefab onto spawnLogic, will find and assign script to NPCdeathCheck
+    [Header("Spawning/Drops")]
     [SerializeField] protected GameObject spawnLogic;
     protected SpawnLogic NPCdeathCheck;
 
-    //Item drop variables
+    // Item drop variables
     [SerializeField] private GameObject[] droppedObejcts;
-    [Tooltip("Odds of dropping, 1/x chance")][SerializeField] private int dropOdds = 1;
+    [Tooltip("Odds of dropping, 1/x chance")] [SerializeField] private int dropOdds = 1;
+
+    // Attack cooldown
+    [SerializeField] protected float attackCooldown = 5f; // In seconds, can be set in inspector
+    protected float attackCooldownValue = 0f;
 
     // States
     protected enum State
@@ -124,7 +133,7 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
-    public void damageDetection(int damage)
+    public virtual void damageDetection(int damage)
     {
         /*
          * Deals damage to the enemy, called by the bullet itself
@@ -180,5 +189,44 @@ public class EnemyClass : MonoBehaviour
         {
             enemyState = (State)Mathf.Clamp(stateValue, 0, 4);
         }
+    }
+
+    protected bool attackCooldwonLogic()
+    {
+        /*
+         * Counts down the attack timer
+         * Returns true if attackCooldown is reached
+         * Run every update
+         */
+
+        if (attackCooldownValue > 0f)
+        {
+            // Countdown attack
+            attackCooldownValue -= Time.deltaTime;
+            return false;
+        }
+        else
+        {
+            // Reset attack cooldown
+            attackCooldownValue = attackCooldown;
+            return true;
+        }
+    }
+
+    public bool playerCollisionCheck(Collider2D collider)
+    {
+        /*
+         * Call in CollisionEnter2D()
+         * Checks if the collision is the player
+         * Deals damage to the player based on bump attack value
+         */
+
+        if (collider.gameObject.tag == "Player")
+        {
+            collider.gameObject.GetComponent<PlayerStats>().TakeDamage(bumpDamage);
+            return true;
+        }
+
+        return false;
     }
 }
