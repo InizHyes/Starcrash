@@ -9364,25 +9364,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8331684325177460134, guid: 2194c0d41e7227d40aa7ff09bbd3c904, type: 3}
   m_PrefabInstance: {fileID: 1021396348}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1057148260 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3818125727600432273, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
-  m_PrefabInstance: {fileID: 1737317671}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1057148262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057148260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f42c13068ac9b40b6590db244a5bc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plateColor: Orange
-  BossDMG: {fileID: 1202227914}
 --- !u!1001 &1084143017
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10001,6 +9982,10 @@ PrefabInstance:
       propertyPath: attackCooldown
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5629074196868010751, guid: 020e87e8bc5fef640a62a5366ad47a74, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6109789977057215143, guid: 020e87e8bc5fef640a62a5366ad47a74, type: 3}
       propertyPath: m_LocalPosition.x
       value: 78.91711
@@ -10045,6 +10030,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 6803741729939850745, guid: 020e87e8bc5fef640a62a5366ad47a74, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4810761799278192843, guid: 020e87e8bc5fef640a62a5366ad47a74, type: 3}
     m_RemovedGameObjects: []
@@ -10071,7 +10060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d2169910590cf4d81da31bde03607b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredPlatesToOpen: 4
+  requiredPlatesToOpen: 1
 --- !u!4 &1209937753 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7756219916207552282, guid: 93f9bb39bf9a344b9b22c8fffc1c4448, type: 3}
@@ -12035,7 +12024,7 @@ PrefabInstance:
     - target: {fileID: 189072449556789669, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 513924751773859117, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: TubeCol
       value: 
@@ -12047,7 +12036,7 @@ PrefabInstance:
     - target: {fileID: 513924751773859117, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 513924751773859117, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: connectedPressurePlate
       value: 
@@ -12063,7 +12052,7 @@ PrefabInstance:
     - target: {fileID: 695787282989057486, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 695787282989057486, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: connectedPressurePlate
       value: 
@@ -12079,7 +12068,7 @@ PrefabInstance:
     - target: {fileID: 973409674946538265, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 973409674946538265, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: connectedPressurePlate
       value: 
@@ -12135,7 +12124,7 @@ PrefabInstance:
     - target: {fileID: 1738696485133343650, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 1738696485133343650, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: connectedPressurePlate
       value: 
@@ -12151,7 +12140,7 @@ PrefabInstance:
     - target: {fileID: 2242806046489391530, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 2242806046489391530, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: connectedPressurePlate
       value: 
@@ -12175,10 +12164,18 @@ PrefabInstance:
     - target: {fileID: 2921879683276653889, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 2921879683276653889, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: connectedPressurePlate
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3109467717426961339, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
+      propertyPath: BossDMG
+      value: 
+      objectReference: {fileID: 1202227914}
+    - target: {fileID: 3109467717426961339, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
+      propertyPath: plateColor
+      value: Orange
       objectReference: {fileID: 0}
     - target: {fileID: 3680315658647627567, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BossDMG
@@ -12199,7 +12196,7 @@ PrefabInstance:
     - target: {fileID: 3717551853538010386, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 3861261552494089454, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BossDMG
       value: 
@@ -12223,7 +12220,7 @@ PrefabInstance:
     - target: {fileID: 4523626610338148821, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 5042976625293873071, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: TubeCol
       value: 
@@ -12235,14 +12232,18 @@ PrefabInstance:
     - target: {fileID: 5042976625293873071, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 5042976625293873071, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: connectedPressurePlate
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5076847222278507965, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5076847222278507965, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
+      propertyPath: plateColor
+      value: Orange
       objectReference: {fileID: 0}
     - target: {fileID: 5330586338799186256, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: TubeCol
@@ -12255,7 +12256,7 @@ PrefabInstance:
     - target: {fileID: 5330586338799186256, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 6895747250255539899, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: TubeColor
       value: Blue
@@ -12263,7 +12264,7 @@ PrefabInstance:
     - target: {fileID: 6895747250255539899, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 6895747250255539899, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: connectedPressurePlate
       value: 
@@ -12279,7 +12280,7 @@ PrefabInstance:
     - target: {fileID: 7006291298358096178, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 7006291298358096178, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: connectedPressurePlate
       value: 
@@ -12295,7 +12296,7 @@ PrefabInstance:
     - target: {fileID: 7157300627201183894, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 7157300627201183894, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: connectedPressurePlate
       value: 
@@ -12327,7 +12328,7 @@ PrefabInstance:
     - target: {fileID: 8418387739409384366, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 8418387739409384366, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: connectedPressurePlate
       value: 
@@ -12359,13 +12360,13 @@ PrefabInstance:
     - target: {fileID: 8952190006109545706, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: BrokenTube
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2597892604629721053, guid: 964ed0e048c35604ab900ed3b0903e6d, type: 3}
     - target: {fileID: 8952190006109545706, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
       propertyPath: connectedPressurePlate
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 3109467717426961339, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
+    - {fileID: 5076847222278507965, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -12373,17 +12374,8 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 574821721}
     - targetCorrespondingSourceObject: {fileID: 3124833370120262228, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
-      insertIndex: 3
+      insertIndex: 2
       addedObject: {fileID: 2115335076}
-    - targetCorrespondingSourceObject: {fileID: 3124833370120262228, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2115335075}
-    - targetCorrespondingSourceObject: {fileID: 3818125727600432273, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1057148262}
-    - targetCorrespondingSourceObject: {fileID: 7849270840857149357, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1803456417}
   m_SourcePrefab: {fileID: 100100000, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
 --- !u!1001 &1742658491
 PrefabInstance:
@@ -12395,11 +12387,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 405230350808294393, guid: bb8b524f01a90884787e895bd4763264, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 79.63
+      value: 77.79
       objectReference: {fileID: 0}
     - target: {fileID: 405230350808294393, guid: bb8b524f01a90884787e895bd4763264, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 56.68
+      value: 56.21
       objectReference: {fileID: 0}
     - target: {fileID: 405230350808294393, guid: bb8b524f01a90884787e895bd4763264, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12859,25 +12851,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8331684325177460134, guid: 2194c0d41e7227d40aa7ff09bbd3c904, type: 3}
   m_PrefabInstance: {fileID: 1796393144}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1803456415 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7849270840857149357, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
-  m_PrefabInstance: {fileID: 1737317671}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1803456417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1803456415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f42c13068ac9b40b6590db244a5bc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plateColor: 
-  BossDMG: {fileID: 0}
 --- !u!1001 &1804303201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15740,20 +15713,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3124833370120262228, guid: 39e1002faafc0ed4bb6b3aed667ea27f, type: 3}
   m_PrefabInstance: {fileID: 1737317671}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2115335075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115335069}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c076eec20edf6364eaff4e8ecce662d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plateColor: Orange
-  doorScript: {fileID: 0}
 --- !u!114 &2115335076
 MonoBehaviour:
   m_ObjectHideFlags: 0

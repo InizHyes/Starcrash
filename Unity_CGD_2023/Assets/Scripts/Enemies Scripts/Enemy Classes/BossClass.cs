@@ -43,7 +43,7 @@ public class BossClass : EnemyClass
         attack1UptimeValue = attack1Uptime;
         animator = GetComponent<Animator>();
 
-        //enemyState = State.Dead;
+        enemyState = State.Dead;
     }
 
     private void Update()
