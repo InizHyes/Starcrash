@@ -54,17 +54,18 @@ MonoBehaviour:
   fireRate: 1
   readyToShoot: 0
   recoilPower: 0.5
-  bulletSpeed: 15
+  bulletSpeed: 10
   numberOfBullets: 10
-  spread: 1
+  spread: 0.2
   ammoLoaded: 0
   ammoReserve: 32
   magSize: 8
-  maxAmmoReserves: 0
+  maxAmmoReserves: 32
   totalAmmoAllowed: 0
   totalAmmoHeld: 0
   reloadTime: 2.5
   maximumAmmoPickup: 0
+  finishReload: 0
 --- !u!82 &7750553006808106226
 AudioSource:
   m_ObjectHideFlags: 0
@@ -76,7 +77,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

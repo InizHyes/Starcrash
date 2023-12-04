@@ -61,8 +61,9 @@ public class shootingScript : MonoBehaviour
     private float reloadTime;
 
     [SerializeField]
-    private float maximumAmmoPickup;
+    public int maximumAmmoPickup;
 
+    [SerializeField]
     private float finishReload;
   
 
@@ -78,17 +79,23 @@ public class shootingScript : MonoBehaviour
         Player = GetComponentInParent<PlayerController>();
         ammoLoaded = magSize;
         totalAmmoAllowed = magSize + maxAmmoReserves;
+        totalAmmoHeld = ammoLoaded + ammoReserve;
         maximumAmmoPickup = totalAmmoAllowed - totalAmmoHeld;
     }
 
     public void Shoot(int playerNum, bool controllerShoot)
     {
+        totalAmmoHeld = ammoLoaded + ammoReserve;
+        maximumAmmoPickup = totalAmmoAllowed - totalAmmoHeld;
+
         if (playerNum == 1)
         {
-            if (ammoLoaded > 0)
+            totalAmmoHeld = ammoLoaded + ammoReserve;
+            maximumAmmoPickup = totalAmmoAllowed - totalAmmoHeld;
+            if (Time.time > readyToShoot)
             {
 
-                if (Time.time > readyToShoot)
+                if (ammoLoaded > 0)
                 {
                     if (Input.GetMouseButton(0))
                     {
@@ -101,34 +108,44 @@ public class shootingScript : MonoBehaviour
                         audio.clip = gunShot;
                         audio.Play();
                         ammoLoaded -= 1;
-                        totalAmmoHeld = ammoLoaded + ammoReserve;
+
                     }
                 }
-            }
 
-            if (ammoLoaded <= 0)
-            {
-                if (ammoReserve > 0)
+                else if (ammoLoaded <= 0)
                 {
-                    if (Time.time > readyToShoot)
+                    //print("empty");
+
+                    if (ammoReserve > 0)
                     {
-                        readyToShoot = Time.time + 1 * reloadTime;
-                        audio.clip = reload;
-                        audio.Play();
+                        //print("unloaded");
                         ammoLoaded = magSize;
                         ammoReserve -= magSize;
+                        readyToShoot = Time.time + 1 * reloadTime;
+                        audio.clip = unload;
+                        audio.Play();
+                        audio.clip = reload;
+                        finishReload = (Time.time + (1 * reloadTime)) - audio.clip.length / 3;
                     }
+                    /*if (Time.time > finishReload)
+                    {
+                        print("reloaded");
+                        audio.Play();
+
+                    }*/
                 }
             }
         }
 
         if (playerNum == 2)
         {
-            if (controllerShoot)
+            totalAmmoHeld = ammoLoaded + ammoReserve;
+            maximumAmmoPickup = totalAmmoAllowed - totalAmmoHeld;
+            if (Time.time > readyToShoot)
             {
                 if (ammoLoaded > 0)
                 {
-                    if (Time.time > readyToShoot)
+                    if (controllerShoot)
                     {
                         ForceDir = Player.gameObject.transform.right;//Part of Sean's recoil scripting
                         readyToShoot = Time.time + 1 / fireRate;
@@ -137,24 +154,45 @@ public class shootingScript : MonoBehaviour
                         audio.clip = gunShot;
                         audio.Play();
                         ammoLoaded -= 1;
-                        totalAmmoHeld = ammoLoaded + ammoReserve;
                     }
                 }
-            }
 
-            if (ammoLoaded <= 0)
-            {
-                if (ammoReserve > 0)
+                else if (ammoLoaded <= 0)
                 {
-                    if (Time.time > readyToShoot)
+                    if (ammoReserve > 0)
+                    {
+                        /*if (Time.time > finishReload)
+                        {
+                            audio.Play();
+                            finishReload = 0;
+
+                        }*/
+                        readyToShoot = Time.time + 1 * reloadTime;
+                        audio.clip = unload;
+                        audio.Play();
+                        audio.clip = reload;
+                        ammoLoaded = magSize;
+                        ammoReserve -= magSize;
+                        /*if(finishReload == 0)
+                        {
+                            finishReload = Time.time - (audio.clip.length / 3);
+                        }*/
+
+                    }
+                }
+                /*if (ammoLoaded <= 0)
+                {
+                    if (ammoReserve > 0)
                     {
                         readyToShoot = Time.time + 1 / reloadTime;
-                        audio.clip = reload;
+                        audio.clip = unload;
                         audio.Play();
-                        ammoLoaded = magSize;      
+                        audio.clip = reload;
+                        finishReload = readyToShoot - audio.clip.length;
+                        ammoLoaded = magSize;
                         ammoReserve -= magSize;
                     }
-                }
+                }*/
             }
         }
     }

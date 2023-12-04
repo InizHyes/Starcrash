@@ -50,7 +50,7 @@ MonoBehaviour:
   unload: {fileID: 8300000, guid: 04d82a4cf1d87cf4cba9ef7a33b0561a, type: 3}
   reload: {fileID: 8300000, guid: dc51b51a42c07d744bfe53a9c3728426, type: 3}
   gunPoint: {fileID: 1698640159382196524}
-  bullet: {fileID: 9099253716168194602, guid: 0366f21fadf554043bbf5f23003b72b8, type: 3}
+  bullet: {fileID: 9099253716168194602, guid: 0b35bf92d0913b3428172ffac844c2ef, type: 3}
   fireRate: 15
   readyToShoot: 0
   recoilPower: 0.025
@@ -60,11 +60,12 @@ MonoBehaviour:
   ammoLoaded: 0
   ammoReserve: 400
   magSize: 100
-  maxAmmoReserves: 500
+  maxAmmoReserves: 400
   totalAmmoAllowed: 0
   totalAmmoHeld: 0
   reloadTime: 3
   maximumAmmoPickup: 0
+  finishReload: 0
 --- !u!82 &643570752569574812
 AudioSource:
   m_ObjectHideFlags: 0
@@ -76,7 +77,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
