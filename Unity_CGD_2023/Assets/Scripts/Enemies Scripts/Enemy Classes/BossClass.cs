@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossClass : EnemyClass
 {
@@ -18,10 +19,31 @@ public class BossClass : EnemyClass
     private int maxHealth = 0;
     private int threshold = 0;
 
+    // Attack zones
+    [Header("Boss Specific")]
+    [SerializeField] private float rotationSpeed = 100;
+
+    //Death
+    [SerializeField] private GameObject fade;
+    private float fadeSpeed = 0.2f;
+    private Animator animator;
+
+    [Header("Attack 1")]
+    [SerializeField] private GameObject bossAttackZone1;
+    public int attack1Damage = 1;
+    [SerializeField] private float attack1Uptime = 3f; // In seconds
+    private float attack1UptimeValue = 0f;
+    public float ticksPerSecond = 10;
+
     private void Start()
     {
         // Set starting state and variables
         initiateEnemy();
+
+        attack1UptimeValue = attack1Uptime;
+        animator = GetComponent<Animator>();
+
+        //enemyState = State.Dead;
     }
 
     private void Update()
@@ -67,8 +89,15 @@ public class BossClass : EnemyClass
                     target = allPlayers[currentPlayerNumeral];
                     currentPlayerNumeral++;
 
+                    // Activate attack and wait to deactivate
+                    bossAttackZone1.gameObject.SetActive(true);
                     enemyState = State.Attacking;
                 }
+
+                // Point attack at player
+                //transform.forward = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotationSpeed * Time.deltaTime, 1);
+                transform.right = target.transform.position - transform.position;
+
                 break;
 
             case State.Pathfinding:
@@ -85,6 +114,12 @@ public class BossClass : EnemyClass
                  * (multiple attacks?)
                  */
 
+                if (attack1UptimeLogic())
+                {
+                    bossAttackZone1.SetActive(false);
+                    enemyState = State.Targeting;
+                }
+
                 break;
 
             case State.Dead:
@@ -93,8 +128,17 @@ public class BossClass : EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                itemDropLogic();
-                initiateDeath();
+                // Fade
+                fade.GetComponent<Image>().color = new Color(225, 225, 225, fade.GetComponent<Image>().color.a + Time.deltaTime * fadeSpeed);
+
+                // Ending Animation
+                animator.Play("Death");
+
+                // Stop attacks
+                bossAttackZone1.SetActive(false);
+
+                //itemDropLogic();
+                //initiateDeath();
                 break;
         }
     }
@@ -163,5 +207,27 @@ public class BossClass : EnemyClass
          */
 
         vulnerable = value;
+    }
+
+    private bool attack1UptimeLogic()
+    {
+        /*
+         * Counts down the attack timer
+         * Returns true if attackCooldown is reached
+         * Run every update
+         */
+
+        if (attack1UptimeValue > 0f)
+        {
+            // Countdown attack
+            attack1UptimeValue -= Time.deltaTime;
+            return false;
+        }
+        else
+        {
+            // Reset attack cooldown
+            attack1UptimeValue = attack1Uptime;
+            return true;
+        }
     }
 }

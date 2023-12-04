@@ -6,11 +6,14 @@ public class bulletBehaviour : MonoBehaviour
 {
     public int damage = 1;
 
+    [SerializeField]
+    private float bulletTimeBeforeDestroy;
+
     private void Start()
     {
         Physics2D.IgnoreLayerCollision(3, 7);
         Physics2D.IgnoreLayerCollision(7, 7);
-
+        Destroy(this.gameObject, bulletTimeBeforeDestroy);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

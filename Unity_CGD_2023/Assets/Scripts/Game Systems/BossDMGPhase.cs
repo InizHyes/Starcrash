@@ -37,7 +37,6 @@ public class BossDMGPhase : MonoBehaviour
             }
             else if (activatedPlates.Contains(plateColor))
             {
-
                 IncreaseCounter();
                 Debug.Log(activationCounter);
                 activatedPlates.Clear();
@@ -62,6 +61,7 @@ public class BossDMGPhase : MonoBehaviour
 
     private void PlayerDPSPhase()
     {
+        Debug.Log("Boss now vulnerable");
         //Add player damage phase
         this.gameObject.GetComponent<BossClass>().setVulnerability(true);
     }

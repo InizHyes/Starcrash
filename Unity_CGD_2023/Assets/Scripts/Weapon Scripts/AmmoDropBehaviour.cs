@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AmmoDropBehaviour : MonoBehaviour
 {
+    WeaponManager weaponManager;
+    shootingScript ShootingScript;
     /*
      * Oliver Chalk
      * Currently an all-in-one ammot type
@@ -48,7 +50,17 @@ public class AmmoDropBehaviour : MonoBehaviour
             }
             */
 
-            Destroy(this.gameObject);
+            WeaponManager weaponManager = collision.GetComponentInChildren<WeaponManager>();
+            shootingScript ShootingScript = weaponManager.weapons[weaponManager.currentWeaponIndex].GetComponentInChildren<shootingScript>();
+
+            int ammoToGive = Random.Range(1, ShootingScript.maximumAmmoPickup);
+
+            if (ShootingScript.totalAmmoHeld < ShootingScript.totalAmmoAllowed)
+            {
+                ShootingScript.ammoReserve += ammoToGive;
+                Destroy(this.gameObject);
+            }
+
         }
     }
 }
