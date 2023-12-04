@@ -134,6 +134,9 @@ public class BossClass : EnemyClass
                 // Ending Animation
                 animator.Play("Death");
 
+                // Stop attacks
+                bossAttackZone1.SetActive(false);
+
                 //itemDropLogic();
                 //initiateDeath();
                 break;
