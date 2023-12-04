@@ -149,9 +149,10 @@ public class PlayerController : MonoBehaviour
     //Make clamp sound here
     private void stickingToSurface(InputAction.CallbackContext context) ///used to make the player "stick" to the ground. Starts timer to initilise 
     {
-        if (!audioSource.isPlaying)
-            audioSource.Play();
-
+        /*if (!audioSource.isPlaying)
+        
+            audioSource.Play();*/
+           
         StartCoroutine(stickTimer2());
     }
 
