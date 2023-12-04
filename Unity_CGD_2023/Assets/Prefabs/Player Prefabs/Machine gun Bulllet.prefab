@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 4340682203675186224}
   - component: {fileID: 1024645319860046641}
   - component: {fileID: 7845416067529564875}
-  - component: {fileID: 8680788396664680329}
-  - component: {fileID: 2404117104274970255}
+  - component: {fileID: 3977995874561869082}
+  - component: {fileID: 7859192292377109274}
   m_Layer: 7
-  m_Name: Shotgun Pellet
+  m_Name: Machine gun Bulllet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: -1418781311
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2146597169, guid: 2831d19e641633b4395d963ebcf277b2, type: 3}
+  m_Sprite: {fileID: -149703756, guid: 2831d19e641633b4395d963ebcf277b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  bulletTimeBeforeDestroy: 1
---- !u!95 &8680788396664680329
+  bulletTimeBeforeDestroy: 2
+--- !u!95 &3977995874561869082
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ Animator:
   m_GameObject: {fileID: 9099253716168194602}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d824464e70a43da429eab679212fc865, type: 2}
+  m_Controller: {fileID: 9100000, guid: 651f1df31515b4a4395cd1edd73e2eb9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -150,8 +150,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!58 &2404117104274970255
-CircleCollider2D:
+--- !u!61 &7859192292377109274
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -182,6 +182,16 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.03}
+  m_Offset: {x: 0, y: -0.015}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.08
+  m_Size: {x: 0.34, y: 0.15}
+  m_EdgeRadius: 0

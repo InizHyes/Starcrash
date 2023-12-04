@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class WeaponManager : MonoBehaviour
 {
-    int totalWeapons = 1;
+    public int totalWeapons = 1;
     public int currentWeaponIndex;
 
     PlayerController swapInputs;

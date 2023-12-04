@@ -61,7 +61,7 @@ public class shootingScript : MonoBehaviour
     private float reloadTime;
 
     [SerializeField]
-    private float maximumAmmoPickup;
+    public int maximumAmmoPickup;
 
     [SerializeField]
     private float finishReload;
@@ -85,8 +85,13 @@ public class shootingScript : MonoBehaviour
 
     public void Shoot(int playerNum, bool controllerShoot)
     {
+        totalAmmoHeld = ammoLoaded + ammoReserve;
+        maximumAmmoPickup = totalAmmoAllowed - totalAmmoHeld;
+
         if (playerNum == 1)
         {
+            totalAmmoHeld = ammoLoaded + ammoReserve;
+            maximumAmmoPickup = totalAmmoAllowed - totalAmmoHeld;
             if (Time.time > readyToShoot)
             {
 
@@ -103,18 +108,17 @@ public class shootingScript : MonoBehaviour
                         audio.clip = gunShot;
                         audio.Play();
                         ammoLoaded -= 1;
-                        totalAmmoHeld = ammoLoaded + ammoReserve;
-                        maximumAmmoPickup = totalAmmoAllowed - totalAmmoHeld;
+
                     }
                 }
 
                 else if (ammoLoaded <= 0)
                 {
-                    print("empty");
+                    //print("empty");
 
                     if (ammoReserve > 0)
                     {
-                        print("unloaded");
+                        //print("unloaded");
                         ammoLoaded = magSize;
                         ammoReserve -= magSize;
                         readyToShoot = Time.time + 1 * reloadTime;
@@ -123,18 +127,20 @@ public class shootingScript : MonoBehaviour
                         audio.clip = reload;
                         finishReload = (Time.time + (1 * reloadTime)) - audio.clip.length / 3;
                     }
-                    if (Time.time > finishReload)
+                    /*if (Time.time > finishReload)
                     {
                         print("reloaded");
                         audio.Play();
 
-                    }
+                    }*/
                 }
             }
         }
 
         if (playerNum == 2)
         {
+            totalAmmoHeld = ammoLoaded + ammoReserve;
+            maximumAmmoPickup = totalAmmoAllowed - totalAmmoHeld;
             if (Time.time > readyToShoot)
             {
                 if (ammoLoaded > 0)
@@ -148,8 +154,6 @@ public class shootingScript : MonoBehaviour
                         audio.clip = gunShot;
                         audio.Play();
                         ammoLoaded -= 1;
-                        totalAmmoHeld = ammoLoaded + ammoReserve;
-                        maximumAmmoPickup = totalAmmoAllowed - totalAmmoHeld;
                     }
                 }
 
@@ -157,22 +161,23 @@ public class shootingScript : MonoBehaviour
                 {
                     if (ammoReserve > 0)
                     {
-                        if (Time.time > finishReload)
+                        /*if (Time.time > finishReload)
                         {
                             audio.Play();
                             finishReload = 0;
-                            ammoLoaded = magSize;
-                            ammoReserve -= magSize;
-                        }
+
+                        }*/
                         readyToShoot = Time.time + 1 * reloadTime;
                         audio.clip = unload;
                         audio.Play();
                         audio.clip = reload;
-                        if(finishReload == 0)
+                        ammoLoaded = magSize;
+                        ammoReserve -= magSize;
+                        /*if(finishReload == 0)
                         {
                             finishReload = Time.time - (audio.clip.length / 3);
-                        }
-                        
+                        }*/
+
                     }
                 }
                 /*if (ammoLoaded <= 0)
