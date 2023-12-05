@@ -42,7 +42,7 @@ public class DualPlate : MonoBehaviour
         {
             activationTime += Time.deltaTime;
 
-            if (activationTime >= 7.5f)
+            if (activationTime >= 1f)
             {
                 Debug.Log(plateColor + " pressure plates activated for 7.5 seconds.");
                 doorScript.AddActivatedPlate(plateColor);

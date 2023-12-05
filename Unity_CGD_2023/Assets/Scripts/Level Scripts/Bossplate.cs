@@ -40,7 +40,7 @@ public class BossPlate : MonoBehaviour
         {
             activationTime += Time.deltaTime;
 
-            if (activationTime >= 7.5f)
+            if (activationTime >= 2f)
             {
                 Debug.Log(plateColor + " pressure plates activated for 7.5 seconds.");
                 BossDMG.AddActivatedPlate(plateColor);
