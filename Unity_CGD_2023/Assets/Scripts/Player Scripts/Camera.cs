@@ -22,11 +22,11 @@ public class MultiplayerCamera : MonoBehaviour
     void Start()
     {
         mainCamera = GetComponent<Camera>();
-        FindPlayers();
     }
 
     void Update()
     {
+        FindPlayers();
         if (players.Count == 0)
         {
             FindPlayers(); // In case players are dynamically added during gameplay
