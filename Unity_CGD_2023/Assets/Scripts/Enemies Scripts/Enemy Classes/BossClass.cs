@@ -48,6 +48,7 @@ public class BossClass : EnemyClass
 
     private void Update()
     {
+        allPlayers = GameObject.FindGameObjectsWithTag("Player");
         switch (enemyState)
         {
             case State.Initiating:
@@ -59,7 +60,6 @@ public class BossClass : EnemyClass
                  */
 
                 // Make array of players and randomize it
-                allPlayers = GameObject.FindGameObjectsWithTag("Player");
                 shuffleArray(allPlayers);
                 currentPlayerNumeral = 0;
 
