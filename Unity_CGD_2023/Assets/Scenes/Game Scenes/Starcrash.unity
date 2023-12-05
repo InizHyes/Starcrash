@@ -196,6 +196,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1141258855670459707, guid: 513253155fa9f463ca2863c620b2bfe0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195545568893562856, guid: 513253155fa9f463ca2863c620b2bfe0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2731187338562398389, guid: 513253155fa9f463ca2863c620b2bfe0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -83.91609
@@ -2699,6 +2707,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gas Room
       objectReference: {fileID: 0}
+    - target: {fileID: 8152200715900769506, guid: 22c57da90c687410ba5bae6aceeb20d0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8549004005699038123, guid: 22c57da90c687410ba5bae6aceeb20d0, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[6].m_Data
       value: 
@@ -2742,8 +2754,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4947730498130741274, guid: 22c57da90c687410ba5bae6aceeb20d0, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1566211796}
   m_SourcePrefab: {fileID: 100100000, guid: 22c57da90c687410ba5bae6aceeb20d0, type: 3}
+--- !u!1 &1566211793 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5777218458339223119, guid: 22c57da90c687410ba5bae6aceeb20d0, type: 3}
+  m_PrefabInstance: {fileID: 1566211792}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1566211794 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5526416046533107501, guid: 22c57da90c687410ba5bae6aceeb20d0, type: 3}
+  m_PrefabInstance: {fileID: 1566211792}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1566211795 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4947730498130741274, guid: 22c57da90c687410ba5bae6aceeb20d0, type: 3}
+  m_PrefabInstance: {fileID: 1566211792}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1566211796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566211795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f9c9df06bb368541b700650fde1d028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredPlatesToOpen: 1
+  topDoor: {fileID: 1566211794}
+  topDoorSprite: {fileID: 951693850, guid: f01a420cd9591f141a561fe181a11136, type: 3}
+  bottomDoor: {fileID: 1566211793}
+  bottomDoorSprite: {fileID: -1777792283, guid: f01a420cd9591f141a561fe181a11136, type: 3}
 --- !u!1 &1629346598
 GameObject:
   m_ObjectHideFlags: 0
@@ -2844,6 +2891,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 551867690637180475, guid: 5422c10580ad9409b966a8e8fb232f88, type: 3}
+      propertyPath: topDoor
+      value: 
+      objectReference: {fileID: 1635349854}
     - target: {fileID: 1535289545649021777, guid: 5422c10580ad9409b966a8e8fb232f88, type: 3}
       propertyPath: m_LocalPosition.x
       value: 79.289
@@ -2893,6 +2944,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5422c10580ad9409b966a8e8fb232f88, type: 3}
+--- !u!1 &1635349854 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6512858313124813712, guid: 5422c10580ad9409b966a8e8fb232f88, type: 3}
+  m_PrefabInstance: {fileID: 1635349853}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1730342259
 GameObject:
   m_ObjectHideFlags: 0
