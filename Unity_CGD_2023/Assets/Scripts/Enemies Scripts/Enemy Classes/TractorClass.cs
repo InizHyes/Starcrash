@@ -6,24 +6,25 @@ using static UnityEngine.GraphicsBuffer;
 
 public class TractorClass : EnemyClass
 {
-
     private Animator animate;
-
-    public GameObject Tbeam;
-
+    AudioSource sound;
+    [Header("Tractor Specific")]
+    [SerializeField] public GameObject tractorBeam;
+    public AudioClip spawnsound;
+    public AudioClip tractorsound;
+    protected GameObject targetfollow;
     void Start()
     {
         // Set starting state and variables
-        initiateEnemy(10);
-
-        Tbeam.SetActive(false); // Ablity off to start
-
+        sound = GetComponent<AudioSource>();
+        initiateEnemy();
+        sound.clip = spawnsound;
+        sound.Play();
         animate = GetComponent<Animator>(); // Maybe move into init function
     }
 
     private void Update()
     {
-        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:
@@ -31,12 +32,9 @@ public class TractorClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                targetClosestPlayer();
+                tractorBeam.SetActive(false);
 
-                targetClosestGrunt();
-
-                Tbeam.SetActive(false);
-
+                enemyState = State.Targeting;
                 break;
 
             case State.Targeting:
@@ -45,6 +43,9 @@ public class TractorClass : EnemyClass
                  * It would be if(line of sight blocked){ enemyState = Pathfinding }
                  * But not needed now so im just assuming no LOS block
                  */
+
+                //targetClosestGrunt();
+                targetClosestPlayer();
 
                 enemyState = State.Moving;
                 break;
@@ -60,9 +61,10 @@ public class TractorClass : EnemyClass
                 * Maybe check if near to attack, maybe just change state on collision
                 */
 
-
+                tractorBeam.SetActive(false);
+                sound.Stop();
+                sound.loop = false;
                 // Move towards tartget but stay away at a minimuim length to avoid player fire
-
                 moveTowardsTarget0G();
 
                 // look at player
@@ -70,25 +72,67 @@ public class TractorClass : EnemyClass
                 transform.up = direction;
                 break;
 
+
             case State.Attacking:
-
-
                 // Use trackor beam ablity
-                Tbeam.SetActive(true);
-
+                tractorBeam.SetActive(true);
+                sound.loop = true;
+                sound.clip = tractorsound;
+                sound.Play();
                 break;
-        }
 
-        // Check if dead (might move to function and call in Moving and Attacking
-        if (health == 0 && spawnLogic != null)
-        {
-            //spawnLogic.NPCdeath(); //New error cause unknown
+            case State.Dead:
+                /*
+                 * Runs item drop logic then runs the logic associated with the enemy leaving the scene
+                 * Can run death animation before running these functions
+                 */
+
+                itemDropLogic();
+                initiateDeath();
+                break;
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    // Function will allow for stronger enemies to hide behind grunts for tactical play,
+    // But seprate moveTowardsTarget0G function may need to be set up to allow,
+    // For the stronger enemey to follow grunt whilst keeping the correct target at the player.
+    // Unless simple bug fixes can be made without out getting to complex!
+    protected void targetClosestGrunt()
     {
-        // Damage detection
-        damageDetection(collision);
+        /*
+         * Finds the closest object with the tag "grunt" and sets "targetfollow" as that grunt
+         */
+        GameObject[] grunts = GameObject.FindGameObjectsWithTag("grunts");
+        float lowestDistance = 1;
+        targetfollow = null;
+        for (int i = 0; i < grunts.Length; i++)
+        {
+            //If targetfollow isnt set or distance is lower for other grunt, set grunt as targetfollow
+            if (targetfollow == null || Vector3.Distance(this.transform.position, grunts[i].transform.position) < lowestDistance)
+            {
+                targetfollow = grunts[i];
+                lowestDistance = Vector3.Distance(this.transform.position, grunts[i].transform.position);
+
+                // Will look at player
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                //transform.LookAt(players[0].transform);
+            }
+
+        }
+        //enemyState = State.Targeting;
+    }
+
+    // Use velocity to follow grunts
+    protected void moveTowardsTarget1G()
+    {
+        // If not at max velocity
+        if (rb.velocity.x < maxVelocity.x && rb.velocity.y < maxVelocity.y)
+        {
+            // Use target position and add to forceToApply
+            forceToApply = ((targetfollow.transform.position - this.transform.position).normalized) * forceMultiplier;
+            // Add every frame for excelleration (/100 cause too fast)
+            moveForce += forceToApply / 100;
+            rb.velocity = moveForce;
+        }
     }
 }

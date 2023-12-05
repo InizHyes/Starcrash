@@ -17,15 +17,14 @@ public class TEMPLATECLASS : EnemyClass
      * -Dies when hit by "Bullet" tag
      */
 
-    void Start()
+    private void Start()
     {
         // Set starting state and variables
-        initiateEnemy(10);
+        initiateEnemy();
     }
 
     private void Update()
     {
-        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:
@@ -67,12 +66,16 @@ public class TEMPLATECLASS : EnemyClass
 
             case State.Attacking:
                 break;
-        }
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Damage detection
-        damageDetection(collision);
+            case State.Dead:
+                /*
+                 * Runs item drop logic then runs the logic associated with the enemy leaving the scene
+                 * Can run death animation before running these functions
+                 */
+
+                itemDropLogic();
+                initiateDeath();
+                break;
+        }
     }
 }

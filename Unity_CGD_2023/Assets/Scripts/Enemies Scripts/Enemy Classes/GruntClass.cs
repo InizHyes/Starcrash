@@ -6,25 +6,27 @@ using UnityEngine;
 public class GruntClass : EnemyClass
 {
     // Variable to store hitbox prefab
-    public GameObject superHitbox;
-
-    int atktimer = 41;
-    bool playerInAtkZone = false;
-    bool playerInConeZone = false;
-    public Animator animate;
+    private GameObject superHitbox;
+    AudioSource sound;
+    [Header("Grunt Specific")]
+    [SerializeField] private int attackTimer = 41;
+    private bool playerInAtkZone = false;
+    private bool playerInConeZone = false;
+    private Animator animate;
     //private BoxCollider2D playerDetect;
-
-
+    public AudioClip spawnsound;
+    public AudioClip swipe;
     void Start()
     {
-        //Set starting state and variables
-        initiateEnemy(1);
+        sound = GetComponent<AudioSource>();
+        initiateEnemy();
         animate = GetComponent<Animator>(); // Maybe move into init function
+        sound.clip = spawnsound;
+        sound.Play();
     }
 
     private void Update()
     {
-        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:
@@ -44,32 +46,30 @@ public class GruntClass : EnemyClass
 
             case State.Pathfinding:
                 // Pathfind if line of sight is blocked
+
                 break;
 
             case State.Moving:
-                if (atktimer < 100)
+                // Attack timer logic
+                if (attackTimer < 100)
                 {
-                    atktimer = atktimer + 1;
+                    attackTimer = attackTimer + 1;
                 }
                 if (playerInAtkZone)
                 {
-                   if (atktimer > 99)
+                   if (attackTimer > 99)
                     {
                         animate.SetTrigger("gruntATTACK");
-                        atktimer = 0;
+                        attackTimer = 0;
                         enemyState = State.Attacking;
                     }
-
                 }
                 
-
-
                 /* didn't actually check if the cone works properly */
                 if (playerInConeZone)
                 {
                     // do something
                 }
-
 
                 /*
                 * Move towards player with velocity
@@ -79,66 +79,72 @@ public class GruntClass : EnemyClass
                 Vector3 direction = target.transform.position - transform.position; // look at player
                 transform.up = direction;
 
+                // Get collision from child triggers
+                Transform atkZoneTransform = transform.Find("DetectAttackZone");
+                if (atkZoneTransform != null)
+                {
+                    // Accessing child
+                    DetectAttack childscript = atkZoneTransform.GetComponent<DetectAttack>();
+                    if (childscript != null)
+                    {
+                        // Accessing child's variable
+                        playerInAtkZone = childscript.playerTriggered;
+                    }
+                }
+
+                Transform coneZoneTransform = transform.Find("DetectConeZone");
+                if (coneZoneTransform != null)
+                {
+                    DetectAttack childscript = coneZoneTransform.GetComponent<DetectAttack>();
+                    if (childscript != null)
+                    {
+                        playerInConeZone = childscript.playerTriggered;
+                    }
+                }
 
                 break;
 
             case State.Attacking:
-                if (atktimer == 2)
+                if (attackTimer == 2)
                 {
                     lungeForward();
                 }
                 slowDownAndStop();
-                if (atktimer < 60)
+                if (attackTimer < 60)
                 {
-                    if (atktimer == 45)
+                    if (attackTimer == 45)
                     {
+                        sound.clip = swipe;
+                        sound.Play();
                         /* before the animation finishes, 
                          * will spawn a hitbox prefab (ideally 0.25 seconds) in
                          * that damages the player tag & self deletes */
                         summonHitbox();
                     }
-                    atktimer = atktimer + 1;
+                    attackTimer = attackTimer + 1;
                 }
                 else
                 {
                     enemyState = State.Moving;
-                    atktimer = 0;
+                    attackTimer = 0;
                 }
 
                 break;
 
-        }
+            case State.Dead:
+                /*
+                 * Runs item drop logic then runs the logic associated with the enemy leaving the scene
+                 * Can run death animation before running these functions
+                 */
 
-
-        // getting collision from child triggers
-        Transform atkZoneTransform = transform.Find("DetectAttackZone");
-        if (atkZoneTransform != null)
-        {
-            // Accessing child
-            DetectAttack childscript = atkZoneTransform.GetComponent<DetectAttack>();
-            if (childscript != null)
-            {
-                // Accessing child's variable
-                playerInAtkZone = childscript.playerTriggered;
-            }
-        }
-
-        Transform coneZoneTransform = transform.Find("DetectConeZone");
-        if (coneZoneTransform != null)
-        {
-            DetectAttack childscript = coneZoneTransform.GetComponent<DetectAttack>();
-            if (childscript != null)
-            {
-                playerInConeZone = childscript.playerTriggered;
-            }
+                itemDropLogic();
+                initiateDeath();
+                break;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Damage detection
-        damageDetection(collision);
-
         // Wall detection
         if (collision.gameObject.tag == "OuterWall")
         {
@@ -147,7 +153,7 @@ public class GruntClass : EnemyClass
         }
     }
 
-    void summonHitbox() // eventually i plan to make this in the enemyclass/somewhere, with passable variables
+    private void summonHitbox() // eventually i plan to make this in the enemyclass/somewhere, with passable variables
     {
         // Load the hitbox
         GameObject hitboxPrefab = Resources.Load<GameObject>("SuperHitBox");

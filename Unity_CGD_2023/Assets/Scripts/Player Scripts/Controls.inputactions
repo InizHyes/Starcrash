@@ -33,7 +33,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Lock Down",
+                    "name": "LockDown",
                     "type": "Button",
                     "id": "9e8a4bba-1625-481a-a2c5-1b9e71341102",
                     "expectedControlType": "Button",
@@ -54,6 +54,33 @@
                     "name": "Controls",
                     "type": "Button",
                     "id": "21d3d711-f69f-4b0a-8b35-d920865fd2e2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Join",
+                    "type": "Button",
+                    "id": "0ead7501-f54f-4eaa-9a8d-265fdd4a2525",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WeaponSwapDown",
+                    "type": "Button",
+                    "id": "1b80adeb-822f-4778-909d-fe493aff4fba",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WeaponSwapUp",
+                    "type": "Button",
+                    "id": "1c9965a7-7e50-4e3b-96d1-56d83a2dcde7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -97,11 +124,11 @@
                 {
                     "name": "",
                     "id": "e99d5722-8151-4f61-826b-b76ffc97fd05",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lock Down",
+                    "action": "LockDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -124,6 +151,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Controls",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bbe28d02-430b-4492-a68a-338bb207b5b1",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Join",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "499e127d-bb94-40f7-8214-5a960761a240",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WeaponSwapDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2cf53b63-c7a4-4ac8-90a6-d51facc20994",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WeaponSwapUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -5,21 +5,26 @@ using UnityEngine;
 
 public class LaserSniperClass : EnemyClass
 {
-    public GameObject childLaser;
-    public int atktimer = 1;
+    [Header("Laser Sniper Specific")]
+    [SerializeField] private GameObject childLaser;
+    [SerializeField] private int attackTimer = 1;
+    public int laserDamage = 1; // This is public but should not be accessed outside of Laserdetection Script
     //bool laserReference = false;
     //private BoxCollider2D playerDetect;
-
-
-    void Start()
+    AudioSource sound;
+    public AudioClip spawnsound;
+    public AudioClip shootsound;
+    private void Start()
     {
         // Set starting state and variables
-        initiateEnemy(10);
+        sound = GetComponent<AudioSource>();
+        initiateEnemy();
+        sound.clip = spawnsound;
+        sound.Play();
     }
 
     private void Update()
     {
-        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:
@@ -42,20 +47,18 @@ public class LaserSniperClass : EnemyClass
                 break;
 
             case State.Moving:
-                if (atktimer > 199)
+                if (attackTimer > 199)
                 {
-                    atktimer = 0;
+                    attackTimer = 0;
                     enemyState = State.Attacking;
                 }
-                if (atktimer < 200)
+                if (attackTimer < 200)
                 {
-                    atktimer = atktimer + 1;
+                    attackTimer = attackTimer + 1;
                 }
 
                 Vector3 direction = target.transform.position - transform.position; // look at player
                 transform.right = direction;
-
-
                 break;
 
             case State.Attacking:
@@ -66,20 +69,22 @@ public class LaserSniperClass : EnemyClass
                     // Accessing child's variable
 
                     script.laserState = 1;
-                    atktimer = atktimer + 1;
-                    if (atktimer > 250)
+                    attackTimer = attackTimer + 1;
+                    if (attackTimer > 250)
                     {
                         script.laserState = 2;
-                        if (atktimer > 400)
+                        if (attackTimer == 251)
+                        {
+                            sound.clip = shootsound;
+                            sound.Play();
+                        }
+                        if (attackTimer > 400)
                         {
                             script.laserState = 0;
-                            atktimer = 1;
+                            attackTimer = 1;
                             enemyState = State.Targeting;
                         }
                     }
-
-
-
                 }
                 
                 else
@@ -87,17 +92,17 @@ public class LaserSniperClass : EnemyClass
                     Debug.Log("laserenemy dont work");
                 }
 
-
-
-
                 break;
 
-        }
-    }
+            case State.Dead:
+                /*
+                 * Runs item drop logic then runs the logic associated with the enemy leaving the scene
+                 * Can run death animation before running these functions
+                 */
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Damage detection
-        damageDetection(collision);
+                itemDropLogic();
+                initiateDeath();
+                break;
+        }
     }
 }
