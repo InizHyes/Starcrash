@@ -135,22 +135,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnController
       objectReference: {fileID: 0}
+    - target: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3176452598389735688, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+      propertyPath: nPCCounter
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3176452598389735688, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
       propertyPath: readySpawn
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3176452598389735688, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
       propertyPath: NPCEnemies.Array.size
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3176452598389735688, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
       propertyPath: NPCEnemies.Array.data[0]
       value: 
-      objectReference: {fileID: 5551923173195952751, guid: 87901d8cb1443c64ab9ce40bb30db10a, type: 3}
+      objectReference: {fileID: 5551923173195952751, guid: b8b85b9ebbb0e204fa4ab98fd3b28205, type: 3}
     - target: {fileID: 3176452598389735688, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
       propertyPath: NPCEnemies.Array.data[1]
       value: 
       objectReference: {fileID: 5551923173195952751, guid: b5fc94c68140c064192e8316840b2f1e, type: 3}
+    - target: {fileID: 3176452598389735688, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+      propertyPath: NPCEnemies.Array.data[2]
+      value: 
+      objectReference: {fileID: 5551923173195952751, guid: 87901d8cb1443c64ab9ce40bb30db10a, type: 3}
+    - target: {fileID: 3176452598389735688, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+      propertyPath: NPCEnemies.Array.data[3]
+      value: 
+      objectReference: {fileID: 5551923173195952751, guid: db953058457eb7847af4374a58cec8c3, type: 3}
+    - target: {fileID: 3176452598389735688, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+      propertyPath: NPCEnemies.Array.data[4]
+      value: 
+      objectReference: {fileID: 1167604057340768009, guid: b7a6ebac19edf9449ba3f5c14b48a097, type: 3}
     - target: {fileID: 4665283875838071932, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.1
@@ -445,7 +465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &619394801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,7 +531,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &979019061
+--- !u!1001 &979157023
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -521,11 +541,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 405230350808294393, guid: bb8b524f01a90884787e895bd4763264, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.9286933
+      value: -3.5973597
       objectReference: {fileID: 0}
     - target: {fileID: 405230350808294393, guid: bb8b524f01a90884787e895bd4763264, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8463794
+      value: 2.0927355
       objectReference: {fileID: 0}
     - target: {fileID: 405230350808294393, guid: bb8b524f01a90884787e895bd4763264, type: 3}
       propertyPath: m_LocalPosition.z
@@ -562,6 +582,14 @@ PrefabInstance:
     - target: {fileID: 729188681102843628, guid: bb8b524f01a90884787e895bd4763264, type: 3}
       propertyPath: player
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345583903540891380, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+      propertyPath: health
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345583903540891380, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+      propertyPath: maxHealth
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6087901998665851953, guid: bb8b524f01a90884787e895bd4763264, type: 3}
       propertyPath: m_Name
@@ -923,4 +951,4 @@ SceneRoots:
   - {fileID: 1036258152}
   - {fileID: 1569300592}
   - {fileID: 329669688}
-  - {fileID: 979019061}
+  - {fileID: 979157023}

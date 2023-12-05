@@ -5,21 +5,23 @@ using UnityEngine;
 
 public class JumperClass : EnemyClass
 {
-    private float attackCooldown;
-    public float ATTACKCOOLDOWN = 10f; // In seconds, can be set in inspector
-    public int moveSpeed = 200;
-
-    void Start()
+    [Header("Jumper Specific")]
+    [SerializeField] private int moveSpeed = 200;
+    AudioSource sound;
+    public AudioClip spawnsound;
+    public AudioClip jumpsound;
+    private void Start()
     {
+        sound = GetComponent<AudioSource>();
         // Set starting state and variables
-        initiateEnemy(10);
-
-        attackCooldown = 0f;
+        initiateEnemy();
+        sound.clip = spawnsound;
+        sound.Play();
+        attackCooldownValue = 0f;
     }
 
     private void Update()
     {
-        //Debug.Log(enemyState);
         switch (enemyState)
         {
             case State.Initiating:
@@ -36,6 +38,8 @@ public class JumperClass : EnemyClass
                  * It would be if(line of sight blocked){ enemyState = Pathfinding }
                  * But not needed now so im just assuming no LOS block
                  */
+
+
 
                 targetClosestPlayer();
                 enemyState = State.Moving;
@@ -55,7 +59,7 @@ public class JumperClass : EnemyClass
                 pushTowardsPlayer();
 
                 // Start attack cooldown
-                attackCooldown = ATTACKCOOLDOWN;
+                attackCooldownValue = attackCooldown;
                 enemyState = State.Attacking;
 
                 //moveTowardsTarget0G();
@@ -67,16 +71,26 @@ public class JumperClass : EnemyClass
                 break;
 
             case State.Attacking:
+                /*
+                 * Used to wait and count down attack timer
+                 */
+
                 // Count-down timer
-                if (attackCooldown > 0f)
-                {
-                    attackCooldown -= Time.deltaTime;
-                }
-                // Change back to targeting/moving
-                else
+                if (attackCooldwonLogic())
                 {
                     enemyState = State.Targeting;
                 }
+
+                break;
+
+            case State.Dead:
+                /*
+                 * Runs item drop logic then runs the logic associated with the enemy leaving the scene
+                 * Can run death animation before running these functions
+                 */
+
+                itemDropLogic();
+                initiateDeath();
                 break;
         }
     }
@@ -87,15 +101,12 @@ public class JumperClass : EnemyClass
         if (enemyState == State.Attacking)
         {
             // Do not check for collision instantly
-            if (collision.gameObject.tag == "OuterWall" && attackCooldown < ATTACKCOOLDOWN - 1)
+            if (collision.gameObject.tag == "OuterWall" && attackCooldownValue < attackCooldown - 1)
             {
                 rb.velocity = Vector2.zero;
                 rb.bodyType = RigidbodyType2D.Static;
             }
         }
-
-        // Damage detection
-        damageDetection(collision);
     }
 
     private void pushTowardsPlayer()
@@ -104,7 +115,10 @@ public class JumperClass : EnemyClass
          * Applies velocity in one large burst towards player
          */
         rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.velocity = Vector2.zero;
         Vector2 playerDirection = (target.transform.position - this.transform.position).normalized;
         rb.AddForce(playerDirection * moveSpeed);
+        sound.clip = jumpsound;
+        sound.Play();
     }
 }

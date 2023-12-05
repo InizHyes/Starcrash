@@ -127,9 +127,15 @@ public class SettingsManager : MonoBehaviour
 
     private void UpdateVolumeLabels()
     {
+
+        masterVolumeSlider.value = cachedMasterVolume;
+        sfxVolumeSlider.value = cachedSfxVolume;
+        musicVolumeSlider.value = cachedMusicVolume;
+
         masterVolumeLabel.text = (masterVolumeSlider.value + 80).ToString();
         sfxVolumeLabel.text = (sfxVolumeSlider.value + 80).ToString();
         musicVolumeLabel.text = (musicVolumeSlider.value + 80).ToString();
+
     }
 
     public void LoadSettings()

@@ -1,27 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class WandererClass : EnemyClass
 {
-
-
     private Animator animate;
+    AudioSource sound;
+    [Header("Wanderer Specific")]
+    public GameObject bulletPrefab;
+    public AudioClip spawnsound;
+    public AudioClip shootsound;
+    public Transform gunPoint;
+    private float bulletSpeed = 5f;
 
-    void Start()
+    private bool playerInAtkZone = false;
+    //private bool playerInConeZone = false;
+
+    public bool canAttack;
+
+    private void Start()
     {
         // Set starting state and variables
-        initiateEnemy(10);
-
+        sound = GetComponent<AudioSource>();
+        initiateEnemy();
+        sound.clip = spawnsound;
+        sound.Play();
+        canAttack = false;
         animate = GetComponent<Animator>(); // Maybe move into init function
     }
 
     private void Update()
     {
-        //Debug.Log(enemyState);
+
+        // Get collision from child triggers
+        Transform atkZoneTransform = transform.Find("DetectAttackZone");
+        if (atkZoneTransform != null)
+        {
+            // Accessing child
+            DetectAttack childscript = atkZoneTransform.GetComponent<DetectAttack>();
+            if (childscript != null)
+            {
+                // Accessing child's variable
+                playerInAtkZone = childscript.playerTriggered;
+            }
+        }
+
         switch (enemyState)
         {
             case State.Initiating:
@@ -29,8 +53,7 @@ public class WandererClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                targetRangedClosestPlayer();
-
+                enemyState = State.Targeting;
                 break;
 
             case State.Targeting:
@@ -39,7 +62,8 @@ public class WandererClass : EnemyClass
                  * It would be if(line of sight blocked){ enemyState = Pathfinding }
                  * But not needed now so im just assuming no LOS block
                  */
-
+                //targetRangedClosestPlayer();
+                targetClosestPlayer();
                 enemyState = State.Moving;
                 break;
 
@@ -62,21 +86,67 @@ public class WandererClass : EnemyClass
                 // look at player
                 Vector3 direction = target.transform.position - transform.position;
                 transform.up = direction;
+
+                if (playerInAtkZone == true)
+                {
+                    StartCoroutine(delayShot());
+                    enemyState = State.Attacking;
+                }
+
                 break;
+
 
             case State.Attacking:
+                Debug.Log("attacking");
 
+                if (canAttack == true)
+                {
+                    fireShot();
+                    StartCoroutine(delayShot());
+                }
 
-               
+                if (playerInAtkZone == false)
+                {
+                    StopCoroutine(delayShot());
+                    enemyState = State.Targeting;
+                }
+                break;
 
+            case State.Dead:
+                /*
+                 * Runs item drop logic then runs the logic associated with the enemy leaving the scene
+                 * Can run death animation before running these functions
+                 */
+
+                itemDropLogic();
+                initiateDeath();
                 break;
         }
-
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    //How long should it take to fire at player
+    private IEnumerator delayShot()
     {
-        // Damage detection
-        damageDetection(collision);
+        canAttack = false;
+
+        yield return new WaitForSeconds(3);
+
+        canAttack = true;
+    }
+
+    //Fire at target
+    private void fireShot()
+    {   
+        GameObject firedBullet = Instantiate(bulletPrefab, gunPoint.position, gunPoint.rotation);
+        Vector2 bulletDir = gunPoint.right ;
+        firedBullet.GetComponent<Rigidbody2D>().velocity = bulletDir * bulletSpeed;
+
+        sound.clip = shootsound;
+        sound.Play();
+
+        SpriteRenderer bulletRenderer = firedBullet.GetComponent<SpriteRenderer>();
+        bulletRenderer.color = Color.red;
+
+        Debug.Log("shot fired");
     }
 }

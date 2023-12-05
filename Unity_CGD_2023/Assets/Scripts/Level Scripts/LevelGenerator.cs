@@ -22,7 +22,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
-        lastRoomExit = StartingRoom.Find("RoomExit").position;
+        //lastRoomExit = StartingRoom.Find("RoomExit").position;
         int regularRoomsBeforeBoss = minRoomsBeforeBoss > 0 ? minRoomsBeforeBoss : 1;
 
         for (int i = 0; i < roomsToSpawn; i++)
