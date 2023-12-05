@@ -30,7 +30,7 @@ public class BossClass : EnemyClass
 
     [Header("Attack 1")]
     [SerializeField] private GameObject bossAttackZone1;
-    public int attack1Damage = 1;
+    public float attack1Damage = 1;
     [SerializeField] private float attack1Uptime = 3f; // In seconds
     private float attack1UptimeValue = 0f;
     public float ticksPerSecond = 10;
