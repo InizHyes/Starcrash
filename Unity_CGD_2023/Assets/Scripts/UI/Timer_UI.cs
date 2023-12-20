@@ -16,10 +16,10 @@ public class Timer_UI : MonoBehaviour
     private void Start()
     {
         // Sets the start time
-        being(totalTime);
+        begin(totalTime);
     }
 
-    private void being(int Second)
+    private void begin(int Second)
     {
         // Starts the timer
         timeRemaining = Second;
