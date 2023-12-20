@@ -107,6 +107,10 @@ public class EnemyClass : MonoBehaviour
 
     protected void moveTowardsTarget0G()
     {
+        /*
+         * When seting rb.velocity to 0 set forceToApply to 0 too
+         */
+
         // If not at max velocity
         if (rb.velocity.x < maxVelocity.x && rb.velocity.y < maxVelocity.y)
         {
@@ -160,8 +164,15 @@ public class EnemyClass : MonoBehaviour
         /*
          * Runs general functions for on death
          */
+
         NPCdeathCheck.NPCdeath();
+
+        // Destroy self and parent
         Destroy(this.gameObject);
+        if (transform.parent != null)
+        {
+            Destroy(transform.parent.gameObject);
+        }
     }
 
     protected void itemDropLogic()

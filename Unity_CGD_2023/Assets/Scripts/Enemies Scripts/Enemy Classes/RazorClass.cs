@@ -5,18 +5,9 @@ using UnityEngine;
 
 public class RazorClass : EnemyClass
 {
-    /*
-     * Template class
-     * Use as a template for future enemy classes
-     * Duplicate this and update the "public class TEMPLATECLASS : EnemyClass" to the new file name
-     * By default it:
-     * -Targets closest player on initiation
-     * -Moves towards player with 0g physics (grunt movement)
-     * -Rotates to face player
-     * -Takes damage when hit by bullet
-     * -Uses default values from EnemyClass
-     * -Deals damage on collision with player (if the object has PlayerCollisioZone prefab as a child)
-     */
+    [Header("Razor Specific")]
+    [SerializeField] private int dashSpeed = 200;
+    [SerializeField] private RazorBlade razorBlade;
 
     private void Start()
     {
@@ -47,8 +38,19 @@ public class RazorClass : EnemyClass
 
             case State.Pathfinding:
                 /*
-                 * Pathfind if line of sight is blocked
+                 * USED AS WAIT TIME, not pathfinding
+                 * Using collision with wall as exit time
+                 * 
+                 * //Using attackCooldwonLogic() as a timer
+                 * //Waits as long as attackCooldown
                  */
+
+                /*
+                if (attackCooldwonLogic())
+                {
+                    enemyState = State.Targeting;
+                } 
+                */
 
                 break;
 
@@ -59,6 +61,12 @@ public class RazorClass : EnemyClass
                 */
 
                 moveTowardsTarget0G();
+
+                // Slow down razor to default
+                if (razorBlade.spinSpeed >= razorBlade.DEFAULTSPINSPEED)
+                {
+                    razorBlade.spinSpeed -= razorBlade.spinSpeed / 100;
+                }
 
                 // look at player
                 Vector3 direction = target.transform.position - transform.position;
@@ -74,7 +82,17 @@ public class RazorClass : EnemyClass
                 // Count-down timer
                 if (attackCooldwonLogic())
                 {
-                    enemyState = State.Targeting;
+                    pushTowardsTarget();
+
+                    // Use pathfinding to wait
+                    attackCooldownValue = attackCooldown;
+                    enemyState = State.Pathfinding;
+                }
+
+                // Speed up razor to max
+                if (razorBlade.spinSpeed <= razorBlade.maxSpinSpeed)
+                {
+                    razorBlade.spinSpeed += razorBlade.spinSpeed / 100;
                 }
 
                 break;
@@ -91,10 +109,46 @@ public class RazorClass : EnemyClass
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void pushTowardsTarget()
+    {
+        /*
+         * Applies velocity in one large burst towards the Target
+         */
+
+        rb.velocity = Vector2.zero;
+        Vector2 playerDirection = (target.transform.position - this.transform.position).normalized;
+        rb.AddForce(playerDirection * dashSpeed);
+    }
+
+    public void areaTriggered()
     {
         /*
          * Stop movement for a few seconds then do dash attack
+         * Called from RazorBlade
+         * If in State.Pathfinding do nothing
          */
+
+        if (enemyState != State.Pathfinding)
+        {
+            rb.velocity = Vector2.zero;
+            attackCooldownValue = attackCooldown;
+            enemyState = State.Attacking;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Collision with wall
+        if (collision.gameObject.tag == "OuterWall")
+        {
+            rb.velocity = Vector2.zero;
+            forceToApply = Vector2.zero;
+
+            // If in "Pathfinding" state (waiting after attack) change to Targeting state
+            if (enemyState == State.Pathfinding)
+            {
+                enemyState = State.Targeting;
+            }
+        }
     }
 }

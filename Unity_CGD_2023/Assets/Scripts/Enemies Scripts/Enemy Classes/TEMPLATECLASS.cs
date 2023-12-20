@@ -18,6 +18,9 @@ public class TEMPLATECLASS : EnemyClass
      * -Deals damage on collision with player (if the object has PlayerCollisioZone prefab as a child)
      */
 
+    // When showing variables in the inspector use a header to show the unique variables
+    //[Header("TEMPLATECLASS Specific")]
+
     private void Start()
     {
         // Set starting state and variables
@@ -69,6 +72,9 @@ public class TEMPLATECLASS : EnemyClass
                 /*
                  * Change State to here after attack is used
                  * Will wait here until attackCooldown is over then move back to Targeting
+                 * 
+                 * Before setting state to State.Attacking run //attackCooldownValue = attackCooldown;
+                 * This will set the attackCooldownValue so that attackCooldwonLogic() can count it down
                  */
 
                 // Count-down timer
