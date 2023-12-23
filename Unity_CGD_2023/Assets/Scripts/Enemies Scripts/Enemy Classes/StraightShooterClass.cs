@@ -21,6 +21,7 @@ public class StraightShooterClass : EnemyClass
 
     private int bulletsFired;
     private bool isInBurst;
+    private Animator anim;
 
 
     private void Start()
@@ -28,6 +29,7 @@ public class StraightShooterClass : EnemyClass
         // Set starting state and variables
         initiateEnemy();
         StartBurst();  // Start the first burst
+        anim = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -63,7 +65,7 @@ public class StraightShooterClass : EnemyClass
                 * Will loop here until the state is changed back to Targeting, Attackng, or Dead
                 */
 
-                moveTowardsTarget0G();
+                //moveTowardsTarget0G();
 
                 // look at player
                 /*Vector3 direction = target.transform.position - transform.position;
@@ -99,6 +101,15 @@ public class StraightShooterClass : EnemyClass
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Bullet")
+        {
+            // Change the enemy color or apply the animation here
+            ChangeEnemyColor();
+        }
+    }
+
     void StartBurst()
     {
         if (!isInBurst)
@@ -115,10 +126,12 @@ public class StraightShooterClass : EnemyClass
         CancelInvoke("ShootBullet");
         Invoke("StartBurst", burstPause);
         isInBurst = false;
+        anim.SetBool("Shoot", false);
     }
 
     void ShootBullet()
     {
+        anim.SetBool("Shoot", true);
         if (bulletsFired < bulletsPerBurst)
         {
             SpawnBullet(Vector2.up);
@@ -135,5 +148,27 @@ public class StraightShooterClass : EnemyClass
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody2D>().velocity = direction.normalized * bulletSpeed;
         Destroy(bullet, bulletLifetime);
+    }
+
+    private void ChangeEnemyColor()
+    {
+        // Implement logic to change the enemy color or apply the animation here
+        // Change the sprite renderer color
+        // GetComponent<SpriteRenderer>().color = Color.red;
+
+        // Alternatively, trigger an animation
+        anim.SetTrigger("Hit");
+
+        StartCoroutine(ResetHitState());
+    }
+
+    private IEnumerator ResetHitState()
+    {
+        // Wait for a short duration before resetting the hit state
+        yield return new WaitForSeconds(0.1f);
+        // Reset the "Hit" trigger
+        anim.ResetTrigger("Hit");
+
+        GetComponent<SpriteRenderer>().color = Color.white;
     }
 }
