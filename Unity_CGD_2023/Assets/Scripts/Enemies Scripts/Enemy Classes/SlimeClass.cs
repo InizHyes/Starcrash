@@ -34,6 +34,9 @@ public class SlimeClass : EnemyClass
     private Animator animator;
     private float deathAnimationDuration = 2.0f; // Adjust this value based on your actual death animation duration
 
+    // Array of destination points
+    public Transform[] destinationPoints;
+    private int currentDestinationIndex;
 
     private void Start()
     {
@@ -42,6 +45,8 @@ public class SlimeClass : EnemyClass
 
         animator = GetComponent<Animator>();
 
+        // Set the initial destination
+        SetNextDestination();
     }
 
     private void Update()
@@ -137,6 +142,7 @@ public class SlimeClass : EnemyClass
             }
         }
     }
+
     protected void slimeMove()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, target.transform.position);
@@ -148,9 +154,9 @@ public class SlimeClass : EnemyClass
             if (distanceToPlayer > stoppingDistance)
             {
                 // Calculate the direction to the player
-                Vector2 directionToPlayer = (target.transform.position - this.transform.position).normalized;
+                Vector2 directionToPlayer = (target.transform.position - transform.position).normalized;
 
-                // Smoothly interpolate between the current velocity and the desired velocity
+                // Smoothly interpolate between the current velocity and the desired velocity towards the player
                 rb.velocity = Vector2.Lerp(rb.velocity, directionToPlayer * slimeMaxVelocity, smoothness * Time.deltaTime);
 
                 // Trigger jump animation when moving
@@ -166,14 +172,34 @@ public class SlimeClass : EnemyClass
 
                 // Trigger attack animation
                 animator.SetTrigger("Attack");
+
+                // Set the next destination
+                SetNextDestination();
             }
         }
         else
         {
-            // Player is outside the activation range, stop moving and animation
-            rb.velocity = Vector2.zero;
-            animator.SetBool("IsMoving", false);
+            // Player is outside the activation range, move towards the current destination
+            Vector2 directionToDestination = (destinationPoints[currentDestinationIndex].position - transform.position).normalized;
+            rb.velocity = Vector2.Lerp(rb.velocity, directionToDestination * slimeMaxVelocity, smoothness * Time.deltaTime);
+
+            // Trigger jump animation when moving
+            animator.SetBool("IsMoving", true);
+
+            // Check if the slime has reached its current destination
+            float distanceToDestination = Vector2.Distance(transform.position, destinationPoints[currentDestinationIndex].position);
+            if (distanceToDestination < 0.1f)
+            {
+                // Set the next destination
+                SetNextDestination();
+            }
         }
+    }
+
+    private void SetNextDestination()
+    {
+        // Increment the destination index or reset to 0 if reached the end
+        currentDestinationIndex = (currentDestinationIndex + 1) % destinationPoints.Length;
     }
 
     private IEnumerator WaitForDeathAnimation()
