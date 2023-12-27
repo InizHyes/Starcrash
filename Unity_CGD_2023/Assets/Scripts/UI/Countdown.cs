@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class Countdown : MonoBehaviour
 {
@@ -17,11 +17,14 @@ public class Countdown : MonoBehaviour
 
     public TextMeshProUGUI text;
 
+    public TextMeshProUGUI go_text;
+
     // Start is called before the first frame update
     private void Start()
     {
         // Sets the start time
         begin(totalTime);
+        go_text.enabled = false;
     }
 
     private void begin(int Second)
@@ -36,7 +39,7 @@ public class Countdown : MonoBehaviour
         // Updates the timer every second
         while (timeRemaining >= 0)
         {
-            uifill.fillAmount = Mathf.InverseLerp(0, totalTime, timeRemaining);
+            uiFill.fillAmount = Mathf.InverseLerp(0, totalTime, timeRemaining);
             timeRemaining--;
             yield return new WaitForSeconds(1f);
         }
@@ -48,8 +51,16 @@ public class Countdown : MonoBehaviour
         // Prints out text to say timer is ended
         print("Go");
         text.enabled = false;
+        go_text.enabled = true;
         uiFill.enabled = false;
         uiBackground.enabled = false;
+    }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            go_text.enabled = false;
+        }
     }
 }
