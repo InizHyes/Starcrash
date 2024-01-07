@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7801985980137242808}
   - component: {fileID: 3176452598389735688}
+  - component: {fileID: 609672649110186173}
   m_Layer: 0
   m_Name: SpawnController
   m_TagString: SpawnTrigger
@@ -27,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 615926248298756713}
@@ -50,18 +51,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCEnemies:
   - {fileID: 5551923173195952751, guid: b5fc94c68140c064192e8316840b2f1e, type: 3}
-  TriggerPoints: []
+  - {fileID: 5551923173195952751, guid: 87901d8cb1443c64ab9ce40bb30db10a, type: 3}
+  - {fileID: 5551923173195952751, guid: 17018d14ba9e69f4db272b96f5b9c9e7, type: 3}
+  - {fileID: 5551923173195952751, guid: 98d7afa5a7063d74badfcfe7ddd88181, type: 3}
+  - {fileID: 5551923173195952751, guid: db953058457eb7847af4374a58cec8c3, type: 3}
+  - {fileID: 5551923173195952751, guid: db953058457eb7847af4374a58cec8c3, type: 3}
   spawnPoints:
   - {fileID: 615926248298756713}
   - {fileID: 9007856364702581912}
   - {fileID: 4665283875838071932}
   - {fileID: 6859618985023975665}
   readySpawn: 0
-  triggerInput: 0
-  waveCurrent: 0
-  waveMax: 0
   nPCTotal: 0
   nPCCounter: 0
+--- !u!61 &609672649110186173
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2219450776964173885}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &3972965527246628279
 GameObject:
   m_ObjectHideFlags: 0
