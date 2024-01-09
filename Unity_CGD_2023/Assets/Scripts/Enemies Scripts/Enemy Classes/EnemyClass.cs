@@ -55,11 +55,8 @@ public class EnemyClass : MonoBehaviour
         enemyState = State.Initiating;
         rb = GetComponent<Rigidbody2D>();
 
-        NPCdeathCheck = spawnLogic.GetComponent<SpawnLogic>();
-        if (NPCdeathCheck != null)
-        {
-            NPCdeathCheck.NPCdeath();
-        }
+        NPCdeathCheck = GameObject.Find("SpawnController").GetComponent<SpawnLogic>();
+        //NPCdeathCheck = spawnLogic.GetComponent<SpawnLogic>();
     }
 
     protected void targetClosestPlayer()
@@ -79,6 +76,11 @@ public class EnemyClass : MonoBehaviour
                 lowestDistance = Vector3.Distance(this.transform.position, players[i].transform.position);
             }
             // Else do nothing
+        }
+
+        if (target == null)
+        {
+            Debug.Log("Add a player to the scene");
         }
         //---Moved due to Jumper needing constant acceess to this function---
         //enemyState = State.Targeting;
@@ -164,7 +166,6 @@ public class EnemyClass : MonoBehaviour
         /*
          * Runs general functions for on death
          */
-
         NPCdeathCheck.NPCdeath();
 
         // Destroy self and parent
