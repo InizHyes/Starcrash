@@ -3,28 +3,22 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TEMPLATECLASS : EnemyClass
+public class QuantumShadowClass : EnemyClass
 {
-    /*
-     * Template class
-     * Use as a template for future enemy classes
-     * Duplicate this and update the "public class TEMPLATECLASS : EnemyClass" to the new file name
-     * By default it:
-     * -Targets closest player on initiation
-     * -Moves towards player with 0g physics (grunt movement)
-     * -Rotates to face player
-     * -Takes damage when hit by bullet
-     * -Uses default values from EnemyClass
-     * -Deals damage on collision with player (if the object has PlayerCollisioZone prefab as a child)
-     */
+    private Animator animate;
+    AudioSource sound;
 
-    // When showing variables in the inspector use a header to show the unique variables
-    //[Header("TEMPLATECLASS Specific")]
+    [Header("Quantum Shadow Specific")]
+    public AudioClip spawnsound;
+    public AudioClip quantumShadowsound;
+    private SpriteRenderer spriteRenderer;
+
 
     private void Start()
     {
         // Set starting state and variables
         initiateEnemy();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -44,6 +38,8 @@ public class TEMPLATECLASS : EnemyClass
                  * Target player and decide if State.Pathfinding is needed, otherwise change to moving
                  */
 
+                QSabilityOff();
+
                 targetClosestPlayer();
                 enemyState = State.Moving;
                 break;
@@ -61,6 +57,9 @@ public class TEMPLATECLASS : EnemyClass
                 * Will loop here until the state is changed back to Targeting, Attackng, or Dead
                 */
 
+                sound.Stop();
+                sound.loop = false;
+
                 moveTowardsTarget0G();
 
                 // look at player
@@ -77,6 +76,8 @@ public class TEMPLATECLASS : EnemyClass
                  * This will set the attackCooldownValue so that attackCooldwonLogic() can count it down
                  */
 
+                QSabilityOn();
+
                 // Count-down timer
                 if (attackCooldwonLogic())
                 {
@@ -91,9 +92,25 @@ public class TEMPLATECLASS : EnemyClass
                  * Can run death animation before running these functions
                  */
 
+                sound.loop = true;
+                sound.clip = quantumShadowsound;
+                sound.Play();
+
                 itemDropLogic();
                 initiateDeath();
                 break;
         }
+    }
+
+    private void QSabilityOn()
+    {
+        //Turn invisible and invincible
+        spriteRenderer.enabled = false;
+    }
+
+    private void QSabilityOff()
+    {
+        //Turn visible and vulnerable
+        spriteRenderer.enabled = true;
     }
 }

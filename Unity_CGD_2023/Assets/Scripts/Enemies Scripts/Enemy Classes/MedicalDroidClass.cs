@@ -3,28 +3,24 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TEMPLATECLASS : EnemyClass
+public class MedicalDroidClass: EnemyClass
 {
-    /*
-     * Template class
-     * Use as a template for future enemy classes
-     * Duplicate this and update the "public class TEMPLATECLASS : EnemyClass" to the new file name
-     * By default it:
-     * -Targets closest player on initiation
-     * -Moves towards player with 0g physics (grunt movement)
-     * -Rotates to face player
-     * -Takes damage when hit by bullet
-     * -Uses default values from EnemyClass
-     * -Deals damage on collision with player (if the object has PlayerCollisioZone prefab as a child)
-     */
+    private Animator animate;
+    AudioSource sound;
 
-    // When showing variables in the inspector use a header to show the unique variables
-    //[Header("TEMPLATECLASS Specific")]
+    [Header("Medical Droid Specific")]
+    [SerializeField] public GameObject HealATK;
+    public AudioClip spawnsound;
+    public AudioClip medicalDroidsound;
 
     private void Start()
     {
         // Set starting state and variables
+        sound = GetComponent<AudioSource>();
         initiateEnemy();
+        sound.clip = spawnsound;
+        sound.Play();
+        animate = GetComponent<Animator>(); // Maybe move into init function
     }
 
     private void Update()
@@ -36,6 +32,8 @@ public class TEMPLATECLASS : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
+                HealATK.SetActive(false);
+
                 enemyState = State.Targeting;
                 break;
 
@@ -45,6 +43,9 @@ public class TEMPLATECLASS : EnemyClass
                  */
 
                 targetClosestPlayer();
+
+                //targetClosestEnemy();
+
                 enemyState = State.Moving;
                 break;
 
@@ -61,6 +62,12 @@ public class TEMPLATECLASS : EnemyClass
                 * Will loop here until the state is changed back to Targeting, Attackng, or Dead
                 */
 
+                HealATK.SetActive(false);
+                sound.Stop();
+                sound.loop = false;
+
+
+                // Check to see if we need to target 
                 moveTowardsTarget0G();
 
                 // look at player
@@ -77,6 +84,7 @@ public class TEMPLATECLASS : EnemyClass
                  * This will set the attackCooldownValue so that attackCooldwonLogic() can count it down
                  */
 
+
                 // Count-down timer
                 if (attackCooldwonLogic())
                 {
@@ -91,9 +99,42 @@ public class TEMPLATECLASS : EnemyClass
                  * Can run death animation before running these functions
                  */
 
+                sound.loop = true;
+                sound.clip = medicalDroidsound;
+                sound.Play();
+
                 itemDropLogic();
                 initiateDeath();
                 break;
         }
     }
+
+    private void targetClosestEnemy()
+    {
+        /*
+         * Finds the closest object with the tag "Enemy" and sets "target" to heal
+         */
+        GameObject[] Enemy = GameObject.FindGameObjectsWithTag("Generator");
+        float lowestDistance = 0;
+        target = null;
+        for (int i = 0; i < Enemy.Length; i++)
+        {
+            //If target isnt set or distance is lower for other Generator, set Generator as target
+            if (target == null && Vector3.Distance(this.transform.position, Enemy[i].transform.position) < lowestDistance)
+            {
+                target = Enemy[i];
+                lowestDistance = Vector3.Distance(this.transform.position, Enemy[i].transform.position);
+                Debug.LogWarning("Target Enemy");
+            }
+
+            // Else find player to attack
+            else
+            {
+                targetClosestPlayer();
+                Debug.LogWarning("Target player");
+            }
+        }
+
+    }
+
 }

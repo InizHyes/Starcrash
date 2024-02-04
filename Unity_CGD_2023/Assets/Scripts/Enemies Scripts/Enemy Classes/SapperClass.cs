@@ -3,28 +3,25 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TEMPLATECLASS : EnemyClass
+public class SapperClass : EnemyClass
 {
-    /*
-     * Template class
-     * Use as a template for future enemy classes
-     * Duplicate this and update the "public class TEMPLATECLASS : EnemyClass" to the new file name
-     * By default it:
-     * -Targets closest player on initiation
-     * -Moves towards player with 0g physics (grunt movement)
-     * -Rotates to face player
-     * -Takes damage when hit by bullet
-     * -Uses default values from EnemyClass
-     * -Deals damage on collision with player (if the object has PlayerCollisioZone prefab as a child)
-     */
+    private Animator animate;
+    AudioSource sound;
 
-    // When showing variables in the inspector use a header to show the unique variables
-    //[Header("TEMPLATECLASS Specific")]
+    [Header("Sapper Specific")]
+    [SerializeField] public GameObject WeldATK;
+    [SerializeField] public GameObject EMPAOE;
+    public AudioClip spawnsound;
+    public AudioClip sappersound;
 
     private void Start()
     {
         // Set starting state and variables
+        sound = GetComponent<AudioSource>();
         initiateEnemy();
+        sound.clip = spawnsound;
+        sound.Play();
+        animate = GetComponent<Animator>(); // Maybe move into init function
     }
 
     private void Update()
@@ -35,6 +32,9 @@ public class TEMPLATECLASS : EnemyClass
                 /*
                  * Starting state, used to run one-off functions for spawning
                  */
+
+                WeldATK.SetActive(false);
+                EMPAOE.SetActive(false);
 
                 enemyState = State.Targeting;
                 break;
@@ -61,6 +61,13 @@ public class TEMPLATECLASS : EnemyClass
                 * Will loop here until the state is changed back to Targeting, Attackng, or Dead
                 */
 
+                WeldATK.SetActive(false);
+                EMPAOE.SetActive(false);
+                sound.Stop();
+                sound.loop = false;
+
+
+                // Check to see if we need to target genrators
                 moveTowardsTarget0G();
 
                 // look at player
@@ -77,6 +84,9 @@ public class TEMPLATECLASS : EnemyClass
                  * This will set the attackCooldownValue so that attackCooldwonLogic() can count it down
                  */
 
+                //Will heal genrators and do little damage to players
+                WeldATK.SetActive(true);
+
                 // Count-down timer
                 if (attackCooldwonLogic())
                 {
@@ -91,9 +101,16 @@ public class TEMPLATECLASS : EnemyClass
                  * Can run death animation before running these functions
                  */
 
+                // Use EMP AOE attack before death
+                EMPAOE.SetActive(true);
+                sound.loop = true;
+                sound.clip = sappersound;
+                sound.Play();
+
                 itemDropLogic();
                 initiateDeath();
                 break;
         }
     }
+
 }
