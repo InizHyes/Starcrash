@@ -22,8 +22,8 @@ public class EnemyClass : MonoBehaviour
 
     // Set spawnlogic prefab onto spawnLogic, will find and assign script to NPCdeathCheck
     [Header("Spawning/Drops")]
-    [SerializeField] protected GameObject spawnLogic;
-    protected SpawnLogic NPCdeathCheck;
+    //protected GameObject spawnLogic;
+    [HideInInspector] public SpawnLogic NPCdeathCheck;
 
     // Item drop variables
     [SerializeField] private GameObject[] droppedObejcts;
@@ -55,8 +55,14 @@ public class EnemyClass : MonoBehaviour
         enemyState = State.Initiating;
         rb = GetComponent<Rigidbody2D>();
 
-        NPCdeathCheck = GameObject.Find("SpawnController").GetComponent<SpawnLogic>();
-        //NPCdeathCheck = spawnLogic.GetComponent<SpawnLogic>();
+        // Set on instantiaion by SpawnLogic instead
+        /*
+        spawnLogic = GameObject.Find("SpawnController");
+        if (spawnLogic != null )
+        {
+            NPCdeathCheck = spawnLogic.GetComponent<SpawnLogic>();
+        }
+        */
     }
 
     protected void targetClosestPlayer()
@@ -166,7 +172,10 @@ public class EnemyClass : MonoBehaviour
         /*
          * Runs general functions for on death
          */
-        NPCdeathCheck.NPCdeath();
+        if (NPCdeathCheck != null)
+        {
+            NPCdeathCheck.NPCdeath();
+        }
 
         // Destroy self and parent
         Destroy(this.gameObject);
