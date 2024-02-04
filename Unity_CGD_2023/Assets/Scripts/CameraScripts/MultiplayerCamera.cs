@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class MultiplayerCamera : MonoBehaviour
 {
-    [SerializeField]
-    private float zoomStart = 15f; // when the camera zoom begins
+    private float zoomStart = 10f; // when the camera zoom begins
     [SerializeField]
     private float minZoom = 5f; // Minimum camera zoom in
     [SerializeField]
@@ -16,35 +15,38 @@ public class MultiplayerCamera : MonoBehaviour
     private float zoomOutLerpSpeed = 10f; // Speed of zooming out
 
     private Camera mainCamera;
-    //private float minX, maxX, minY, maxY;
     private List<Transform> players = new List<Transform>();
 
     void Start()
     {
-        mainCamera = GetComponent<Camera>();
+        mainCamera = GetComponent<Camera>();    
     }
 
     void Update()
     {
         FindPlayers();
-        if (players.Count == 0)
-        {
-            FindPlayers(); // In case players are dynamically added during gameplay
-            return;
-        }
+        // Calculate the midpoint
+        Vector3 midpoint = GetCenterPoint();
 
-        UpdateCameraPosition();
+
+        // Set the position of this GameObject to the midpoint
+        transform.position = midpoint;
+
+        Debug.Log("Midpoint: " + midpoint);
+
         UpdateCameraZoom();
     }
 
-    //UpdateCameraPosition updates the camera position to always be focused on the point between all the players.
-    void UpdateCameraPosition()
+    void UpdateCameraZoom()
     {
-        Vector3 centerPoint = GetCenterPoint();
-        transform.position = new Vector3(centerPoint.x, centerPoint.y, transform.position.z);
+        float distance = GetPlayersDistance();
+        float targetZoom = Mathf.Lerp(minZoom, maxZoom, distance / zoomStart);
+
+        float lerpSpeed = (targetZoom > mainCamera.orthographicSize) ? zoomInLerpSpeed : zoomOutLerpSpeed;
+
+        mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, targetZoom, Time.deltaTime * lerpSpeed);
     }
 
-    //GetCenterPoint gets the central point between all players in the game.
     Vector3 GetCenterPoint()
     {
         if (players.Count == 1)
@@ -59,18 +61,6 @@ public class MultiplayerCamera : MonoBehaviour
         return bounds.center;
     }
 
-    //UpdateCameraZoom adjusts the zoom level of the camera based on the positions of the players.
-    void UpdateCameraZoom()
-    {
-        float distance = GetPlayersDistance();
-        float targetZoom = Mathf.Lerp(minZoom, maxZoom, distance / zoomStart);
-
-        float lerpSpeed = (targetZoom > mainCamera.orthographicSize) ? zoomInLerpSpeed : zoomOutLerpSpeed;
-
-        mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, targetZoom, Time.deltaTime * lerpSpeed);
-    }
-
-    //GetPlayersDistance gets the distance between all the players in the game.
     float GetPlayersDistance()
     {
         Bounds bounds = new Bounds(players[0].position, Vector3.zero);
@@ -82,7 +72,6 @@ public class MultiplayerCamera : MonoBehaviour
         return bounds.size.x;
     }
 
-    //FindPlayers adds objects with the tag "Player" to the player objects list so the camera can adjust for more players.
     void FindPlayers()
     {
         players.Clear();
@@ -94,3 +83,4 @@ public class MultiplayerCamera : MonoBehaviour
         }
     }
 }
+

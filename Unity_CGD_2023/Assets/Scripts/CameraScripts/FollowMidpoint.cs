@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowPlayerCamera : MonoBehaviour
+public class FollowMidpoint : MonoBehaviour
 {
-    public Transform player;
+    public Transform midpoint;
     public float smoothSpeed = 2f;
     public Vector3 offset = new Vector3(0f, 0f, -10f);
 
     private void LateUpdate()
     {
-        if (player == null)
+        if (midpoint == null)
         {
-            Debug.LogWarning("NO PLAYER TO FOLLOW");
+            Debug.LogWarning("NO MIDPOINT TO FOLLOW");
             return;
         }
 
-        Vector3 targetPosition = player.position + offset;
+        Vector3 targetPosition = midpoint.position + offset;
 
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
         transform.position = smoothedPosition;
