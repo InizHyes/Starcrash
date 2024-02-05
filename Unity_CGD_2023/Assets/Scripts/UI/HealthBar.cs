@@ -18,6 +18,7 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
+        playerStats = GameObject.FindGameObjectWithTag("Player");
         currentHealth = playerStats.GetComponent<PlayerStats>().health;
         maxHealth = playerStats.GetComponent<PlayerStats>().maxHealth;
 
