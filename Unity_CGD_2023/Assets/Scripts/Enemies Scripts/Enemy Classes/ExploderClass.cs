@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Exploder : EnemyClass
+public class ExploderClass : EnemyClass
 {
     [Header("Exploder Specific")]
-    private ExploderAOE exploderAOE;
+    [SerializeField] private ExploderAOE exploderAOE;
     [SerializeField][Tooltip("The higher the number the weaker the slow down on collision")] private float slowDown = 0.2f;
+    public int explosionDamage = 10;
+    public float deathLinger = 1f;
 
     private void Start()
     {
         // Set starting state and variables
         initiateEnemy();
 
-        exploderAOE = GetComponentInChildren<ExploderAOE>();
         exploderAOE.gameObject.SetActive(false);
     }
 
@@ -84,8 +85,17 @@ public class Exploder : EnemyClass
                  * Lingers for a while
                  */
 
-                itemDropLogic();
-                initiateDeath();
+                // Wait after death
+                if (deathLinger > 0)
+                {
+                    deathLinger -= Time.deltaTime;
+                }
+                else
+                {
+                    itemDropLogic();
+                    initiateDeath();
+                }
+
                 break;
         }
     }
@@ -115,13 +125,39 @@ public class Exploder : EnemyClass
             if (enemyState == State.Moving)
             {
                 // Set AOE active
-                exploderAOE.gameObject.SetActive(true);
-                enemyState = State.Attacking;
+                explode();
 
                 return true;
             }
         }
 
         return false;
+    }
+
+    private void explode()
+    {
+        // Set AOE active
+        exploderAOE.gameObject.SetActive(true);
+        enemyState = State.Attacking;
+    }
+
+    public override void damageDetection(int damage)
+    {
+        if (enemyState != State.Attacking && enemyState != State.Dead)
+        {
+            // On death, explode instead
+            health -= damage;
+
+            if (health <= 0)
+            {
+                explode();
+            }
+        }
+    }
+
+    public void deathStateChange()
+    {
+        // Needed by Exploder AOE
+        enemyState = State.Dead;
     }
 }

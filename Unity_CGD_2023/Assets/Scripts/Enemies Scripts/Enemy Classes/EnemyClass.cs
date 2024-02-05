@@ -135,6 +135,7 @@ public class EnemyClass : MonoBehaviour
         rb.velocity *= 0.98f;
         moveForce = rb.velocity;
     }
+
     protected void lungeForward()
     {
         if (rb.velocity.x < maxVelocity.x && rb.velocity.y < maxVelocity.y)

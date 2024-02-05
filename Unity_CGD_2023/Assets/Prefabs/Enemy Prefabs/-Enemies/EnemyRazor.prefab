@@ -139,7 +139,7 @@ MonoBehaviour:
   bumpDamage: 1
   forceMultiplier: 1
   maxVelocity: {x: 100, y: 100}
-  spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+  NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
   attackCooldown: 2
@@ -414,6 +414,10 @@ PrefabInstance:
     - target: {fileID: 9003363023422596382, guid: 82d24dc98086bff4dbf6e17c7c154855, type: 3}
       propertyPath: m_Name
       value: RazorBlade
+      objectReference: {fileID: 0}
+    - target: {fileID: 9003363023422596382, guid: 82d24dc98086bff4dbf6e17c7c154855, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9103303153840565040, guid: 82d24dc98086bff4dbf6e17c7c154855, type: 3}
       propertyPath: maxSpinSpeed
