@@ -16,6 +16,7 @@ public class TEMPLATECLASS : EnemyClass
      * -Takes damage when hit by bullet
      * -Uses default values from EnemyClass
      * -Deals damage on collision with player (if the object has PlayerCollisioZone prefab as a child)
+     * -Stops momentum when colliding with wall
      */
 
     // When showing variables in the inspector use a header to show the unique variables
@@ -94,6 +95,21 @@ public class TEMPLATECLASS : EnemyClass
                 itemDropLogic();
                 initiateDeath();
                 break;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        /*
+         * Wall detection
+         * On collision with an object with the tag "OuterWall"
+         * Stops all momentum
+         */
+
+        if (collision.gameObject.tag == "OuterWall")
+        {
+            rb.velocity = Vector2.zero;
+            moveForce = Vector2.zero;
         }
     }
 }

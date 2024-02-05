@@ -234,7 +234,7 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
-    public bool playerCollisionCheck(Collider2D collider)
+    virtual public bool playerCollisionCheck(Collider2D collider)
     {
         /*
          * Call in CollisionEnter2D()
