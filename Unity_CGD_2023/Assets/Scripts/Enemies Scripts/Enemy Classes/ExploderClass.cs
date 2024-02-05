@@ -7,6 +7,7 @@ public class Exploder : EnemyClass
 {
     [Header("Exploder Specific")]
     private ExploderAOE exploderAOE;
+    [SerializeField][Tooltip("The higher the number the weaker the slow down on collision")] private float slowDown = 0.2f;
 
     private void Start()
     {
@@ -54,8 +55,10 @@ public class Exploder : EnemyClass
                 moveTowardsTarget0G();
 
                 // look at player
+                /*
                 Vector3 direction = target.transform.position - transform.position;
                 transform.up = direction;
+                */
                 break;
 
             case State.Attacking:
@@ -66,6 +69,9 @@ public class Exploder : EnemyClass
                  * Before setting state to State.Attacking run //attackCooldownValue = attackCooldown;
                  * This will set the attackCooldownValue so that attackCooldwonLogic() can count it down
                  */
+
+                // Slow down momentum
+                rb.velocity -= rb.velocity / 0.2f * Time.deltaTime;
 
                 break;
 
@@ -110,6 +116,7 @@ public class Exploder : EnemyClass
             {
                 // Set AOE active
                 exploderAOE.gameObject.SetActive(true);
+                enemyState = State.Attacking;
 
                 return true;
             }

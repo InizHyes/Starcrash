@@ -18,4 +18,9 @@ public class ExploderAOE : MonoBehaviour
     {
         dealDamage = false;
     }
+
+    private void LateUpdate()
+    {
+        
+    }
 }
