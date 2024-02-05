@@ -22,13 +22,16 @@ public class ColourChange : MonoBehaviour
     Tile playerTile;
     Tile enemyTile;
 
-    private Vector3Int tileLocation;
+    Vector3Int tileLocation;
     public List<Vector2Int> playerTileList = new List<Vector2Int>();
     public List<Vector2Int> enemyTileList = new List<Vector2Int>();
 
     bool startPuzzle = false;
     int halfMapWidth;
     int tileCount;
+    float playerTileDamage = 0.1f;
+    float enemyTileDamage = 0.1f;
+    public bool toggleEnemyTileDmg = false;
 
     // Audio
     AudioSource audioSource;
@@ -41,8 +44,8 @@ public class ColourChange : MonoBehaviour
         playerTile = Resources.Load<Tile>("ColourFloor/Coloured Floors_15") as Tile;
         enemyTile = Resources.Load<Tile>("ColourFloor/Coloured Floors_5") as Tile;
 
-        tilemap = FindChildWithTag(this.transform, "Floor"); 
- 
+        tilemap = FindChildWithTag(this.transform, "Floor", "Floor"); //DefaultColour
+
         halfMapWidth = tilemap.size.x / 2;
         tileCount = tilemap.size.x * (tilemap.size.y - 2);
 
@@ -51,13 +54,13 @@ public class ColourChange : MonoBehaviour
     }
 
     // Finds the child with a "floor" tag in order to get it's Tilemap component
-    Tilemap FindChildWithTag(Transform parent, string tag)
+    Tilemap FindChildWithTag(Transform parent, string tag, string childName)
     {
         Tilemap child = null;
 
         foreach (Transform transform in parent)
         {
-            if (transform.CompareTag(tag))
+            if (transform.CompareTag(tag) && transform.name == childName)
             {
            
                 child = transform.GetComponent<Tilemap>(); 
@@ -105,6 +108,11 @@ public class ColourChange : MonoBehaviour
                 {
                     enemyTileList.Remove(pos);
                     //Damage player code here
+                    if (toggleEnemyTileDmg)
+                    {
+                        var plrStats = collision.GetComponent<PlayerStats>();
+                        plrStats.TakeDamage(enemyTileDamage);
+                    }
                 }
 
                 //Set & track tile node

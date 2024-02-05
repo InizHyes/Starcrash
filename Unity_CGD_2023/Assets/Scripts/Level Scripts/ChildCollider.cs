@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// Sends messages to the colourFloor script whenever the player/enemy triggers a collision with the floor
+// Sends messages to the colourFloor or GasVentLogic script whenever the player/enemy triggers a collision with the floor
 
 public class ChildCollider : MonoBehaviour
 {
