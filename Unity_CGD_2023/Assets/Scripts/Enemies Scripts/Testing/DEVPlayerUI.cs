@@ -24,7 +24,7 @@ public class DEVPlayerUI : MonoBehaviour
         {
             if (gun.isActiveAndEnabled)
             {
-                ammoText.text = "Ammo: " + gun.ammoLoaded + " [" + gun.ammoReserve + "]";
+                ammoText.text = "Ammo: " + gun.ammoLoaded + " / " + gun.magSize;
             }
         }
 
