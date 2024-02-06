@@ -22,8 +22,8 @@ public class EnemyClass : MonoBehaviour
 
     // Set spawnlogic prefab onto spawnLogic, will find and assign script to NPCdeathCheck
     [Header("Spawning/Drops")]
-    [SerializeField] protected GameObject spawnLogic;
-    protected SpawnLogic NPCdeathCheck;
+    //protected GameObject spawnLogic;
+    [HideInInspector] public SpawnLogic NPCdeathCheck;
 
     // Item drop variables
     [SerializeField] private GameObject[] droppedObejcts;
@@ -55,11 +55,14 @@ public class EnemyClass : MonoBehaviour
         enemyState = State.Initiating;
         rb = GetComponent<Rigidbody2D>();
 
-        NPCdeathCheck = spawnLogic.GetComponent<SpawnLogic>();
-        if (NPCdeathCheck != null)
+        // Set on instantiaion by SpawnLogic instead
+        /*
+        spawnLogic = GameObject.Find("SpawnController");
+        if (spawnLogic != null )
         {
-            NPCdeathCheck.NPCdeath();
+            NPCdeathCheck = spawnLogic.GetComponent<SpawnLogic>();
         }
+        */
     }
 
     protected void targetClosestPlayer()
@@ -79,6 +82,11 @@ public class EnemyClass : MonoBehaviour
                 lowestDistance = Vector3.Distance(this.transform.position, players[i].transform.position);
             }
             // Else do nothing
+        }
+
+        if (target == null)
+        {
+            Debug.Log("Add a player to the scene");
         }
         //---Moved due to Jumper needing constant acceess to this function---
         //enemyState = State.Targeting;
@@ -107,6 +115,10 @@ public class EnemyClass : MonoBehaviour
 
     protected void moveTowardsTarget0G()
     {
+        /*
+         * When seting rb.velocity to 0 set forceToApply to 0 too
+         */
+
         // If not at max velocity
         if (rb.velocity.x < maxVelocity.x && rb.velocity.y < maxVelocity.y)
         {
@@ -123,6 +135,7 @@ public class EnemyClass : MonoBehaviour
         rb.velocity *= 0.98f;
         moveForce = rb.velocity;
     }
+
     protected void lungeForward()
     {
         if (rb.velocity.x < maxVelocity.x && rb.velocity.y < maxVelocity.y)
@@ -160,8 +173,17 @@ public class EnemyClass : MonoBehaviour
         /*
          * Runs general functions for on death
          */
-        NPCdeathCheck.NPCdeath();
+        if (NPCdeathCheck != null)
+        {
+            NPCdeathCheck.NPCdeath();
+        }
+
+        // Destroy self and parent
         Destroy(this.gameObject);
+        if (transform.parent != null)
+        {
+            Destroy(transform.parent.gameObject);
+        }
     }
 
     protected void itemDropLogic()
@@ -213,7 +235,7 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
-    public bool playerCollisionCheck(Collider2D collider)
+    virtual public bool playerCollisionCheck(Collider2D collider)
     {
         /*
          * Call in CollisionEnter2D()

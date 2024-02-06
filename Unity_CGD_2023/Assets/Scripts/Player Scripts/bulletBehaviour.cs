@@ -5,12 +5,14 @@ using UnityEngine;
 public class bulletBehaviour : MonoBehaviour
 {
     public int damage = 1;
+    public float knockBackForceFloat;
 
     [SerializeField]
     private float bulletTimeBeforeDestroy;
 
     private void Start()
     {
+
         Physics2D.IgnoreLayerCollision(3, 7);
         Physics2D.IgnoreLayerCollision(7, 7);
         Destroy(this.gameObject, bulletTimeBeforeDestroy);
@@ -23,6 +25,9 @@ public class bulletBehaviour : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyClass>().damageDetection(damage);
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.forward * knockBackForceFloat, ForceMode2D.Impulse);
+
+            
         }
         Destroy(this.gameObject);
     }

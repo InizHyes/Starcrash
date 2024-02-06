@@ -28,7 +28,7 @@ public class AmmoDropBehaviour : MonoBehaviour
             audioPlayer = collision.GetComponent<AudioSource>();
             audioPlayer.clip = ammoPickup; ///audio pickup noise, simple so change if wanted
             audioPlayer.Play();
-            print("hello");
+            //print("hello");
             /*
              * "Pseudocode" for giving ammo to the player
              * Re-write where needed
