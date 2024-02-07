@@ -28,6 +28,12 @@ public class Bullet : MonoBehaviour
             // Destroy the bullet on impact with the player
             Destroy(gameObject);
         }
+
+        if (other.tag == "Walls")
+        {
+            // Destroy the bullet on impact with the Walls
+            Destroy(gameObject);
+        }
     }
 
 }
