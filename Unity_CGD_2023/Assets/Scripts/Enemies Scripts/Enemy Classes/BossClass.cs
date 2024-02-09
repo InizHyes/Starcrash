@@ -21,7 +21,7 @@ public class BossClass : EnemyClass
 
     // Attack zones
     [Header("Boss Specific")]
-    [SerializeField] private float rotationSpeed = 100;
+    //[SerializeField] private float rotationSpeed = 100;
 
     //Death
     [SerializeField] private GameObject fade;

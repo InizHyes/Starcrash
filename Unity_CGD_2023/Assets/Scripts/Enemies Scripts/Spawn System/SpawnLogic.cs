@@ -13,6 +13,11 @@ public class SpawnLogic : MonoBehaviour
     //Get the Enemy prefabs
     public List<GameObject> NPCEnemies;
 
+    //Spawn bounds
+    [SerializeField] [Range(1, 50)] private int minimumEnemiesSpawned = 10;
+    [SerializeField] [Range(1, 50)] private int maximumEnemiesSpawned = 20;
+
+
     #endregion
 
     #region [Spawn location list]
@@ -68,9 +73,9 @@ public class SpawnLogic : MonoBehaviour
     //Randomise max total number of NPCs to spawn
     public void NPCCounter()
     {
-        nPCTotal = (Random.Range(10, 50));
+        nPCTotal = Random.Range(minimumEnemiesSpawned, maximumEnemiesSpawned);
 
-        Debug.Log("Current enemies spawn: " + nPCTotal + "Enemies");
+        //Debug.Log("Current enemies spawn: " + nPCTotal + "Enemies");
 
         readySpawn = true;
     }
@@ -84,7 +89,10 @@ public class SpawnLogic : MonoBehaviour
         // Spawn random enemy at random spawn point
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
 
-        Instantiate(selectedEnemy, spawnPoint.position, Quaternion.identity);
+        // Set new enemy variables
+        GameObject newEnemy = Instantiate(selectedEnemy, spawnPoint.position, Quaternion.identity);
+        newEnemy.transform.SetParent(this.transform);
+        newEnemy.GetComponentInChildren<EnemyClass>().NPCdeathCheck = this;
 
         nPCTotal -= 1;
 
@@ -105,9 +113,12 @@ public class SpawnLogic : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        NPCCounter();
+        if (collision.tag == "Player")
+        {
+            NPCCounter();
 
-        boxCollider.enabled = false;
+            boxCollider.enabled = false;
+        }
     }
 
     #endregion

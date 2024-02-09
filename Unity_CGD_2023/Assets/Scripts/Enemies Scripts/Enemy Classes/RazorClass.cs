@@ -126,9 +126,10 @@ public class RazorClass : EnemyClass
          * Stop movement for a few seconds then do dash attack
          * Called from RazorBlade
          * If in State.Pathfinding do nothing
+         * If target is null do nothing
          */
 
-        if (enemyState != State.Pathfinding)
+        if (enemyState != State.Pathfinding || target == null)
         {
             rb.velocity = Vector2.zero;
             attackCooldownValue = attackCooldown;
