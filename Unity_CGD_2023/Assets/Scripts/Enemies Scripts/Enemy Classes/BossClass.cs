@@ -96,7 +96,11 @@ public class BossClass : EnemyClass
 
                 // Point attack at player
                 //transform.forward = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotationSpeed * Time.deltaTime, 1);
-                transform.right = target.transform.position - transform.position;
+                if (target != null)
+                {
+                    //---Bug: doesnt look at player correctly on the left, re-write code---
+                    transform.right = target.transform.position - transform.position;
+                }
 
                 break;
 

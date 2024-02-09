@@ -28,7 +28,7 @@ public class TbeamBehaviour : MonoBehaviour
 
         playerRigidbody.constraints = RigidbodyConstraints2D.None;
 
-        Debug.Log("Player is not in tractor beam");
+        //Debug.Log("Player is not in tractor beam");
     }
 
 }

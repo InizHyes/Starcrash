@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HbeamBehaviour : MonoBehaviour
+public class MD_HbeamATK : MonoBehaviour
 {
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,7 +23,6 @@ public class HbeamBehaviour : MonoBehaviour
 
         }
     }
-
 
     public void OnTriggerExit2D(Collider2D collision)
     {

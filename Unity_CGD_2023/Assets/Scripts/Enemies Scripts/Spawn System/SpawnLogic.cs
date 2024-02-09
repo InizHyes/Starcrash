@@ -43,7 +43,7 @@ public class SpawnLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        readySpawn = false;
+        readySpawn = true;
 
         // Get the Collider2D component attached to the GameObject
         boxCollider = GetComponent<Collider2D>();
@@ -55,7 +55,7 @@ public class SpawnLogic : MonoBehaviour
     public void Update()
     {
         // Start wave and NPC spawn after set up is done / whilst keeping to max screen limit
-        if (readySpawn == true && nPCCounter !<= 5)
+        if (readySpawn == true && nPCCounter < 5)
         {
             SpawnEnemyNPC();
         }
