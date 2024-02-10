@@ -1,36 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class WandererClass : EnemyClass
 {
-    [Header("Wanderer Specific")]
-
     private Animator animate;
-
+    AudioSource sound;
+    [Header("Wanderer Specific")]
     public GameObject bulletPrefab;
-
-    private float bulletSpeed = 1f;
+    public AudioClip spawnsound;
+    public AudioClip shootsound;
+    public Transform gunPoint;
+    private float bulletSpeed = 5f;
 
     private bool playerInAtkZone = false;
-    private bool playerInConeZone = false;
+    //private bool playerInConeZone = false;
 
-    private int attackTimer;
+    public bool canAttack;
 
     private void Start()
     {
         // Set starting state and variables
+        sound = GetComponent<AudioSource>();
         initiateEnemy();
-
+        sound.clip = spawnsound;
+        sound.Play();
+        canAttack = false;
         animate = GetComponent<Animator>(); // Maybe move into init function
     }
 
     private void Update()
     {
+
+        // Get collision from child triggers
+        Transform atkZoneTransform = transform.Find("DetectAttackZone");
+        if (atkZoneTransform != null)
+        {
+            // Accessing child
+            DetectAttack childscript = atkZoneTransform.GetComponent<DetectAttack>();
+            if (childscript != null)
+            {
+                // Accessing child's variable
+                playerInAtkZone = childscript.playerTriggered;
+            }
+        }
+
         switch (enemyState)
         {
             case State.Initiating:
@@ -72,36 +87,9 @@ public class WandererClass : EnemyClass
                 Vector3 direction = target.transform.position - transform.position;
                 transform.up = direction;
 
-                // Get collision from child triggers
-                UnityEngine.Transform atkZoneTransform = transform.Find("DetectAttackZone"); // Had to manually had UnityEngine.Transform to make it work?
-                if (atkZoneTransform != null)
+                if (playerInAtkZone == true)
                 {
-                    // Accessing child
-                    DetectAttack childscript = atkZoneTransform.GetComponent<DetectAttack>();
-                    if (childscript != null)
-                    {
-                        // Accessing child's variable
-                        playerInAtkZone = childscript.playerTriggered;
-                    }
-                }
-
-                UnityEngine.Transform coneZoneTransform = transform.Find("DetectConeZone"); // Had to manually had UnityEngine.Transform to make it work?
-                if (coneZoneTransform != null)
-                {
-                    DetectAttack childscript = coneZoneTransform.GetComponent<DetectAttack>();
-                    if (childscript != null)
-                    {
-                        playerInConeZone = childscript.playerTriggered;
-                    }
-                }
-
-                if (playerInAtkZone)
-                {
-                    enemyState = State.Attacking;
-                }
-
-                if (playerInConeZone)
-                {
+                    StartCoroutine(delayShot());
                     enemyState = State.Attacking;
                 }
 
@@ -111,24 +99,17 @@ public class WandererClass : EnemyClass
             case State.Attacking:
                 Debug.Log("attacking");
 
-                shot();
-
-                // Attack timer logic
-                if (attackTimer < 100)
+                if (canAttack == true)
                 {
-                    attackTimer = attackTimer + 1;
-                }
-                if (playerInAtkZone)
-                {
-                    if (attackTimer > 99)
-                    {
-                        //animate.SetTrigger("gruntATTACK");
-                        attackTimer = 0;
-                        shot();
-                        enemyState = State.Attacking;
-                    }
+                    fireShot();
+                    StartCoroutine(delayShot());
                 }
 
+                if (playerInAtkZone == false)
+                {
+                    StopCoroutine(delayShot());
+                    enemyState = State.Targeting;
+                }
                 break;
 
             case State.Dead:
@@ -143,17 +124,29 @@ public class WandererClass : EnemyClass
         }
     }
 
-    private void shot()
+    //How long should it take to fire at player
+    private IEnumerator delayShot()
     {
-        Vector2 newPosition = new Vector2(0, 5);
-        GameObject newBullet = Instantiate(bulletPrefab, newPosition, this.transform.rotation);
-        newBullet.GetComponent<Rigidbody2D>().velocity = this.transform.position * bulletSpeed;
-        SpriteRenderer bulletRenderer = newBullet.GetComponent<SpriteRenderer>();
+        canAttack = false;
 
+        yield return new WaitForSeconds(3);
+
+        canAttack = true;
+    }
+
+    //Fire at target
+    private void fireShot()
+    {   
+        GameObject firedBullet = Instantiate(bulletPrefab, gunPoint.position, gunPoint.rotation);
+        Vector2 bulletDir = gunPoint.right ;
+        firedBullet.GetComponent<Rigidbody2D>().velocity = bulletDir * bulletSpeed;
+
+        sound.clip = shootsound;
+        sound.Play();
+
+        SpriteRenderer bulletRenderer = firedBullet.GetComponent<SpriteRenderer>();
         bulletRenderer.color = Color.red;
 
         Debug.Log("shot fired");
-
-        //Instantiate(bulletPrefab, this.transform.position, Quaternion.identity);
     }
 }

@@ -8,14 +8,19 @@ public class LaserSniperClass : EnemyClass
     [Header("Laser Sniper Specific")]
     [SerializeField] private GameObject childLaser;
     [SerializeField] private int attackTimer = 1;
+    public int laserDamage = 1; // This is public but should not be accessed outside of Laserdetection Script
     //bool laserReference = false;
     //private BoxCollider2D playerDetect;
-
-
+    AudioSource sound;
+    public AudioClip spawnsound;
+    public AudioClip shootsound;
     private void Start()
     {
         // Set starting state and variables
+        sound = GetComponent<AudioSource>();
         initiateEnemy();
+        sound.clip = spawnsound;
+        sound.Play();
     }
 
     private void Update()
@@ -68,6 +73,11 @@ public class LaserSniperClass : EnemyClass
                     if (attackTimer > 250)
                     {
                         script.laserState = 2;
+                        if (attackTimer == 251)
+                        {
+                            sound.clip = shootsound;
+                            sound.Play();
+                        }
                         if (attackTimer > 400)
                         {
                             script.laserState = 0;

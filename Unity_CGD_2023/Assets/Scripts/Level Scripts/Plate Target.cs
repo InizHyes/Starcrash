@@ -1,62 +1,48 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TargetObject : MonoBehaviour
+public class Door : MonoBehaviour
 {
+    public int requiredActivatedPlates = 2;  // Set the required number of activated plates in the Inspector
+    private int activatedPlates = 0;
+    private bool isOpen = false;
     private TilemapRenderer tilemapRenderer;
 
-    void Start()
+    private void Start()
     {
-
         tilemapRenderer = GetComponent<TilemapRenderer>();
     }
 
-    public void ReactToPressurePlate()
+    public void IncreaseActivatedPlates()
     {
-        
-        Debug.Log("Player is reacting to the pressure plate!");
+        activatedPlates++;
 
-        // Disable the TilemapRenderer 
+        if (activatedPlates >= requiredActivatedPlates)
+        {
+            OpenDoor();
+        }
+        else
+        {
+            Debug.Log($"Activated plates: {activatedPlates}/{requiredActivatedPlates}");
+        }
+    }
+
+    private void OpenDoor()
+    {
         if (tilemapRenderer != null)
         {
             tilemapRenderer.enabled = false;
+            isOpen = true;
+            Debug.Log("Door opened!");
         }
-
-        // Enable the TargetObject 
-        gameObject.SetActive(true);
-    }
-
-    public void ReactToTimer()
-    {
-        // Do something when the timer reaches zero
-        Debug.Log("TargetObject is reacting to the timer!");
-
-        // Enable the TilemapRenderer
-        if (tilemapRenderer != null)
+        else
         {
-            tilemapRenderer.enabled = true;
+            Debug.LogError("TilemapRenderer component not found on the door!");
         }
+    }
 
-        // Disable the TargetObject 
-        gameObject.SetActive(false);
+    public bool IsOpen()
+    {
+        return isOpen;
     }
 }
-/*
-
-{
-    void Start()
-    {
-        // Disable the TargetObject at the beginning
-        gameObject.SetActive(false);
-    }
-
-    public void ReactToPressurePlate()
-    {
-        // Do something when the pressure plate is touched by the player
-        Debug.Log("TargetObject is reacting to the pressure plate!");
-
-        // Enable the TargetObject (you can customize this based on your specific actions)
-        gameObject.SetActive(true);
-    }
-}
-*/

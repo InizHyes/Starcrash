@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8434276346376765971}
   - component: {fileID: 643446771563566781}
   - component: {fileID: 7780858854181874257}
+  - component: {fileID: 2421564648565612874}
   m_Layer: 0
   m_Name: LevelState
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3045279338436948767}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.15, y: 0.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -95,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorPaintingLevel: 1
   requiredPercentage: 0.75
-  topDoor: {fileID: 6135883950018245398}
+  topDoor: {fileID: 0}
   topDoorSprite: {fileID: 951693850, guid: f01a420cd9591f141a561fe181a11136, type: 3}
   bottomDoor: {fileID: 7704792643879498063}
   bottomDoorSprite: {fileID: -1777792283, guid: f01a420cd9591f141a561fe181a11136, type: 3}
@@ -127,6 +128,23 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2421564648565612874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3045279338436948767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f9c9df06bb368541b700650fde1d028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredPlatesToOpen: 1
+  topDoor: {fileID: 6135883950018245398}
+  topDoorSprite: {fileID: 951693850, guid: f01a420cd9591f141a561fe181a11136, type: 3}
+  bottomDoor: {fileID: 7704792643879498063}
+  bottomDoorSprite: {fileID: -1777792283, guid: f01a420cd9591f141a561fe181a11136, type: 3}
 --- !u!1 &6135883950018245398
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +237,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6135883950018245398}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -349,7 +367,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7704792643879498063}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

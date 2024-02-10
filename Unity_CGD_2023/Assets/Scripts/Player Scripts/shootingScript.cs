@@ -46,7 +46,7 @@ public class shootingScript : MonoBehaviour
     public int ammoReserve;
 
     [SerializeField]
-    private int magSize;
+    public int magSize;
 
     [SerializeField]
     private int maxAmmoReserves;

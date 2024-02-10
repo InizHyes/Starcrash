@@ -7,7 +7,7 @@ using TMPro;
 public class HealthBar : MonoBehaviour
 {
     private Slider slider;
-    public TextMeshProUGUI healthCounter;
+    //public TextMeshProUGUI healthCounter;
     public GameObject playerStats;
 
     private float currentHealth, maxHealth;
@@ -18,12 +18,14 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
+/*        playerStats = GameObject.FindGameObjectWithTag("Player");*/
         currentHealth = playerStats.GetComponent<PlayerStats>().health;
         maxHealth = playerStats.GetComponent<PlayerStats>().maxHealth;
 
         float fillValue = currentHealth / maxHealth;
-        slider.value = fillValue;
+        // Hidden to stop error spam
+        //slider.value = fillValue;
 
-        healthCounter.text = currentHealth + " / " + maxHealth;
+        //healthCounter.text = currentHealth + " / " + maxHealth;
     }
 }

@@ -11,9 +11,15 @@ public class Laserdetection : MonoBehaviour
     private bool doOnce = true;
     private bool doOnce2 = true;
     private bool doOnce3 = true;
+
+    // Damage stuff
+    private LaserSniperClass parentScript;
+    private bool hasDamaged = false;
+
     void Start()
     {
         animate = GetComponent<Animator>();
+        parentScript = GetComponentInParent<LaserSniperClass>();
     }
 
     void Update()
@@ -41,7 +47,12 @@ public class Laserdetection : MonoBehaviour
             if (laserhit.collider.tag == "Player")
             {
                 //DO DAMAGE
-                Destroy(laserhit.collider.gameObject);
+                // Dont do continuous damage
+                if (!hasDamaged)
+                {
+                    laserhit.collider.gameObject.GetComponent<PlayerStats>().TakeDamage(parentScript.laserDamage);
+                    hasDamaged = true;
+                }
             }
         }
         else if (laserState == 1)
@@ -67,6 +78,8 @@ public class Laserdetection : MonoBehaviour
             }
             transform.localScale = new Vector3(0, transform.localScale.y, 1);
             animate.Play("LaserActive");
+
+            hasDamaged = false; // Reset damage
         }
 
     }

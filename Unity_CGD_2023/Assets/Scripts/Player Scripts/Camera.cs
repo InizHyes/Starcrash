@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class MultiplayerCamera : MonoBehaviour
 {
-    public float zoomStart = 15f; // when the camera zoom begins
-    public float minZoom = 5f; // Minimum camera zoom in
-    public float maxZoom = 10f; // Maximum camera zoom out
-    public float zoomInLerpSpeed = 5f; // Speed of zooming in
-    public float zoomOutLerpSpeed = 10f; // Speed of zooming out
+    [SerializeField]
+    private float zoomStart = 15f; // when the camera zoom begins
+    [SerializeField]
+    private float minZoom = 5f; // Minimum camera zoom in
+    [SerializeField]
+    private float maxZoom = 10f; // Maximum camera zoom out
+    [SerializeField]
+    private float zoomInLerpSpeed = 5f; // Speed of zooming in
+    [SerializeField]
+    private float zoomOutLerpSpeed = 10f; // Speed of zooming out
 
     private Camera mainCamera;
     //private float minX, maxX, minY, maxY;
@@ -17,11 +22,11 @@ public class MultiplayerCamera : MonoBehaviour
     void Start()
     {
         mainCamera = GetComponent<Camera>();
-        FindPlayers();
     }
 
     void Update()
     {
+        FindPlayers();
         if (players.Count == 0)
         {
             FindPlayers(); // In case players are dynamically added during gameplay

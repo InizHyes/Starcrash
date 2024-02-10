@@ -7,15 +7,20 @@ public class TEMPLATECLASS : EnemyClass
 {
     /*
      * Template class
-     * Use as a template for future classes
+     * Use as a template for future enemy classes
      * Duplicate this and update the "public class TEMPLATECLASS : EnemyClass" to the new file name
      * By default it:
-     * -Sets enemy health to 10,
-     * -Targets closest player on Initiate
-     * -Moves towards player with 0g physics
+     * -Targets closest player on initiation
+     * -Moves towards player with 0g physics (grunt movement)
      * -Rotates to face player
-     * -Dies when hit by "Bullet" tag
+     * -Takes damage when hit by bullet
+     * -Uses default values from EnemyClass
+     * -Deals damage on collision with player (if the object has PlayerCollisioZone prefab as a child)
+     * -Stops momentum when colliding with wall
      */
+
+    // When showing variables in the inspector use a header to show the unique variables
+    //[Header("TEMPLATECLASS Specific")]
 
     private void Start()
     {
@@ -32,29 +37,29 @@ public class TEMPLATECLASS : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                targetClosestPlayer();
                 enemyState = State.Targeting;
                 break;
 
             case State.Targeting:
                 /*
-                 * This is where it would determine whether or not to spend time computating pathfinding
-                 * It would be if(line of sight blocked){ enemyState = Pathfinding }
-                 * But not needed now so im just assuming no LOS block
+                 * Target player and decide if State.Pathfinding is needed, otherwise change to moving
                  */
 
+                targetClosestPlayer();
                 enemyState = State.Moving;
                 break;
 
             case State.Pathfinding:
-                // Pathfind if line of sight is blocked
+                /*
+                 * Pathfind if line of sight is blocked
+                 */
 
                 break;
 
             case State.Moving:
                 /*
                 * Move towards player with velocity
-                * Maybe check if near to attack, maybe just change state on collision
+                * Will loop here until the state is changed back to Targeting, Attackng, or Dead
                 */
 
                 moveTowardsTarget0G();
@@ -65,6 +70,20 @@ public class TEMPLATECLASS : EnemyClass
                 break;
 
             case State.Attacking:
+                /*
+                 * Change State to here after attack is used
+                 * Will wait here until attackCooldown is over then move back to Targeting
+                 * 
+                 * Before setting state to State.Attacking run //attackCooldownValue = attackCooldown;
+                 * This will set the attackCooldownValue so that attackCooldwonLogic() can count it down
+                 */
+
+                // Count-down timer
+                if (attackCooldwonLogic())
+                {
+                    enemyState = State.Targeting;
+                }
+
                 break;
 
             case State.Dead:
@@ -76,6 +95,21 @@ public class TEMPLATECLASS : EnemyClass
                 itemDropLogic();
                 initiateDeath();
                 break;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        /*
+         * Wall detection
+         * On collision with an object with the tag "OuterWall"
+         * Stops all momentum
+         */
+
+        if (collision.gameObject.tag == "OuterWall")
+        {
+            rb.velocity = Vector2.zero;
+            moveForce = Vector2.zero;
         }
     }
 }
