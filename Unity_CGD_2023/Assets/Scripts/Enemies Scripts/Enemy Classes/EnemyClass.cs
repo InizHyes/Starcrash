@@ -18,7 +18,7 @@ public class EnemyClass : MonoBehaviour
     protected GameObject target;
     protected Rigidbody2D rb;
     protected Vector2 forceToApply;
-    protected Vector2 moveForce;
+    [HideInInspector] public Vector2 moveForce;
 
     // Set spawnlogic prefab onto spawnLogic, will find and assign script to NPCdeathCheck
     [Header("Spawning/Drops")]
