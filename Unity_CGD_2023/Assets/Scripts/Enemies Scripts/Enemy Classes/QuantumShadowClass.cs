@@ -117,12 +117,14 @@ public class QuantumShadowClass : EnemyClass
 
         //Turn invisible and invincible
         spriteRenderer.enabled = false;
+        this.gameObject.layer = 3; // Ignore bullets layer
     }
 
     private IEnumerator QSabilityOff()
     {
         //Turn visible and vulnerable
         spriteRenderer.enabled = true;
+        this.gameObject.layer = 3; // Default layer
 
         var NinjaStar = Instantiate(weapon, aim.position, aim.rotation);
         NinjaStar.GetComponent<Rigidbody>().velocity = aim.forward * throwspeed;

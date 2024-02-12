@@ -331,7 +331,8 @@ MonoBehaviour:
   bumpDamage: 1
   forceMultiplier: 1
   maxVelocity: {x: 100, y: 100}
-  spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+  moveForce: {x: 0, y: 0}
+  NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
   attackCooldown: 5
@@ -360,7 +361,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
