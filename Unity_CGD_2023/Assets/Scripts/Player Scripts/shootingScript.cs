@@ -46,7 +46,7 @@ public class shootingScript : MonoBehaviour
     public int ammoReserve;
 
     [SerializeField]
-    private int magSize;
+    public int magSize;
 
     [SerializeField]
     private int maxAmmoReserves;
@@ -127,6 +127,17 @@ public class shootingScript : MonoBehaviour
                         audio.clip = reload;
                         finishReload = (Time.time + (1 * reloadTime)) - audio.clip.length / 3;
                     }
+                    else if (ammoReserve < 0)
+                    {
+                        //print("unloaded");
+                        ammoLoaded = magSize;
+                        ammoReserve -= magSize;
+                        readyToShoot = Time.time + 1 * reloadTime;
+                        audio.clip = unload;
+                        audio.Play();
+                        audio.clip = reload;
+                        finishReload = (Time.time + (1 * reloadTime)) - audio.clip.length / 3;
+                    }
                     /*if (Time.time > finishReload)
                     {
                         print("reloaded");
@@ -160,6 +171,26 @@ public class shootingScript : MonoBehaviour
                 else if (ammoLoaded <= 0)
                 {
                     if (ammoReserve > 0)
+                    {
+                        /*if (Time.time > finishReload)
+                        {
+                            audio.Play();
+                            finishReload = 0;
+
+                        }*/
+                        readyToShoot = Time.time + 1 * reloadTime;
+                        audio.clip = unload;
+                        audio.Play();
+                        audio.clip = reload;
+                        ammoLoaded = magSize;
+                        ammoReserve -= magSize;
+                        /*if(finishReload == 0)
+                        {
+                            finishReload = Time.time - (audio.clip.length / 3);
+                        }*/
+
+                    }
+                    else if (ammoReserve < 0)
                     {
                         /*if (Time.time > finishReload)
                         {

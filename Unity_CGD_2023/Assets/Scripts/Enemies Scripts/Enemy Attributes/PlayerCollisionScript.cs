@@ -6,13 +6,17 @@ public class PlayerCollisionScript : MonoBehaviour
 {
     /*
      * Due to layer overides, player trigger detection must be controled by a child object with rb and trigger
+     * Can overwrite "parentScript" in the inspector if needed.
      */
 
-    private EnemyClass parentScript;
+    [Tooltip("Overwrite is not needed if the parent has the EnemyClass script")] [SerializeField] private EnemyClass parentScript;
 
     private void Start()
     {
-        parentScript = GetComponentInParent<EnemyClass>();
+        if (parentScript == null)
+        {
+            parentScript = GetComponentInParent<EnemyClass>();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

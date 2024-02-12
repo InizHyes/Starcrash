@@ -18,11 +18,13 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
+/*        playerStats = GameObject.FindGameObjectWithTag("Player");*/
         currentHealth = playerStats.GetComponent<PlayerStats>().health;
         maxHealth = playerStats.GetComponent<PlayerStats>().maxHealth;
 
         float fillValue = currentHealth / maxHealth;
-        slider.value = fillValue;
+        // Hidden to stop error spam
+        //slider.value = fillValue;
 
         //healthCounter.text = currentHealth + " / " + maxHealth;
     }

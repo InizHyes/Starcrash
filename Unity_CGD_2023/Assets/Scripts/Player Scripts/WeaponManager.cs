@@ -74,6 +74,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Drop()
     {
+        weapons[currentWeaponIndex].RemoveFromHeirachy();
         weapons[currentWeaponIndex].AddComponent<Rigidbody2D>();
         weapons[currentWeaponIndex].AddComponent<Collider2D>();
 
