@@ -25,8 +25,6 @@ public class ExploderAOE : MonoBehaviour
     [SerializeField] private float flashDelay = 0.2f;
     private float flashTimer;
 
-    [SerializeField] private float explosionForce = 1f;
-
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -77,7 +75,7 @@ public class ExploderAOE : MonoBehaviour
             {
                 // Push back target
                 Vector2 forceNormal = (this.transform.position - collision.transform.position).normalized;
-                collision.GetComponent<PlayerController>().ForceToApply = (forceNormal * explosionForce * -1f);
+                collision.GetComponent<PlayerController>().ForceToApply = (forceNormal * exploderAttached.explosionForce * -1f);
 
                 // Deal damage
                 collision.GetComponent<PlayerStats>().TakeDamage(exploderAttached.explosionDamage);
