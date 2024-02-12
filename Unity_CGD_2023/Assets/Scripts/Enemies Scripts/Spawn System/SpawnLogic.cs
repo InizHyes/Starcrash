@@ -48,7 +48,7 @@ public class SpawnLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        readySpawn = true;
+        readySpawn = false;
 
         // Get the Collider2D component attached to the GameObject
         boxCollider = GetComponent<Collider2D>();

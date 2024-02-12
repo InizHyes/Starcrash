@@ -277,11 +277,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  bumpDamage: 1
   forceMultiplier: 2
   maxVelocity: {x: 5, y: 5}
-  spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
-  droppedObejcts:
-  - {fileID: 4249462830458335497, guid: 7fa2961ff40a8ba4d86515543563d845, type: 3}
+  moveForce: {x: 0, y: 0}
+  NPCdeathCheck: {fileID: 0}
+  droppedObejcts: []
   dropOdds: 1
   attackCooldown: 5
   attackTimer: 41

@@ -185,11 +185,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79e8c085c27541e44bbe6b096f210036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 1
   bumpDamage: 1
   forceMultiplier: 5
   maxVelocity: {x: 100, y: 100}
-  spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+  moveForce: {x: 0, y: 0}
+  NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
   attackCooldown: 5
@@ -519,8 +520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e9d01aa68eb5c1408aff3dafe16e3e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beforeATKbool: 0
-  afterATKbool: 0
   burnDamage: 1
 --- !u!1 &8566838656096402559
 GameObject:

@@ -22,6 +22,8 @@ public class QuantumShadowClass : EnemyClass
         // Set starting state and variables
         initiateEnemy();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        sound = GetComponent<AudioSource>();
     }
 
     private void Update()

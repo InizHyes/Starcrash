@@ -182,7 +182,7 @@ public class EnemyClass : MonoBehaviour
 
         // Destroy self and parent
         Destroy(this.gameObject);
-        if (transform.parent != null)
+        if (transform.parent != null && transform.parent.tag != "SpawnTrigger")
         {
             Destroy(transform.parent.gameObject);
         }
