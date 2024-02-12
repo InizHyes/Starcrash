@@ -16,33 +16,34 @@ public class WeaponHUD : MonoBehaviour
     public GameObject Player;
     private Image weaponSpriteHolder;
 
-    // Start is called before the first frame update
-    void Awake()
+    
+    void Start()
     {
+        Player = GameObject.FindWithTag("Player").gameObject;
         weaponSpriteHolder = GetComponent<Image>();
+       
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        gunIndex = Player.GetComponent<WeaponManager>().currentWeaponIndex;
+        gunIndex = Player.GetComponentInChildren<WeaponManager>().currentWeaponIndex;
 
         if(gunIndex == 0)
         {
             weaponSpriteHolder.sprite = weaponSprite1;
         }
-        else if (gunIndex == 1)
+        if (gunIndex == 1)
         {
             weaponSpriteHolder.sprite = weaponSprite2;
         }
-        else if (gunIndex == 2)
+        if (gunIndex == 2)
         {
             weaponSpriteHolder.sprite = weaponSprite3;
         }
-        else if (gunIndex == 3)
+        if (gunIndex == 3)
         {
             weaponSpriteHolder.sprite = weaponSprite4;
         }
     }
-
 }
