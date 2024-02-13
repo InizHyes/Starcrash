@@ -29,7 +29,9 @@ public class JumperClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                enemyState = State.Targeting;
+                // Spawn with attack cooldown to prevent insta-jumping
+                attackCooldownValue = attackCooldown / 2;
+                enemyState = State.Attacking;
                 break;
 
             case State.Targeting:

@@ -73,11 +73,24 @@ public class ExploderAOE : MonoBehaviour
         {
             if (collision.tag == "Player")
             {
+                // Push back target
+                Vector2 forceNormal = (this.transform.position - collision.transform.position).normalized;
+                collision.GetComponent<PlayerController>().ForceToApply = (forceNormal * exploderAttached.explosionForce * -1f);
+
+                // Deal damage
                 collision.GetComponent<PlayerStats>().TakeDamage(exploderAttached.explosionDamage);
             }
             
             if (collision.tag == "Enemy")
             {
+                // Push back target
+                /*
+                Vector2 forceNormal = (this.transform.position - collision.transform.position).normalized;
+                collision.GetComponentInChildren<EnemyClass>().moveForce = Vector2.zero;
+                collision.attachedRigidbody.velocity = (forceNormal * explosionForce * -1f);
+                */
+
+                // Deal damage
                 collision.GetComponentInChildren<EnemyClass>().damageDetection(exploderAttached.explosionDamage);
             }
         }

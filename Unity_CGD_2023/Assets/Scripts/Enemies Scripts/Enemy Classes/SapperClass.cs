@@ -13,6 +13,7 @@ public class SapperClass : EnemyClass
     [SerializeField] public GameObject EMPAOE;
     public AudioClip spawnsound;
     public AudioClip sappersound;
+    private int attackType;
 
     private void Start()
     {
@@ -44,7 +45,20 @@ public class SapperClass : EnemyClass
                  * Target player and decide if State.Pathfinding is needed, otherwise change to moving
                  */
 
-                targetClosestPlayer();
+                attackType = Random.Range(1, 2);
+
+                if (attackType == 1)
+                {
+                    target = null;
+                    targetClosestPlayer();
+                }
+
+                if (attackType == 2)
+                {
+                    target = null;
+                    targetClosestGenerator();
+                }
+
                 enemyState = State.Moving;
                 break;
 
@@ -84,8 +98,9 @@ public class SapperClass : EnemyClass
                  * This will set the attackCooldownValue so that attackCooldwonLogic() can count it down
                  */
 
-                //Will heal genrators and do little damage to players
+
                 WeldATK.SetActive(true);
+
 
                 // Count-down timer
                 if (attackCooldwonLogic())
@@ -111,6 +126,34 @@ public class SapperClass : EnemyClass
                 initiateDeath();
                 break;
         }
+    }
+
+    private void targetClosestGenerator()
+    {
+        /*
+         * Finds the closest object with the tag "Generator" and sets "target" to heal
+         */
+        GameObject[] Generator = GameObject.FindGameObjectsWithTag("Generator");
+        float lowestDistance = 0;
+        target = null;
+        for (int i = 0; i < Generator.Length; i++)
+        {
+            //If target isnt set or distance is lower for other Generator, set Generator as target
+            if (target == null || Vector3.Distance(this.transform.position, Generator[i].transform.position) < lowestDistance)
+            {
+                target = Generator[i];
+                lowestDistance = Vector3.Distance(this.transform.position, Generator[i].transform.position);
+                Debug.LogWarning("Target gen");
+            }
+
+            // Else find somthing to attack
+            else
+            {
+                enemyState = State.Targeting;
+                Debug.LogWarning("Finding Target");
+            }
+        }
+        print(target.transform.position);
     }
 
 }

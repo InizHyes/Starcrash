@@ -16,6 +16,7 @@ public class GruntClass : EnemyClass
     //private BoxCollider2D playerDetect;
     public AudioClip spawnsound;
     public AudioClip swipe;
+
     void Start()
     {
         sound = GetComponent<AudioSource>();

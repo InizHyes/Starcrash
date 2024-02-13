@@ -11,6 +11,9 @@ public class QuantumShadowClass : EnemyClass
     [Header("Quantum Shadow Specific")]
     public AudioClip spawnsound;
     public AudioClip quantumShadowsound;
+    public GameObject weapon;
+    public Transform aim;
+    private int throwspeed = 5;
     private SpriteRenderer spriteRenderer;
 
 
@@ -19,6 +22,8 @@ public class QuantumShadowClass : EnemyClass
         // Set starting state and variables
         initiateEnemy();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        sound = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -38,7 +43,7 @@ public class QuantumShadowClass : EnemyClass
                  * Target player and decide if State.Pathfinding is needed, otherwise change to moving
                  */
 
-                QSabilityOff();
+                QSabilityOn();
 
                 targetClosestPlayer();
                 enemyState = State.Moving;
@@ -76,7 +81,11 @@ public class QuantumShadowClass : EnemyClass
                  * This will set the attackCooldownValue so that attackCooldwonLogic() can count it down
                  */
 
-                QSabilityOn();
+                //Stop movement and become visable and unverable
+
+
+
+                StopCoroutine(QSabilityOff());
 
                 // Count-down timer
                 if (attackCooldwonLogic())
@@ -104,13 +113,25 @@ public class QuantumShadowClass : EnemyClass
 
     private void QSabilityOn()
     {
+        StopCoroutine(QSabilityOff());
+
         //Turn invisible and invincible
         spriteRenderer.enabled = false;
+        this.gameObject.layer = 3; // Ignore bullets layer
     }
 
-    private void QSabilityOff()
+    private IEnumerator QSabilityOff()
     {
         //Turn visible and vulnerable
         spriteRenderer.enabled = true;
+        this.gameObject.layer = 3; // Default layer
+
+        var NinjaStar = Instantiate(weapon, aim.position, aim.rotation);
+        NinjaStar.GetComponent<Rigidbody>().velocity = aim.forward * throwspeed;
+
+        yield return new WaitForSeconds(2.5f);
+
+        QSabilityOn();
+
     }
 }

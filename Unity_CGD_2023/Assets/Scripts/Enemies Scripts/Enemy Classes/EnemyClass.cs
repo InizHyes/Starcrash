@@ -18,7 +18,7 @@ public class EnemyClass : MonoBehaviour
     protected GameObject target;
     protected Rigidbody2D rb;
     protected Vector2 forceToApply;
-    protected Vector2 moveForce;
+    [HideInInspector] public Vector2 moveForce;
 
     // Set spawnlogic prefab onto spawnLogic, will find and assign script to NPCdeathCheck
     [Header("Spawning/Drops")]
@@ -168,6 +168,8 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
+
+
     protected void initiateDeath()
     {
         /*
@@ -180,7 +182,7 @@ public class EnemyClass : MonoBehaviour
 
         // Destroy self and parent
         Destroy(this.gameObject);
-        if (transform.parent != null)
+        if (transform.parent != null && transform.parent.tag != "SpawnTrigger")
         {
             Destroy(transform.parent.gameObject);
         }

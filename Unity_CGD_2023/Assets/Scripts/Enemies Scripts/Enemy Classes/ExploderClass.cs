@@ -7,8 +7,9 @@ public class ExploderClass : EnemyClass
 {
     [Header("Exploder Specific")]
     [SerializeField] private ExploderAOE exploderAOE;
-    [SerializeField][Tooltip("The higher the number the weaker the slow down on collision")] private float slowDown = 0.2f;
     public int explosionDamage = 10;
+    public float explosionForce = 1f;
+    [SerializeField][Tooltip("The higher the number the weaker the slow down on collision")] private float slowDown = 0.2f;
     public float deathLinger = 1f;
 
     private void Start()
