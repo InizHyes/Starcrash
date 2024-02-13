@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 public class Interactable : MonoBehaviour
@@ -47,7 +47,7 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    private void OpenVendor()
+*//*    private void OpenVendor()
     {
         vendorScreen.SetActive(true);
         playerController.SwitchActionMapToMenu();
@@ -58,7 +58,7 @@ public class Interactable : MonoBehaviour
     {
         vendorScreen.SetActive(false);
         playerController.SwitchActionMapToPlayer();
-    }
+    }*//*
 
     private System.Collections.IEnumerator InteractionCooldown()
     {
@@ -67,3 +67,4 @@ public class Interactable : MonoBehaviour
         canInteract = true;
     }
 }
+*/
