@@ -12,13 +12,13 @@ public class RangeStar : MonoBehaviour
 
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
         if (collision.gameObject.tag == "Player")
         {
-            QuantumShadow.changestate(4); // Attacking 
+            QuantumShadow.StartAttack();
         }
     }
 

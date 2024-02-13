@@ -104,15 +104,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 976c0d94676348246ac594f0d09c0b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 1
   bumpDamage: 1
-  forceMultiplier: 5
+  forceMultiplier: 3
   maxVelocity: {x: 100, y: 100}
   moveForce: {x: 0, y: 0}
   NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
-  attackCooldown: 5
+  attackCooldown: 1
   spawnsound: {fileID: 0}
   quantumShadowsound: {fileID: 0}
   weapon: {fileID: 2932560833704045186, guid: d5010864ff252814784c58c135ecbd9f, type: 3}
@@ -129,7 +129,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -321,13 +321,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7180628829769504860}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.45121077, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8698034856133070124}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!65 &2314000288054205214
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -359,6 +359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 174689807827353315}
   - component: {fileID: 4118576422703675305}
+  - component: {fileID: 7497035035229489646}
   - component: {fileID: 5507695893159613273}
   m_Layer: 0
   m_Name: DetectConeZone
@@ -415,7 +416,42 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 2}
-  m_Size: {x: 2, y: 4}
+  m_Size: {x: 1, y: 4}
+  m_Direction: 0
+--- !u!70 &7497035035229489646
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7828953344798766255}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 3, y: 1}
   m_Direction: 0
 --- !u!114 &5507695893159613273
 MonoBehaviour:
@@ -440,6 +476,10 @@ PrefabInstance:
     - target: {fileID: 160990452362646733, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_Name
       value: PlayerCollisionZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 160990452362646733, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4673264467691213418, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_LocalPosition.x

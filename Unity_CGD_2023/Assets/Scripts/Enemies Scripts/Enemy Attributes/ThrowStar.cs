@@ -1,14 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class ThrowStar : MonoBehaviour
 {
-    public void OnTriggerEnter2D(Collider2D collision)
+
+    private void Start()
     {
-        if (collision.gameObject.tag == "Player")
+
+        Physics2D.IgnoreLayerCollision(3, 7);
+        Physics2D.IgnoreLayerCollision(7, 7);
+    }
+
+    private void Awake()
+    {
+        //gameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag != "Enemy" && collision.gameObject.tag != "EnemyBullet")
         {
-            //Do large damage to player
+            if (collision.gameObject.tag == "Player")
+            {
+                //Do large damage to player
+                collision.gameObject.GetComponent<PlayerStats>().TakeDamage(5);
+            }
 
             Destroy(gameObject);
         }
