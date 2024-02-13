@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
         playerControl = inputAsset.FindActionMap("PlayerControls");
         menuControl = inputAsset.FindActionMap("MenuControls"); /// only janky thing about it is the "" for each control map variable name, but it works!
         pauseMenu = FindObjectOfType<PauseMenu>();
+        
     }
 
 
