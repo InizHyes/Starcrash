@@ -24,6 +24,9 @@ public class RangeStar : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        QuantumShadow.changestate(1); // Targeting
+        if (collision.gameObject.tag == "Player")
+        {
+            QuantumShadow.changestate(1); // Targeting
+        }
     }
 }

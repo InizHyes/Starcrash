@@ -13,7 +13,7 @@ public class QuantumShadowClass : EnemyClass
     public AudioClip quantumShadowsound;
     public GameObject weapon;
     public Transform aim;
-    private int throwspeed = 5;
+    private int throwspeed = 50;
     private SpriteRenderer spriteRenderer;
 
 
@@ -85,7 +85,7 @@ public class QuantumShadowClass : EnemyClass
 
 
 
-                StopCoroutine(QSabilityOff());
+                StartCoroutine(QSabilityOff());
 
                 // Count-down timer
                 if (attackCooldwonLogic())
@@ -124,7 +124,7 @@ public class QuantumShadowClass : EnemyClass
     {
         //Turn visible and vulnerable
         spriteRenderer.enabled = true;
-        this.gameObject.layer = 3; // Default layer
+        this.gameObject.layer = 0; // Default layer
 
         var NinjaStar = Instantiate(weapon, aim.position, aim.rotation);
         NinjaStar.GetComponent<Rigidbody>().velocity = aim.forward * throwspeed;

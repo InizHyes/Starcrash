@@ -9,8 +9,6 @@ public class RangeHbeam : MonoBehaviour
     private void Start()
     {
         MedicalDroid = GetComponentInParent<MedicalDroidClass>();
-
-        //tractor.//Referance function;
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -27,8 +25,10 @@ public class RangeHbeam : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        //tractor.changestate(1); // Targeting
 
-        MedicalDroid.changestate(3); // Moving
+        if (collision.gameObject.tag == "Player")
+        {
+            MedicalDroid.changestate(3); // Moving
+        }
     }
 }

@@ -34,8 +34,14 @@ public class SapperClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                WeldATK.SetActive(false);
-                EMPAOE.SetActive(false);
+                if (WeldATK.activeInHierarchy)
+                {
+                    WeldATK.SetActive(false);
+                }
+                if (EMPAOE.activeInHierarchy)
+                {
+                    EMPAOE.SetActive(false);
+                }
 
                 enemyState = State.Targeting;
                 break;
@@ -75,8 +81,15 @@ public class SapperClass : EnemyClass
                 * Will loop here until the state is changed back to Targeting, Attackng, or Dead
                 */
 
-                WeldATK.SetActive(false);
-                EMPAOE.SetActive(false);
+                if (WeldATK.activeInHierarchy)
+                {
+                    WeldATK.SetActive(false);
+                }
+                if (EMPAOE.activeInHierarchy)
+                {
+                    EMPAOE.SetActive(false);
+                }
+
                 sound.Stop();
                 sound.loop = false;
 

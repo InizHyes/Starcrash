@@ -10,8 +10,6 @@ public class RangeWeld : MonoBehaviour
     private void Start()
     {
         sapper = GetComponentInParent<SapperClass>();
-
-        //tractor.//Referance function;
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -28,8 +26,9 @@ public class RangeWeld : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        //tractor.changestate(1); // Targeting
-
-        sapper.changestate(3); // Moving
+        if (collision.gameObject.tag == "Player")
+        {
+            sapper.changestate(3); // Moving
+        }
     }
 }
