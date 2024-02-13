@@ -10,6 +10,8 @@ public class Down : MonoBehaviour
     private bool notRevivingBool = false;
     public int reviveTimer = 0;
     public int reviveTimeTotal = 3;
+    private bool doOnce = false;
+    public GameObject playermanager23;
     
     // Start is called before the first frame update
 
@@ -45,6 +47,11 @@ public class Down : MonoBehaviour
         ///downed = true;
         if (downed)   ///if downed then stop all movement
         {
+            if (!doOnce)
+            {
+                playermanager23.GetComponent<playerManager>().numberofdowns += 1;
+                doOnce = true;
+            }
             this.GetComponent<PlayerController>().playerControl.Disable(); 
             if (this.GetComponent<reviveBox>().reviving == true && reviving2 == false) ///if a player is nearby then add a second to the revive timer
             {
@@ -63,8 +70,10 @@ public class Down : MonoBehaviour
             if (reviveTimer == reviveTimeTotal) ///if the revive timer is == the amount of time needed to revive (change this is editor) then the player revives
             {
                 this.GetComponent<CharacterStats>().Heal(20);
+                playermanager23.GetComponent<playerManager>().numberofdowns -= 1;
                 downed = false;
                 this.GetComponent<PlayerController>().playerControl.Enable();
+                doOnce = false;
 
             }
 
@@ -74,14 +83,5 @@ public class Down : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)   ///experimental fun feature, when another bumps into you when downed then get back up. Links into movement
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            this.GetComponent<CharacterStats>().Heal(20);
-            downed = false;
-            this.GetComponent<PlayerController>().playerControl.Enable();
-        }
-
-    }
+    
 }

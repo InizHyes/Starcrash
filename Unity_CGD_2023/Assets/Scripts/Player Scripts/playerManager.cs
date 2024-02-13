@@ -7,10 +7,19 @@ using UnityEngine.InputSystem;
 public class playerManager : MonoBehaviour
 {
     public int playerCount = 0;
+    public int numberofdowns = 0;
     AudioSource audioPlayer;
     [SerializeField] private AudioClip joinSound;
+    public GameObject gameOver;
+    private void Update()
+    {
+        if (numberofdowns == playerCount && numberofdowns > 0)
+        {
+            gameOver.SetActive(true);
 
-
+        }
+        
+    }
     private void Awake()
     {
         audioPlayer = GetComponent<AudioSource>();
