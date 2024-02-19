@@ -25,6 +25,9 @@ public class ExploderAOE : MonoBehaviour
     [SerializeField] private float flashDelay = 0.2f;
     private float flashTimer;
 
+    // Hit targets list to prevent "juggling" the player between a wall and the explosion
+    private List<Collider2D> hitTargets;
+
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -35,6 +38,8 @@ public class ExploderAOE : MonoBehaviour
         dealDamage = false;
         flashCounter = 0;
         flashTimer = 0f;
+
+        hitTargets = new List<Collider2D>();
     }
 
     private void Update()
@@ -69,16 +74,41 @@ public class ExploderAOE : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Don't deal damage until charge up finishes
         if (dealDamage)
         {
-            if (collision.tag == "Player")
+            // If target hasn't been hit yet
+            if (!hitTargets.Contains(collision))
             {
-                collision.GetComponent<PlayerStats>().TakeDamage(exploderAttached.explosionDamage);
-            }
-            
-            if (collision.tag == "Enemy")
-            {
-                collision.GetComponentInChildren<EnemyClass>().damageDetection(exploderAttached.explosionDamage);
+                // Check if it's a player or enemy
+                if (collision.tag == "Player")
+                {
+                    // Push back target
+                    Vector2 forceNormal = (this.transform.position - collision.transform.position).normalized;
+                    collision.GetComponent<PlayerController>().ForceToApply = (forceNormal * exploderAttached.explosionForce * -1f);
+
+                    // Deal damage
+                    collision.GetComponent<PlayerStats>().TakeDamage(exploderAttached.explosionDamage);
+
+                    // Add to list
+                    hitTargets.Add(collision);
+                }
+
+                if (collision.tag == "Enemy")
+                {
+                    // Push back target
+                    /*
+                    Vector2 forceNormal = (this.transform.position - collision.transform.position).normalized;
+                    collision.GetComponentInChildren<EnemyClass>().moveForce = Vector2.zero;
+                    collision.attachedRigidbody.velocity = (forceNormal * explosionForce * -1f);
+                    */
+
+                    // Deal damage
+                    collision.GetComponentInChildren<EnemyClass>().damageDetection(exploderAttached.explosionDamage);
+
+                    // Add to list
+                    hitTargets.Add(collision);
+                }
             }
         }
     }

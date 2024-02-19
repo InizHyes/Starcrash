@@ -28,6 +28,9 @@ public class RangeTbeam : MonoBehaviour
     {
         //tractor.changestate(1); // Targeting
 
-        tractor.changestate(3); // Moving
+        if (collision.gameObject.tag == "Player")
+        {
+            tractor.changestate(3); // Moving
+        }
     }
 }

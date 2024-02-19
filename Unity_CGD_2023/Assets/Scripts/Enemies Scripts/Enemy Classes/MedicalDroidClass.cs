@@ -12,6 +12,7 @@ public class MedicalDroidClass: EnemyClass
     [SerializeField] public GameObject HealATK;
     public AudioClip spawnsound;
     public AudioClip medicalDroidsound;
+    private int attackType;
 
     private void Start()
     {
@@ -42,9 +43,19 @@ public class MedicalDroidClass: EnemyClass
                  * Target player and decide if State.Pathfinding is needed, otherwise change to moving
                  */
 
-                targetClosestPlayer();
+                attackType = Random.Range(1, 2);
 
-                //targetClosestEnemy();
+                if (attackType == 1)
+                {
+                    target = null;
+                    targetClosestPlayer();
+                }
+
+                if (attackType == 2)
+                {
+                    target = null;
+                    targetClosestEnemy();
+                }
 
                 enemyState = State.Moving;
                 break;
@@ -71,8 +82,11 @@ public class MedicalDroidClass: EnemyClass
                 moveTowardsTarget0G();
 
                 // look at player
-                Vector3 direction = target.transform.position - transform.position;
-                transform.up = direction;
+                if (target != null)
+                {
+                    Vector3 direction = target.transform.position - transform.position;
+                    transform.up = direction;
+                }
                 break;
 
             case State.Attacking:
@@ -83,6 +97,9 @@ public class MedicalDroidClass: EnemyClass
                  * Before setting state to State.Attacking run //attackCooldownValue = attackCooldown;
                  * This will set the attackCooldownValue so that attackCooldwonLogic() can count it down
                  */
+
+
+                HealATK.SetActive(true);
 
 
                 // Count-down timer
@@ -114,7 +131,7 @@ public class MedicalDroidClass: EnemyClass
         /*
          * Finds the closest object with the tag "Enemy" and sets "target" to heal
          */
-        GameObject[] Enemy = GameObject.FindGameObjectsWithTag("Generator");
+        GameObject[] Enemy = GameObject.FindGameObjectsWithTag("Enemy");
         float lowestDistance = 0;
         target = null;
         for (int i = 0; i < Enemy.Length; i++)
@@ -127,11 +144,11 @@ public class MedicalDroidClass: EnemyClass
                 Debug.LogWarning("Target Enemy");
             }
 
-            // Else find player to attack
+            // Else find somthing to attack
             else
             {
-                targetClosestPlayer();
-                Debug.LogWarning("Target player");
+                enemyState = State.Targeting;
+                Debug.LogWarning("Finding Target");
             }
         }
 

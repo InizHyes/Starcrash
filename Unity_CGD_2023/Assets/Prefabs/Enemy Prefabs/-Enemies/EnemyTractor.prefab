@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 684329522716745554}
   - component: {fileID: 625817650648517223}
   - component: {fileID: 8050679804144534948}
+  - component: {fileID: 4046548711571113764}
   m_Layer: 0
   m_Name: DetectConeZone
   m_TagString: Untagged
@@ -80,6 +81,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8c5bc4bc41ad6469bf0e037d8637f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &4046548711571113764
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751125817470451024}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5474437735092214298
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +120,7 @@ GameObject:
   - component: {fileID: 4895165400821954066}
   - component: {fileID: 3784318753405464453}
   - component: {fileID: 3480195360288667875}
+  - component: {fileID: 439022652145064661}
   m_Layer: 0
   m_Name: Beam
   m_TagString: Untagged
@@ -223,6 +252,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8247452eed5945648a9dd4dbaa7bf3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &439022652145064661
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5474437735092214298}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5551923173195952751
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,12 +383,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89fd2b0a964b4a84dade0617904f69a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
-  forceMultiplier: 1
-  maxVelocity: {x: 2.5, y: 2.5}
-  spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
-  droppedObejcts:
-  - {fileID: 4249462830458335497, guid: 7fa2961ff40a8ba4d86515543563d845, type: 3}
+  health: 5
+  bumpDamage: 1
+  forceMultiplier: 5
+  maxVelocity: {x: 100, y: 100}
+  moveForce: {x: 0, y: 0}
+  NPCdeathCheck: {fileID: 0}
+  droppedObejcts: []
   dropOdds: 1
   attackCooldown: 5
   tractorBeam: {fileID: 5474437735092214298}

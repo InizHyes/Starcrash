@@ -61,7 +61,10 @@ public class TractorClass : EnemyClass
                 * Maybe check if near to attack, maybe just change state on collision
                 */
 
-                tractorBeam.SetActive(false);
+                if (tractorBeam.activeInHierarchy)
+                {
+                    tractorBeam.SetActive(false);
+                }
                 sound.Stop();
                 sound.loop = false;
                 // Move towards tartget but stay away at a minimuim length to avoid player fire

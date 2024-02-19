@@ -2,45 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Timer_UI : MonoBehaviour
 {
-    // Variables
-    public Image uifill;
+    public Image timer_bar;
+    public float maxTime = 10f;
+    float timeleft;
+    //public TextMeshProUGUI gameovertext;
 
-    public int totalTime;
-
-    private int timeRemaining;
-
-    // Start is called before the first frame update
     private void Start()
     {
-        // Sets the start time
-        being(totalTime);
+        //gameovertext.enabled = false;
+        timer_bar = GameObject.Find("Image (1)").GetComponent<Image>();
+        timeleft = maxTime;
     }
 
-    private void being(int Second)
+    private void Update()
     {
-        // Starts the timer
-        timeRemaining = Second;
-        StartCoroutine(UpdateTimer());
-    }
-
-    private IEnumerator UpdateTimer()
-    {
-        // Updates the timer every second
-        while(timeRemaining >= 0)
+        if (timeleft > 0)
         {
-            uifill.fillAmount = Mathf.InverseLerp(0, totalTime, timeRemaining);
-            timeRemaining--;
-            yield return new WaitForSeconds(1f);
+             timeleft -= Time.deltaTime;
+             timer_bar.fillAmount = timeleft / maxTime;
         }
-        OnEnd();
-    }
-
-    private void OnEnd()
-    {
-        // Prints out text to say timer is ended
-        print("End");
+        else if(timeleft <= 0)
+        {
+            //gameovertext.enabled = true;
+            print("End");
+       
+        }
     }
 }
