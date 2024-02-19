@@ -71,7 +71,12 @@ public class Player: MonoBehaviour
     void Update()
     {
         HandleInput();
+
         GunScript = GetComponentInChildren<shootingScript>();
+
+        shootDirection = lookInput.normalized;
+
+        GunScript.Shoot(shooting, reloading);
     }
 
     void HandleInput()
@@ -84,8 +89,7 @@ public class Player: MonoBehaviour
     }
     private void FixedUpdate()
     {
-        shootDirection = lookInput.normalized;
-        GunScript.Shoot(shooting, reloading);
+
 
         if (reloading)
         {
