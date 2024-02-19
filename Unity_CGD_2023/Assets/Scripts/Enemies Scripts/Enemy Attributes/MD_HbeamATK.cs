@@ -20,7 +20,7 @@ public class MD_HbeamATK : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             //Do small damage to player overtime (Posion?)
-
+            collision.GetComponent<PlayerAilment>().InvokeAilment(0);
         }
     }
 

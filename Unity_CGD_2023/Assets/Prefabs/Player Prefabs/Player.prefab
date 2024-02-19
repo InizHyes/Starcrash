@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: -1708436674007983254}
   - component: {fileID: -2230233386937007182}
   - component: {fileID: -5432988152163771478}
+  - component: {fileID: 616582398768916646}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -123,6 +124,7 @@ Transform:
   m_Children:
   - {fileID: 3993749283375177892}
   - {fileID: 4273981194720207038}
+  - {fileID: 794072388874979586}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6411494277640039633
@@ -346,6 +348,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   downed: 0
+  reviveTimer: 0
+  reviveTimeTotal: 3
+  playermanager23: {fileID: 0}
 --- !u!82 &-5432988152163771478
 AudioSource:
   m_ObjectHideFlags: 0
@@ -442,6 +447,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &616582398768916646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6087901998665851953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6aa8df8087d1bd4e81ca7d97fabe1dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6885007234721677679
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf58de040c2df74d9f37e6964de201c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reviving: 0
 --- !u!1 &7303935899086399053
 GameObject:
   m_ObjectHideFlags: 0
