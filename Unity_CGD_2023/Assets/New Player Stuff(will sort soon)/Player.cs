@@ -9,7 +9,7 @@ public class Player: MonoBehaviour
     private PlayerInput playerInput;
     PlayerManager playerManager;
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
   /*  [SerializeField] private float thrustForce = 1f;*/
     [SerializeField] private float rotationSpeed = 5f;
 
@@ -22,6 +22,17 @@ public class Player: MonoBehaviour
     private Vector2 moveInput;
     private Vector2 lookInput;
     bool shooting = false;
+    bool reloading = false; //maintaining consistency of implementation for ease of understanding
+
+    public Vector2 shootDirection;
+
+    //New Gunscript implementation
+    shootingScript GunScript;
+    private bool swapRightButton = false;
+    private bool swapLeftButton = false;
+    public bool swapRightTriggered = false;
+    public bool swapLeftTriggered = false;
+    public bool reloadTriggered = false;
 
     private void Awake()
     {
@@ -40,11 +51,12 @@ public class Player: MonoBehaviour
         playerInput.actions["Move"].performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         playerInput.actions["Look"].performed += ctx => lookInput = ctx.ReadValue<Vector2>();
 
-        playerInput.actions["Attack"].performed += i => StartShoot();
-        playerInput.actions["Reload"].performed += i => Reload();
+        playerInput.actions["Attack"].started += i => StartShoot();
+        playerInput.actions["Attack"].canceled += i => EndShoot();
+        playerInput.actions["Reload"].started += i => Reload();
 
-        playerInput.actions["WeaponSwapLeft"].performed += i => WeaponSwapLeft();
-        playerInput.actions["WeaponSwapRight"].performed += i => WeaponSwapRight();
+        playerInput.actions["WeaponSwapLeft"].started += i => WeaponSwapLeft();
+        playerInput.actions["WeaponSwapRight"].started += i => WeaponSwapRight();
         playerInput.actions["Lockdown"].performed += i => Lockdown();
 
         playerInput.actions["Pause"].performed += i => playerManager.Pause();
@@ -59,6 +71,7 @@ public class Player: MonoBehaviour
     void Update()
     {
         HandleInput();
+        GunScript = GetComponentInChildren<shootingScript>();
     }
 
     void HandleInput()
@@ -71,25 +84,55 @@ public class Player: MonoBehaviour
     }
     private void FixedUpdate()
     {
+        shootDirection = lookInput.normalized;
+        GunScript.Shoot(shooting, reloading);
+
+        if (reloading)
+        {
+            reloadTriggered = true;
+            reloading = false;
+        }
+
         if (shooting)
         {
             Shoot();
         }
+
+        if(swapLeftButton)
+        {
+            swapLeftTriggered = true;
+            swapLeftButton = false;
+        }
+        if(swapRightButton)
+        {
+            swapRightTriggered = true;
+            swapRightButton = false;
+        }
+
     }
    
     private void StartShoot()
     {
         shooting = true;
 
-        // Calculate shoot direction based on look input
-        Vector2 shootDirection = lookInput.normalized;
+        
 
         // Apply recoil force to move the player backward
-        rb.AddForce(-shootDirection * shootForce, ForceMode2D.Impulse);
+        //rb.AddForce(-shootDirection * shootForce, ForceMode2D.Impulse);
+    }
+
+    private void EndShoot()
+    {
+        shooting = false;
     }
 
     private void Shoot()
     {
+        // Calculate shoot direction based on look input
+        
+
+        
+
         // Apply damping force to reduce the velocity gradually
         Vector2 dampingForce = -rb.velocity * damping;
         rb.AddForce(dampingForce);
@@ -99,21 +142,25 @@ public class Player: MonoBehaviour
             Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed),
             Mathf.Clamp(rb.velocity.y, -maxSpeed, maxSpeed)
         );
+
         rb.velocity = clampedVelocity;
     }
 
     private void Reload()
     {
         // Reload Weapon
+        reloading = true;
     }
 
     private void WeaponSwapLeft()
     {
         // Toggle weapon left
+        swapLeftButton = true;
     }
     private void WeaponSwapRight()
     {
         // Toggle weapon right
+        swapRightButton = true;
     }
     private void Lockdown()
     {

@@ -997,6 +997,15 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""5478b8b0-662e-4f7a-af15-4b89ab0b0600"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1142,6 +1151,17 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""action"": ""WeaponSwapUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1297d307-43c2-4d65-a3f3-93b695d07d5a"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1177,6 +1197,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
         m_PlayerControls_WeaponSwapDown = m_PlayerControls.FindAction("WeaponSwapDown", throwIfNotFound: true);
         m_PlayerControls_WeaponSwapUp = m_PlayerControls.FindAction("WeaponSwapUp", throwIfNotFound: true);
+        m_PlayerControls_Reload = m_PlayerControls.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1435,6 +1456,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_Pause;
     private readonly InputAction m_PlayerControls_WeaponSwapDown;
     private readonly InputAction m_PlayerControls_WeaponSwapUp;
+    private readonly InputAction m_PlayerControls_Reload;
     public struct PlayerControlsActions
     {
         private @GameControls m_Wrapper;
@@ -1448,6 +1470,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
         public InputAction @WeaponSwapDown => m_Wrapper.m_PlayerControls_WeaponSwapDown;
         public InputAction @WeaponSwapUp => m_Wrapper.m_PlayerControls_WeaponSwapUp;
+        public InputAction @Reload => m_Wrapper.m_PlayerControls_Reload;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1484,6 +1507,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @WeaponSwapUp.started += instance.OnWeaponSwapUp;
             @WeaponSwapUp.performed += instance.OnWeaponSwapUp;
             @WeaponSwapUp.canceled += instance.OnWeaponSwapUp;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -1515,6 +1541,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @WeaponSwapUp.started -= instance.OnWeaponSwapUp;
             @WeaponSwapUp.performed -= instance.OnWeaponSwapUp;
             @WeaponSwapUp.canceled -= instance.OnWeaponSwapUp;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -1563,5 +1592,6 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnWeaponSwapDown(InputAction.CallbackContext context);
         void OnWeaponSwapUp(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }
