@@ -115,9 +115,12 @@ public class RazorClass : EnemyClass
          * Applies velocity in one large burst towards the Target
          */
 
-        rb.velocity = Vector2.zero;
-        Vector2 playerDirection = (target.transform.position - this.transform.position).normalized;
-        rb.AddForce(playerDirection * dashSpeed);
+        if (target != null)
+        {
+            rb.velocity = Vector2.zero;
+            Vector2 playerDirection = (target.transform.position - this.transform.position).normalized;
+            rb.AddForce(playerDirection * dashSpeed);
+        }
     }
 
     public void areaTriggered()

@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject menuScreen, settingsScreen, controlScreen, creditScreen;
-    public GameObject playButton, settingsButton, controlsButton, creditsButton, firstSettingsButton;
+    public GameObject menuScreen, settingsScreen, controlScreen, howtoplayScreen, creditScreen;
+    public GameObject playButton, settingsButton, controlsButton, creditsButton, howtoplayButton, firstSettingsButton;
 
     private GameObject lastActiveScreen;
 

@@ -248,13 +248,15 @@ MonoBehaviour:
   bumpDamage: 1
   forceMultiplier: 1
   maxVelocity: {x: 100, y: 100}
+  moveForce: {x: 0, y: 0}
   NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
   attackCooldown: 5
   exploderAOE: {fileID: 8703843341678594933}
-  slowDown: 0.2
   explosionDamage: 10
+  explosionForce: 1
+  slowDown: 1
   deathLinger: 1
 --- !u!50 &221099272544316227
 Rigidbody2D:
