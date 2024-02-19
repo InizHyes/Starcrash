@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7356645855699922737}
   - component: {fileID: 7191372183049224999}
   - component: {fileID: 2222041928393222542}
+  - component: {fileID: 635402153347122316}
   m_Layer: 0
   m_Name: DetectConeZone
   m_TagString: Untagged
@@ -80,6 +81,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c658d8da080ae248b1ada656b520c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &635402153347122316
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164353028442654286}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5551923173195952751
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,6 +417,7 @@ GameObject:
   - component: {fileID: 2470151848449191305}
   - component: {fileID: 7256579717441875422}
   - component: {fileID: 1295559353324107781}
+  - component: {fileID: 3007369654325490841}
   m_Layer: 0
   m_Name: Weld
   m_TagString: Untagged
@@ -520,7 +549,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e9d01aa68eb5c1408aff3dafe16e3e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  burnDamage: 1
+--- !u!50 &3007369654325490841
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5583170727160103021}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8566838656096402559
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +588,7 @@ GameObject:
   - component: {fileID: 5295871094013029863}
   - component: {fileID: 1312678455268997291}
   - component: {fileID: 4354832051645205707}
+  - component: {fileID: 2849023839165144282}
   m_Layer: 0
   m_Name: EmpAOE
   m_TagString: Untagged
@@ -654,6 +710,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2a57a999b8cb1f4987faa1e45d35032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &2849023839165144282
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8566838656096402559}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &322799328100925177
 PrefabInstance:
   m_ObjectHideFlags: 0

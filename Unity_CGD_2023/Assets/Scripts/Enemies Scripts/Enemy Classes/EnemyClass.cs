@@ -122,11 +122,15 @@ public class EnemyClass : MonoBehaviour
         // If not at max velocity
         if (rb.velocity.x < maxVelocity.x && rb.velocity.y < maxVelocity.y)
         {
-            // Use target position and add to forceToApply
-            forceToApply = ((target.transform.position - this.transform.position).normalized) * forceMultiplier;
-            // Add every frame for excelleration (/100 cause too fast)
-            moveForce += forceToApply / 100;
-            rb.velocity = moveForce;
+            // If target is set
+            if (target != null)
+            {
+                // Use target position and add to forceToApply
+                forceToApply = ((target.transform.position - this.transform.position).normalized) * forceMultiplier;
+                // Add every frame for excelleration (/100 cause too fast)
+                moveForce += forceToApply / 100;
+                rb.velocity = moveForce;
+            }
         }
     }
 

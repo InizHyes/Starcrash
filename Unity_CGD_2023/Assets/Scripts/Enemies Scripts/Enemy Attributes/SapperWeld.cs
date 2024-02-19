@@ -5,8 +5,8 @@ using UnityEngine;
 public class SapperEMP : MonoBehaviour
 {
 
-// Used when after orignal attack type has ended with the player
-    [SerializeField] private int burnDamage = 1; // Used when if afterATKbool is true
+    // Used when after orignal attack type has ended with the player
+    //[SerializeField] private int burnDamage = 1; // Used when if afterATKbool is true
 
     public void OnTriggerEnter2D(Collider2D collision)
     {

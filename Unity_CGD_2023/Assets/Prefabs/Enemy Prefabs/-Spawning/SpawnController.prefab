@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7801985980137242808}
   - component: {fileID: 3176452598389735688}
   - component: {fileID: 609672649110186173}
+  - component: {fileID: 8952676897260522600}
   m_Layer: 0
   m_Name: SpawnController
   m_TagString: SpawnTrigger
@@ -56,6 +57,8 @@ MonoBehaviour:
   - {fileID: 5551923173195952751, guid: 98d7afa5a7063d74badfcfe7ddd88181, type: 3}
   - {fileID: 5551923173195952751, guid: db953058457eb7847af4374a58cec8c3, type: 3}
   - {fileID: 5551923173195952751, guid: db953058457eb7847af4374a58cec8c3, type: 3}
+  minimumEnemiesSpawned: 10
+  maximumEnemiesSpawned: 20
   spawnPoints:
   - {fileID: 615926248298756713}
   - {fileID: 9007856364702581912}
@@ -109,6 +112,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
+--- !u!50 &8952676897260522600
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2219450776964173885}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3972965527246628279
 GameObject:
   m_ObjectHideFlags: 0

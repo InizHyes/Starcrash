@@ -41,11 +41,12 @@ public class Down : MonoBehaviour
 
 
 
-        // Update is called once per frame
-        void Update()
+    // Update is called once per frame
+    void Update()
     {
         ///downed = true;
-        if (downed)   ///if downed then stop all movement
+        // Does nothing if playerManager isn't assigned to stop error spam - Oliver.C
+        if (downed && playermanager23 != null)   ///if downed then stop all movement
         {
             if (!doOnce)
             {

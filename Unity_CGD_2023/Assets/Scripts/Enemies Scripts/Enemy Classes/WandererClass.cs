@@ -97,7 +97,7 @@ public class WandererClass : EnemyClass
 
 
             case State.Attacking:
-                Debug.Log("attacking");
+                //Debug.Log("attacking");
 
                 if (canAttack == true)
                 {
@@ -147,6 +147,6 @@ public class WandererClass : EnemyClass
         SpriteRenderer bulletRenderer = firedBullet.GetComponent<SpriteRenderer>();
         bulletRenderer.color = Color.red;
 
-        Debug.Log("shot fired");
+        //Debug.Log("shot fired");
     }
 }
