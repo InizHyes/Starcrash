@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 7341901070141658317}
   - component: {fileID: 6769876413020174596}
   - component: {fileID: -7291177225882131838}
+  - component: {fileID: 2410748643500379225}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -185,6 +186,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9ffa5c861f9964198f79611112089c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 5
+  shootForce: 5
+  maxSpeed: 10
+  damping: 1
+  bounceMaterial: {fileID: 0}
 --- !u!50 &7341901070141658317
 Rigidbody2D:
   serializedVersion: 4
@@ -277,3 +283,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2410748643500379225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7679138495835117727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6352e596eeb8ab458df4accb243aea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxValue: 100
+  decreaseRate: 10
+  increaseRate: 20
+  increaseDelay: 2
