@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class HowToPlay : MonoBehaviour
+public class BacktoMenu : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI title_text;
     [SerializeField] TextMeshProUGUI movecontrols_text;
-    // Start is called before the first frame update
-    void Start()
+    public void Load(string LevelName)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        SceneManager.LoadScene(LevelName);
     }
 }
