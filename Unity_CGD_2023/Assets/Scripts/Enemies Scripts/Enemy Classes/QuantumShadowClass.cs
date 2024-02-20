@@ -11,14 +11,22 @@ public class QuantumShadowClass : EnemyClass
     [Header("Quantum Shadow Specific")]
     public AudioClip spawnsound;
     public AudioClip quantumShadowsound;
+    public GameObject weapon;
+    public Transform aim;
+    private float throwspeed = 5f;
     private SpriteRenderer spriteRenderer;
+    private bool hasShot;
 
 
     private void Start()
     {
+        hasShot = false;
+
         // Set starting state and variables
         initiateEnemy();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        sound = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -38,7 +46,7 @@ public class QuantumShadowClass : EnemyClass
                  * Target player and decide if State.Pathfinding is needed, otherwise change to moving
                  */
 
-                QSabilityOff();
+                QSabilityOn();
 
                 targetClosestPlayer();
                 enemyState = State.Moving;
@@ -76,12 +84,25 @@ public class QuantumShadowClass : EnemyClass
                  * This will set the attackCooldownValue so that attackCooldwonLogic() can count it down
                  */
 
-                QSabilityOn();
+                //Stop movement and become visable and unverable
+
+
+                if (!hasShot)
+                {
+                    hasShot = true;
+                    StartCoroutine(QSabilityOff());
+                }
 
                 // Count-down timer
                 if (attackCooldwonLogic())
                 {
+                    hasShot = false;
                     enemyState = State.Targeting;
+                }
+
+                else
+                {
+                    spriteRenderer.enabled = true;
                 }
 
                 break;
@@ -104,13 +125,50 @@ public class QuantumShadowClass : EnemyClass
 
     private void QSabilityOn()
     {
+        StopCoroutine(QSabilityOff());
+
         //Turn invisible and invincible
         spriteRenderer.enabled = false;
+        this.gameObject.layer = 3; // Ignore bullets layer
     }
 
-    private void QSabilityOff()
+    private IEnumerator QSabilityOff()
     {
         //Turn visible and vulnerable
         spriteRenderer.enabled = true;
+        this.gameObject.layer = 0; // Default layer
+
+        var NinjaStar = Instantiate(weapon, aim.position, aim.rotation);
+
+        Vector2 starDir = aim.right;
+        NinjaStar.GetComponent<Rigidbody2D>().velocity = starDir * throwspeed;
+        yield return new WaitForSeconds(2.5f);
+
+        QSabilityOn();
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        /*
+         * Wall detection
+         * On collision with an object with the tag "OuterWall"
+         * Stops all momentum
+         */
+
+        if (collision.gameObject.tag == "OuterWall")
+        {
+            rb.velocity = Vector2.zero;
+            moveForce = Vector2.zero;
+        }
+    }
+
+    public void StartAttack()
+    {
+        if (enemyState != State.Attacking)
+        {
+            attackCooldownValue = attackCooldown;
+            changestate(4); // Attacking 
+        }
     }
 }

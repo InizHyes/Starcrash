@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     private InputAction look;
 
     PauseMenu pauseMenu;
-    Interactable currentInteractable;
+/*    Interactable currentInteractable;*/
 
     /// Bullet work again, whilst very angry due to github eating all my work, apologies if it doesn't work yet - Arch
     shootingScript shooting;
@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
         playerControl = inputAsset.FindActionMap("PlayerControls");
         menuControl = inputAsset.FindActionMap("MenuControls"); /// only janky thing about it is the "" for each control map variable name, but it works!
         pauseMenu = FindObjectOfType<PauseMenu>();
+        
     }
 
 
@@ -74,7 +75,7 @@ public class PlayerController : MonoBehaviour
         look = playerControl.FindAction("Look");
         playerControl.FindAction("Pause").started += i => Pause();
         menuControl.FindAction("Resume").started += i => Resume();
-        playerControl.FindAction("Interact").started += i => Interact();
+/*        playerControl.FindAction("Interact").started += i => Interact();*/
         playerControl.FindAction("Lockdown").started += stickingToSurface;
         playerControl.FindAction("WeaponSwapUp").started += WeaponSwappingUp;
         playerControl.FindAction("WeaponSwapDown").started += WeaponSwappingDown;
@@ -89,7 +90,7 @@ public class PlayerController : MonoBehaviour
         playerControl.FindAction("Lockdown").started -= stickingToSurface;
         playerControl.FindAction("Pause").started -= i => Pause();
         menuControl.FindAction("Resume").started -= i => Resume();
-        playerControl.FindAction("Interact").started -= i => Interact();
+/*        playerControl.FindAction("Interact").started -= i => Interact();*/
         playerControl.FindAction("WeaponSwapUp").started -= WeaponSwappingUp;
         playerControl.FindAction("WeaponSwapDown").started -= WeaponSwappingDown;
     }
@@ -117,13 +118,13 @@ public class PlayerController : MonoBehaviour
         swapBackButton = true;
     }
 
-    private void Interact()
+ /*   private void Interact()
     {
         if (currentInteractable != null)
         {
             currentInteractable.Interact();
         }
-    }
+    }*/
     public void SwitchActionMapToPlayer()
     {
         playerinput.SwitchCurrentActionMap("PlayerControls");
@@ -171,7 +172,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentInteractable = FindAnyObjectByType<Interactable>();
+/*        currentInteractable = FindAnyObjectByType<Interactable>();*/
         lastVelocity = rb.velocity;
         shooting = GetComponentInChildren<shootingScript>();
         shooting.Shoot(player, shoot);

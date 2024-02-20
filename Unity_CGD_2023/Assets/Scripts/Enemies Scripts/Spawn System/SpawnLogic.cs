@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnLogic : MonoBehaviour
@@ -14,8 +16,9 @@ public class SpawnLogic : MonoBehaviour
     public List<GameObject> NPCEnemies;
 
     //Spawn bounds
-    [SerializeField] [Range(1, 50)] private int minimumEnemiesSpawned = 10;
-    [SerializeField] [Range(1, 50)] private int maximumEnemiesSpawned = 20;
+    [SerializeField] private int minimumEnemiesSpawned = 10;
+    [SerializeField] private int maximumEnemiesSpawned = 20;
+    [SerializeField] private int spawnCount = 5;
 
 
     #endregion
@@ -60,7 +63,7 @@ public class SpawnLogic : MonoBehaviour
     public void Update()
     {
         // Start wave and NPC spawn after set up is done / whilst keeping to max screen limit
-        if (readySpawn == true && nPCCounter !<= 5)
+        if (readySpawn == true && nPCCounter < spawnCount)
         {
             SpawnEnemyNPC();
         }
