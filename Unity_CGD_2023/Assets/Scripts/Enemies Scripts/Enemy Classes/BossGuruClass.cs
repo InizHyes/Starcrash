@@ -21,6 +21,10 @@ public class BossGuruClass : EnemyClass
 
     public GameObject gasPrefab;
 
+    
+    public GameObject attackDustPrefab;
+    public Transform dustPosition;
+
     // Array of destination points
     public Transform[] destinationPoints;
     private int currentDestinationIndex;
@@ -234,10 +238,17 @@ public class BossGuruClass : EnemyClass
         if (enemyPrefab != null && spawnPointOne != null)
         {
             Instantiate(enemyPrefab, spawnPointTwo.position, spawnPointOne.rotation);
-            Instantiate(gasPrefab, spawnPointOne.position, spawnPointOne.rotation);
+            Instantiate(gasPrefab, spawnPointTwo.position, spawnPointTwo.rotation);
         }
     }
 
+    private void SpawnDust()
+    {
+        if (attackDustPrefab != null)
+        {
+            Instantiate(attackDustPrefab, dustPosition.position , Quaternion.identity);
+        }
+    }
 
     private void SetNextDestination()
     {

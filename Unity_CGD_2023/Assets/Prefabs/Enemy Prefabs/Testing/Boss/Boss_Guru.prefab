@@ -33,7 +33,8 @@ Transform:
   m_LocalPosition: {x: -1.76, y: 6.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 878289856409448313}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2870373918649553230
@@ -202,6 +203,38 @@ MonoBehaviour:
   enemyPrefab: {fileID: 5551923173195952751, guid: b5fc94c68140c064192e8316840b2f1e, type: 3}
   spawnPointOne: {fileID: 0}
   spawnPointTwo: {fileID: 0}
+  gasPrefab: {fileID: 0}
   destinationPoints:
   - {fileID: 0}
   - {fileID: 0}
+--- !u!1 &5699950246285072534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 878289856409448313}
+  m_Layer: 0
+  m_Name: Dust Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &878289856409448313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699950246285072534}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: -1.47, z: -0.032225978}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9179323707849308646}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
