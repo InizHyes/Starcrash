@@ -8,7 +8,7 @@ public class Player: MonoBehaviour
 {
     private PlayerInput playerInput;
     PlayerManager playerManager;
-    Lockdown lockdownScript;
+     public Lockdown lockdownScript;
 
 
 
@@ -129,5 +129,6 @@ public class Player: MonoBehaviour
     private void Lockdown()
     {
           lockdownScript.Locked();
+        
     }
 }

@@ -41,7 +41,7 @@ public class Lockdown : MonoBehaviour
 
     private void Update()
     {
-
+      
         // Decrease the bar value if the button is pressed
         if (isClamped)
         {
@@ -73,13 +73,13 @@ public class Lockdown : MonoBehaviour
 
             isClampingLocked = true;
             isClamped = false;
-            Debug.Log("Clamping locked");
+           
         }
         else if (currentValue >= maxValue && isClampingLocked)
         {
             isClampingLocked = false;
             delayTimer = 0f;
-            Debug.Log("Clamping unlocked");
+           
         }
     }
 
@@ -108,12 +108,12 @@ public class Lockdown : MonoBehaviour
             if (isClamped)
             {
                 rb.constraints = RigidbodyConstraints2D.FreezePosition;
-                Debug.Log("Lockdown");
+              
             }
             else if (!isClamped)
             {
                 rb.constraints = RigidbodyConstraints2D.None;
-                Debug.Log("Unlocked");
+              
             }
         }
 
