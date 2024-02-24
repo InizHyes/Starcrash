@@ -8,13 +8,15 @@ public class Player: MonoBehaviour
 {
     private PlayerInput playerInput;
     PlayerManager playerManager;
+     public Lockdown lockdownScript;
 
-    public Rigidbody2D rb;
+
+
+    private Rigidbody2D rb;
   /*  [SerializeField] private float thrustForce = 1f;*/
     [SerializeField] private float rotationSpeed = 5f;
 
-
-    [SerializeField] private float shootForce = 5f;
+    [SerializeField] public float shootForce = 5f;
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float damping = 1f;
     public PhysicsMaterial2D bounceMaterial;
@@ -39,11 +41,13 @@ public class Player: MonoBehaviour
         playerInput = this.GetComponent<PlayerInput>();
         //pauseMenu = FindObjectOfType<PauseMenu>();
         playerManager = FindObjectOfType<PlayerManager>();
+        
     }
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody2D>();
+        lockdownScript = GetComponent<Lockdown>();
     }
 
     private void OnEnable()
@@ -66,6 +70,10 @@ public class Player: MonoBehaviour
     private void OnDisable()
     {
 
+    }
+    public bool IsShooting
+    {
+        get { return shooting; }
     }
 
     void Update()
@@ -148,6 +156,9 @@ public class Player: MonoBehaviour
         );
 
         rb.velocity = clampedVelocity;
+
+        if (!shooting)
+            return;
     }
 
     private void Reload()
@@ -168,6 +179,7 @@ public class Player: MonoBehaviour
     }
     private void Lockdown()
     {
-        // Toggle clamp
+          lockdownScript.Locked();
+        
     }
 }
