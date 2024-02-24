@@ -68,7 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4552313238143020508}
   - component: {fileID: 392727128046528566}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,8 +128,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1418781311
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
@@ -156,8 +156,7 @@ GameObject:
   - component: {fileID: 7341901070141658317}
   - component: {fileID: 6769876413020174596}
   - component: {fileID: -7291177225882131838}
-  - component: {fileID: 2410748643500379225}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -219,8 +218,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1418781311
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.04889083, g: 1, b: 0, a: 1}
@@ -245,11 +244,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9ffa5c861f9964198f79611112089c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockdownScript: {fileID: 0}
+  rb: {fileID: 0}
   rotationSpeed: 5
   shootForce: 5
   maxSpeed: 10
   damping: 1
   bounceMaterial: {fileID: 0}
+  shootDirection: {x: 0, y: 0}
+  swapRightTriggered: 0
+  swapLeftTriggered: 0
+  reloadTriggered: 0
 --- !u!50 &7341901070141658317
 Rigidbody2D:
   serializedVersion: 4
@@ -370,6 +375,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -1418781311
       objectReference: {fileID: 0}
+    - target: {fileID: 5873436331731796754, guid: 7af451472ae7fc447a031459e9e43edf, type: 3}
+      propertyPath: gunShot
+      value: 
+      objectReference: {fileID: 8300000, guid: 0719cb2abf47a664e98d3f75c2af4d7f, type: 3}
     - target: {fileID: 5873436331731796754, guid: 7af451472ae7fc447a031459e9e43edf, type: 3}
       propertyPath: magSize
       value: 50
@@ -528,7 +537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7521929107562234851, guid: ad5b37472a2e8eb4993a27458a7f762f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.083
+      value: 0.177
       objectReference: {fileID: 0}
     - target: {fileID: 7521929107562234851, guid: ad5b37472a2e8eb4993a27458a7f762f, type: 3}
       propertyPath: m_LocalPosition.y

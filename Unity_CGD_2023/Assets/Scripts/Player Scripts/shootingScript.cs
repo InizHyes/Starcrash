@@ -66,11 +66,18 @@ public class shootingScript : MonoBehaviour
 
     private bool finishedReload = true;
 
+    public bool playMuzzleSmoke;
+
     Vector2 ForceDir; //Part of Sean's recoil scripting
 
     //private PlayerController Player;
 
     private Player newPlayer;
+
+    private void Start()
+    {
+        
+    }
 
     private void Awake()
     {
@@ -104,21 +111,23 @@ public class shootingScript : MonoBehaviour
         }
 
         if (ammoLoaded > 0)
+        {
+            if (ShootInput)
             {
-                if (ShootInput)
+                if (Time.time > readyToShoot)
                 {
-                    if (Time.time > readyToShoot)
-                    {
-                        FireBullet();
-                        ammoLoaded -= 1;
-                    }
+                    FireBullet();
                 }
+
             }
+        }
 
     }
 
     private void FireBullet() // called every time fire is pressed - Arch
     {
+        ammoLoaded -= 1;
+        
         for (int i = 0; i < numberOfBullets; i++)
         {
             ForceDir = newPlayer.shootDirection;
@@ -127,7 +136,7 @@ public class shootingScript : MonoBehaviour
             newPlayer.rb.AddForce(-ForceDir * recoilPower, ForceMode2D.Impulse);
             audio.clip = gunShot;
             audio.Play();
-
+            playMuzzleSmoke = true;
             GameObject firedBullet = Instantiate(bullet, gunPoint.position, gunPoint.rotation); //creates an instance of bullet at the position of the "gun" - Arch
             Vector2 bulletDir = gunPoint.right;
             Vector2 spreader = Vector2.Perpendicular(bulletDir) * Random.Range(-spread, spread);

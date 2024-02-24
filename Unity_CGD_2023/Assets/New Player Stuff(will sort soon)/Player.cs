@@ -12,7 +12,7 @@ public class Player: MonoBehaviour
 
 
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
   /*  [SerializeField] private float thrustForce = 1f;*/
     [SerializeField] private float rotationSpeed = 5f;
 
