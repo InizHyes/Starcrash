@@ -7,19 +7,27 @@ public class bulletBehaviour : MonoBehaviour
     public int damage = 1;
     public float knockBackForceFloat;
 
+    AudioSource audio;
+
+    [SerializeField]
+    private AudioClip bulletHit;
+
     [SerializeField]
     private float bulletTimeBeforeDestroy;
 
     private void Start()
     {
-
+        audio = GetComponent<AudioSource>();
         Physics2D.IgnoreLayerCollision(3, 7);
         Physics2D.IgnoreLayerCollision(7, 7);
         Destroy(this.gameObject, bulletTimeBeforeDestroy);
+        audio.clip = bulletHit;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        audio.Play();
+
         //print("Bullet Collided with Object");
         // If collision with enemy, call damageDetection() and deal damage
         if (collision.gameObject.tag == "Enemy")
@@ -29,6 +37,9 @@ public class bulletBehaviour : MonoBehaviour
 
             
         }
+
+        
+
         Destroy(this.gameObject);
     }
 

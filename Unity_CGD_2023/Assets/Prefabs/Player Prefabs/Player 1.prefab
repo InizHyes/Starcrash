@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 405230350808294393}
   - component: {fileID: 6411494277640039633}
   - component: {fileID: 729188681102843628}
+  - component: {fileID: 5064741582301096389}
   - component: {fileID: 1345583903540891380}
   - component: {fileID: 9119004986373559324}
   - component: {fileID: 821481322392218327}
@@ -103,7 +104,7 @@ GameObject:
   - component: {fileID: -5432988152163771478}
   - component: {fileID: 616582398768916646}
   m_Layer: 3
-  m_Name: Player
+  m_Name: Player 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,7 +187,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6087901998665851953}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2cc70e95a1d09f44974ed6ffaefadc4, type: 3}
   m_Name: 
@@ -229,6 +230,28 @@ MonoBehaviour:
   swapBackTriggered: 0
   reloadTriggered: 0
   audioSource: {fileID: -5432988152163771478}
+--- !u!114 &5064741582301096389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6087901998665851953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af9ffa5c861f9964198f79611112089c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  rotationSpeed: 5
+  shootForce: 5
+  maxSpeed: 10
+  damping: 1
+  bounceMaterial: {fileID: 0}
+  shootDirection: {x: 0, y: 0}
+  swapRightTriggered: 0
+  swapLeftTriggered: 0
+  reloadTriggered: 0
 --- !u!114 &1345583903540891380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: e3af5e53f9214944c968ada09532e20e, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: 98e3a51864017e54a8ca55135f5ebcbf, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -334,7 +357,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: PlayerControls
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &-2230233386937007182
