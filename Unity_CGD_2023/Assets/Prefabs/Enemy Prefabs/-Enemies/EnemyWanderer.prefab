@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 3469607613227155108}
   - component: {fileID: 4415298594212500451}
   - component: {fileID: 8386778677664076047}
+  - component: {fileID: 7351368198307065879}
   m_Layer: 0
   m_Name: EnemyWanderer
   m_TagString: Enemy
@@ -449,8 +450,6 @@ MonoBehaviour:
   dropOdds: 1
   attackCooldown: 5
   bulletPrefab: {fileID: 9099253716168194602, guid: 0366f21fadf554043bbf5f23003b72b8, type: 3}
-  spawnsound: {fileID: 8300000, guid: d6ec520119f200f47b6e145806baa424, type: 3}
-  shootsound: {fileID: 8300000, guid: 67c550f00bb3713498b95b3b04d75ee2, type: 3}
   gunPoint: {fileID: 8921908505693631311}
   canAttack: 0
 --- !u!50 &4771733949618339815
@@ -632,6 +631,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7351368198307065879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5551923173195952751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5ff4576bf049b47983f3be01f60b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectMode: 0
+  randomizedOrder: 0
+  randomizedPitch: 1
+  minPitch: 0.5
+  maxPitch: 1.5
+  Sounds:
+  - action: Spawn
+    audiosource: {fileID: 8300000, guid: d6ec520119f200f47b6e145806baa424, type: 3}
+  - action: Attack
+    audiosource: {fileID: 8300000, guid: 67c550f00bb3713498b95b3b04d75ee2, type: 3}
 --- !u!1001 &1246809340469980635
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,23 +7,19 @@ public class GruntClass : EnemyClass
 {
     // Variable to store hitbox prefab
     private GameObject superHitbox;
-    AudioSource sound;
     [Header("Grunt Specific")]
     [SerializeField] private int attackTimer = 41;
     private bool playerInAtkZone = false;
     private bool playerInConeZone = false;
     private Animator animate;
     //private BoxCollider2D playerDetect;
-    public AudioClip spawnsound;
-    public AudioClip swipe;
 
     void Start()
     {
-        sound = GetComponent<AudioSource>();
+        
         initiateEnemy();
         animate = GetComponent<Animator>(); // Maybe move into init function
-        sound.clip = spawnsound;
-        sound.Play();
+        GetComponent<SFX>().PlaySound("Spawn");
     }
 
     private void Update()
@@ -115,8 +111,7 @@ public class GruntClass : EnemyClass
                 {
                     if (attackTimer == 45)
                     {
-                        sound.clip = swipe;
-                        sound.Play();
+                        GetComponent<SFX>().PlaySound("Attack");
                         /* before the animation finishes, 
                          * will spawn a hitbox prefab (ideally 0.25 seconds) in
                          * that damages the player tag & self deletes */

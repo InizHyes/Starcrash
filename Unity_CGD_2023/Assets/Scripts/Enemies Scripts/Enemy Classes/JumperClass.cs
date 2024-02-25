@@ -7,16 +7,13 @@ public class JumperClass : EnemyClass
 {
     [Header("Jumper Specific")]
     [SerializeField] private int moveSpeed = 200;
-    AudioSource sound;
-    public AudioClip spawnsound;
-    public AudioClip jumpsound;
+    
     private void Start()
     {
-        sound = GetComponent<AudioSource>();
+        
         // Set starting state and variables
         initiateEnemy();
-        sound.clip = spawnsound;
-        sound.Play();
+        GetComponent<SFX>().PlaySound("Spawn");
         attackCooldownValue = 0f;
     }
 
@@ -120,7 +117,6 @@ public class JumperClass : EnemyClass
         rb.velocity = Vector2.zero;
         Vector2 playerDirection = (target.transform.position - this.transform.position).normalized;
         rb.AddForce(playerDirection * moveSpeed);
-        sound.clip = jumpsound;
-        sound.Play();
+        GetComponent<SFX>().PlaySound("Attack");
     }
 }

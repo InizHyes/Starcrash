@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2835826047115813253}
   - component: {fileID: -8594160596150619928}
   - component: {fileID: -5746405280655570343}
+  - component: {fileID: 6355545437062512570}
   m_Layer: 0
   m_Name: LaserSniperEnemy
   m_TagString: Enemy
@@ -274,6 +275,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6355545437062512570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167604057340768009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5ff4576bf049b47983f3be01f60b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectMode: 1
+  randomizedOrder: 1
+  randomizedPitch: 1
+  minPitch: 0.5
+  maxPitch: 1.5
+  Sounds:
+  - action: Spawn
+    audiosource: {fileID: 8300000, guid: d6ec520119f200f47b6e145806baa424, type: 3}
+  - action: Shoot
+    audiosource: {fileID: 8300000, guid: a5fb7702c6e4a3e41a8725a7b030970d, type: 3}
 --- !u!1001 &2030030496015698887
 PrefabInstance:
   m_ObjectHideFlags: 0

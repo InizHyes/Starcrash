@@ -134,8 +134,7 @@ public class shootingScript : MonoBehaviour
             readyToShoot = Time.time + 1 / fireRate;
             //Player.ForceToApply = (ForceDir * recoilPower * -1.0f); //Part of Sean's recoil scripting         
             newPlayer.rb.AddForce(-ForceDir * recoilPower, ForceMode2D.Impulse);
-            audio.clip = gunShot;
-            audio.Play();
+            GetComponent<SFX>().PlaySound("Gun Shot");
             playMuzzleSmoke = true;
             GameObject firedBullet = Instantiate(bullet, gunPoint.position, gunPoint.rotation); //creates an instance of bullet at the position of the "gun" - Arch
             Vector2 bulletDir = gunPoint.right;
@@ -148,15 +147,13 @@ public class shootingScript : MonoBehaviour
     {
         Debug.Log("Reload");
 
-        audio.clip = unload;
-        audio.Play();
+        GetComponent<SFX>().PlaySound("Unload");
 
         finishedReload = false;
 
         yield return new WaitForSeconds(reloadTime);
 
-        audio.clip = reload;
-        audio.Play();
+        GetComponent<SFX>().PlaySound("Reload");
 
         ammoLoaded = magSize;
         newPlayer.reloadTriggered = false;

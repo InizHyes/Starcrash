@@ -17,7 +17,6 @@ public class SFX : MonoBehaviour
     [DrawIf("SelectMode", ShowValueEnum.RepeatingSound)]
     public bool randomizedOrder;
 
-    [DrawIf("SelectMode", ShowValueEnum.RepeatingSound)]
     public bool randomizedPitch;
 
     [DrawIf("randomizedPitch", true)]
@@ -66,6 +65,11 @@ public class SFX : MonoBehaviour
                 {
                     audioSource.clip = Sounds[i].audiosource;
                 }
+            }
+            if (randomizedPitch)
+            {
+                audioSource.pitch = Random.Range(minPitch, maxPitch);
+
             }
         }
 

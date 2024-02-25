@@ -11,16 +11,11 @@ public class LaserSniperClass : EnemyClass
     public int laserDamage = 1; // This is public but should not be accessed outside of Laserdetection Script
     //bool laserReference = false;
     //private BoxCollider2D playerDetect;
-    AudioSource sound;
-    public AudioClip spawnsound;
-    public AudioClip shootsound;
     private void Start()
     {
         // Set starting state and variables
-        sound = GetComponent<AudioSource>();
         initiateEnemy();
-        sound.clip = spawnsound;
-        sound.Play();
+        GetComponent<SFX>().PlaySound("Spawn");
     }
 
     private void Update()
@@ -75,8 +70,7 @@ public class LaserSniperClass : EnemyClass
                         script.laserState = 2;
                         if (attackTimer == 251)
                         {
-                            sound.clip = shootsound;
-                            sound.Play();
+                            GetComponent<SFX>().PlaySound("Shoot");
                         }
                         if (attackTimer > 400)
                         {
