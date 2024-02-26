@@ -13,7 +13,7 @@ public class Player: MonoBehaviour
 
 
     public Rigidbody2D rb;
-  /*  [SerializeField] private float thrustForce = 1f;*/
+    [SerializeField] private float _thrustForce = 0.5f;
     [SerializeField] private float rotationSpeed = 5f;
 
     [SerializeField] public float shootForce = 5f;
@@ -89,6 +89,15 @@ public class Player: MonoBehaviour
 
     void HandleInput()
     {
+        moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
+
+
+        moveInput.Normalize();
+
+        // Apply thrust force based on move input
+        Vector2 thrustForce = moveInput * _thrustForce;
+        rb.AddForce(thrustForce);
+
         if (lookInput.magnitude > 0.1f)
         {
             float angle = Mathf.Atan2(lookInput.y, lookInput.x) * Mathf.Rad2Deg;
@@ -127,10 +136,6 @@ public class Player: MonoBehaviour
     {
         shooting = true;
 
-        
-
-        // Apply recoil force to move the player backward
-        //rb.AddForce(-shootDirection * shootForce, ForceMode2D.Impulse);
     }
 
     private void EndShoot()
@@ -140,11 +145,7 @@ public class Player: MonoBehaviour
 
     private void Shoot()
     {
-        // Calculate shoot direction based on look input
-        
-
-        
-
+     
         // Apply damping force to reduce the velocity gradually
         Vector2 dampingForce = -rb.velocity * damping;
         rb.AddForce(dampingForce);
