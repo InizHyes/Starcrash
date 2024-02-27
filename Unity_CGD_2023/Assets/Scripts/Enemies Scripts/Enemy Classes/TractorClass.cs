@@ -6,21 +6,27 @@ using static UnityEngine.GraphicsBuffer;
 
 public class TractorClass : EnemyClass
 {
-    private Animator animate;
     AudioSource sound;
     [Header("Tractor Specific")]
     [SerializeField] public GameObject tractorBeam;
     public AudioClip spawnsound;
     public AudioClip tractorsound;
     protected GameObject targetfollow;
+
+    private Animator animator;
+
     void Start()
     {
         // Set starting state and variables
+        animator = GetComponent<Animator>();
         sound = GetComponent<AudioSource>();
         initiateEnemy();
         sound.clip = spawnsound;
         sound.Play();
-        animate = GetComponent<Animator>(); // Maybe move into init function
+
+        animator.SetBool("isMoving", false); // Enemey Moving animation bool
+        animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
     }
 
     private void Update()
@@ -44,6 +50,8 @@ public class TractorClass : EnemyClass
                  * But not needed now so im just assuming no LOS block
                  */
 
+                animator.SetBool("isAttacking", false);
+
                 //targetClosestGrunt();
                 targetClosestPlayer();
 
@@ -61,6 +69,8 @@ public class TractorClass : EnemyClass
                 * Maybe check if near to attack, maybe just change state on collision
                 */
 
+                animator.SetBool("isMoving", true);
+
                 if (tractorBeam.activeInHierarchy)
                 {
                     tractorBeam.SetActive(false);
@@ -77,6 +87,10 @@ public class TractorClass : EnemyClass
 
 
             case State.Attacking:
+
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", true);
+
                 // Use trackor beam ablity
                 tractorBeam.SetActive(true);
                 sound.loop = true;
@@ -89,6 +103,10 @@ public class TractorClass : EnemyClass
                  * Runs item drop logic then runs the logic associated with the enemy leaving the scene
                  * Can run death animation before running these functions
                  */
+
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", false);
+                animator.SetBool("isDeath", true);
 
                 itemDropLogic();
                 initiateDeath();

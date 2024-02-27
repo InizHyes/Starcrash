@@ -10,14 +10,22 @@ public class JumperClass : EnemyClass
     AudioSource sound;
     public AudioClip spawnsound;
     public AudioClip jumpsound;
+
+    private Animator animator;
+
     private void Start()
     {
-        sound = GetComponent<AudioSource>();
         // Set starting state and variables
+        animator = GetComponent<Animator>();
+        sound = GetComponent<AudioSource>();
         initiateEnemy();
         sound.clip = spawnsound;
         sound.Play();
         attackCooldownValue = 0f;
+
+        animator.SetBool("isMoving", false); // Enemey Moving animation bool
+        animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
     }
 
     private void Update()
@@ -41,7 +49,7 @@ public class JumperClass : EnemyClass
                  * But not needed now so im just assuming no LOS block
                  */
 
-
+                animator.SetBool("isAttacking", false);
 
                 targetClosestPlayer();
                 enemyState = State.Moving;
@@ -57,6 +65,8 @@ public class JumperClass : EnemyClass
                 * Move towards player with velocity
                 * Maybe check if near to attack, maybe just change state on collision
                 */
+
+                animator.SetBool("isMoving", true);
 
                 pushTowardsPlayer();
 
@@ -77,6 +87,9 @@ public class JumperClass : EnemyClass
                  * Used to wait and count down attack timer
                  */
 
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", true);
+
                 // Count-down timer
                 if (attackCooldwonLogic())
                 {
@@ -90,6 +103,10 @@ public class JumperClass : EnemyClass
                  * Runs item drop logic then runs the logic associated with the enemy leaving the scene
                  * Can run death animation before running these functions
                  */
+
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", false);
+                animator.SetBool("isDeath", true);
 
                 itemDropLogic();
                 initiateDeath();

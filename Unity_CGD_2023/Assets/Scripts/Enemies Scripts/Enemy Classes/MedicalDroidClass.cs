@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MedicalDroidClass: EnemyClass
 {
-    private Animator animate;
     AudioSource sound;
 
     [Header("Medical Droid Specific")]
@@ -14,14 +13,20 @@ public class MedicalDroidClass: EnemyClass
     public AudioClip medicalDroidsound;
     private int attackType;
 
+    private Animator animator;
+
     private void Start()
     {
         // Set starting state and variables
+        animator = GetComponent<Animator>();
         sound = GetComponent<AudioSource>();
         initiateEnemy();
         sound.clip = spawnsound;
         sound.Play();
-        animate = GetComponent<Animator>(); // Maybe move into init function
+
+        animator.SetBool("isMoving", false); // Enemey Moving animation bool
+        animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
     }
 
     private void Update()
@@ -42,6 +47,8 @@ public class MedicalDroidClass: EnemyClass
                 /*
                  * Target player and decide if State.Pathfinding is needed, otherwise change to moving
                  */
+
+                animator.SetBool("isAttacking", false);
 
                 attackType = Random.Range(1, 2);
 
@@ -73,6 +80,8 @@ public class MedicalDroidClass: EnemyClass
                 * Will loop here until the state is changed back to Targeting, Attackng, or Dead
                 */
 
+                animator.SetBool("isMoving", true);
+
                 HealATK.SetActive(false);
                 sound.Stop();
                 sound.loop = false;
@@ -98,6 +107,8 @@ public class MedicalDroidClass: EnemyClass
                  * This will set the attackCooldownValue so that attackCooldwonLogic() can count it down
                  */
 
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", true);
 
                 HealATK.SetActive(true);
 
@@ -119,6 +130,10 @@ public class MedicalDroidClass: EnemyClass
                 sound.loop = true;
                 sound.clip = medicalDroidsound;
                 sound.Play();
+
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", false);
+                animator.SetBool("isDeath", true);
 
                 itemDropLogic();
                 initiateDeath();

@@ -17,13 +17,21 @@ public class GruntClass : EnemyClass
     public AudioClip spawnsound;
     public AudioClip swipe;
 
+    private Animator animator;
+
     void Start()
     {
+        // Set starting state and variables
+        animator = GetComponent<Animator>();
         sound = GetComponent<AudioSource>();
         initiateEnemy();
         animate = GetComponent<Animator>(); // Maybe move into init function
         sound.clip = spawnsound;
         sound.Play();
+
+        animator.SetBool("isMoving", false); // Enemey Moving animation bool
+        animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
     }
 
     private void Update()
@@ -42,6 +50,8 @@ public class GruntClass : EnemyClass
                  * But not needed now so im just assuming no LOS block
                  */
 
+                animator.SetBool("isAttacking", false);
+
                 enemyState = State.Moving;
                 break;
 
@@ -51,6 +61,9 @@ public class GruntClass : EnemyClass
                 break;
 
             case State.Moving:
+
+                animator.SetBool("isMoving", true);
+
                 // Attack timer logic
                 if (attackTimer < 100)
                 {
@@ -106,6 +119,10 @@ public class GruntClass : EnemyClass
                 break;
 
             case State.Attacking:
+
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", true);
+
                 if (attackTimer == 2)
                 {
                     lungeForward();
@@ -137,6 +154,10 @@ public class GruntClass : EnemyClass
                  * Runs item drop logic then runs the logic associated with the enemy leaving the scene
                  * Can run death animation before running these functions
                  */
+
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", false);
+                animator.SetBool("isDeath", true);
 
                 itemDropLogic();
                 initiateDeath();
