@@ -8,6 +8,8 @@ public class RazorClass : EnemyClass
     [Header("Razor Specific")]
     [SerializeField] private int dashSpeed = 200;
     [SerializeField] private RazorBlade razorBlade;
+    private int waitExitTime = 5;
+    private float waitExitTimeCounter = 5;
 
     private Animator animator;
 
@@ -41,6 +43,7 @@ public class RazorClass : EnemyClass
 
                 animator.SetBool("isAttacking", false);
 
+                waitExitTimeCounter = waitExitTime;
                 targetClosestPlayer();
                 enemyState = State.Moving;
                 break;
@@ -60,6 +63,15 @@ public class RazorClass : EnemyClass
                     enemyState = State.Targeting;
                 } 
                 */
+
+                if (waitExitTimeCounter > 0)
+                {
+                    waitExitTimeCounter -= Time.deltaTime;
+                }
+                else
+                {
+                    enemyState = State.Targeting;
+                }
 
                 break;
 

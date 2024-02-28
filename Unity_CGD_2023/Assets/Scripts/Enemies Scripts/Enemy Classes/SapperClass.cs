@@ -184,4 +184,19 @@ public class SapperClass : EnemyClass
         print(target.transform.position);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        /*
+         * Wall detection
+         * On collision with an object with the tag "OuterWall"
+         * Stops all momentum
+         */
+
+        if (collision.gameObject.tag == "OuterWall")
+        {
+            rb.velocity = Vector2.zero;
+            moveForce = Vector2.zero;
+        }
+    }
+
 }

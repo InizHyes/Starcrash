@@ -129,6 +129,11 @@ public class SpawnLogic : MonoBehaviour
     {
         //If player kills a NPC allow another NPC to spawn if other conditions are vaild 
         nPCCounter -= 1;
+
+        if (nPCCounter <= 0)
+        {
+            AllEnemiesDead();
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -142,5 +147,15 @@ public class SpawnLogic : MonoBehaviour
     }
 
     #endregion
+
+    public void AllEnemiesDead()
+    {
+        /*
+         * Put logic for end of enemy spawning here
+         * E.g. doors opening logic
+         */
+
+        print("All enemies dead");
+    }
 
 }
