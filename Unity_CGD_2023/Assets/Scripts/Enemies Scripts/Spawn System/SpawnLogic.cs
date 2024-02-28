@@ -27,6 +27,8 @@ public class SpawnLogic : MonoBehaviour
     [Header("Spawn location list")]
 
     //Get the spawn points in the room
+    [Tooltip("If true - spawn enemies on a random location in the array below, if false - iterate through the array in order")][SerializeField] private bool spawnRandomly = true;
+    private int spawnPointID = 0;
     public List<Transform> spawnPoints;
 
     #endregion
@@ -90,7 +92,22 @@ public class SpawnLogic : MonoBehaviour
         GameObject selectedEnemy = NPCEnemies[Random.Range(0, NPCEnemies.Count)];
 
         // Spawn random enemy at random spawn point
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+        Transform spawnPoint;
+        if (spawnRandomly)
+        {
+            spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+        }
+        // Spawn in sequence
+        else
+        {
+            if (spawnPointID > spawnPoints.Count - 1)
+            {
+                // Reset on array end
+                spawnPointID = 0;
+            }
+            spawnPoint = spawnPoints[spawnPointID];
+            spawnPointID++;
+        }
 
         // Set new enemy variables
         GameObject newEnemy = Instantiate(selectedEnemy, spawnPoint.position, Quaternion.identity);
