@@ -12,6 +12,9 @@ public class SpawnLogic : MonoBehaviour
     #region [Enemies list]
     [Header("Enemies list")]
 
+    [SerializeField] private bool chooseRandomly = true;
+    private int nextEnemyID = 0;
+
     //Get the Enemy prefabs
     public List<GameObject> NPCEnemies;
 
@@ -88,8 +91,23 @@ public class SpawnLogic : MonoBehaviour
     // 1 function trigger = 1 enemy spawn at random location
     public void SpawnEnemyNPC()
     {
+        GameObject selectedEnemy;
         // Get enemy list, randomise what enemy should be spawned
-        GameObject selectedEnemy = NPCEnemies[Random.Range(0, NPCEnemies.Count)];
+        if (chooseRandomly)
+        {
+            selectedEnemy = NPCEnemies[Random.Range(0, NPCEnemies.Count)];
+        }
+        // Spawn in sequence
+        else
+        {
+            if (nextEnemyID > NPCEnemies.Count - 1)
+            {
+                // Reset on array end
+                nextEnemyID = 0;
+            }
+            selectedEnemy = NPCEnemies[nextEnemyID];
+            nextEnemyID++;
+        }
 
         // Spawn random enemy at random spawn point
         Transform spawnPoint;

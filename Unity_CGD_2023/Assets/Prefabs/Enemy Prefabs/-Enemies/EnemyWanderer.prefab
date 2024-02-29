@@ -438,8 +438,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5d60e11995913844a5e7e8ef6b30cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 9999
+  health: 10
   bumpDamage: 1
+  attackCooldown: 5
   forceMultiplier: 1
   maxVelocity: {x: 5, y: 5}
   moveForce: {x: 0, y: 0}
@@ -447,7 +448,6 @@ MonoBehaviour:
   droppedObejcts:
   - {fileID: 4249462830458335497, guid: 7fa2961ff40a8ba4d86515543563d845, type: 3}
   dropOdds: 1
-  attackCooldown: 5
   bulletPrefab: {fileID: 9099253716168194602, guid: 0366f21fadf554043bbf5f23003b72b8, type: 3}
   spawnsound: {fileID: 8300000, guid: d6ec520119f200f47b6e145806baa424, type: 3}
   shootsound: {fileID: 8300000, guid: 67c550f00bb3713498b95b3b04d75ee2, type: 3}
