@@ -66,8 +66,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 2}
-  m_Size: {x: 2, y: 4}
+  m_Offset: {x: 0, y: 1}
+  m_Size: {x: 1, y: 2}
   m_Direction: 0
 --- !u!114 &5694160481334257743
 MonoBehaviour:
@@ -384,12 +384,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  bumpDamage: 1
+  bumpDamage: 0
   attackCooldown: 5
-  forceMultiplier: 5
-  maxVelocity: {x: 100, y: 100}
+  forceMultiplier: 3
+  maxVelocity: {x: 150, y: 150}
   moveForce: {x: 0, y: 0}
-  followDistance: 1
   NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1

@@ -10,6 +10,7 @@ public class GruntClass : EnemyClass
     AudioSource sound;
     [Header("Grunt Specific")]
     [SerializeField] private int attackTimer = 41;
+    [SerializeField] private int attackDamage = 2;
     private bool playerInAtkZone = false;
     private bool playerInConeZone = false;
     private Animator animate;
@@ -192,7 +193,7 @@ public class GruntClass : EnemyClass
             if (hitboxScript != null)
             {
                 // Set relevant variable information for the hitbox (IMPORTANT)
-                hitboxScript.damageAmount = 10;
+                hitboxScript.damageAmount = attackDamage;
                 hitboxScript.size = new Vector2(0.6f, 0.8f); // these numbers need to be very small lol
                 hitboxScript.rotationAngle = transform.eulerAngles.z;
                 hitboxScript.offsetAmount = new Vector2(0f, 0.2f);
