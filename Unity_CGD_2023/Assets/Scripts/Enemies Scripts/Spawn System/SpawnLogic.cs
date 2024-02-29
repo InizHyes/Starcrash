@@ -53,8 +53,7 @@ public class SpawnLogic : MonoBehaviour
 
     #region [Start and Update]
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         readySpawn = false;
 
@@ -62,6 +61,12 @@ public class SpawnLogic : MonoBehaviour
         boxCollider = GetComponent<Collider2D>();
 
         boxCollider.enabled = true;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
     }
 
     // Update is called once per frame
