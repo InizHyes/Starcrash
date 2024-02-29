@@ -146,6 +146,7 @@ public class StraightShooterClass : EnemyClass
     void SpawnBullet(Vector2 direction)
     {
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        bullet.transform.parent = transform.parent;
         bullet.GetComponent<Rigidbody2D>().velocity = direction.normalized * bulletSpeed;
         Destroy(bullet, bulletLifetime);
     }
