@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 6769876413020174596}
   - component: {fileID: -7291177225882131838}
   - component: {fileID: 6023479628342118879}
+  - component: {fileID: 4782920393079467528}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -462,6 +463,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4782920393079467528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7679138495835117727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6aa8df8087d1bd4e81ca7d97fabe1dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poisonDuration: 5
+  poisonTickSpeed: 1
+  poisonDamage: 1
 --- !u!1001 &4708027914818747594
 PrefabInstance:
   m_ObjectHideFlags: 0
