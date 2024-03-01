@@ -104,14 +104,32 @@ public class TractorClass : EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                animator.SetBool("isMoving", false);
-                animator.SetBool("isAttacking", false);
-                animator.SetBool("isDeath", true);
+                // Make sure death animation plays before enemy destruction 
+                StartCoroutine(WaitForDeathAnimation());
 
-                itemDropLogic();
-                initiateDeath();
                 break;
         }
+    }
+
+    private IEnumerator WaitForDeathAnimation()
+    {
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isDeath", true);
+
+        // Wait for one frame to ensure that the animation has started
+        yield return null;
+
+        // Get the length of the current animation, which will be "isDeath"
+        float animationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Wait for the duration of the enemy death animation
+        yield return new WaitForSeconds(animationLength);
+
+        //Now the enemy dies after animation is done.
+        itemDropLogic();
+        initiateDeath();
+        StartCoroutine(WaitForDeathAnimation());
     }
 
     // Function will allow for stronger enemies to hide behind grunts for tactical play,
