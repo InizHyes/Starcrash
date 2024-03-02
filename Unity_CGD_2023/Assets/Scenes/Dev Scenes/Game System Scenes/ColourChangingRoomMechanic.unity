@@ -16877,6 +16877,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1394839633832624427, guid: 8f15691f8cbd89e45bf57329cf610b0b, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -3904930038289014217, guid: c7f58a0e677a0234a8f231c206a9bec9, type: 2}
     - target: {fileID: 3693722763306078319, guid: 8f15691f8cbd89e45bf57329cf610b0b, type: 3}
       propertyPath: m_Name
       value: ColourChangingRoom
@@ -17633,6 +17637,14 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[175].second.m_TileColorIndex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7158806293794770310, guid: 8f15691f8cbd89e45bf57329cf610b0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7158806293794770310, guid: 8f15691f8cbd89e45bf57329cf610b0b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8680293854649168665, guid: 8f15691f8cbd89e45bf57329cf610b0b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 44
@@ -17673,7 +17685,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8128591937173498222, guid: 8f15691f8cbd89e45bf57329cf610b0b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8680293854649168665, guid: 8f15691f8cbd89e45bf57329cf610b0b, type: 3}

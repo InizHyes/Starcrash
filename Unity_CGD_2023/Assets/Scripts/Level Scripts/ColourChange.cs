@@ -10,13 +10,10 @@ using UnityEngine.Tilemaps;
 // The floor within the object has the "Child Collider" script attached to it,
 // Which sends player/enemy collision messages to the public collision trigger functions inside this script.
 
-// To do:
-// Make enemy tiles do damage to player
-
 
 public class ColourChange : MonoBehaviour
 {
-    Tilemap tilemap;
+    Tilemap tileMap;
     Tile defaultTile;
     Tile playerTile;
     Tile enemyTile;
@@ -44,14 +41,31 @@ public class ColourChange : MonoBehaviour
         playerTile = Resources.Load<Tile>("ColourFloor/Coloured Floors_15") as Tile;
         enemyTile = Resources.Load<Tile>("ColourFloor/Coloured Floors_5") as Tile;
 
-        tilemap = FindChildWithTag(this.transform, "Floor", "Floor"); 
+        tileMap = FindChildWithTag(this.transform, "Floor", "Floor"); 
 
-        halfMapWidth = tilemap.size.x / 2;
-        halfMapHeight = tilemap.size.y / 2;
-        tileCount = tilemap.size.x * (tilemap.size.y - 2);
+        halfMapWidth = tileMap.size.x / 2;
+        halfMapHeight = tileMap.size.y / 2;
+        //tileCount = tileMap.size.x * (tileMap.size.y - 2);
 
         audioSource = this.GetComponent<AudioSource>();
         audioSource.volume = 0.05f;
+
+        BoundsInt bounds = tileMap.cellBounds;
+        TileBase[] allTiles = tileMap.GetTilesBlock(bounds);
+
+        // Calculates the tileCount
+        for (int x = 0; x < bounds.size.x; x++)
+        {
+            for (int y = 0; y < bounds.size.y; y++)
+            {
+                TileBase tile = allTiles[x + y * bounds.size.x];
+                if (tile != null)
+                {
+                    tileCount += 1;
+
+                }
+            }
+        }
     }
 
     // Finds the child with a "floor" tag in order to get it's Tilemap component
@@ -92,12 +106,14 @@ public class ColourChange : MonoBehaviour
             if (collision.gameObject.CompareTag("Player"))
             {
                 //Convert player pos to world pos
-                tileLocation = tilemap.WorldToCell(collision.gameObject.transform.position);
+                tileLocation = tileMap.WorldToCell(collision.gameObject.transform.position);
                 Vector2Int pos = new Vector2Int(tileLocation.x, tileLocation.y);
 
+                //Makes sure a tile exists 
+                if (!tileMap.HasTile(tileLocation)) return;
+
                 //Skip
-                if (playerTileList.Contains(pos))
-                    return;
+                if (playerTileList.Contains(pos)) return;
 
                 //Prevents painting tiles outside the room seems to work no matter where tilemap is positioned I.e it's relative
                 if (pos.x < -halfMapWidth || pos.x > (halfMapWidth - 1) ||
@@ -117,7 +133,7 @@ public class ColourChange : MonoBehaviour
                 }
 
                 //Set & track tile node
-                tilemap.SetTile(tileLocation, playerTile);
+                tileMap.SetTile(tileLocation, playerTile);
                 playerTileList.Add(pos);
 
                 //Play ding sound 
@@ -128,8 +144,11 @@ public class ColourChange : MonoBehaviour
             else if (collision.gameObject.CompareTag("Enemy"))
             {
                 //Convert enemy pos to world pos
-                tileLocation = tilemap.WorldToCell(collision.gameObject.transform.position);
+                tileLocation = tileMap.WorldToCell(collision.gameObject.transform.position);
                 Vector2Int pos = new Vector2Int(tileLocation.x, tileLocation.y);
+
+                //Make sure a tile exists 
+                if (!tileMap.HasTile(tileLocation)) return;
 
                 //Skip
                 if (enemyTileList.Contains(pos))
@@ -148,7 +167,7 @@ public class ColourChange : MonoBehaviour
                 }
 
                 //Set & track tile node
-                tilemap.SetTile(tileLocation, enemyTile);
+                tileMap.SetTile(tileLocation, enemyTile);
                 enemyTileList.Add(pos);
             }
         }
@@ -179,13 +198,13 @@ public class ColourChange : MonoBehaviour
         foreach (Vector2Int vec in playerTileList)
         {
             Vector3Int pos = new Vector3Int(vec.x, vec.y, 0);
-            tilemap.SetTile(pos, defaultTile);
+            tileMap.SetTile(pos, defaultTile);
         }
 
         foreach (Vector2Int vec in enemyTileList)
         {
             Vector3Int pos = new Vector3Int(vec.x, vec.y, 0);
-            tilemap.SetTile(pos, defaultTile);
+            tileMap.SetTile(pos, defaultTile);
         }
 
         playerTileList.Clear();
