@@ -24,7 +24,7 @@ public class GasVentLogic : MonoBehaviour
     {
         myParticlePrefab = Resources.Load<ParticleSystem>("GasVentParticles/GasRoomParticleSystem") as ParticleSystem;
 
-        liquidTileMap = FindChildWithTag(this.transform, "Floor", "Liquid");
+        liquidTileMap = FindChildWithTag(this.transform, "Floor", "Acid");
 
         audioSource = this.GetComponent<AudioSource>();
         audioSource.volume = 0.9f;
