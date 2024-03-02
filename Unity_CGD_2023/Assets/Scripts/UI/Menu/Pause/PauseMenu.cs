@@ -28,23 +28,24 @@ public class PauseMenu : MonoBehaviour
 
     public void CloseAllScreens()
     {
-        // Close all screens and set the selected button based on the last active screen
-        foreach (GameObject screen in new[] { settingsScreen })
+        GameObject[] screens = { settingsScreen }; // Add more screens if needed
+
+        foreach (GameObject screen in screens)
         {
-            if (screen.activeSelf)
+            if (screen != null && screen.activeSelf)
             {
                 screen.SetActive(false);
                 lastActiveScreen = screen;
             }
-            else
-            {
-                lastActiveScreen = menuScreen;
-            }
+        }
+
+        if (lastActiveScreen == null)
+        {
+            lastActiveScreen = menuScreen;
         }
 
         EventSystem.current.SetSelectedGameObject(null);
 
-        // Set the selected button based on the last active screen
         if (lastActiveScreen == menuScreen)
         {
             EventSystem.current.SetSelectedGameObject(resumeButton);
