@@ -20,7 +20,8 @@ public class BossGuruClass : EnemyClass{
 
     public GameObject gasPrefab;
 
-    
+    public EnemyBossHealth_UI enemybosshealth_ui;
+
     public GameObject attackDustPrefab;
     public Transform dustPosition;
 
