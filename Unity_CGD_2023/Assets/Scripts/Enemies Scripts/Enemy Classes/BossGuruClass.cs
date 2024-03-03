@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BossGuruClass : EnemyClass
-{
+public class BossGuruClass : EnemyClass{
     [Header("Slime Movement Values")]
     public float stoppingDistance = 1.5f; // Adjust this value in the Inspector or programmatically
     public float MaxVelocity = 5.0f; // Adjust this value as needed
@@ -21,7 +20,8 @@ public class BossGuruClass : EnemyClass
 
     public GameObject gasPrefab;
 
-    
+    public EnemyBossHealth_UI enemybosshealth_ui;
+
     public GameObject attackDustPrefab;
     public Transform dustPosition;
 
