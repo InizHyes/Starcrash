@@ -13,11 +13,13 @@ public class PauseMenu : MonoBehaviour
     private GameObject lastActiveScreen;
 
     [SerializeField]
-    PlayerController playerController;
+    Player player ;
+    PlayerManager playerManager;
 
     private void Update()
     {
-        playerController = FindObjectOfType<PlayerController>();
+        player = FindObjectOfType<Player>();
+        playerManager = FindObjectOfType<PlayerManager>();
         // Check if the "Cancel" button is pressed to close active screens
         if (Input.GetButtonDown("Cancel"))
         {
@@ -69,7 +71,6 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
-        playerController.playerinput.SwitchCurrentActionMap("PlayerControls");
     }
 
     public void BackToMenu()

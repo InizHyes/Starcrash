@@ -6,16 +6,19 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     private Dictionary<int, PlayerInput> players = new Dictionary<int, PlayerInput>();
-    private int nextPlayerID = 0;
+    public int nextPlayerID = 0;
     PauseMenu pauseMenu;
+    HUDManager hudManager;
 
     private void Start()
     {
         pauseMenu = FindObjectOfType<PauseMenu>();
+        hudManager = FindObjectOfType<HUDManager>();
     }
     private void OnPlayerJoined(PlayerInput playerInput)
     {
         players.Add(nextPlayerID, playerInput);
+        hudManager.ActivatePlayerHUD(nextPlayerID);
         nextPlayerID++;
     }
 

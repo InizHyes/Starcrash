@@ -8,7 +8,7 @@ public class Player: MonoBehaviour
 {
     private PlayerInput playerInput;
     PlayerManager playerManager;
-     public Lockdown lockdownScript;
+    public Lockdown lockdownScript;
 
 
 
@@ -19,6 +19,7 @@ public class Player: MonoBehaviour
     [SerializeField] public float shootForce = 5f;
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float damping = 1f;
+    [SerializeField] public int playerID = 0;
     public PhysicsMaterial2D bounceMaterial;
 
     private Vector2 moveInput;
