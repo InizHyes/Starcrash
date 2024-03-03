@@ -9,7 +9,9 @@ public class WeaponManager : MonoBehaviour
     public int totalWeapons = 1;
     public int currentWeaponIndex;
 
-    PlayerController swapInputs;
+    //PlayerController swapInputs;
+
+    Player swapButtons;
 
     public GameObject[] weapons;
     public GameObject weaponHolder;
@@ -30,8 +32,9 @@ public class WeaponManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        swapInputs = GetComponentInParent<PlayerController>();
+        //swapInputs = GetComponentInParent<PlayerController>();
 
+        swapButtons = GetComponentInParent<Player>();
 
         totalWeapons = weaponHolder.transform.childCount;
         weapons = new GameObject[totalWeapons];
@@ -103,6 +106,47 @@ public class WeaponManager : MonoBehaviour
     */
     private void Swap()
     {
+        if (swapButtons.swapRightTriggered)
+        {
+            if (currentWeaponIndex < totalWeapons - 1)
+            {
+                weapons[currentWeaponIndex].SetActive(false);
+                currentWeaponIndex += 1;
+                swapButtons.swapRightTriggered = false;
+                weapons[currentWeaponIndex].SetActive(true);
+                previousWeapon = true;
+            }
+            else if (currentWeaponIndex == totalWeapons - 1)
+            {
+                weapons[currentWeaponIndex].SetActive(false);
+                currentWeaponIndex = 0;
+                swapButtons.swapRightTriggered = false;
+                weapons[currentWeaponIndex].SetActive(true);
+                previousWeapon = true;
+            }
+        }
+        if (swapButtons.swapLeftTriggered)
+        {
+            if (currentWeaponIndex > 0)
+            {
+                weapons[currentWeaponIndex].SetActive(false);
+                currentWeaponIndex -= 1;
+                swapButtons.swapLeftTriggered = false;
+                weapons[currentWeaponIndex].SetActive(true);
+                previousWeapon = false;
+            }
+
+            else if (currentWeaponIndex == 0)
+            {
+                weapons[currentWeaponIndex].SetActive(false);
+                currentWeaponIndex = totalWeapons - 1;
+                swapButtons.swapLeftTriggered = false;
+                weapons[currentWeaponIndex].SetActive(true);
+                previousWeapon = false;
+            }
+        }
+
+        /*
         if (swapInputs.player == 1)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -184,6 +228,6 @@ public class WeaponManager : MonoBehaviour
                 }
             }
         }
-
+        */
     }
 }

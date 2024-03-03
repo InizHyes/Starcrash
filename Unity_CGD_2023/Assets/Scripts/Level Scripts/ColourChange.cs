@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 // Instructions:
-// If the tilemap appears red on the prefab all you should need to do,
-// is set the "Tile" on the TileMap which is on the child named "DefaultColour" if it's not set already. 
+// EndRoomSEquence should be triggered once "isRoomComplete" bool is true
 
 // Info:
 // The floor within the object has the "Child Collider" script attached to it,
@@ -26,11 +25,12 @@ public class ColourChange : MonoBehaviour
     public List<Vector2Int> playerTileList = new List<Vector2Int>();
     public List<Vector2Int> enemyTileList = new List<Vector2Int>();
 
-    bool startPuzzle = false;
     int halfMapWidth;
+    int halfMapHeight;
     int tileCount;
     float playerTileDamage = 0.1f;
     float enemyTileDamage = 0.1f;
+    public bool isRoomComplete = false;
     public bool toggleEnemyTileDmg = false;
 
     // Audio
@@ -44,9 +44,10 @@ public class ColourChange : MonoBehaviour
         playerTile = Resources.Load<Tile>("ColourFloor/Coloured Floors_15") as Tile;
         enemyTile = Resources.Load<Tile>("ColourFloor/Coloured Floors_5") as Tile;
 
-        tilemap = FindChildWithTag(this.transform, "Floor", "Floor"); //DefaultColour
+        tilemap = FindChildWithTag(this.transform, "Floor", "Floor"); 
 
         halfMapWidth = tilemap.size.x / 2;
+        halfMapHeight = tilemap.size.y / 2;
         tileCount = tilemap.size.x * (tilemap.size.y - 2);
 
         audioSource = this.GetComponent<AudioSource>();
@@ -75,17 +76,16 @@ public class ColourChange : MonoBehaviour
     public void AreAllTilesSameColour()
     {
         // Check if all the tilemaps tiles are the same colour
-        if(playerTileList.Count >= tileCount || enemyTileList.Count >= tileCount)
+        if(playerTileList.Count >= tileCount)
         {
-            // Start the end room sequence here!
-            // Debug.Log("tilemap filled " + playerTileList.Count + " / " + tileCount);
+            // Can start the end room sequence!
+            isRoomComplete = true;
         }
     }
 
     public void ReceiveOnTriggerStay(Collider2D collision)
     {
-        if (!startPuzzle)
-            return;
+        if (isRoomComplete) return;
 
         if (collision.GetType() == typeof(CircleCollider2D))
         {
@@ -100,7 +100,8 @@ public class ColourChange : MonoBehaviour
                     return;
 
                 //Prevents painting tiles outside the room seems to work no matter where tilemap is positioned I.e it's relative
-                if (pos.x < -halfMapWidth || pos.x > (halfMapWidth - 1))
+                if (pos.x < -halfMapWidth || pos.x > (halfMapWidth - 1) ||
+                    pos.y < -(halfMapHeight - 1) || pos.y > (halfMapHeight - 2))
                     return;
 
                 //Player stepped on enemy tile
@@ -135,7 +136,8 @@ public class ColourChange : MonoBehaviour
                     return;
 
                 //Prevents painting tiles outside the room
-                if (pos.x < -halfMapWidth || pos.x > (halfMapWidth - 1))
+                if (pos.x < -halfMapWidth || pos.x > (halfMapWidth - 1) ||
+                    pos.y < -(halfMapHeight - 1) || pos.y > (halfMapHeight - 2))
                     return;
 
                 //Enemy stepped on player tile
@@ -156,13 +158,6 @@ public class ColourChange : MonoBehaviour
 
     public void ReceiveOnTriggerEnter(Collider2D collision)
     {
-        if (collision.GetType() == typeof(CircleCollider2D))
-        {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                StartPuzzle();
-            }
-        }
     }
 
     public void ReceiveOnTriggerExit(Collider2D collision)
@@ -176,16 +171,12 @@ public class ColourChange : MonoBehaviour
         }
     }
 
-    private void StartPuzzle()
-    {
-        if (!startPuzzle)
-            startPuzzle = true;
-    }
+
 
     //Resets the floor
     private void ResetPuzzle()
     {
-        foreach(Vector2Int vec in playerTileList)
+        foreach (Vector2Int vec in playerTileList)
         {
             Vector3Int pos = new Vector3Int(vec.x, vec.y, 0);
             tilemap.SetTile(pos, defaultTile);
@@ -198,6 +189,5 @@ public class ColourChange : MonoBehaviour
         }
 
         playerTileList.Clear();
-        startPuzzle = false;
     }
 }

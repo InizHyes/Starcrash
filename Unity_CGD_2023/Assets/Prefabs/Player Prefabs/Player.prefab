@@ -211,6 +211,7 @@ MonoBehaviour:
   stickToSurface: {fileID: -4898797601536266901, guid: e3af5e53f9214944c968ada09532e20e, type: 3}
   WeaponSwapDown: {fileID: 8494954127426066719, guid: e3af5e53f9214944c968ada09532e20e, type: 3}
   WeaponSwapUp: {fileID: -5431600091776901776, guid: e3af5e53f9214944c968ada09532e20e, type: 3}
+  Reload: {fileID: -8152182435230277117, guid: e3af5e53f9214944c968ada09532e20e, type: 3}
   playerinput: {fileID: -1708436674007983254}
   playerControl:
     m_Name: Player Control
@@ -226,6 +227,7 @@ MonoBehaviour:
     m_Bindings: []
   swapForwardTriggered: 0
   swapBackTriggered: 0
+  reloadTriggered: 0
   audioSource: {fileID: -5432988152163771478}
 --- !u!114 &1345583903540891380
 MonoBehaviour:
@@ -459,6 +461,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6aa8df8087d1bd4e81ca7d97fabe1dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poisonDuration: 5
+  poisonTickSpeed: 1
+  poisonDamage: 1
 --- !u!1 &6885007234721677679
 GameObject:
   m_ObjectHideFlags: 0

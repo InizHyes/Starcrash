@@ -10,6 +10,9 @@ public class EnemyClass : MonoBehaviour
     [SerializeField] protected int health = 10;
     // Attack value
     [SerializeField] private int bumpDamage = 1; // Used when collision with the player
+    // Attack cooldown
+    [SerializeField] protected float attackCooldown = 5f; // In seconds, can be set in inspector
+    protected float attackCooldownValue = 0f;
 
     // rb movement variables
     [Header("Movement")]
@@ -21,17 +24,13 @@ public class EnemyClass : MonoBehaviour
     [HideInInspector] public Vector2 moveForce;
 
     // Set spawnlogic prefab onto spawnLogic, will find and assign script to NPCdeathCheck
-    [Header("Spawning/Drops")]
     //protected GameObject spawnLogic;
     [HideInInspector] public SpawnLogic NPCdeathCheck;
 
     // Item drop variables
+    [Header("Spawning/Drops")]
     [SerializeField] private GameObject[] droppedObejcts;
     [Tooltip("Odds of dropping, 1/x chance")] [SerializeField] private int dropOdds = 1;
-
-    // Attack cooldown
-    [SerializeField] protected float attackCooldown = 5f; // In seconds, can be set in inspector
-    protected float attackCooldownValue = 0f;
 
     // States
     protected enum State

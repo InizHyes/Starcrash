@@ -31,6 +31,7 @@ public class SuperHitboxScript : MonoBehaviour
         {
             //Destroy(other); // for testing
             // Get the health component of the collided object and apply damage
+            /*
             PlayerController playerAccess = other.GetComponent<PlayerController>();
             if (playerAccess != null)
             {
@@ -38,6 +39,10 @@ public class SuperHitboxScript : MonoBehaviour
                 
                 //playerAccess.health = (playerAccess.health - damageAmount);
             }
+            */
+            print("A");
+            other.GetComponent<PlayerStats>().TakeDamage(damageAmount);
+
             if (deleteOnConnect)
             {
                 Destroy(gameObject);

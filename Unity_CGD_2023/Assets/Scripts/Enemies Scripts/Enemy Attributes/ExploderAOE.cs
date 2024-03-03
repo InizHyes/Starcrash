@@ -85,7 +85,9 @@ public class ExploderAOE : MonoBehaviour
                 {
                     // Push back target
                     Vector2 forceNormal = (this.transform.position - collision.transform.position).normalized;
-                    collision.GetComponent<PlayerController>().ForceToApply = (forceNormal * exploderAttached.explosionForce * -1f);
+                    //collision.GetComponent<PlayerController>().ForceToApply = (forceNormal * exploderAttached.explosionForce * -1f);
+                    Player newPlayer = collision.GetComponent<Player>();
+                    newPlayer.rb.AddForce(forceNormal * exploderAttached.explosionForce * -1f);
 
                     // Deal damage
                     collision.GetComponent<PlayerStats>().TakeDamage(exploderAttached.explosionDamage);

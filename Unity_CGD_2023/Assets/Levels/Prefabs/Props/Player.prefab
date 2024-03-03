@@ -275,19 +275,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 249324806006284574}
   MoveSpeed: 0.005
+  stickSpeed: 2
   GunForce: 0.2
   ForceToApply: {x: 0, y: 0}
   ForceDamping: 1.2
+  MoveForce2: {x: 0, y: 0}
+  noMove: {x: 0, y: 0}
   sticking: 0
   view: {fileID: 0}
   otherPlayer: {fileID: 0}
+  interactInput: 0
   SpeedCap: 10
   player: 1
   movement: {fileID: 2303050120065896387, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   attack: {fileID: 3734495484655796333, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   rotate: {fileID: 2664800122413868106, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
   stickToSurface: {fileID: -4573028448917826045, guid: 7a1976d28bbc5694094fad66ccfb74f6, type: 3}
-  HP: 10
+  WeaponSwapDown: {fileID: 0}
+  WeaponSwapUp: {fileID: 0}
+  Reload: {fileID: 0}
   playerinput: {fileID: 20304516316973471}
   playerControl:
     m_Name: Player Control
@@ -295,6 +301,16 @@ MonoBehaviour:
     m_Asset: {fileID: 0}
     m_Actions: []
     m_Bindings: []
+  menuControl:
+    m_Name: 
+    m_Id: 
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
+  swapForwardTriggered: 0
+  swapBackTriggered: 0
+  reloadTriggered: 0
+  audioSource: {fileID: 0}
 --- !u!114 &950808495432365978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,6 +326,7 @@ MonoBehaviour:
   maxHealth: 0
   health: 0
   isDead: 0
+  takeDMG: {fileID: 0}
 --- !u!50 &249324806006284574
 Rigidbody2D:
   serializedVersion: 4
@@ -414,6 +431,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e0b82b5dc370646b6571a602e5d9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  downed: 0
+  reviveTimer: 0
+  reviveTimeTotal: 3
+  playermanager23: {fileID: 0}
 --- !u!1 &8059759081514511873
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,10 +483,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd9d1324b59bbe4bb8da1dc4f16afca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalWeapons: 1
   currentWeaponIndex: 0
   weapons: []
   weaponHolder: {fileID: 8059759081514511873}
   currentWeapon: {fileID: 0}
+  player: {fileID: 0}
+  GunScript: {fileID: 0}
+  pickUpRange: 0
+  dropForce: 0
+  equipped: 0
 --- !u!1001 &4611560294601522887
 PrefabInstance:
   m_ObjectHideFlags: 0

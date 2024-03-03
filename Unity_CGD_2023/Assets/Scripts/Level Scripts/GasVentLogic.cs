@@ -56,11 +56,12 @@ public class GasVentLogic : MonoBehaviour
             {
                 //Play gas sound if no players have entered gas yet
                 if (particleDictionary.Count == 0)
-                    audioSource.PlayOneShot(audioSource.clip);
+                    audioSource.Play();
+                    //audioSource.PlayOneShot(audioSource.clip);
 
-                //Instantiate a new particleSystem prefab &
-                //store current player's gameObject and particleSystem as key values in a dictionary
-                ParticleSystem myParticle = Instantiate(
+                    //Instantiate a new particleSystem prefab &
+                    //store current player's gameObject and particleSystem as key values in a dictionary
+                    ParticleSystem myParticle = Instantiate(
                     myParticlePrefab,
                     collision.gameObject.transform.position,
                     Quaternion.identity);
@@ -71,10 +72,10 @@ public class GasVentLogic : MonoBehaviour
                 emission.enabled = true;
                 myParticle.Play();
 
-                // Reduce some player stats 
+                //Reduce some player stats
                 var plrScript = collision.GetComponent<PlayerController>();
                 speedBeforeEnteredGas = plrScript.MoveSpeed;
-                plrScript.MoveSpeed = speedReductionInGas;       
+                plrScript.MoveSpeed = speedReductionInGas;
             }
         }
     }
@@ -87,7 +88,7 @@ public class GasVentLogic : MonoBehaviour
             && collision.gameObject.CompareTag("Player"))
         {
             // Take damage
-            var plrStats = collision.GetComponent<PlayerStats>(); //I know this is not efficient but will do for now
+            var plrStats = collision.GetComponent<PlayerStats>();
             plrStats.TakeDamage(gasVentDamage);
 
             //Prevent clamping in gas
@@ -98,9 +99,9 @@ public class GasVentLogic : MonoBehaviour
             particleDictionary[collision.gameObject].transform.position = collision.gameObject.transform.position;
         }
     }
-    
+
     // Exit Gas logic
-    public void ReceiveOnTriggerExit(Collider2D collision) 
+    public void ReceiveOnTriggerExit(Collider2D collision)
     {
         if (collision.GetType() == typeof(CircleCollider2D))
         {
@@ -113,7 +114,7 @@ public class GasVentLogic : MonoBehaviour
                 //Removes the current player's key value pair from dictionary and destroys their particleSystem
                 if (particleDictionary.Remove(collision.gameObject, out ParticleSystem particleSystem))
                 {
-                    
+
                     particleSystem.Clear();
                     particleSystem.Stop();
                     var main = particleSystem.main;
@@ -122,10 +123,10 @@ public class GasVentLogic : MonoBehaviour
 
                 //Stop gas sound if there are no players in gas
                 if (particleDictionary.Count == 0)
-                 audioSource.Stop();
+                    audioSource.Stop();
 
                 // Set players speed to normal
-                plrScript.MoveSpeed = speedBeforeEnteredGas; 
+                plrScript.MoveSpeed = speedBeforeEnteredGas;
             }
         }
     }

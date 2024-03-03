@@ -10,14 +10,22 @@ public class JumperClass : EnemyClass
     AudioSource sound;
     public AudioClip spawnsound;
     public AudioClip jumpsound;
+
+    private Animator animator;
+
     private void Start()
     {
-        sound = GetComponent<AudioSource>();
         // Set starting state and variables
+        animator = GetComponent<Animator>();
+        sound = GetComponent<AudioSource>();
         initiateEnemy();
         sound.clip = spawnsound;
         sound.Play();
         attackCooldownValue = 0f;
+
+        animator.SetBool("isMoving", false); // Enemey Moving animation bool
+        animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
     }
 
     private void Update()
@@ -41,7 +49,7 @@ public class JumperClass : EnemyClass
                  * But not needed now so im just assuming no LOS block
                  */
 
-
+                animator.SetBool("isAttacking", false);
 
                 targetClosestPlayer();
                 enemyState = State.Moving;
@@ -57,6 +65,8 @@ public class JumperClass : EnemyClass
                 * Move towards player with velocity
                 * Maybe check if near to attack, maybe just change state on collision
                 */
+
+                animator.SetBool("isMoving", true);
 
                 pushTowardsPlayer();
 
@@ -77,6 +87,9 @@ public class JumperClass : EnemyClass
                  * Used to wait and count down attack timer
                  */
 
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", true);
+
                 // Count-down timer
                 if (attackCooldwonLogic())
                 {
@@ -91,10 +104,32 @@ public class JumperClass : EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                itemDropLogic();
-                initiateDeath();
+                // Make sure death animation plays before enemy destruction 
+                StartCoroutine(WaitForDeathAnimation());
+
                 break;
         }
+    }
+
+    private IEnumerator WaitForDeathAnimation()
+    {
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isDeath", true);
+
+        // Wait for one frame to ensure that the animation has started
+        yield return null;
+
+        // Get the length of the current animation, which will be "isDeath"
+        float animationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Wait for the duration of the enemy death animation
+        yield return new WaitForSeconds(animationLength);
+
+        //Now the enemy dies after animation is done.
+        itemDropLogic();
+        initiateDeath();
+        StartCoroutine(WaitForDeathAnimation());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

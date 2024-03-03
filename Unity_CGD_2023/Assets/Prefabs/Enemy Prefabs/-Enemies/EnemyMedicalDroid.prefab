@@ -66,8 +66,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 2}
-  m_Size: {x: 2, y: 4}
+  m_Offset: {x: 0, y: 1}
+  m_Size: {x: 1, y: 2}
   m_Direction: 0
 --- !u!114 &5694160481334257743
 MonoBehaviour:
@@ -384,14 +384,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  bumpDamage: 1
-  forceMultiplier: 5
-  maxVelocity: {x: 100, y: 100}
+  bumpDamage: 0
+  attackCooldown: 5
+  forceMultiplier: 3
+  maxVelocity: {x: 150, y: 150}
   moveForce: {x: 0, y: 0}
   NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
-  attackCooldown: 5
   HealATK: {fileID: 4422300916953219041}
   spawnsound: {fileID: 0}
   medicalDroidsound: {fileID: 0}
@@ -465,9 +465,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5551923173195952751}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 57d98a8e0dd99fd4b84950446c162102, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
