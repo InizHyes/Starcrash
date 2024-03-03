@@ -6,21 +6,27 @@ using static UnityEngine.GraphicsBuffer;
 
 public class TractorClass : EnemyClass
 {
-    private Animator animate;
     AudioSource sound;
     [Header("Tractor Specific")]
     [SerializeField] public GameObject tractorBeam;
     public AudioClip spawnsound;
     public AudioClip tractorsound;
     protected GameObject targetfollow;
+
+    private Animator animator;
+
     void Start()
     {
         // Set starting state and variables
+        animator = GetComponent<Animator>();
         sound = GetComponent<AudioSource>();
         initiateEnemy();
         sound.clip = spawnsound;
         sound.Play();
-        animate = GetComponent<Animator>(); // Maybe move into init function
+
+        animator.SetBool("isMoving", false); // Enemey Moving animation bool
+        animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
     }
 
     private void Update()
@@ -44,6 +50,8 @@ public class TractorClass : EnemyClass
                  * But not needed now so im just assuming no LOS block
                  */
 
+                animator.SetBool("isAttacking", false);
+
                 //targetClosestGrunt();
                 targetClosestPlayer();
 
@@ -61,6 +69,8 @@ public class TractorClass : EnemyClass
                 * Maybe check if near to attack, maybe just change state on collision
                 */
 
+                animator.SetBool("isMoving", true);
+
                 if (tractorBeam.activeInHierarchy)
                 {
                     tractorBeam.SetActive(false);
@@ -77,6 +87,10 @@ public class TractorClass : EnemyClass
 
 
             case State.Attacking:
+
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", true);
+
                 // Use trackor beam ablity
                 tractorBeam.SetActive(true);
                 sound.loop = true;
@@ -90,10 +104,32 @@ public class TractorClass : EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                itemDropLogic();
-                initiateDeath();
+                // Make sure death animation plays before enemy destruction 
+                StartCoroutine(WaitForDeathAnimation());
+
                 break;
         }
+    }
+
+    private IEnumerator WaitForDeathAnimation()
+    {
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isDeath", true);
+
+        // Wait for one frame to ensure that the animation has started
+        yield return null;
+
+        // Get the length of the current animation, which will be "isDeath"
+        float animationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Wait for the duration of the enemy death animation
+        yield return new WaitForSeconds(animationLength);
+
+        //Now the enemy dies after animation is done.
+        itemDropLogic();
+        initiateDeath();
+        StartCoroutine(WaitForDeathAnimation());
     }
 
     // Function will allow for stronger enemies to hide behind grunts for tactical play,
@@ -136,6 +172,21 @@ public class TractorClass : EnemyClass
             // Add every frame for excelleration (/100 cause too fast)
             moveForce += forceToApply / 100;
             rb.velocity = moveForce;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        /*
+         * Wall detection
+         * On collision with an object with the tag "OuterWall"
+         * Stops all momentum
+         */
+
+        if (collision.gameObject.tag == "OuterWall")
+        {
+            rb.velocity = Vector2.zero;
+            moveForce = Vector2.zero;
         }
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class QuantumShadowClass : EnemyClass
 {
-    private Animator animate;
     AudioSource sound;
 
     [Header("Quantum Shadow Specific")]
@@ -17,16 +16,22 @@ public class QuantumShadowClass : EnemyClass
     private SpriteRenderer spriteRenderer;
     private bool hasShot;
 
+    private Animator animator;
+
 
     private void Start()
     {
-        hasShot = false;
-
         // Set starting state and variables
+        animator = GetComponent<Animator>();
+        hasShot = false;
         initiateEnemy();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         sound = GetComponent<AudioSource>();
+
+        animator.SetBool("isMoving", false); // Enemey Moving animation bool
+        animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
     }
 
     private void Update()
@@ -46,6 +51,8 @@ public class QuantumShadowClass : EnemyClass
                  * Target player and decide if State.Pathfinding is needed, otherwise change to moving
                  */
 
+                animator.SetBool("isAttacking", false);
+
                 QSabilityOn();
 
                 targetClosestPlayer();
@@ -64,6 +71,8 @@ public class QuantumShadowClass : EnemyClass
                 * Move towards player with velocity
                 * Will loop here until the state is changed back to Targeting, Attackng, or Dead
                 */
+
+                animator.SetBool("isMoving", true);
 
                 sound.Stop();
                 sound.loop = false;
@@ -86,6 +95,8 @@ public class QuantumShadowClass : EnemyClass
 
                 //Stop movement and become visable and unverable
 
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", true);
 
                 if (!hasShot)
                 {
@@ -117,12 +128,33 @@ public class QuantumShadowClass : EnemyClass
                 sound.clip = quantumShadowsound;
                 sound.Play();
 
-                itemDropLogic();
-                initiateDeath();
+                // Make sure death animation plays before enemy destruction 
+                StartCoroutine(WaitForDeathAnimation());
+
                 break;
         }
     }
 
+    private IEnumerator WaitForDeathAnimation()
+    {
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isDeath", true);
+
+        // Wait for one frame to ensure that the animation has started
+        yield return null;
+
+        // Get the length of the current animation, which will be "isDeath"
+        float animationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Wait for the duration of the enemy death animation
+        yield return new WaitForSeconds(animationLength);
+
+        //Now the enemy dies after animation is done.
+        itemDropLogic();
+        initiateDeath();
+        StartCoroutine(WaitForDeathAnimation());
+    }
     private void QSabilityOn()
     {
         StopCoroutine(QSabilityOff());

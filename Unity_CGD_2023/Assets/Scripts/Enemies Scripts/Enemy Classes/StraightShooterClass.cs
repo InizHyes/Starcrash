@@ -146,6 +146,7 @@ public class StraightShooterClass : EnemyClass
     void SpawnBullet(Vector2 direction)
     {
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        bullet.transform.parent = transform.parent;
         bullet.GetComponent<Rigidbody2D>().velocity = direction.normalized * bulletSpeed;
         Destroy(bullet, bulletLifetime);
     }
@@ -154,10 +155,10 @@ public class StraightShooterClass : EnemyClass
     {
         // Implement logic to change the enemy color or apply the animation here
         // Change the sprite renderer color
-        // GetComponent<SpriteRenderer>().color = Color.red;
+        GetComponent<SpriteRenderer>().color = Color.red;
 
         // Alternatively, trigger an animation
-        anim.SetTrigger("Hit");
+        //anim.SetTrigger("Hit");
 
         StartCoroutine(ResetHitState());
     }
@@ -167,7 +168,7 @@ public class StraightShooterClass : EnemyClass
         // Wait for a short duration before resetting the hit state
         yield return new WaitForSeconds(0.1f);
         // Reset the "Hit" trigger
-        anim.ResetTrigger("Hit");
+        //anim.ResetTrigger("Hit");
 
         GetComponent<SpriteRenderer>().color = Color.white;
     }

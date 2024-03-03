@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class SapperClass : EnemyClass
 {
-    private Animator animate;
     AudioSource sound;
 
     [Header("Sapper Specific")]
@@ -15,14 +14,20 @@ public class SapperClass : EnemyClass
     public AudioClip sappersound;
     private int attackType;
 
+    private Animator animator;
+
     private void Start()
     {
         // Set starting state and variables
+        animator = GetComponent<Animator>();
         sound = GetComponent<AudioSource>();
         initiateEnemy();
         sound.clip = spawnsound;
         sound.Play();
-        animate = GetComponent<Animator>(); // Maybe move into init function
+
+        animator.SetBool("isMoving", false); // Enemey Moving animation bool
+        animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
     }
 
     private void Update()
@@ -50,6 +55,8 @@ public class SapperClass : EnemyClass
                 /*
                  * Target player and decide if State.Pathfinding is needed, otherwise change to moving
                  */
+
+                animator.SetBool("isAttacking", false);
 
                 attackType = Random.Range(1, 2);
 
@@ -81,6 +88,8 @@ public class SapperClass : EnemyClass
                 * Will loop here until the state is changed back to Targeting, Attackng, or Dead
                 */
 
+                animator.SetBool("isMoving", true);
+
                 if (WeldATK.activeInHierarchy)
                 {
                     WeldATK.SetActive(false);
@@ -111,6 +120,8 @@ public class SapperClass : EnemyClass
                  * This will set the attackCooldownValue so that attackCooldwonLogic() can count it down
                  */
 
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", true);
 
                 WeldATK.SetActive(true);
 
@@ -135,10 +146,32 @@ public class SapperClass : EnemyClass
                 sound.clip = sappersound;
                 sound.Play();
 
-                itemDropLogic();
-                initiateDeath();
+                // Make sure death animation plays before enemy destruction 
+                StartCoroutine(WaitForDeathAnimation());
+
                 break;
         }
+    }
+
+    private IEnumerator WaitForDeathAnimation()
+    {
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isDeath", true);
+
+        // Wait for one frame to ensure that the animation has started
+        yield return null;
+
+        // Get the length of the current animation, which will be "isDeath"
+        float animationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Wait for the duration of the enemy death animation
+        yield return new WaitForSeconds(animationLength);
+
+        //Now the enemy dies after animation is done.
+        itemDropLogic();
+        initiateDeath();
+        StartCoroutine(WaitForDeathAnimation());
     }
 
     private void targetClosestGenerator()
@@ -167,6 +200,21 @@ public class SapperClass : EnemyClass
             }
         }
         print(target.transform.position);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        /*
+         * Wall detection
+         * On collision with an object with the tag "OuterWall"
+         * Stops all momentum
+         */
+
+        if (collision.gameObject.tag == "OuterWall")
+        {
+            rb.velocity = Vector2.zero;
+            moveForce = Vector2.zero;
+        }
     }
 
 }

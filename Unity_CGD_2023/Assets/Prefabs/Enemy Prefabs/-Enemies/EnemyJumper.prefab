@@ -104,13 +104,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   bumpDamage: 1
+  attackCooldown: 5
   forceMultiplier: 1
   maxVelocity: {x: 100, y: 100}
   moveForce: {x: 0, y: 0}
+  followDistance: 0
   NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
-  attackCooldown: 5
   moveSpeed: 400
   spawnsound: {fileID: 8300000, guid: d6ec520119f200f47b6e145806baa424, type: 3}
   jumpsound: {fileID: 8300000, guid: 4114d53b65b13c74d9d4a47ca17f50a2, type: 3}
@@ -186,7 +187,7 @@ Animator:
   m_GameObject: {fileID: 5551923173195952751}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bdc760a4950cbe34889faa93224c14ee, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

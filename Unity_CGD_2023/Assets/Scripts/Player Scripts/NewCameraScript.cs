@@ -64,7 +64,7 @@ public class NewCameraScript : MonoBehaviour
         }
         if (nearestObject != null)
         {
-            Debug.Log("Next room found");
+            //Debug.Log("Next room found");
             targetPosition = nearestObject.transform;
             MoveCameraToTarget();
         }

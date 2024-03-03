@@ -8,11 +8,20 @@ public class RazorClass : EnemyClass
     [Header("Razor Specific")]
     [SerializeField] private int dashSpeed = 200;
     [SerializeField] private RazorBlade razorBlade;
+    private int waitExitTime = 5;
+    private float waitExitTimeCounter = 5;
+
+    private Animator animator;
 
     private void Start()
     {
         // Set starting state and variables
+        animator = GetComponent<Animator>();
         initiateEnemy();
+
+        animator.SetBool("isMoving", false); // Enemey Moving animation bool
+        animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
     }
 
     private void Update()
@@ -32,6 +41,9 @@ public class RazorClass : EnemyClass
                  * Target player and decide if State.Pathfinding is needed, otherwise change to moving
                  */
 
+                animator.SetBool("isAttacking", false);
+
+                waitExitTimeCounter = waitExitTime;
                 targetClosestPlayer();
                 enemyState = State.Moving;
                 break;
@@ -52,6 +64,15 @@ public class RazorClass : EnemyClass
                 } 
                 */
 
+                if (waitExitTimeCounter > 0)
+                {
+                    waitExitTimeCounter -= Time.deltaTime;
+                }
+                else
+                {
+                    enemyState = State.Targeting;
+                }
+
                 break;
 
             case State.Moving:
@@ -59,6 +80,8 @@ public class RazorClass : EnemyClass
                 * Move towards player with velocity
                 * Will loop here until the state is changed back to Targeting, Attackng, or Dead
                 */
+
+                animator.SetBool("isMoving", true);
 
                 moveTowardsTarget0G();
 
@@ -78,6 +101,9 @@ public class RazorClass : EnemyClass
                  * Change State to here after attack is used
                  * Will wait here until attackCooldown is over then move back to Targeting
                  */
+
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", true);
 
                 // Count-down timer
                 if (attackCooldwonLogic())
@@ -103,12 +129,33 @@ public class RazorClass : EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                itemDropLogic();
-                initiateDeath();
+                // Make sure death animation plays before enemy destruction 
+                StartCoroutine(WaitForDeathAnimation());
+
                 break;
         }
     }
 
+    private IEnumerator WaitForDeathAnimation()
+    {
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isDeath", true);
+
+        // Wait for one frame to ensure that the animation has started
+        yield return null;
+
+        // Get the length of the current animation, which will be "isDeath"
+        float animationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Wait for the duration of the enemy death animation
+        yield return new WaitForSeconds(animationLength);
+
+        //Now the enemy dies after animation is done.
+        itemDropLogic();
+        initiateDeath();
+        StartCoroutine(WaitForDeathAnimation());
+    }
     private void pushTowardsTarget()
     {
         /*

@@ -106,13 +106,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   bumpDamage: 1
+  attackCooldown: 1
   forceMultiplier: 3
   maxVelocity: {x: 100, y: 100}
   moveForce: {x: 0, y: 0}
+  followDistance: 0
   NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
-  attackCooldown: 1
   spawnsound: {fileID: 0}
   quantumShadowsound: {fileID: 0}
   weapon: {fileID: 2932560833704045186, guid: d5010864ff252814784c58c135ecbd9f, type: 3}
@@ -187,9 +188,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5551923173195952751}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f3cef8565591c814b8cbb151f902ea48, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

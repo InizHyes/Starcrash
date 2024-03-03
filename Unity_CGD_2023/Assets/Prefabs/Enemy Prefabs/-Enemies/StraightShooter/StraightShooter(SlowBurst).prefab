@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2724439953905809700}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.24, y: 4.09, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -102,18 +102,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   bumpDamage: 1
+  attackCooldown: 5
   forceMultiplier: 1
   maxVelocity: {x: 100, y: 100}
-  spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+  moveForce: {x: 0, y: 0}
+  NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
-  attackCooldown: 5
   bulletPrefab: {fileID: 140514092973213312, guid: c0e77635c9cb65b4c8dae936e8af0003, type: 3}
   bulletSpeed: 2
   shootInterval: 0.25
   bulletLifetime: 8
-  bulletsPerBurst: 5
-  burstPause: 1.5
+  bulletsPerBurst: 1
+  burstPause: 0.5
 --- !u!50 &-7929648874838091128
 Rigidbody2D:
   serializedVersion: 4

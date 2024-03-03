@@ -12,6 +12,9 @@ public class SpawnLogic : MonoBehaviour
     #region [Enemies list]
     [Header("Enemies list")]
 
+    [SerializeField] private bool chooseRandomly = true;
+    private int nextEnemyID = 0;
+
     //Get the Enemy prefabs
     public List<GameObject> NPCEnemies;
 
@@ -27,6 +30,8 @@ public class SpawnLogic : MonoBehaviour
     [Header("Spawn location list")]
 
     //Get the spawn points in the room
+    [Tooltip("If true - spawn enemies on a random location in the array below, if false - iterate through the array in order")][SerializeField] private bool spawnRandomly = true;
+    private int spawnPointID = 0;
     public List<Transform> spawnPoints;
 
     #endregion
@@ -48,8 +53,7 @@ public class SpawnLogic : MonoBehaviour
 
     #region [Start and Update]
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         readySpawn = false;
 
@@ -57,6 +61,12 @@ public class SpawnLogic : MonoBehaviour
         boxCollider = GetComponent<Collider2D>();
 
         boxCollider.enabled = true;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
     }
 
     // Update is called once per frame
@@ -86,11 +96,41 @@ public class SpawnLogic : MonoBehaviour
     // 1 function trigger = 1 enemy spawn at random location
     public void SpawnEnemyNPC()
     {
+        GameObject selectedEnemy;
         // Get enemy list, randomise what enemy should be spawned
-        GameObject selectedEnemy = NPCEnemies[Random.Range(0, NPCEnemies.Count)];
+        if (chooseRandomly)
+        {
+            selectedEnemy = NPCEnemies[Random.Range(0, NPCEnemies.Count)];
+        }
+        // Spawn in sequence
+        else
+        {
+            if (nextEnemyID > NPCEnemies.Count - 1)
+            {
+                // Reset on array end
+                nextEnemyID = 0;
+            }
+            selectedEnemy = NPCEnemies[nextEnemyID];
+            nextEnemyID++;
+        }
 
         // Spawn random enemy at random spawn point
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+        Transform spawnPoint;
+        if (spawnRandomly)
+        {
+            spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+        }
+        // Spawn in sequence
+        else
+        {
+            if (spawnPointID > spawnPoints.Count - 1)
+            {
+                // Reset on array end
+                spawnPointID = 0;
+            }
+            spawnPoint = spawnPoints[spawnPointID];
+            spawnPointID++;
+        }
 
         // Set new enemy variables
         GameObject newEnemy = Instantiate(selectedEnemy, spawnPoint.position, Quaternion.identity);
@@ -112,6 +152,11 @@ public class SpawnLogic : MonoBehaviour
     {
         //If player kills a NPC allow another NPC to spawn if other conditions are vaild 
         nPCCounter -= 1;
+
+        if (nPCCounter <= 0)
+        {
+            AllEnemiesDead();
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -125,5 +170,15 @@ public class SpawnLogic : MonoBehaviour
     }
 
     #endregion
+
+    public void AllEnemiesDead()
+    {
+        /*
+         * Put logic for end of enemy spawning here
+         * E.g. doors opening logic
+         */
+
+        print("All enemies dead");
+    }
 
 }
