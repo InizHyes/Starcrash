@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
+    private void Start()
+    {
+        Physics2D.IgnoreLayerCollision(3, 7);
+        Physics2D.IgnoreLayerCollision(7, 7);
+    }
     [Header("BulletDamage")]
     public int damage = 10;
 
@@ -23,6 +27,7 @@ public class Bullet : MonoBehaviour
                 // Deal damage to the player
                 playerStats.TakeDamage(damage);
             }
+            Destroy(this.gameObject);
 
 
             // Destroy the bullet on impact with the player
@@ -32,7 +37,7 @@ public class Bullet : MonoBehaviour
         if (other.tag == "Walls")
         {
             // Destroy the bullet on impact with the Walls
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 
