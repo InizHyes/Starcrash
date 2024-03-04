@@ -92,6 +92,11 @@ public class ColourChange : MonoBehaviour
         // Check if all the tilemaps tiles are the same colour
         if(playerTileList.Count >= tileCount)
         {
+            // Find the GameObject with the DoorManager script attached
+            GameObject doorManagerObject = GameObject.Find("DoorManager");
+            DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+
+            doorManager.OpenDoors();
             // Can start the end room sequence!
             isRoomComplete = true;
         }
@@ -177,6 +182,11 @@ public class ColourChange : MonoBehaviour
 
     public void ReceiveOnTriggerEnter(Collider2D collision)
     {
+        // Find the GameObject with the DoorManager script attached
+        GameObject doorManagerObject = GameObject.Find("DoorManager");
+        DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+        // Call LockDoors function after spawning enemy
+        doorManager.LockDoors();
     }
 
     public void ReceiveOnTriggerExit(Collider2D collision)
