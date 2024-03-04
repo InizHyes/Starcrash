@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GreenTurretClass : EnemyClass
 {
+    // This is a repurposed laser turret script to instead shoot bullets.
+    // The green turret fires in bursts at the player.
+
     [Header("Laser Sniper Specific")]
     [SerializeField] private GameObject childLaser;
     [SerializeField] private int attackTimer = 1;
@@ -14,6 +17,8 @@ public class GreenTurretClass : EnemyClass
     AudioSource sound;
     public AudioClip spawnsound;
     public AudioClip shootsound;
+    public GameObject bulletPrefab;
+    private float bulletSpeed = 5f;
     private void Start()
     {
         // Set starting state and variables
@@ -21,9 +26,10 @@ public class GreenTurretClass : EnemyClass
         initiateEnemy();
         sound.clip = spawnsound;
         sound.Play();
+        attackTimer = Random.Range(0, 18);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         switch (enemyState)
         {
@@ -47,12 +53,12 @@ public class GreenTurretClass : EnemyClass
                 break;
 
             case State.Moving:
-                if (attackTimer > 199)
+                if (attackTimer > 19)
                 {
                     attackTimer = 0;
                     enemyState = State.Attacking;
                 }
-                if (attackTimer < 200)
+                if (attackTimer < 20)
                 {
                     attackTimer = attackTimer + 1;
                 }
@@ -64,24 +70,51 @@ public class GreenTurretClass : EnemyClass
             case State.Attacking:
                 // Accessing child
                 Laserdetection script = childLaser.GetComponent<Laserdetection>();
+                direction = target.transform.position - transform.position; // look at player
+                transform.right = direction;
                 if (script != null)
                 {
                     // Accessing child's variable
 
                     script.laserState = 1;
                     attackTimer = attackTimer + 1;
-                    if (attackTimer > 250)
+                    if (attackTimer > 40)
                     {
-                        script.laserState = 2;
-                        if (attackTimer == 251)
+                        script.laserState = 0;
+                        if (attackTimer == 41)
                         {
                             sound.clip = shootsound;
+                            shoot();
                             sound.Play();
                         }
-                        if (attackTimer > 400)
+                        if (attackTimer == 46)
+                        {
+                            sound.clip = shootsound;
+                            shoot();
+                            sound.Play();
+                        }
+                        if (attackTimer == 51)
+                        {
+                            sound.clip = shootsound;
+                            shoot();
+                            sound.Play();
+                        }
+                        if (attackTimer == 56)
+                        {
+                            sound.clip = shootsound;
+                            shoot();
+                            sound.Play();
+                        }
+                        if (attackTimer == 61)
+                        {
+                            sound.clip = shootsound;
+                            shoot();
+                            sound.Play();
+                        }
+                        if (attackTimer > 62)
                         {
                             script.laserState = 0;
-                            attackTimer = 1;
+                            attackTimer = 0;
                             enemyState = State.Targeting;
                         }
                     }
@@ -104,5 +137,19 @@ public class GreenTurretClass : EnemyClass
                 initiateDeath();
                 break;
         }
+    }
+    private void shooting()
+    {
+        shoot();
+    }
+
+    private void shoot()
+    {
+        GameObject firedBullet = Instantiate(bulletPrefab, childLaser.transform.position, childLaser.transform.rotation);
+        firedBullet.transform.localScale = new Vector2(3, 4);
+        Vector2 bulletDir = childLaser.transform.right;
+        firedBullet.GetComponent<Rigidbody2D>().velocity = bulletDir * bulletSpeed;
+        SpriteRenderer bulletRenderer = firedBullet.GetComponent<SpriteRenderer>();
+        bulletRenderer.color = Color.green;
     }
 }

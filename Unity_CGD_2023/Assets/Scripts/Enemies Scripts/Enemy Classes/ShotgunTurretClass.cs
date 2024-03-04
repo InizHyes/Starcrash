@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ShotgunTurretClass : EnemyClass
 {
+    // This is a repurposed laser turret script to instead shoot bullets.
+    // This turret fires like a shotgun at the player.
+
     [Header("Laser Sniper Specific")]
     [SerializeField] private GameObject childLaser;
     [SerializeField] private int attackTimer = 1;
@@ -14,6 +17,9 @@ public class ShotgunTurretClass : EnemyClass
     AudioSource sound;
     public AudioClip spawnsound;
     public AudioClip shootsound;
+    public GameObject bulletPrefab;
+    private float bulletSpeed = 5f;
+    private Vector3 initialRot;
     private void Start()
     {
         // Set starting state and variables
@@ -21,9 +27,10 @@ public class ShotgunTurretClass : EnemyClass
         initiateEnemy();
         sound.clip = spawnsound;
         sound.Play();
+        attackTimer = Random.Range(0, 18);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         switch (enemyState)
         {
@@ -47,12 +54,12 @@ public class ShotgunTurretClass : EnemyClass
                 break;
 
             case State.Moving:
-                if (attackTimer > 199)
+                if (attackTimer > 59)
                 {
                     attackTimer = 0;
                     enemyState = State.Attacking;
                 }
-                if (attackTimer < 200)
+                if (attackTimer < 60)
                 {
                     attackTimer = attackTimer + 1;
                 }
@@ -70,23 +77,24 @@ public class ShotgunTurretClass : EnemyClass
 
                     script.laserState = 1;
                     attackTimer = attackTimer + 1;
-                    if (attackTimer > 250)
+                    if (attackTimer > 40)
                     {
-                        script.laserState = 2;
-                        if (attackTimer == 251)
+                        script.laserState = 0;
+                        if (attackTimer == 41)
                         {
                             sound.clip = shootsound;
+                            shoot();
                             sound.Play();
                         }
-                        if (attackTimer > 400)
+                        if (attackTimer > 42)
                         {
                             script.laserState = 0;
-                            attackTimer = 1;
+                            attackTimer = 0;
                             enemyState = State.Targeting;
                         }
                     }
                 }
-                
+
                 else
                 {
                     Debug.Log("laserenemy dont work");
@@ -105,4 +113,21 @@ public class ShotgunTurretClass : EnemyClass
                 break;
         }
     }
+
+    private void shoot()
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            GameObject firedBullet = Instantiate(bulletPrefab, childLaser.transform.position, childLaser.transform.rotation);
+            Vector2 bulletDir = childLaser.transform.right;
+            Vector2 spreader = Vector2.Perpendicular(bulletDir) * Random.Range(0.2f,-0.2f);
+            firedBullet.GetComponent<Rigidbody2D>().velocity = (bulletDir + spreader) * bulletSpeed;
+            firedBullet.transform.localScale = new Vector2(3, 5);
+            SpriteRenderer bulletRenderer = firedBullet.GetComponent<SpriteRenderer>();
+            bulletRenderer.color = Color.red;
+        }
+
+        //Vector2 spreader = Vector2.Perpendicular(bulletDir) * Random.Range(0.5f, 0.5f);
+        //firedBullet.GetComponent<Rigidbody2D>().velocity = (bulletDir + spreader) * bulletSpeed;
+    }  
 }

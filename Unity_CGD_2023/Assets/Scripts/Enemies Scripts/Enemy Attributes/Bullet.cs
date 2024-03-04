@@ -39,6 +39,11 @@ public class Bullet : MonoBehaviour
             // Destroy the bullet on impact with the Walls
             Destroy(this.gameObject);
         }
+        if (other.gameObject.layer == 6) // the wall layer, in case walls aren't tagged
+        {
+            // Destroy the bullet on impact with the Walls
+            Destroy(this.gameObject);
+        }
     }
 
 }

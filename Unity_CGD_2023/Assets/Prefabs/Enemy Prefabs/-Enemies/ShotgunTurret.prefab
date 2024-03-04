@@ -269,11 +269,13 @@ MonoBehaviour:
   NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
-  childLaser: {fileID: 0}
+  childLaser: {fileID: 6487800848474636369}
+  firepoint: {fileID: 8711421014087534481}
   attackTimer: 1
   laserDamage: 1
   spawnsound: {fileID: 0}
-  shootsound: {fileID: 0}
+  shootsound: {fileID: 8300000, guid: 7a865b1cc9a507c4b9673ad074a03c26, type: 3}
+  bulletPrefab: {fileID: 5996056728787659184, guid: dd1cf0051c4528a448cf831956490d3b, type: 3}
 --- !u!1001 &2030030496015698887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -350,6 +352,16 @@ PrefabInstance:
 --- !u!4 &2178194268203749877 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 150481216488495666, guid: d49e3d02da28ac84e8c8ee62b191b907, type: 3}
+  m_PrefabInstance: {fileID: 2030030496015698887}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6487800848474636369 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5054535786133113750, guid: d49e3d02da28ac84e8c8ee62b191b907, type: 3}
+  m_PrefabInstance: {fileID: 2030030496015698887}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8711421014087534481 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7262391652310207574, guid: d49e3d02da28ac84e8c8ee62b191b907, type: 3}
   m_PrefabInstance: {fileID: 2030030496015698887}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4352880859486206401
