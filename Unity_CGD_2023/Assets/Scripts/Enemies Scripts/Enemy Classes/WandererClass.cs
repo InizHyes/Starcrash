@@ -169,7 +169,7 @@ public class WandererClass : EnemyClass
     {
         canAttack = false;
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
 
         canAttack = true;
     }
