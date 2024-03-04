@@ -47,6 +47,7 @@ public class SpawnLogic : MonoBehaviour
 
     private Collider2D boxCollider;
 
+
     #endregion
 
     #endregion
@@ -66,6 +67,7 @@ public class SpawnLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
 
     }
 
@@ -146,6 +148,12 @@ public class SpawnLogic : MonoBehaviour
         {
             readySpawn = false;
         }
+
+        // Find the GameObject with the DoorManager script attached
+        GameObject doorManagerObject = GameObject.Find("DoorManager");
+        DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+        // Call LockDoors function after spawning enemy
+        doorManager.LockDoors();
     }
 
     public void NPCdeath()
@@ -177,6 +185,12 @@ public class SpawnLogic : MonoBehaviour
          * Put logic for end of enemy spawning here
          * E.g. doors opening logic
          */
+
+        // Find the GameObject with the DoorManager script attached
+        GameObject doorManagerObject = GameObject.Find("DoorManager");
+        DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+
+        doorManager.OpenDoors();
 
         print("All enemies dead");
     }
