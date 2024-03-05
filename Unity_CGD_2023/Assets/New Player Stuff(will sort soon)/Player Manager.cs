@@ -20,6 +20,9 @@ public class PlayerManager : MonoBehaviour
         players.Add(nextPlayerID, playerInput);
         hudManager.ActivatePlayerHUD(nextPlayerID);
         nextPlayerID++;
+
+        hudManager.AssignPlayersToHealthBars(); // Call to assign players to health bars
+        hudManager.AssignPlayersToWeaponHUD(); // Assigns players to corresponding weapon HUD
     }
 
     public void Pause()

@@ -43,5 +43,34 @@ public class HUDManager : MonoBehaviour
             hud.SetActive(false);
         }
     }
+
+    // Assign player GameObjects to corresponding health bars
+    public void AssignPlayersToHealthBars()
+    {
+        for (int i = 0; i < playerManager.players.Count; i++)
+        {
+            HealthBar healthBar = playerHUDs[i].GetComponentInChildren<HealthBar>();
+            if (healthBar != null)
+            {
+                healthBar.playerStats = playerManager.players[i].GetComponent<PlayerStats>();
+            }
+        }
+    }
+
+    //Archie - Assigning players to corresponding Weapon HUD
+    public void AssignPlayersToWeaponHUD()
+    {
+        
+        for (int i = 0; i < playerManager.players.Count; i++)
+        {
+            WeaponAmmoHUD ammoHUD = playerHUDs[i].GetComponentInChildren<WeaponAmmoHUD>();
+            WeaponHUD imgHUD = playerHUDs[i].GetComponentInChildren<WeaponHUD>();
+            if(imgHUD != null & ammoHUD != null)
+            {
+                imgHUD.character = playerManager.players[i].gameObject;
+                ammoHUD.character = playerManager.players[i].gameObject;
+            }
+        }
+    }
 }
 

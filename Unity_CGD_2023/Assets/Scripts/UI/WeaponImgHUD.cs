@@ -11,15 +11,14 @@ public class WeaponHUD : MonoBehaviour
     public Sprite weaponSprite3;
     public Sprite weaponSprite4;
 
-    public GameObject[] Players;
     private Image weaponSpriteHolder;
 
+    public GameObject character;
+
     
-    void Start()
+    void Awake()
     {
-        Players = GameObject.FindGameObjectsWithTag("Player");
         weaponSpriteHolder = GetComponent<Image>();
-       
     }
 
    // public void GetPlayerWeapons()
@@ -27,9 +26,10 @@ public class WeaponHUD : MonoBehaviour
     
     void Update()
     {
-        Players = GameObject.FindGameObjectsWithTag("Player");
 
-        for (int i = 0; i < Players.Length; i++)
+        gunIndex = character.GetComponentInChildren<WeaponManager>().currentWeaponIndex;
+
+        if (gunIndex == 0)
         {
             gunIndex = Players[i].GetComponentInChildren<WeaponManager>().currentWeaponIndex;
 
