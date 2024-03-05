@@ -154,7 +154,7 @@ public class RazorClass : EnemyClass
         //Now the enemy dies after animation is done.
         itemDropLogic();
         initiateDeath();
-        StartCoroutine(WaitForDeathAnimation());
+        StopCoroutine(WaitForDeathAnimation());
     }
     private void pushTowardsTarget()
     {

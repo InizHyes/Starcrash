@@ -129,7 +129,7 @@ public class JumperClass : EnemyClass
         //Now the enemy dies after animation is done.
         itemDropLogic();
         initiateDeath();
-        StartCoroutine(WaitForDeathAnimation());
+        StopCoroutine(WaitForDeathAnimation());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
