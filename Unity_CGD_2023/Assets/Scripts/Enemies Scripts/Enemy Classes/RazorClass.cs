@@ -46,8 +46,10 @@ public class RazorClass : EnemyClass
                 animator.SetBool("isAttacking", false);
 
                 waitExitTimeCounter = waitExitTime;
-                targetClosestPlayer();
-                enemyState = State.Moving;
+                if (targetClosestPlayer())
+                {
+                    enemyState = State.Moving;
+                }
                 break;
 
             case State.Pathfinding:
@@ -94,8 +96,11 @@ public class RazorClass : EnemyClass
                 }
 
                 // look at player
-                Vector3 direction = target.transform.position - transform.position;
-                transform.up = direction;
+                if (target != null)
+                {
+                    Vector3 direction = target.transform.position - transform.position;
+                    transform.up = direction;
+                }
                 break;
 
             case State.Attacking:

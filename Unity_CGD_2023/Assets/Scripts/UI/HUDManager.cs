@@ -11,6 +11,9 @@ public class HUDManager : MonoBehaviour
 
     private void Start()
     {
+        // Find player manager
+        playerManager = FindAnyObjectByType(typeof(PlayerManager)) as PlayerManager;
+
         // Find all child objects with the name "P1 HUD", "P2 HUD", etc.
         playerHUDs = new GameObject[transform.childCount];
         for (int i = 0; i < transform.childCount; i++)

@@ -23,8 +23,12 @@ public class SpawnLogic : MonoBehaviour
     [SerializeField][Tooltip("The maximum range of random Total amount of enemies to spawn")] private int maximumEnemiesSpawned = 20;
     [SerializeField][Tooltip("The maximum amount of enemies to spawn on screen at anytime")] private int spawnCount = 5;
 
+    //Enemy count scales with player count
+    private PlayerManager playerManager;
+    [SerializeField] private int playerCount;
+
     //Control Enemy scaling
-    [SerializeField][Tooltip("Use the slider to control Current enemy spawn scaling")] [Range(1, 10)] private float enemyScale;
+    [Tooltip("Use the slider to control Current enemy spawn scaling")] [Range(1, 10)] private float enemyScale = 1;
 
     #endregion
 
@@ -82,13 +86,18 @@ public class SpawnLogic : MonoBehaviour
         if (spawnDelayCounter > 0)
         {
             spawnDelayCounter -= Time.deltaTime;
-        }
-        else
-        {
-            spawnDelayCounter = 0;
 
-            NPCCounter();
-            boxCollider.enabled = false;
+            if (spawnDelayCounter < 0)
+            {
+                spawnDelayCounter = 0;
+
+                //Scale with player count
+                playerManager = FindAnyObjectByType(typeof(PlayerManager)) as PlayerManager;
+                playerCount = playerManager.nextPlayerID;
+
+                NPCCounter();
+                boxCollider.enabled = false;
+            }
         }
 
         // Start wave and NPC spawn after set up is done / whilst keeping to max screen limit
@@ -105,7 +114,7 @@ public class SpawnLogic : MonoBehaviour
     //Randomise max total number of NPCs to spawn
     public void NPCCounter()
     {
-        nPCTotal = Random.Range(minimumEnemiesSpawned, maximumEnemiesSpawned);
+        nPCTotal = Random.Range(minimumEnemiesSpawned, maximumEnemiesSpawned) * playerCount;
 
         //Debug.Log("Current enemies spawn: " + nPCTotal + "Enemies");
 
@@ -171,9 +180,12 @@ public class SpawnLogic : MonoBehaviour
 
         // Find the GameObject with the DoorManager script attached
         GameObject doorManagerObject = GameObject.Find("DoorManager");
-        DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
-        // Call LockDoors function after spawning enemy
-        doorManager.LockDoors();
+        if (doorManagerObject != null)
+        {
+            DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+            // Call LockDoors function after spawning enemy
+            doorManager.LockDoors();
+        }
     }
 
     public void NPCdeath()
@@ -206,11 +218,14 @@ public class SpawnLogic : MonoBehaviour
 
         // Find the GameObject with the DoorManager script attached
         GameObject doorManagerObject = GameObject.Find("DoorManager");
-        DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+        if (doorManagerObject != null)
+        {
+            DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
 
-        doorManager.OpenDoors();
+            doorManager.OpenDoors();
 
-        print("All enemies dead");
+            print("All enemies dead");
+        }
     }
 
 }
