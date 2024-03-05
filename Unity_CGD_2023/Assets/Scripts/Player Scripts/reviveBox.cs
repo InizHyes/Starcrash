@@ -19,7 +19,7 @@ public class reviveBox : MonoBehaviour
             print("colldingplayer");
             print(collision.gameObject.name);
             reviving = true;
-            print(reviving);
+            ///print(reviving);
         }
 
     }
@@ -29,7 +29,7 @@ public class reviveBox : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             reviving = false;
-            print(reviving);
+            ///print(reviving);
         }
 
     }

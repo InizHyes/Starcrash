@@ -35,7 +35,7 @@ public class Down : MonoBehaviour
             reviveTimer = 0;
         }
         reviving2 = false;
-        print(reviveTimer);
+        ///print(reviveTimer);
         reviveText.GetComponent<TextMeshProUGUI>().text = ("Reviving in " + reviveTimer);
 
 
@@ -50,7 +50,7 @@ public class Down : MonoBehaviour
             reviveTimer = reviveTimeTotal;
         }
         notRevivingBool = false;
-        print(reviveTimer);
+        ///print(reviveTimer);
         reviveText.GetComponent<TextMeshProUGUI>().text = ("Reviving in " + reviveTimer);
 
 
@@ -68,7 +68,7 @@ public class Down : MonoBehaviour
         // Does nothing if playerManager isn't assigned to stop error spam - Oliver.C
         if (downed)   ///if downed then stop all movement
         {
-            print(this.GetComponentInChildren<reviveBox>().reviving);
+            ///print(this.GetComponentInChildren<reviveBox>().reviving);
             reviveText.SetActive(true);
 
 
