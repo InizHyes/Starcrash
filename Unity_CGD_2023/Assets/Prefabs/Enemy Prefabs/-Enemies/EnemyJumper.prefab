@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1595277615, guid: de98ff19fbe309c4ea26ec0e03bb733d, type: 3}
+  m_Sprite: {fileID: 414881286, guid: ddf72a5bddcc34f479fd0ec7c98bfff5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -113,8 +113,6 @@ MonoBehaviour:
   droppedObejcts: []
   dropOdds: 1
   moveSpeed: 400
-  spawnsound: {fileID: 8300000, guid: d6ec520119f200f47b6e145806baa424, type: 3}
-  jumpsound: {fileID: 8300000, guid: 4114d53b65b13c74d9d4a47ca17f50a2, type: 3}
 --- !u!50 &4771733949618339815
 Rigidbody2D:
   serializedVersion: 4
@@ -171,12 +169,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.01}
+  m_Offset: {x: 0, y: -0.13386181}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.46568456
 --- !u!95 &4415298594212500451
 Animator:
   serializedVersion: 5
@@ -365,6 +363,18 @@ PrefabInstance:
     - target: {fileID: 4673264467691213418, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Radius
+      value: 0.46568456
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.13386181
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
