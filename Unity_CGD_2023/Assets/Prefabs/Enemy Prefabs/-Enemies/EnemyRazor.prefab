@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  bumpDamage: 8
+  bumpDamage: 5
   attackCooldown: 2
   forceMultiplier: 2
   maxVelocity: {x: 100, y: 100}
@@ -567,24 +567,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3819925977130750197, guid: 82d24dc98086bff4dbf6e17c7c154855, type: 3}
       propertyPath: m_Size.x
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3819925977130750197, guid: 82d24dc98086bff4dbf6e17c7c154855, type: 3}
       propertyPath: m_Size.y
-      value: 2
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819925977130750197, guid: 82d24dc98086bff4dbf6e17c7c154855, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 3819925977130750197, guid: 82d24dc98086bff4dbf6e17c7c154855, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3819925977130750197, guid: 82d24dc98086bff4dbf6e17c7c154855, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660187414666481128, guid: 82d24dc98086bff4dbf6e17c7c154855, type: 3}
+      propertyPath: m_Simulated
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6341099212235463432, guid: 82d24dc98086bff4dbf6e17c7c154855, type: 3}
       propertyPath: parentScript
       value: 
       objectReference: {fileID: 1817601681067954646}
+    - target: {fileID: 7176658823923229989, guid: 82d24dc98086bff4dbf6e17c7c154855, type: 3}
+      propertyPath: m_Radius
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7725173029944908098, guid: 82d24dc98086bff4dbf6e17c7c154855, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -33,6 +33,8 @@ public class RazorClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
+                razorBlade.gameObject.GetComponent<CircleCollider2D>().enabled = true;
+
                 enemyState = State.Targeting;
                 break;
 
@@ -158,6 +160,7 @@ public class RazorClass : EnemyClass
         initiateDeath();
         StopCoroutine(WaitForDeathAnimation());
     }
+
     private void pushTowardsTarget()
     {
         /*
@@ -196,11 +199,15 @@ public class RazorClass : EnemyClass
         {
             rb.velocity = Vector2.zero;
             forceToApply = Vector2.zero;
+            moveForce = Vector2.zero;
 
-            // If in "Pathfinding" state (waiting after attack) change to Targeting state
+            // If in "Pathfinding" state (waiting after attack) change to Initiating state
             if (enemyState == State.Pathfinding)
             {
-                enemyState = State.Targeting;
+                // Turn collider on and off again
+                razorBlade.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+
+                enemyState = State.Initiating;
             }
         }
     }

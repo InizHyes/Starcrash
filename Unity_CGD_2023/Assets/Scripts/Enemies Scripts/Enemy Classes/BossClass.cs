@@ -16,7 +16,7 @@ public class BossClass : EnemyClass
 
     // Damageable
     private bool vulnerable = false; // Use setVulnerability() to change
-    private int maxHealth = 0;
+    private float maxHealth = 0;
     private int threshold = 0;
 
     // Attack zones

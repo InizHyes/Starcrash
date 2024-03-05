@@ -35,6 +35,8 @@ public class SpawnLogic : MonoBehaviour
     [Tooltip("If true - spawn enemies on a random location in the array below, if false - iterate through the array in order")][SerializeField] private bool spawnRandomly = true;
     private int spawnPointID = 0;
     [Tooltip("Click and drag spawn points on scene for the enemies to spawn at")] public List<Transform> spawnPoints;
+    [Tooltip("Seconds delay before enemies spawn on player collision enter")][SerializeField] private float spawnDelay = 3f;
+    private float spawnDelayCounter = 0;
 
     #endregion
 
@@ -76,6 +78,19 @@ public class SpawnLogic : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        // Timer for first time collision enter
+        if (spawnDelayCounter > 0)
+        {
+            spawnDelayCounter -= Time.deltaTime;
+        }
+        else
+        {
+            spawnDelayCounter = 0;
+
+            NPCCounter();
+            boxCollider.enabled = false;
+        }
+
         // Start wave and NPC spawn after set up is done / whilst keeping to max screen limit
         if (readySpawn == true && nPCCounter < spawnCount)
         {
@@ -176,9 +191,7 @@ public class SpawnLogic : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            NPCCounter();
-
-            boxCollider.enabled = false;
+            spawnDelayCounter = spawnDelay;
         }
     }
 
