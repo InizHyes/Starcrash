@@ -17,12 +17,13 @@ public class BossWardenClass : EnemyClass{
     public Transform botRight; // Reference to a corner
 
     private int timer = 0;
-
     private int atkcounter = 0;
 
     public GameObject reticlePrefab;
 
     public EnemyBossHealth_UI enemybosshealth_ui;
+    private int movespeed = 5;
+    private bool spin = true;
 
     // Array of destination points
     public Transform[] destinationPoints;
@@ -32,6 +33,7 @@ public class BossWardenClass : EnemyClass{
 
     private Transform selectedPoint;
     private Vector3 originPoint;
+    private Vector3 destination;
     protected float lerpTime;
     private int lastnum = 10;
     public AudioClip shootsound;
@@ -106,7 +108,7 @@ public class BossWardenClass : EnemyClass{
                 * Will loop here until the state is changed back to Targeting, Attackng, or Dead
                 */
                 // Calculate the distance to the current destination
-
+                destination = selectedPoint.transform.position;
                 BossMove();
 
                 // look at player
@@ -115,22 +117,69 @@ public class BossWardenClass : EnemyClass{
                 break;
 
             case State.Attacking:
-                timer = timer + 1;
-                if (timer == 5)
+                if (atkcounter > 2)
                 {
-                    SpawnReticles();
+                    timer = timer + 1;
+                    anim.SetBool("SwipeRight", false);
+                    anim.SetBool("SwipeLeft", true);
+                    anim.SetBool("IsMoving", false);
+                    anim.SetBool("IsAttacking", false);
+                    
+                    targetClosestPlayer();
+                    if (timer < 20)
+                    {
+                        transform.position = target.transform.position + new Vector3(0, 2, 0);
+                        originPoint = transform.position;
+                    }
+                    else if (timer == 70)
+                    {
+                        destination = originPoint - new Vector3(0, 30, 0);
+                    }
+                    if ( timer == 90)
+                    {
+                        summonHitbox();
+                    }
+                    if (timer > 90)
+                    {
+                        spin = false;
+                        movespeed = 20;
+                        BossMove();
+                        anim.SetBool("SwipeRight", true);
+                        anim.SetBool("SwipeLeft", false);
+                        anim.SetBool("IsMoving", false);
+                        anim.SetBool("IsAttacking", false);
+                    }
+                    if (timer > 130)
+                    {
+                        movespeed = 5;
+                        timer = 0;
+                        atkcounter = 0;
+                        enemyState = State.Targeting;
+                        spin = true;
+                            
+                    }
+
                 }
-                else if (timer == 60)
+                else
                 {
-                    SpawnReticles();
-                }
-                else if (timer > 100)
-                {
-                    timer = 0;
-                    enemyState = State.Targeting;
+                    timer = timer + 1;
+                    if (timer == 5)
+                    {
+                        SpawnReticles();
+                    }
+                    else if (timer == 60)
+                    {
+                        SpawnReticles();
+                    }
+                    else if (timer > 100)
+                    {
+                        timer = 0;
+                        enemyState = State.Targeting;
+                        atkcounter += 1;
+                    }
                 }
 
-                break;
+                    break;
 
             case State.Dead:
                 /*
@@ -154,9 +203,12 @@ public class BossWardenClass : EnemyClass{
 
     protected void BossMove()
     {
-        transform.position = Vector3.MoveTowards(originPoint, selectedPoint.transform.position, lerpTime);
-        lerpTime += 5 * Time.deltaTime;
-        transform.Rotate(0, 0, 20);
+        transform.position = Vector3.MoveTowards(originPoint, destination, lerpTime);
+        lerpTime += movespeed * Time.deltaTime;
+        if (spin)
+        {
+            transform.Rotate(0, 0, 20);
+        }
 
         anim.SetBool("SwipeRight", false);
         anim.SetBool("SwipeLeft", false);
@@ -205,5 +257,40 @@ public class BossWardenClass : EnemyClass{
         //anim.ResetTrigger("Hit");
 
         GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    private void summonHitbox()
+    {
+        // Load the hitbox
+        GameObject hitboxPrefab = Resources.Load<GameObject>("SuperHitBox");
+
+        if (hitboxPrefab != null)
+        {
+            // Instantiate the hitbox prefab
+            GameObject hitboxInstance = Instantiate(hitboxPrefab, transform.position, Quaternion.identity);
+
+            hitboxInstance.transform.parent = transform; // used to make it a child (hitbox sticks to the entity)
+            // Access the Hitbox script on the instance to set its variables
+            SuperHitboxScript hitboxScript = hitboxInstance.GetComponent<SuperHitboxScript>();
+
+            if (hitboxScript != null)
+            {
+                // Set relevant variable information for the hitbox (IMPORTANT)
+                hitboxScript.damageAmount = 50; //HELLO TO ANYONE NERFING THIS GUY THIS IS HIS STAB ATTACK DMG
+                hitboxScript.size = new Vector2(0.6f, 1f); // these numbers need to be very small
+                hitboxScript.rotationAngle = transform.eulerAngles.z;
+                hitboxScript.offsetAmount = new Vector2(0f, 0f);
+                hitboxScript.lifetime = 1f;
+                hitboxScript.deleteOnConnect = false; // make sure this is true
+            }
+            else
+            {
+                Debug.LogError("brokey");
+            }
+        }
+        else
+        {
+            Debug.LogError("dont worke");
+        }
     }
 }
