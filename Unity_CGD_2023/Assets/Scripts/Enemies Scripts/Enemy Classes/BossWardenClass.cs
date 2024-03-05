@@ -33,12 +33,18 @@ public class BossWardenClass : EnemyClass{
     private Transform selectedPoint;
     private Vector3 originPoint;
     protected float lerpTime;
+    private int lastnum = 10;
+    public AudioClip shootsound;
+
+    AudioSource sound;
 
     private void Start()
     {
         // Set starting state and variables
         initiateEnemy();
         anim = GetComponent<Animator>();
+        sound = GetComponent<AudioSource>();
+
     }
 
     private void Update()
@@ -61,6 +67,18 @@ public class BossWardenClass : EnemyClass{
 
                 // Selects a random corner.
                 int randomNum = Random.Range(1, 5);
+                if (randomNum == lastnum)
+                {
+                    if (randomNum == 4)
+                    {
+                        randomNum = 1;
+                    }
+                    else
+                    {
+                        randomNum = randomNum + 1;
+                    }
+                }
+                lastnum = randomNum;
                 if (randomNum == 1)
                 {
                     selectedPoint = topLeft;
@@ -127,6 +145,8 @@ public class BossWardenClass : EnemyClass{
     }
     private void SpawnReticles()
     {
+        sound.clip = shootsound;
+        sound.Play();
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject playr in players)
             Instantiate(reticlePrefab, playr.transform.position, playr.transform.rotation);
@@ -135,7 +155,8 @@ public class BossWardenClass : EnemyClass{
     protected void BossMove()
     {
         transform.position = Vector3.MoveTowards(originPoint, selectedPoint.transform.position, lerpTime);
-        lerpTime += 1 * Time.deltaTime;
+        lerpTime += 5 * Time.deltaTime;
+        transform.Rotate(0, 0, 20);
 
         anim.SetBool("SwipeRight", false);
         anim.SetBool("SwipeLeft", false);
@@ -150,6 +171,7 @@ public class BossWardenClass : EnemyClass{
             anim.SetBool("IsMoving", false);
             anim.SetBool("IsAttacking", true);
             enemyState = State.Attacking;
+            transform.rotation = Quaternion.identity;
             lerpTime = 0;
         }
     }
