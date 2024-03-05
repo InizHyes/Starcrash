@@ -156,7 +156,6 @@ public class BossWardenClass : EnemyClass{
                         atkcounter = 0;
                         enemyState = State.Targeting;
                         spin = true;
-                            
                     }
 
                 }
@@ -280,7 +279,7 @@ public class BossWardenClass : EnemyClass{
                 hitboxScript.size = new Vector2(0.6f, 1f); // these numbers need to be very small
                 hitboxScript.rotationAngle = transform.eulerAngles.z;
                 hitboxScript.offsetAmount = new Vector2(0f, 0f);
-                hitboxScript.lifetime = 1f;
+                hitboxScript.lifetime = 0.55f;
                 hitboxScript.deleteOnConnect = false; // make sure this is true
             }
             else
