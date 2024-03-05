@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3977995874561869082}
   - component: {fileID: 7859192292377109274}
   - component: {fileID: 6316173557643614564}
+  - component: {fileID: 2554163191944655362}
   m_Layer: 7
   m_Name: Sniper Bullet
   m_TagString: Bullet
@@ -130,7 +131,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 3
   knockBackForceFloat: -1
-  bulletHit: {fileID: 8300000, guid: 6beb079f584f61b4db84537ea6d1a8b3, type: 3}
   bulletTimeBeforeDestroy: 3
 --- !u!95 &3977995874561869082
 Animator:
@@ -294,3 +294,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2554163191944655362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9099253716168194602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5ff4576bf049b47983f3be01f60b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectMode: 0
+  randomizedOrder: 0
+  randomizedPitch: 0
+  minPitch: 0.5
+  maxPitch: 1
+  Sounds:
+  - action: 
+    audiosource: {fileID: 8300000, guid: d1e7e528367974845b5c27833a6678be, type: 3}

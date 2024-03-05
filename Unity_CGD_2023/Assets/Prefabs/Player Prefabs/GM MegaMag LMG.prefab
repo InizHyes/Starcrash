@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7521929107562234851}
   - component: {fileID: 5873436331731796754}
   - component: {fileID: 643570752569574812}
+  - component: {fileID: 7960982046683898473}
   m_Layer: 3
   m_Name: GM MegaMag LMG
   m_TagString: Untagged
@@ -164,6 +165,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7960982046683898473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891161243228588003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5ff4576bf049b47983f3be01f60b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectMode: 1
+  randomizedOrder: 0
+  randomizedPitch: 1
+  minPitch: 0.5
+  maxPitch: 1.25
+  Sounds:
+  - action: Gun Shot
+    audiosource: {fileID: 8300000, guid: 0719cb2abf47a664e98d3f75c2af4d7f, type: 3}
+  - action: Unload
+    audiosource: {fileID: 8300000, guid: 04d82a4cf1d87cf4cba9ef7a33b0561a, type: 3}
+  - action: Reload
+    audiosource: {fileID: 8300000, guid: dc51b51a42c07d744bfe53a9c3728426, type: 3}
 --- !u!1 &5597418569736140652
 GameObject:
   m_ObjectHideFlags: 0
