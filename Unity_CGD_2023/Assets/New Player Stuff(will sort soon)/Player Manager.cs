@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-    private Dictionary<int, PlayerInput> players = new Dictionary<int, PlayerInput>();
+    public Dictionary<int, PlayerInput> players = new Dictionary<int, PlayerInput>();
     public int nextPlayerID = 0;
     PauseMenu pauseMenu;
     HUDManager hudManager;
@@ -20,7 +20,10 @@ public class PlayerManager : MonoBehaviour
         players.Add(nextPlayerID, playerInput);
         hudManager.ActivatePlayerHUD(nextPlayerID);
         nextPlayerID++;
+
+        hudManager.AssignPlayersToHealthBars(); // Call to assign players to health bars
     }
+
 
     public void Pause()
     {

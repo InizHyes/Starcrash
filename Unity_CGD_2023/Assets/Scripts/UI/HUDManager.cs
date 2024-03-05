@@ -7,6 +7,8 @@ public class HUDManager : MonoBehaviour
     // Array to hold references to all player HUDs
     private GameObject[] playerHUDs;
 
+    [SerializeField] private PlayerManager playerManager; // Reference to PlayerManager
+
     private void Start()
     {
         // Find all child objects with the name "P1 HUD", "P2 HUD", etc.
@@ -27,7 +29,6 @@ public class HUDManager : MonoBehaviour
         if (playerIndex >= 0 && playerIndex < playerHUDs.Length)
         {
             playerHUDs[playerIndex].SetActive(true);
-
         }
         else
         {
@@ -43,5 +44,17 @@ public class HUDManager : MonoBehaviour
             hud.SetActive(false);
         }
     }
-}
 
+    // Assign player GameObjects to corresponding health bars
+    public void AssignPlayersToHealthBars()
+    {
+        for (int i = 0; i < playerManager.players.Count; i++)
+        {
+            HealthBar healthBar = playerHUDs[i].GetComponentInChildren<HealthBar>();
+            if (healthBar != null)
+            {
+                healthBar.playerStats = playerManager.players[i].GetComponent<PlayerStats>();
+            }
+        }
+    }
+}

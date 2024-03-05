@@ -3051,7 +3051,7 @@ RectTransform:
   m_GameObject: {fileID: 3291473502388192689}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3300707742249154118}
@@ -5094,13 +5094,11 @@ MonoBehaviour:
   menuScreen: {fileID: 2271344312512563318}
   settingsScreen: {fileID: 7043971182872814022}
   controlScreen: {fileID: 8243179921338782460}
-  howtoplayScreen: {fileID: 0}
   creditScreen: {fileID: 1430652938923179306}
   playButton: {fileID: 8462753347093749780}
   settingsButton: {fileID: 4635174736964957895}
   controlsButton: {fileID: 3999212445182254737}
   creditsButton: {fileID: 4878181161775914142}
-  howtoplayButton: {fileID: 0}
   firstSettingsButton: {fileID: 2731580382581035364}
 --- !u!1 &7183766492657789633
 GameObject:
@@ -6336,7 +6334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5069459063524609755, guid: d3a0d3ba37123ea47975e01c13ce5d33, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Assets/Scenes/Dev Scenes/PlayTestScene/01.03.24 - PlayTest Scene.unity
+      value: Assets/Scenes/Game Scenes/GameplayPlay.unity
       objectReference: {fileID: 0}
     - target: {fileID: 5069459063524609755, guid: d3a0d3ba37123ea47975e01c13ce5d33, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -6830,9 +6828,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8264616290877032668, guid: d3a0d3ba37123ea47975e01c13ce5d33, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7979296465873280185}
-    - targetCorrespondingSourceObject: {fileID: 8264616290877032668, guid: d3a0d3ba37123ea47975e01c13ce5d33, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2532222891100030266}
   m_SourcePrefab: {fileID: 100100000, guid: d3a0d3ba37123ea47975e01c13ce5d33, type: 3}
 --- !u!1 &4878181161775914142 stripped
@@ -6840,21 +6835,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8264616290877032668, guid: d3a0d3ba37123ea47975e01c13ce5d33, type: 3}
   m_PrefabInstance: {fileID: 3531692170774189122}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7979296465873280185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4878181161775914142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2f8848db8555b149a8805d996f544e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonText: {fileID: 0}
-  highlightedTextSize: 65
-  originalTextSize: 50
 --- !u!95 &2532222891100030266
 Animator:
   serializedVersion: 5
