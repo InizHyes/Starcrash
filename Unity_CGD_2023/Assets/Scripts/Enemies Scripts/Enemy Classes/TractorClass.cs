@@ -129,7 +129,7 @@ public class TractorClass : EnemyClass
         //Now the enemy dies after animation is done.
         itemDropLogic();
         initiateDeath();
-        StartCoroutine(WaitForDeathAnimation());
+        StopCoroutine(WaitForDeathAnimation());
     }
 
     // Function will allow for stronger enemies to hide behind grunts for tactical play,

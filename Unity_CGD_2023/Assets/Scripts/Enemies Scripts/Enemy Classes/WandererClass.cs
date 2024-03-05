@@ -161,7 +161,7 @@ public class WandererClass : EnemyClass
         //Now the enemy dies after animation is done.
         itemDropLogic();
         initiateDeath();
-        StartCoroutine(WaitForDeathAnimation());
+        StopCoroutine(WaitForDeathAnimation());
     }
 
     //How long should it take to fire at player
