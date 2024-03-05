@@ -4,34 +4,37 @@ public class TeleportOnCollision : MonoBehaviour
 {
     // Define the destination positions for each teleporter
     public Vector3 Room1 = new Vector3(0f, 0f, 0f);
-    public Vector3 Room2 = new Vector3(36f, 0f, 0f);
-    public Vector3 Room3 = new Vector3(72f, 0f, 0f);
-    public Vector3 Room4 = new Vector3(108f, 0f, 0f);
-    public Vector3 Room5 = new Vector3(144f, 0f, 0f);
+    public Vector3 Room2 = new Vector3(32f, 0f, 0f);
+    public Vector3 Room3 = new Vector3(64f, 0f, 0f);
+    public Vector3 Room4 = new Vector3(0f, 18f, 0f);
+    public Vector3 Room5 = new Vector3(32f, 18f, 0f);
 
-    public Vector3 Room6 = new Vector3(0f, 20f, 0f);
-    public Vector3 Room7 = new Vector3(36f, 20f, 0f);
-    public Vector3 Room8 = new Vector3(72f, 20f, 0f);
-    public Vector3 Room9 = new Vector3(108f, 20f, 0f);
-    public Vector3 Room10 = new Vector3(144f, 20f, 0f);
+    public Vector3 Room6 = new Vector3(64f, 18f, 0f);
+    public Vector3 Room7 = new Vector3(0f, 36f, 0f);
+    public Vector3 Room8 = new Vector3(32f, 36f, 0f);
+    public Vector3 Room9 = new Vector3(64f, 36f, 0f);
 
-    public Vector3 Room11 = new Vector3(0f, 40f, 0f);
-    public Vector3 Room12 = new Vector3(36f, 40f, 0f);
-    public Vector3 Room13 = new Vector3(72f, 40f, 0f);
-    public Vector3 Room14 = new Vector3(108f, 40f, 0f);
-    public Vector3 Room15 = new Vector3(144f, 40f, 0f);
+    //Enable below for a 5x5 grid - cords will need to be adjusted
 
-    public Vector3 Room16 = new Vector3(0f, 60f, 0f);
-    public Vector3 Room17 = new Vector3(36f, 60f, 0f);
-    public Vector3 Room18 = new Vector3(72f, 60f, 0f);
-    public Vector3 Room19 = new Vector3(108f, 60f, 0f);
-    public Vector3 Room20 = new Vector3(144f, 60f, 0f);
+    //public Vector3 Room10 = new Vector3(144f, 20f, 0f);
 
-    public Vector3 Room21 = new Vector3(0f, 80f, 0f);
-    public Vector3 Room22 = new Vector3(36f, 80f, 0f);
-    public Vector3 Room23 = new Vector3(72f, 80f, 0f);
-    public Vector3 Room24 = new Vector3(108f, 80f, 0f);
-    public Vector3 Room25 = new Vector3(144f, 80f, 0f);
+    //public Vector3 Room11 = new Vector3(0f, 40f, 0f);
+    //public Vector3 Room12 = new Vector3(36f, 40f, 0f);
+    //public Vector3 Room13 = new Vector3(72f, 40f, 0f);
+    //public Vector3 Room14 = new Vector3(108f, 40f, 0f);
+    //public Vector3 Room15 = new Vector3(144f, 40f, 0f);
+
+    //public Vector3 Room16 = new Vector3(0f, 60f, 0f);
+    //public Vector3 Room17 = new Vector3(36f, 60f, 0f);
+    //public Vector3 Room18 = new Vector3(72f, 60f, 0f);
+    //public Vector3 Room19 = new Vector3(108f, 60f, 0f);
+    //public Vector3 Room20 = new Vector3(144f, 60f, 0f);
+
+    //public Vector3 Room21 = new Vector3(0f, 80f, 0f);
+    //public Vector3 Room22 = new Vector3(36f, 80f, 0f);
+    //public Vector3 Room23 = new Vector3(72f, 80f, 0f);
+    //public Vector3 Room24 = new Vector3(108f, 80f, 0f);
+    //public Vector3 Room25 = new Vector3(144f, 80f, 0f);
 
     // Called when the GameObject this script is attached to collides with another Collider
     private void OnCollisionEnter2D(Collision2D collision)
@@ -80,7 +83,7 @@ public class TeleportOnCollision : MonoBehaviour
         }
 
         Debug.LogWarning("Script name does not follow the expected format. Defaulting to Room1.");
-        return 13; // Default to Room1 if room index extraction fails
+        return 5; // 13 for a 5x5 | 5 for a 3x3
     }
 
 
@@ -110,40 +113,40 @@ public class TeleportOnCollision : MonoBehaviour
                 return Room8;
             case 9:
                 return Room9;
-            case 10:
-                return Room10;
-            case 11:
-                return Room11;
-            case 12:
-                return Room12;
-            case 13:
-                return Room13;
-            case 14:
-                return Room14;
-            case 15:
-                return Room15;
-            case 16:
-                return Room16;
-            case 17:
-                return Room17;
-            case 18:
-                return Room18;
-            case 19:
-                return Room19;
-            case 20:
-                return Room20;
-            case 21:
-                return Room21;
-            case 22:
-                return Room22;
-            case 23:
-                return Room23;
-            case 24:
-                return Room24;
-            case 25:
-                return Room25;
+            //case 10:
+            //    return Room10;
+            //case 11:
+            //    return Room11;
+            //case 12:
+            //    return Room12;
+            //case 13:
+            //    return Room13;
+            //case 14:
+            //    return Room14;
+            //case 15:
+            //    return Room15;
+            //case 16:
+            //    return Room16;
+            //case 17:
+            //    return Room17;
+            //case 18:
+            //    return Room18;
+            //case 19:
+            //    return Room19;
+            //case 20:
+            //    return Room20;
+            //case 21:
+            //    return Room21;
+            //case 22:
+            //    return Room22;
+            //case 23:
+            //    return Room23;
+            //case 24:
+            //    return Room24;
+            //case 25:
+            //    return Room25;
             default:
-                return Room13;
+                return Room5; // 13 for a 5x5 | 5 for a 3x3
         }
     }
 }
