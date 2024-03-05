@@ -182,41 +182,21 @@ public class ColourChange : MonoBehaviour
 
     public void ReceiveOnTriggerEnter(Collider2D collision)
     {
-        // Find the GameObject with the DoorManager script attached
-        GameObject doorManagerObject = GameObject.Find("DoorManager");
-        DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
-        // Call LockDoors function after spawning enemy
-        doorManager.LockDoors();
-    }
-
-    public void ReceiveOnTriggerExit(Collider2D collision)
-    { 
         if (collision.GetType() == typeof(CircleCollider2D))
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                ResetPuzzle();
+                // Find the GameObject with the DoorManager script attached
+                GameObject doorManagerObject = GameObject.Find("DoorManager");
+                DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+                // Call LockDoors function after spawning enemy
+                doorManager.LockDoors();
             }
         }
     }
 
-
-
-    //Resets the floor
-    private void ResetPuzzle()
-    {
-        foreach (Vector2Int vec in playerTileList)
-        {
-            Vector3Int pos = new Vector3Int(vec.x, vec.y, 0);
-            tileMap.SetTile(pos, defaultTile);
-        }
-
-        foreach (Vector2Int vec in enemyTileList)
-        {
-            Vector3Int pos = new Vector3Int(vec.x, vec.y, 0);
-            tileMap.SetTile(pos, defaultTile);
-        }
-
-        playerTileList.Clear();
+    //Used for reseting the floor but that functionality has been removed
+    public void ReceiveOnTriggerExit(Collider2D collision)
+    { 
     }
 }
