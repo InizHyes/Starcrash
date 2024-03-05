@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +21,8 @@ public class WeaponHUD : MonoBehaviour
         weaponSpriteHolder = GetComponent<Image>();
     }
 
+   // public void GetPlayerWeapons()
+
     
     void Update()
     {
@@ -31,19 +31,25 @@ public class WeaponHUD : MonoBehaviour
 
         if (gunIndex == 0)
         {
-            weaponSpriteHolder.sprite = weaponSprite1;
-        }
-        if (gunIndex == 1)
-        {
-            weaponSpriteHolder.sprite = weaponSprite2;
-        }
-        if (gunIndex == 2)
-        {
-            weaponSpriteHolder.sprite = weaponSprite3;
-        }
-        if (gunIndex == 3)
-        {
-            weaponSpriteHolder.sprite = weaponSprite4;
+            gunIndex = Players[i].GetComponentInChildren<WeaponManager>().currentWeaponIndex;
+
+            if (gunIndex == 0)
+            {
+                weaponSpriteHolder.sprite = weaponSprite1;
+            }
+            if (gunIndex == 1)
+            {
+                weaponSpriteHolder.sprite = weaponSprite2;
+            }
+            if (gunIndex == 2)
+            {
+                weaponSpriteHolder.sprite = weaponSprite3;
+            }
+            if (gunIndex == 3)
+            {
+                weaponSpriteHolder.sprite = weaponSprite4;
+            }
         }
     }
+
 }

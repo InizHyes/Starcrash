@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 5399423798994090826}
   - component: {fileID: 4230567788440632903}
   m_Layer: 3
-  m_Name: Player (Stronger Weapons)
+  m_Name: Player (Weapon Balance Testing)
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -856,8 +856,24 @@ PrefabInstance:
       value: Gun 1
       objectReference: {fileID: 0}
     - target: {fileID: 5873436331731796754, guid: 570fc8961343e62498d2fe386435d3a7, type: 3}
+      propertyPath: spread
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5873436331731796754, guid: 570fc8961343e62498d2fe386435d3a7, type: 3}
+      propertyPath: magSize
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5873436331731796754, guid: 570fc8961343e62498d2fe386435d3a7, type: 3}
+      propertyPath: fireRate
+      value: 3.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5873436331731796754, guid: 570fc8961343e62498d2fe386435d3a7, type: 3}
       propertyPath: reloadTime
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5873436331731796754, guid: 570fc8961343e62498d2fe386435d3a7, type: 3}
+      propertyPath: bulletSpeed
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5873436331731796754, guid: 570fc8961343e62498d2fe386435d3a7, type: 3}
       propertyPath: recoilPower
@@ -955,7 +971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5873436331731796754, guid: ad5b37472a2e8eb4993a27458a7f762f, type: 3}
       propertyPath: spread
-      value: 1
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 5873436331731796754, guid: ad5b37472a2e8eb4993a27458a7f762f, type: 3}
       propertyPath: fireRate
@@ -966,7 +982,15 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5873436331731796754, guid: ad5b37472a2e8eb4993a27458a7f762f, type: 3}
+      propertyPath: bulletSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5873436331731796754, guid: ad5b37472a2e8eb4993a27458a7f762f, type: 3}
       propertyPath: recoilPower
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5873436331731796754, guid: ad5b37472a2e8eb4993a27458a7f762f, type: 3}
+      propertyPath: numberOfBullets
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7521929107562234851, guid: ad5b37472a2e8eb4993a27458a7f762f, type: 3}
@@ -1057,19 +1081,23 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 0719cb2abf47a664e98d3f75c2af4d7f, type: 3}
     - target: {fileID: 5873436331731796754, guid: 7af451472ae7fc447a031459e9e43edf, type: 3}
       propertyPath: magSize
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5873436331731796754, guid: 7af451472ae7fc447a031459e9e43edf, type: 3}
       propertyPath: fireRate
-      value: 15
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5873436331731796754, guid: 7af451472ae7fc447a031459e9e43edf, type: 3}
       propertyPath: reloadTime
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5873436331731796754, guid: 7af451472ae7fc447a031459e9e43edf, type: 3}
+      propertyPath: bulletSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5873436331731796754, guid: 7af451472ae7fc447a031459e9e43edf, type: 3}
       propertyPath: recoilPower
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5873436331731796754, guid: 7af451472ae7fc447a031459e9e43edf, type: 3}
       propertyPath: maxAmmoReserves
@@ -1142,16 +1170,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5873436331731796754, guid: 13c4bea57aded9147879409b02e23f65, type: 3}
+      propertyPath: magSize
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5873436331731796754, guid: 13c4bea57aded9147879409b02e23f65, type: 3}
       propertyPath: fireRate
-      value: 1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 5873436331731796754, guid: 13c4bea57aded9147879409b02e23f65, type: 3}
       propertyPath: reloadTime
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5873436331731796754, guid: 13c4bea57aded9147879409b02e23f65, type: 3}
+      propertyPath: bulletSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5873436331731796754, guid: 13c4bea57aded9147879409b02e23f65, type: 3}
       propertyPath: recoilPower
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7521929107562234851, guid: 13c4bea57aded9147879409b02e23f65, type: 3}
       propertyPath: m_LocalPosition.x

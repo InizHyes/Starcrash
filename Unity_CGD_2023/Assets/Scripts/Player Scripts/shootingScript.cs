@@ -64,9 +64,14 @@ public class shootingScript : MonoBehaviour
     [SerializeField]
     public int maximumAmmoPickup;
 
+    [SerializeField]
+    private HapticEffectSO gunShotRumble;
+
     private bool finishedReload = true;
 
     public bool playMuzzleSmoke;
+
+    private Vector3 playerPos;
 
     Vector2 ForceDir; //Part of Sean's recoil scripting
 
@@ -84,6 +89,8 @@ public class shootingScript : MonoBehaviour
         
         //Player = GetComponentInParent<PlayerController>();
         newPlayer = GetComponentInParent<Player>();
+
+        playerPos = newPlayer.gameObject.transform.position;
 
         ammoLoaded = magSize;
         totalAmmoAllowed = magSize + maxAmmoReserves;
@@ -103,11 +110,10 @@ public class shootingScript : MonoBehaviour
 
         if (ReloadInput)
         {
-            //if (ammoReserve > 0)
-            //{
+
             StartCoroutine(Reload());
             return;
-            //}
+
         }
 
         if (ammoLoaded > 0)
@@ -117,6 +123,7 @@ public class shootingScript : MonoBehaviour
                 if (Time.time > readyToShoot)
                 {
                     FireBullet();
+                    //HapticManager.PlayEffect(gunShotRumble, newPlayer.gameObject.transform.position);
                 }
 
             }
@@ -146,7 +153,7 @@ public class shootingScript : MonoBehaviour
 
     private IEnumerator Reload()
     {
-        Debug.Log("Reload");
+        //Debug.Log("Reload");
 
         GetComponent<SFX>().PlaySound("Unload");
 
