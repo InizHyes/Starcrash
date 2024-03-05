@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -7929648874838091128}
   - component: {fileID: 5087641257567423722}
   - component: {fileID: 1578619969925423480}
+  - component: {fileID: 9217316407920266313}
   m_Layer: 0
   m_Name: StraightShooter(SlowBurst)
   m_TagString: Enemy
@@ -198,3 +199,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9217316407920266313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2724439953905809700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5ff4576bf049b47983f3be01f60b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectMode: 0
+  randomizedOrder: 1
+  randomizedPitch: 1
+  minPitch: 0.75
+  maxPitch: 1.25
+  Sounds:
+  - action: 
+    audiosource: {fileID: 8300000, guid: a0eb73bd5d1196b4e9b6c6222fe147b1, type: 3}
+  - action: 
+    audiosource: {fileID: 8300000, guid: 87224705c1c2864468821cc69e0e7fab, type: 3}

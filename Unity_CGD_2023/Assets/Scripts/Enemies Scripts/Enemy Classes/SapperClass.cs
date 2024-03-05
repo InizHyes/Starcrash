@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class SapperClass : EnemyClass
 {
-    AudioSource sound;
+    
 
     [Header("Sapper Specific")]
     [SerializeField] public GameObject WeldATK;
     [SerializeField] public GameObject EMPAOE;
-    public AudioClip spawnsound;
-    public AudioClip sappersound;
+    
     private int attackType;
 
     private Animator animator;
@@ -20,10 +19,9 @@ public class SapperClass : EnemyClass
     {
         // Set starting state and variables
         animator = GetComponent<Animator>();
-        sound = GetComponent<AudioSource>();
+        
         initiateEnemy();
-        sound.clip = spawnsound;
-        sound.Play();
+        
 
         animator.SetBool("isMoving", false); // Enemey Moving animation bool
         animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
@@ -99,8 +97,7 @@ public class SapperClass : EnemyClass
                     EMPAOE.SetActive(false);
                 }
 
-                sound.Stop();
-                sound.loop = false;
+               
 
 
                 // Check to see if we need to target genrators
@@ -142,9 +139,7 @@ public class SapperClass : EnemyClass
 
                 // Use EMP AOE attack before death
                 EMPAOE.SetActive(true);
-                sound.loop = true;
-                sound.clip = sappersound;
-                sound.Play();
+                GetComponent<SFX>().PlaySound("");
 
                 // Make sure death animation plays before enemy destruction 
                 StartCoroutine(WaitForDeathAnimation());

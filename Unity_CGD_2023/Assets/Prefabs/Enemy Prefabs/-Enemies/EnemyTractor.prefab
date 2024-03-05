@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 3469607613227155108}
   - component: {fileID: 4415298594212500451}
   - component: {fileID: -1829481049922820678}
+  - component: {fileID: 8591927228802037505}
   m_Layer: 0
   m_Name: EnemyTractor
   m_TagString: Enemy
@@ -596,6 +597,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8591927228802037505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5551923173195952751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5ff4576bf049b47983f3be01f60b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectMode: 0
+  randomizedOrder: 0
+  randomizedPitch: 1
+  minPitch: 0.5
+  maxPitch: 1.25
+  Sounds:
+  - action: 
+    audiosource: {fileID: 8300000, guid: 98f22d88510626641a551cacb02d94bd, type: 3}
 --- !u!1001 &2867456526718043822
 PrefabInstance:
   m_ObjectHideFlags: 0

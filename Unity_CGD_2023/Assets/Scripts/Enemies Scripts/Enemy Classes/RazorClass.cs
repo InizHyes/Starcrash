@@ -111,11 +111,13 @@ public class RazorClass : EnemyClass
                     pushTowardsTarget();
 
                     // Use pathfinding to wait
+                    GetComponent<SFX>().PlaySound("");
                     attackCooldownValue = attackCooldown;
                     enemyState = State.Pathfinding;
                 }
 
                 // Speed up razor to max
+                GetComponent<SFX>().PlaySound("");
                 if (razorBlade.spinSpeed <= razorBlade.maxSpinSpeed)
                 {
                     razorBlade.spinSpeed += razorBlade.spinSpeed / 100;

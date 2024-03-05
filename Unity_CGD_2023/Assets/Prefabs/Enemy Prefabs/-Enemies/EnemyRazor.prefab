@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 3179557722496070511}
   - component: {fileID: 6985154288574666178}
   - component: {fileID: 3112397367611214824}
+  - component: {fileID: 160340067019107597}
   m_Layer: 0
   m_Name: EnemyRazorBody
   m_TagString: Enemy
@@ -355,7 +356,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6612019563995013296}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -444,6 +445,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &160340067019107597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6612019563995013296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5ff4576bf049b47983f3be01f60b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectMode: 0
+  randomizedOrder: 0
+  randomizedPitch: 1
+  minPitch: 0.75
+  maxPitch: 1.25
+  Sounds:
+  - action: 
+    audiosource: {fileID: 8300000, guid: 66e52d69d8bc14e4785a78fdb397302a, type: 3}
 --- !u!1 &6932047579600303855
 GameObject:
   m_ObjectHideFlags: 0

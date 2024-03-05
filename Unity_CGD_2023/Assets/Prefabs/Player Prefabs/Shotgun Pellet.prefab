@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8680788396664680329}
   - component: {fileID: 2404117104274970255}
   - component: {fileID: 3795312058665695530}
+  - component: {fileID: -5601055331184004425}
   m_Layer: 7
   m_Name: Shotgun Pellet
   m_TagString: Bullet
@@ -284,3 +285,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-5601055331184004425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9099253716168194602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5ff4576bf049b47983f3be01f60b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectMode: 0
+  randomizedOrder: 0
+  randomizedPitch: 1
+  minPitch: 0.5
+  maxPitch: 1.5
+  Sounds:
+  - action: 
+    audiosource: {fileID: 8300000, guid: d1e7e528367974845b5c27833a6678be, type: 3}

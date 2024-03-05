@@ -6,11 +6,10 @@ using static UnityEngine.GraphicsBuffer;
 
 public class TractorClass : EnemyClass
 {
-    AudioSource sound;
+    
     [Header("Tractor Specific")]
     [SerializeField] public GameObject tractorBeam;
-    public AudioClip spawnsound;
-    public AudioClip tractorsound;
+    
     protected GameObject targetfollow;
 
     private Animator animator;
@@ -19,10 +18,9 @@ public class TractorClass : EnemyClass
     {
         // Set starting state and variables
         animator = GetComponent<Animator>();
-        sound = GetComponent<AudioSource>();
+        
         initiateEnemy();
-        sound.clip = spawnsound;
-        sound.Play();
+        
 
         animator.SetBool("isMoving", false); // Enemey Moving animation bool
         animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
@@ -75,8 +73,7 @@ public class TractorClass : EnemyClass
                 {
                     tractorBeam.SetActive(false);
                 }
-                sound.Stop();
-                sound.loop = false;
+                
                 // Move towards tartget but stay away at a minimuim length to avoid player fire
                 moveTowardsTarget0G();
 
@@ -93,9 +90,7 @@ public class TractorClass : EnemyClass
 
                 // Use trackor beam ablity
                 tractorBeam.SetActive(true);
-                sound.loop = true;
-                sound.clip = tractorsound;
-                sound.Play();
+                GetComponent<SFX>().PlaySound("");
                 break;
 
             case State.Dead:
