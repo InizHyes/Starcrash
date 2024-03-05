@@ -16,13 +16,15 @@ public class SpawnLogic : MonoBehaviour
     private int nextEnemyID = 0;
 
     //Get the Enemy prefabs
-    public List<GameObject> NPCEnemies;
+    [Tooltip("Drag and drop enemy prefabs to spawn")] public List<GameObject> NPCEnemies;
 
     //Spawn bounds
-    [SerializeField] private int minimumEnemiesSpawned = 10;
-    [SerializeField] private int maximumEnemiesSpawned = 20;
-    [SerializeField] private int spawnCount = 5;
+    [SerializeField][Tooltip("The minimum range of random Total amount of enemies to spawn")] private int minimumEnemiesSpawned = 10;
+    [SerializeField][Tooltip("The maximum range of random Total amount of enemies to spawn")] private int maximumEnemiesSpawned = 20;
+    [SerializeField][Tooltip("The maximum amount of enemies to spawn on screen at anytime")] private int spawnCount = 5;
 
+    //Control Enemy scaling
+    [SerializeField][Tooltip("Use the slider to control Current enemy spawn scaling")] [Range(1, 10)] private float enemyScale;
 
     #endregion
 
@@ -32,18 +34,18 @@ public class SpawnLogic : MonoBehaviour
     //Get the spawn points in the room
     [Tooltip("If true - spawn enemies on a random location in the array below, if false - iterate through the array in order")][SerializeField] private bool spawnRandomly = true;
     private int spawnPointID = 0;
-    public List<Transform> spawnPoints;
+    [Tooltip("Click and drag spawn points on scene for the enemies to spawn at")] public List<Transform> spawnPoints;
 
     #endregion
 
     #region [Live variables]
     [Header("Live variables")]
 
-    public bool readySpawn;
+    [Tooltip("If true, the SpawnLogic is currently operating")] public bool readySpawn;
 
-    public int nPCTotal;
+    [Tooltip("The Total amount of enemies left to spawn")] public int nPCTotal;
 
-    public int nPCCounter;
+    [Tooltip("The current amount of enemies on screen at anytime")] public int nPCCounter;
 
     private Collider2D boxCollider;
 
@@ -134,9 +136,12 @@ public class SpawnLogic : MonoBehaviour
             spawnPointID++;
         }
 
+        float scaleFactor = enemyScale;
+
         // Set new enemy variables
         GameObject newEnemy = Instantiate(selectedEnemy, spawnPoint.position, Quaternion.identity);
         newEnemy.transform.SetParent(this.transform);
+        newEnemy.transform.localScale *= scaleFactor;
         newEnemy.GetComponentInChildren<EnemyClass>().NPCdeathCheck = this;
 
         nPCTotal -= 1;
