@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class shootingScript : MonoBehaviour
 {
-    AudioSource audio;
+    AudioSource sound;
 
     [SerializeField]
     private AudioClip gunShot;
@@ -86,7 +86,7 @@ public class shootingScript : MonoBehaviour
 
     private void Awake()
     {
-        audio = GetComponent<AudioSource>();
+        sound = GetComponent<AudioSource>();
         //Player = GetComponentInParent<PlayerController>();
         newPlayer = GetComponentInParent<Player>();
 
@@ -141,8 +141,8 @@ public class shootingScript : MonoBehaviour
             readyToShoot = Time.time + 1 / fireRate;
             //Player.ForceToApply = (ForceDir * recoilPower * -1.0f); //Part of Sean's recoil scripting         
             newPlayer.rb.AddForce(-ForceDir * recoilPower, ForceMode2D.Impulse);
-            audio.clip = gunShot;
-            audio.Play();
+            sound.clip = gunShot;
+            sound.Play();
             playMuzzleSmoke = true;
             GameObject firedBullet = Instantiate(bullet, gunPoint.position, gunPoint.rotation); //creates an instance of bullet at the position of the "gun" - Arch
             Vector2 bulletDir = gunPoint.right;
@@ -162,8 +162,8 @@ public class shootingScript : MonoBehaviour
 
         yield return new WaitForSeconds(reloadTime);
 
-        audio.clip = reload;
-        audio.Play();
+        sound.clip = reload;
+        sound.Play();
 
         ammoLoaded = magSize;
         newPlayer.reloadTriggered = false;

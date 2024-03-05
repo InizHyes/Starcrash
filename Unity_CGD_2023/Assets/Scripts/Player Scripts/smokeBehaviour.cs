@@ -10,7 +10,7 @@ public class smokeBehaviour : MonoBehaviour
     [SerializeField]
     public RuntimeAnimatorController animController;
 
-    private SpriteRenderer renderer;
+    private SpriteRenderer spriteRenderer;
 
     private shootingScript gunScript;
 
@@ -28,7 +28,7 @@ public class smokeBehaviour : MonoBehaviour
     {
         smoke = GetComponentInChildren<Animator>();
         gunScript = GetComponentInParent<shootingScript>();
-        renderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         animName = "Base Layer." + clip.name;
     }
@@ -60,7 +60,7 @@ public class smokeBehaviour : MonoBehaviour
 
     public void resetSpriteFrame()
     {
-        renderer.sprite = empty;
+        spriteRenderer.sprite = empty;
     }
 
 }

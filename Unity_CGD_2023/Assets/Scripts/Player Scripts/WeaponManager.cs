@@ -29,7 +29,7 @@ public class WeaponManager : MonoBehaviour
     public bool equipped;
     public static bool slotFull;
 
-    private bool previousWeapon;
+    //private bool previousWeapon;
 
     // Start is called before the first frame update
     void Start()
@@ -117,7 +117,7 @@ public class WeaponManager : MonoBehaviour
                 currentWeaponIndex += 1;
                 swapButtons.swapRightTriggered = false;
                 weapons[currentWeaponIndex].SetActive(true);
-                previousWeapon = true;
+                //previousWeapon = true;
             }
             else if (currentWeaponIndex == totalWeapons - 1)
             {
@@ -126,7 +126,7 @@ public class WeaponManager : MonoBehaviour
                 currentWeaponIndex = 0;
                 swapButtons.swapRightTriggered = false;
                 weapons[currentWeaponIndex].SetActive(true);
-                previousWeapon = true;
+                //previousWeapon = true;
             }
         }
         if (swapButtons.swapLeftTriggered)
@@ -138,7 +138,7 @@ public class WeaponManager : MonoBehaviour
                 currentWeaponIndex -= 1;
                 swapButtons.swapLeftTriggered = false;
                 weapons[currentWeaponIndex].SetActive(true);
-                previousWeapon = false;
+                //previousWeapon = false;
             }
 
             else if (currentWeaponIndex == 0)
@@ -148,7 +148,7 @@ public class WeaponManager : MonoBehaviour
                 currentWeaponIndex = totalWeapons - 1;
                 swapButtons.swapLeftTriggered = false;
                 weapons[currentWeaponIndex].SetActive(true);
-                previousWeapon = false;
+                //previousWeapon = false;
             }
         }
 
