@@ -12,7 +12,7 @@ public class Down : MonoBehaviour
     public int reviveTimer = 0;
     public int reviveTimeTotal = 3;
     private bool doOnce = false;
-    public GameObject playermanager23;
+    ///public GameObject playermanager23;
     public GameObject revivebox;
     public GameObject reviveText;
 
@@ -68,6 +68,7 @@ public class Down : MonoBehaviour
         // Does nothing if playerManager isn't assigned to stop error spam - Oliver.C
         if (downed)   ///if downed then stop all movement
         {
+            print(this.GetComponentInChildren<reviveBox>().reviving);
             reviveText.SetActive(true);
 
 
@@ -96,6 +97,7 @@ public class Down : MonoBehaviour
             {
                 ///this.GetComponent<CharacterStats>().Heal(20);
                 ///playermanager23.GetComponent<playerManager>().numberofdowns -= 1;
+                this.GetComponent<PlayerStats>().health = this.GetComponent<PlayerStats>().maxHealth;
                 downed = false;
                 this.GetComponent<Player>().playerInput.currentActionMap.Enable();
                 doOnce = false;
@@ -106,7 +108,7 @@ public class Down : MonoBehaviour
         }
         else
         {
-            print(reviveTimer);
+            ///print("not reviving");
             reviveTimer = reviveTimeTotal;
             reviveText.SetActive(false);
         }

@@ -6,13 +6,13 @@ using UnityEngine;
 public class ReviveText : MonoBehaviour
 {
 
-    public GameObject child;
+    public Transform child;
 
     void Update()
     {
-        ///child.transform.rotation = Quaternion.Euler(0.0f, 0.0f, gameObject.transform.rotation.z * -1.0f);
-        ///child.transform.position = new Vector2(this.transform.position.x + 0.5f, this.transform.position.y + 0.3f);
-        child.transform.position = transform.position;
+        child.transform.rotation = Quaternion.Euler(0.0f, 0.0f, gameObject.transform.rotation.z * -1.0f);
+        child.transform.position = new Vector2(this.transform.position.x + 0.5f, this.transform.position.y + 0.3f);
+        ///child.transform.position = transform.position;
     }
 
 }
