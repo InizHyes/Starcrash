@@ -116,6 +116,7 @@ public class GreenTurretClass : EnemyClass
                             script.laserState = 0;
                             attackTimer = 0;
                             enemyState = State.Targeting;
+                            targetClosestPlayer();
                         }
                     }
                 }

@@ -13,12 +13,10 @@ public class PauseMenu : MonoBehaviour
     private GameObject lastActiveScreen;
 
     [SerializeField]
-    Player player ;
     PlayerManager playerManager;
 
     private void Update()
     {
-        player = FindObjectOfType<Player>();
         playerManager = FindObjectOfType<PlayerManager>();
         // Check if the "Cancel" button is pressed to close active screens
         if (Input.GetButtonDown("Cancel"))

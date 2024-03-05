@@ -1,30 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class HealthBar : MonoBehaviour
 {
     private Slider slider;
-    //public TextMeshProUGUI healthCounter;
-    public GameObject playerStats;
+    public PlayerStats playerStats; // Assuming PlayerStats is a script
 
-    private float currentHealth, maxHealth;
-    void Awake()
+    private void Awake()
     {
         slider = GetComponent<Slider>();
     }
 
-    void Update()
+    private void Update()
     {
-        currentHealth = playerStats.GetComponent<PlayerStats>().health;
-        maxHealth = playerStats.GetComponent<PlayerStats>().maxHealth;
+        if (playerStats != null)
+        {
+            // Access the health and maxHealth values from the PlayerStats script
+            float currentHealth = playerStats.health;
+            float maxHealth = playerStats.maxHealth;
 
-        float fillValue = currentHealth / maxHealth;
-
-        slider.value = fillValue;
-
-        //healthCounter.text = currentHealth + " / " + maxHealth;
+            // Update the slider value based on the player's health
+            float fillValue = currentHealth / maxHealth;
+            slider.value = fillValue;
+        }
     }
 }
