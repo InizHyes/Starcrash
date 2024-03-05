@@ -18,7 +18,7 @@ public class ShotgunTurretClass : EnemyClass
     public AudioClip spawnsound;
     public AudioClip shootsound;
     public GameObject bulletPrefab;
-    private float bulletSpeed = 5f;
+    private float bulletSpeed = 3.5f;
     private Vector3 initialRot;
     private void Start()
     {
@@ -91,6 +91,7 @@ public class ShotgunTurretClass : EnemyClass
                             script.laserState = 0;
                             attackTimer = 0;
                             enemyState = State.Targeting;
+                            targetClosestPlayer();
                         }
                     }
                 }
