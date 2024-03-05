@@ -21,6 +21,8 @@ public class WeaponManager : MonoBehaviour
 
     public shootingScript GunScript;
 
+    private smokeBehaviour gunSmoke;
+
     public float pickUpRange;
     public float dropForce;
 
@@ -111,6 +113,7 @@ public class WeaponManager : MonoBehaviour
             if (currentWeaponIndex < totalWeapons - 1)
             {
                 weapons[currentWeaponIndex].SetActive(false);
+                weapons[currentWeaponIndex].GetComponentInChildren<smokeBehaviour>().resetSpriteFrame();
                 currentWeaponIndex += 1;
                 swapButtons.swapRightTriggered = false;
                 weapons[currentWeaponIndex].SetActive(true);
@@ -119,6 +122,7 @@ public class WeaponManager : MonoBehaviour
             else if (currentWeaponIndex == totalWeapons - 1)
             {
                 weapons[currentWeaponIndex].SetActive(false);
+                weapons[currentWeaponIndex].GetComponentInChildren<smokeBehaviour>().resetSpriteFrame();
                 currentWeaponIndex = 0;
                 swapButtons.swapRightTriggered = false;
                 weapons[currentWeaponIndex].SetActive(true);
@@ -130,6 +134,7 @@ public class WeaponManager : MonoBehaviour
             if (currentWeaponIndex > 0)
             {
                 weapons[currentWeaponIndex].SetActive(false);
+                weapons[currentWeaponIndex].GetComponentInChildren<smokeBehaviour>().resetSpriteFrame();
                 currentWeaponIndex -= 1;
                 swapButtons.swapLeftTriggered = false;
                 weapons[currentWeaponIndex].SetActive(true);
@@ -139,6 +144,7 @@ public class WeaponManager : MonoBehaviour
             else if (currentWeaponIndex == 0)
             {
                 weapons[currentWeaponIndex].SetActive(false);
+                weapons[currentWeaponIndex].GetComponentInChildren<smokeBehaviour>().resetSpriteFrame();
                 currentWeaponIndex = totalWeapons - 1;
                 swapButtons.swapLeftTriggered = false;
                 weapons[currentWeaponIndex].SetActive(true);

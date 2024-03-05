@@ -172,7 +172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5098343905898092614
 RectTransform:
   m_ObjectHideFlags: 0
@@ -182,14 +182,14 @@ RectTransform:
   m_GameObject: {fileID: 1514687915513344375}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3580569258556848779}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -131, y: -59}
+  m_AnchoredPosition: {x: -150, y: -86}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1362916193705161325
@@ -246,7 +246,7 @@ MonoBehaviour:
   weaponSprite2: {fileID: 21300000, guid: 48e370beaefc18e4f9b5f86b104bf546, type: 3}
   weaponSprite3: {fileID: 21300000, guid: d0c2ced98cbef1647af150c09f1ea109, type: 3}
   weaponSprite4: {fileID: 21300000, guid: 8c1114c486cb7d647ad2137cad068a7c, type: 3}
-  Player: {fileID: 6087901998665851953, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+  Players: []
 --- !u!1 &1618279199659974920
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1982520839452500661
 RectTransform:
   m_ObjectHideFlags: 0
@@ -559,14 +559,14 @@ RectTransform:
   m_GameObject: {fileID: 2985423699935412678}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4574305601176454183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -131, y: -59}
+  m_AnchoredPosition: {x: -150, y: -86}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4615491166521642485
@@ -623,7 +623,7 @@ MonoBehaviour:
   weaponSprite2: {fileID: 21300000, guid: 48e370beaefc18e4f9b5f86b104bf546, type: 3}
   weaponSprite3: {fileID: 21300000, guid: d0c2ced98cbef1647af150c09f1ea109, type: 3}
   weaponSprite4: {fileID: 21300000, guid: 8c1114c486cb7d647ad2137cad068a7c, type: 3}
-  Player: {fileID: 6087901998665851953, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+  Players: []
 --- !u!1 &3083747520762435613
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,7 +1097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3192917532156787118
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1114,7 +1114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 70, y: -80}
+  m_AnchoredPosition: {x: 75, y: -100}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9082154459807933419
@@ -1172,8 +1172,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1226,7 +1226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8a7de908a4c484699fce6cbcc6bda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  players: []
 --- !u!1 &5362432793420681284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,14 +1389,14 @@ RectTransform:
   m_GameObject: {fileID: 5461782457862289981}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7683225787683665643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -147, y: -54}
+  m_AnchoredPosition: {x: -150, y: -86}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6454193811056093326
@@ -1453,7 +1453,7 @@ MonoBehaviour:
   weaponSprite2: {fileID: 21300000, guid: 48e370beaefc18e4f9b5f86b104bf546, type: 3}
   weaponSprite3: {fileID: 21300000, guid: d0c2ced98cbef1647af150c09f1ea109, type: 3}
   weaponSprite4: {fileID: 21300000, guid: 8c1114c486cb7d647ad2137cad068a7c, type: 3}
-  Player: {fileID: 6087901998665851953, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+  Players: []
 --- !u!1 &5545219906496393748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,7 +1564,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 73, y: -72}
+  m_AnchoredPosition: {x: 75, y: -100}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1476948765071054920
@@ -1622,8 +1622,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1676,7 +1676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8a7de908a4c484699fce6cbcc6bda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  players: []
 --- !u!1 &6309067593527102491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,7 +1770,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2101057127194563817
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1787,7 +1787,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 91, y: -85}
+  m_AnchoredPosition: {x: 75, y: -100}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1962747486613699842
@@ -1845,8 +1845,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1899,7 +1899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8a7de908a4c484699fce6cbcc6bda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  players: []
 --- !u!1 &6792391691027642521
 GameObject:
   m_ObjectHideFlags: 0
@@ -2018,7 +2018,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d277cc46ce5e24246a7fa9a0c343484b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBars: []
 --- !u!1 &7093426103922642884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,7 +2036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2652077058949430783
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2054,7 +2053,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 69, y: -78}
+  m_AnchoredPosition: {x: 75, y: -100}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4790373422958149723
@@ -2112,8 +2111,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2166,7 +2165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8a7de908a4c484699fce6cbcc6bda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  players: []
 --- !u!1 &7415463811795258266
 GameObject:
   m_ObjectHideFlags: 0
@@ -2448,7 +2447,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6224765211471722530
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2458,14 +2457,14 @@ RectTransform:
   m_GameObject: {fileID: 9042142508950200965}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8336193758644445764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -150, y: -60}
+  m_AnchoredPosition: {x: -150, y: -86}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6574971702376531845
@@ -2522,4 +2521,4 @@ MonoBehaviour:
   weaponSprite2: {fileID: 21300000, guid: 48e370beaefc18e4f9b5f86b104bf546, type: 3}
   weaponSprite3: {fileID: 21300000, guid: d0c2ced98cbef1647af150c09f1ea109, type: 3}
   weaponSprite4: {fileID: 21300000, guid: 8c1114c486cb7d647ad2137cad068a7c, type: 3}
-  Player: {fileID: 6087901998665851953, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+  Players: []
