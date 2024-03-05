@@ -29,10 +29,6 @@ public class WeaponHUD : MonoBehaviour
 
         gunIndex = character.GetComponentInChildren<WeaponManager>().currentWeaponIndex;
 
-        if (gunIndex == 0)
-        {
-            gunIndex = Players[i].GetComponentInChildren<WeaponManager>().currentWeaponIndex;
-
             if (gunIndex == 0)
             {
                 weaponSpriteHolder.sprite = weaponSprite1;
@@ -51,5 +47,3 @@ public class WeaponHUD : MonoBehaviour
             }
         }
     }
-
-}

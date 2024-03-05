@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class WeaponAmmoHUD : MonoBehaviour
-{/*
+{
     private TextMeshProUGUI ammocounter;
     public GameObject character;
     private shootingScript gunAmmo;
