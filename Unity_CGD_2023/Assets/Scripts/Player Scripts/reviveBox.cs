@@ -6,23 +6,34 @@ public class reviveBox : MonoBehaviour
 {
     public bool reviving;
     // Start is called before the first frame update
-  
+
     // Update is called once per frame
-    private void OnCollisionStay2D(Collision2D collision)  /// small script to check if a player is in a small radius around the player, if it is it makes revivng true
-                                                        /// which gets passed through to the down script
+
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
+        
+
         if (collision.gameObject.CompareTag("Player"))
         {
+            print("colldingplayer");
+            print(collision.gameObject.name);
             reviving = true;
+            ///print(reviving);
         }
-            
+
     }
-    private void OnCollisionExit2D(Collision2D collision)
+
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             reviving = false;
+            ///print(reviving);
         }
 
     }
+
+    
+
 }

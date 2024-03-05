@@ -83,6 +83,7 @@ public class LaserSniperClass : EnemyClass
                             script.laserState = 0;
                             attackTimer = 1;
                             enemyState = State.Targeting;
+                            targetClosestPlayer();
                         }
                     }
                 }
