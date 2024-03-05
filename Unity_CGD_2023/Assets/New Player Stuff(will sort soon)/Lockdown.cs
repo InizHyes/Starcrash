@@ -8,11 +8,9 @@ public class Lockdown : MonoBehaviour
     public float decreaseRate = 10f; // Rate at which the bar decreases per second
     public float increaseRate = 20f; // Rate at which the bar increases per second
     public float increaseDelay = 2f; // Delay before the bar starts increasing after hitting zero
-    public float shakeIntensity = 0.5f; // Intensity of the shake when close to zero
-    public float shakeFrequency = 1f; // Frequency of the shake
-    public float maxShakeIntensity = 2f; // Maximum intensity of the shake
     private bool isIncreasingDelayed; // Flag to indicate if the increase process is delayed
     private bool isCollidingWithFloor; // Flag to indicate if colliding with the floor
+
 
     private float currentValue; // Current value of the bar
     private float delayTimer; // Timer for delay before increasing
@@ -21,6 +19,10 @@ public class Lockdown : MonoBehaviour
     private Rigidbody2D rb;
 
     private bool isClampingLocked; // Flag to indicate if the button is locked
+
+    Player player;
+    float shootForce;
+
     private bool isClamped = false;
 
     void Start()
@@ -33,24 +35,19 @@ public class Lockdown : MonoBehaviour
         GameObject player = GameObject.FindWithTag("Player");
         playerScript = GetComponent<Player>();
         rb = GetComponent<Rigidbody2D>();
+
+
     }
 
     private void Update()
     {
+
         // Decrease the bar value if the button is pressed
         if (isClamped)
         {
             currentValue -= decreaseRate * Time.deltaTime;
             currentValue = Mathf.Clamp(currentValue, 0f, maxValue); // Clamp the value to [0, maxValue]
 
-            // Shake effect
-            if (currentValue > 0 && currentValue <= shakeIntensity)
-            {
-                float shakeAmount = Mathf.Lerp(0, maxShakeIntensity, 1 - (currentValue / shakeIntensity));
-                float shakeOffsetX = Mathf.Sin(Time.time * shakeFrequency) * shakeAmount;
-                float shakeOffsetY = Mathf.Cos(Time.time * shakeFrequency) * shakeAmount;
-                transform.position += new Vector3(shakeOffsetX, shakeOffsetY, 0f);
-            }
         }
         // Increase the bar value if the button is not pressed and the value is not at maximum
         else if (currentValue < maxValue && !isIncreasingDelayed)
@@ -58,7 +55,6 @@ public class Lockdown : MonoBehaviour
             currentValue += increaseRate * Time.deltaTime;
             currentValue = Mathf.Clamp(currentValue, 0f, maxValue); // Clamp the value to [0, maxValue]
         }
-
         if (isIncreasingDelayed)
         {
             delayTimer += Time.deltaTime;
@@ -74,13 +70,16 @@ public class Lockdown : MonoBehaviour
         // Check if the bar value is zero, if yes, set the button lock flag to true
         if (currentValue <= 0f)
         {
+
             isClampingLocked = true;
             isClamped = false;
+
         }
         else if (currentValue >= maxValue && isClampingLocked)
         {
             isClampingLocked = false;
             delayTimer = 0f;
+
         }
     }
 
@@ -104,15 +103,19 @@ public class Lockdown : MonoBehaviour
     {
         if (isCollidingWithFloor && !isClampingLocked)
         {
+
             isClamped = !isClamped;
             if (isClamped)
             {
                 rb.constraints = RigidbodyConstraints2D.FreezePosition;
+
             }
             else if (!isClamped)
             {
                 rb.constraints = RigidbodyConstraints2D.None;
+
             }
         }
+
     }
 }
