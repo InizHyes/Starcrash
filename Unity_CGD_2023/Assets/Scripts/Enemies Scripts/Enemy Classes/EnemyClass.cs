@@ -68,7 +68,7 @@ public class EnemyClass : MonoBehaviour
         */
     }
 
-    protected void targetClosestPlayer()
+    protected bool targetClosestPlayer()
     {
         /*
          * Finds the closest object with the tag "Player" and sets "target" as that player
@@ -90,7 +90,11 @@ public class EnemyClass : MonoBehaviour
         if (target == null)
         {
             Debug.Log("Add a player to the scene");
+            return false;
         }
+
+        return true;
+
         //---Moved due to Jumper needing constant acceess to this function---
         //enemyState = State.Targeting;
     }
