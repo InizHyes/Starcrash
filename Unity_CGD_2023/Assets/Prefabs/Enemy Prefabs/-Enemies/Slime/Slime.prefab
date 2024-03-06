@@ -170,7 +170,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.3}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.27
 --- !u!114 &1621867707860638906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,13 +184,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  armour: 0
+  meat: 0
   bumpDamage: 1
+  attackCooldown: 5
   forceMultiplier: 1
   maxVelocity: {x: 100, y: 100}
-  spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+  moveForce: {x: 0, y: 0}
+  NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
-  attackCooldown: 5
   stoppingDistance: 0.75
   slimeMaxVelocity: 1
   slimeForceMultiplier: 5
@@ -198,3 +201,4 @@ MonoBehaviour:
   smoothness: 10
   activationRange: 5
   damage: 10
+  destinationPoints: []

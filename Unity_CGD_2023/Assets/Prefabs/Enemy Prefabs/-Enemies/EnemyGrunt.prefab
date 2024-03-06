@@ -137,7 +137,7 @@ Transform:
   m_GameObject: {fileID: 3847670809652055866}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.115, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -186,7 +186,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1}
+  m_Size: {x: 1, y: 1.25}
   m_EdgeRadius: 0
 --- !u!114 &5250152947060375542
 MonoBehaviour:
@@ -334,6 +334,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  armour: 0
+  meat: 0
   bumpDamage: 0
   attackCooldown: 5
   forceMultiplier: 3
@@ -403,9 +405,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.01}
+  m_Offset: {x: 0, y: 0.1}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.54
 --- !u!95 &4415298594212500451
 Animator:
   serializedVersion: 5
@@ -596,6 +598,14 @@ PrefabInstance:
     - target: {fileID: 4673264467691213418, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

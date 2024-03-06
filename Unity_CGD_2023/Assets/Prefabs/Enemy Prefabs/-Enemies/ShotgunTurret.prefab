@@ -149,9 +149,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.04, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.55
 --- !u!82 &-5746405280655570343
 AudioSource:
   m_ObjectHideFlags: 0
@@ -261,6 +261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  armour: 0
+  meat: 0
   bumpDamage: 1
   attackCooldown: 5
   forceMultiplier: 1
@@ -412,7 +414,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_Radius
-      value: 0.66
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

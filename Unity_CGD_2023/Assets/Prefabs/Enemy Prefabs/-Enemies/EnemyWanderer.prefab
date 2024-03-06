@@ -365,7 +365,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1093227214233840300}
@@ -415,7 +415,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -619988424, guid: 732dd9813ab24b347850cea64ff46146, type: 3}
+  m_Sprite: {fileID: 919907245, guid: cd43eef8011822f468cf73f464cd6135, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -439,6 +439,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  armour: 0
+  meat: 0
   bumpDamage: 1
   attackCooldown: 5
   forceMultiplier: 1
@@ -511,9 +513,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.01}
+  m_Offset: {x: -0.07, y: -0.01}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.47
 --- !u!95 &4415298594212500451
 Animator:
   serializedVersion: 5
@@ -643,6 +645,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCollisionZone
       objectReference: {fileID: 0}
+    - target: {fileID: 160990452362646733, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4673264467691213418, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -682,6 +688,22 @@ PrefabInstance:
     - target: {fileID: 4673264467691213418, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

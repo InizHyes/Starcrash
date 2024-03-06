@@ -101,7 +101,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.75
 --- !u!50 &8744945568282674192
 Rigidbody2D:
   serializedVersion: 4
@@ -245,6 +245,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  armour: 0
+  meat: 0
   bumpDamage: 0
   attackCooldown: 5
   forceMultiplier: 2
@@ -319,7 +321,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.01}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.33
 --- !u!95 &2797033624441830185
 Animator:
   serializedVersion: 5
@@ -448,6 +450,10 @@ PrefabInstance:
     - target: {fileID: 4475766894240523650, guid: ed3402cf2b2fd5940ae346d6016a9bf9, type: 3}
       propertyPath: m_Name
       value: ExploderAOEPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513998535147732670, guid: ed3402cf2b2fd5940ae346d6016a9bf9, type: 3}
+      propertyPath: m_Radius
+      value: 2.74
       objectReference: {fileID: 0}
     - target: {fileID: 4753681198392228975, guid: ed3402cf2b2fd5940ae346d6016a9bf9, type: 3}
       propertyPath: m_LocalScale.z
