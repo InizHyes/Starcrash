@@ -13,7 +13,7 @@ public class TbeamBehaviour : MonoBehaviour
         {
             Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
 
-            //playerRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
             // Disable movement but not rotation,
             // Players should be able to fight back and escape by themsveles or help from other free players, but with diffculty
 
@@ -28,7 +28,8 @@ public class TbeamBehaviour : MonoBehaviour
         {
             Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
 
-            //playerRigidbody.constraints = RigidbodyConstraints2D.None;
+            playerRigidbody.constraints = RigidbodyConstraints2D.None;
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             //Debug.Log("Player is not in tractor beam");
         }

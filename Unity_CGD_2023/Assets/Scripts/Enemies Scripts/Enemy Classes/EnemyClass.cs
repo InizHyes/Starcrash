@@ -186,7 +186,7 @@ public class EnemyClass : MonoBehaviour
 
 
 
-    protected void initiateDeath()
+    public void initiateDeath()
     {
         /*
          * Runs general functions for on death

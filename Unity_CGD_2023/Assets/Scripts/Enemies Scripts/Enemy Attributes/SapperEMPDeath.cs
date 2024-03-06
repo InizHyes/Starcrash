@@ -17,7 +17,7 @@ public class SapperEMPDeath : MonoBehaviour
         {
             Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
 
-            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
         }
     }
 
@@ -26,6 +26,7 @@ public class SapperEMPDeath : MonoBehaviour
         Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
 
         playerRigidbody.constraints = RigidbodyConstraints2D.None;
+        playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
 }

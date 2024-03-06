@@ -58,6 +58,8 @@ public class SpawnLogic : MonoBehaviour
 
     #endregion
 
+    private EnemyClass initiateDeathCheck;
+
     #endregion
 
     #region [Start and Update]
@@ -114,6 +116,11 @@ public class SpawnLogic : MonoBehaviour
     //Randomise max total number of NPCs to spawn
     public void NPCCounter()
     {
+        if (playerCount == 0)
+        {
+            playerCount = 1;
+        }
+
         nPCTotal = Random.Range(minimumEnemiesSpawned, maximumEnemiesSpawned) * playerCount;
 
         //Debug.Log("Current enemies spawn: " + nPCTotal + "Enemies");
@@ -204,6 +211,18 @@ public class SpawnLogic : MonoBehaviour
                 // Call LockDoors function after spawning enemy
                 doorManager.LockDoors();
             }
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            initiateDeathCheck = collision.GetComponent<EnemyClass>(); // Find the function
+            initiateDeathCheck.initiateDeath(); // Kill the enemy
+
+            NPCdeath(); // Run function from within this script
+            Debug.Log("Enemy went out side spawn zone");
         }
     }
 
