@@ -99,6 +99,7 @@ public class ColourChange : MonoBehaviour
             doorManager.OpenDoors();
             // Can start the end room sequence!
             isRoomComplete = true;
+            Destroy(this);
         }
     }
 
@@ -197,6 +198,6 @@ public class ColourChange : MonoBehaviour
 
     //Used for reseting the floor but that functionality has been removed
     public void ReceiveOnTriggerExit(Collider2D collision)
-    { 
+    {
     }
 }

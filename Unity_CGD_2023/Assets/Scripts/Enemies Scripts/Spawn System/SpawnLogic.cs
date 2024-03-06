@@ -178,14 +178,6 @@ public class SpawnLogic : MonoBehaviour
             readySpawn = false;
         }
 
-        // Find the GameObject with the DoorManager script attached
-        GameObject doorManagerObject = GameObject.Find("DoorManager");
-        if (doorManagerObject != null)
-        {
-            DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
-            // Call LockDoors function after spawning enemy
-            doorManager.LockDoors();
-        }
     }
 
     public void NPCdeath()
@@ -204,6 +196,14 @@ public class SpawnLogic : MonoBehaviour
         if (collision.tag == "Player")
         {
             spawnDelayCounter = spawnDelay;
+            // Find the GameObject with the DoorManager script attached
+            GameObject doorManagerObject = GameObject.Find("DoorManager");
+            if (doorManagerObject != null)
+            {
+                DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+                // Call LockDoors function after spawning enemy
+                doorManager.LockDoors();
+            }
         }
     }
 

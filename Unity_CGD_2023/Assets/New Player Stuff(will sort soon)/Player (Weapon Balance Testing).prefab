@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 1643602299250816892}
   - component: {fileID: 5399423798994090826}
   - component: {fileID: 4230567788440632903}
+  - component: {fileID: 3126370090489660403}
   m_Layer: 3
   m_Name: Player (Weapon Balance Testing)
   m_TagString: Player
@@ -268,7 +269,7 @@ Transform:
   m_GameObject: {fileID: 4787805957185436317}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 32, y: 18, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -343,7 +344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 0}
-  lockdownScript: {fileID: 0}
+  lockdownScript: {fileID: 3126370090489660403}
   rb: {fileID: 0}
   _thrustForce: 0.5
   rotationSpeed: 5
@@ -605,6 +606,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   child: {fileID: 3636303590103559164}
+--- !u!114 &3126370090489660403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787805957185436317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6352e596eeb8ab458df4accb243aea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxValue: 100
+  decreaseRate: 10
+  increaseRate: 20
+  increaseDelay: 2
 --- !u!1 &5685095190155850626
 GameObject:
   m_ObjectHideFlags: 0
