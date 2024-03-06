@@ -104,6 +104,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
+  armour: 0
+  meat: 0
   bumpDamage: 1
   attackCooldown: 5
   forceMultiplier: 1
@@ -174,7 +176,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.13386181}
   serializedVersion: 2
-  m_Radius: 0.46568456
+  m_Radius: 0.56
 --- !u!95 &4415298594212500451
 Animator:
   serializedVersion: 5
@@ -366,7 +368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_Radius
-      value: 0.46568456
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_Offset.x

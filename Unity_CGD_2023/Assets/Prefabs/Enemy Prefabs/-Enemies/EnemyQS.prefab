@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1595277615, guid: de98ff19fbe309c4ea26ec0e03bb733d, type: 3}
+  m_Sprite: {fileID: 11213159, guid: b2d58af82b2232e459447fb339e471fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -105,12 +105,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  armour: 0
+  meat: 0
   bumpDamage: 1
   attackCooldown: 1
   forceMultiplier: 3
   maxVelocity: {x: 100, y: 100}
   moveForce: {x: 0, y: 0}
-  followDistance: 0
   NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
@@ -177,9 +178,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.01}
+  m_Offset: {x: -0.12, y: -0.13}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 1.02
 --- !u!95 &4415298594212500451
 Animator:
   serializedVersion: 5
@@ -470,7 +471,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 2}
-  m_Size: {x: 1, y: 4}
+  m_Size: {x: 1, y: 6}
   m_Direction: 0
 --- !u!70 &7497035035229489646
 CapsuleCollider2D:
@@ -600,6 +601,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4673264467691213418, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Radius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

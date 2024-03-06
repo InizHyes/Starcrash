@@ -66,8 +66,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.5}
-  m_Size: {x: 2, y: 3}
+  m_Offset: {x: 0, y: 3}
+  m_Size: {x: 2, y: 6}
   m_Direction: 0
 --- !u!114 &8050679804144534948
 MonoBehaviour:
@@ -138,8 +138,8 @@ Transform:
   m_GameObject: {fileID: 5474437735092214298}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.34, z: 0}
-  m_LocalScale: {x: 0.46083, y: 0.46083, z: 0.230415}
+  m_LocalPosition: {x: 0, y: 1.75, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8698034856133070124}
@@ -232,14 +232,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8, y: 4}
+    oldSize: {x: 16, y: 8}
     newSize: {x: 4.57, y: 4.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.57, y: 4.11}
+  m_Size: {x: 15, y: 8}
   m_EdgeRadius: 0
 --- !u!114 &3480195360288667875
 MonoBehaviour:
@@ -383,7 +383,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1983449025, guid: c84997ee4c4915b49b3fb3fda7555373, type: 3}
+  m_Sprite: {fileID: -565667158, guid: dc49397f753f5ac4d95075c1d7a43496, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -407,6 +407,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
+  armour: 0
+  meat: 0
   bumpDamage: 1
   attackCooldown: 5
   forceMultiplier: 5
@@ -416,8 +418,6 @@ MonoBehaviour:
   droppedObejcts: []
   dropOdds: 1
   tractorBeam: {fileID: 5474437735092214298}
-  spawnsound: {fileID: 8300000, guid: d6ec520119f200f47b6e145806baa424, type: 3}
-  tractorsound: {fileID: 8300000, guid: 98f22d88510626641a551cacb02d94bd, type: 3}
 --- !u!50 &4771733949618339815
 Rigidbody2D:
   serializedVersion: 4
@@ -477,9 +477,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.01}
+  m_Offset: {x: 0.03, y: -0.04}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.63
 --- !u!95 &4415298594212500451
 Animator:
   serializedVersion: 5
@@ -629,6 +629,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCollisionZone
       objectReference: {fileID: 0}
+    - target: {fileID: 160990452362646733, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4673264467691213418, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -667,6 +671,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4673264467691213418, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Radius
+      value: 1.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
