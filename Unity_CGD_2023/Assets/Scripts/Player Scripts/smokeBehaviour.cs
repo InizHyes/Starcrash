@@ -10,6 +10,8 @@ public class smokeBehaviour : MonoBehaviour
     [SerializeField]
     public RuntimeAnimatorController animController;
 
+    private SpriteRenderer spriteRenderer;
+
     private shootingScript gunScript;
 
     [SerializeField]
@@ -19,17 +21,27 @@ public class smokeBehaviour : MonoBehaviour
 
     private string animName;
 
+    [SerializeField]
+    private Sprite empty;
+
     void Start()
     {
         smoke = GetComponentInChildren<Animator>();
         gunScript = GetComponentInParent<shootingScript>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         animName = "Base Layer." + clip.name;
+    }
+
+    private void Awake()
+    {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (gunScript.playMuzzleSmoke)
         {
             Smoking();
@@ -46,5 +58,9 @@ public class smokeBehaviour : MonoBehaviour
         gunScript.playMuzzleSmoke = false;
     }
 
+    public void resetSpriteFrame()
+    {
+        spriteRenderer.sprite = empty;
+    }
 
 }

@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class shootingScript : MonoBehaviour
 {
-    AudioSource audio;
+    
 
     [SerializeField]
     private AudioClip gunShot;
@@ -64,9 +64,14 @@ public class shootingScript : MonoBehaviour
     [SerializeField]
     public int maximumAmmoPickup;
 
+    [SerializeField]
+    private HapticEffectSO gunShotRumble;
+
     private bool finishedReload = true;
 
     public bool playMuzzleSmoke;
+
+    private Vector3 playerPos;
 
     Vector2 ForceDir; //Part of Sean's recoil scripting
 
@@ -81,9 +86,11 @@ public class shootingScript : MonoBehaviour
 
     private void Awake()
     {
-        audio = GetComponent<AudioSource>();
+        
         //Player = GetComponentInParent<PlayerController>();
         newPlayer = GetComponentInParent<Player>();
+
+        playerPos = newPlayer.gameObject.transform.position;
 
         ammoLoaded = magSize;
         totalAmmoAllowed = magSize + maxAmmoReserves;
@@ -103,11 +110,10 @@ public class shootingScript : MonoBehaviour
 
         if (ReloadInput)
         {
-            //if (ammoReserve > 0)
-            //{
+
             StartCoroutine(Reload());
             return;
-            //}
+
         }
 
         if (ammoLoaded > 0)
@@ -117,6 +123,7 @@ public class shootingScript : MonoBehaviour
                 if (Time.time > readyToShoot)
                 {
                     FireBullet();
+                    //HapticManager.PlayEffect(gunShotRumble, newPlayer.gameObject.transform.position);
                 }
 
             }
@@ -134,8 +141,8 @@ public class shootingScript : MonoBehaviour
             readyToShoot = Time.time + 1 / fireRate;
             //Player.ForceToApply = (ForceDir * recoilPower * -1.0f); //Part of Sean's recoil scripting         
             newPlayer.rb.AddForce(-ForceDir * recoilPower, ForceMode2D.Impulse);
-            audio.clip = gunShot;
-            audio.Play();
+            GetComponent<SFX>().PlaySound("Gun Shot");
+            
             playMuzzleSmoke = true;
             GameObject firedBullet = Instantiate(bullet, gunPoint.position, gunPoint.rotation); //creates an instance of bullet at the position of the "gun" - Arch
             Vector2 bulletDir = gunPoint.right;
@@ -146,17 +153,15 @@ public class shootingScript : MonoBehaviour
 
     private IEnumerator Reload()
     {
-        Debug.Log("Reload");
+        //Debug.Log("Reload");
 
-        audio.clip = unload;
-        audio.Play();
+        GetComponent<SFX>().PlaySound("Unload");
 
         finishedReload = false;
 
         yield return new WaitForSeconds(reloadTime);
 
-        audio.clip = reload;
-        audio.Play();
+        GetComponent<SFX>().PlaySound("Reload");
 
         ammoLoaded = magSize;
         newPlayer.reloadTriggered = false;

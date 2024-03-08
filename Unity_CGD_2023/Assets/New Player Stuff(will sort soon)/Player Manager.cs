@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
 {
     public Dictionary<int, PlayerInput> players = new Dictionary<int, PlayerInput>();
     public int nextPlayerID = 0;
+    public List<Sprite> playerSprites;
     PauseMenu pauseMenu;
     HUDManager hudManager;
 
@@ -19,9 +20,20 @@ public class PlayerManager : MonoBehaviour
     {
         players.Add(nextPlayerID, playerInput);
         hudManager.ActivatePlayerHUD(nextPlayerID);
+
+        if (nextPlayerID < playerSprites.Count)
+        {
+            SpriteRenderer playerSpriteRenderer = playerInput.gameObject.GetComponent<SpriteRenderer>();
+            if (playerSpriteRenderer != null)
+            {
+                playerSpriteRenderer.sprite = playerSprites[nextPlayerID];
+            }
+        }
+
         nextPlayerID++;
 
         hudManager.AssignPlayersToHealthBars(); // Call to assign players to health bars
+        hudManager.AssignPlayersToWeaponHUD(); // Assigns players to corresponding weapon HUD
     }
 
 

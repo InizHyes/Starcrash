@@ -11,6 +11,9 @@ public class HUDManager : MonoBehaviour
 
     private void Start()
     {
+        // Find player manager
+        playerManager = FindAnyObjectByType(typeof(PlayerManager)) as PlayerManager;
+
         // Find all child objects with the name "P1 HUD", "P2 HUD", etc.
         playerHUDs = new GameObject[transform.childCount];
         for (int i = 0; i < transform.childCount; i++)
@@ -54,6 +57,22 @@ public class HUDManager : MonoBehaviour
             if (healthBar != null)
             {
                 healthBar.playerStats = playerManager.players[i].GetComponent<PlayerStats>();
+            }
+        }
+    }
+
+    //Archie - Assigning players to corresponding Weapon HUD
+    public void AssignPlayersToWeaponHUD()
+    {
+        
+        for (int i = 0; i < playerManager.players.Count; i++)
+        {
+            WeaponAmmoHUD ammoHUD = playerHUDs[i].GetComponentInChildren<WeaponAmmoHUD>();
+            WeaponHUD imgHUD = playerHUDs[i].GetComponentInChildren<WeaponHUD>();
+            if(imgHUD != null & ammoHUD != null)
+            {
+                imgHUD.character = playerManager.players[i].gameObject;
+                ammoHUD.character = playerManager.players[i].gameObject;
             }
         }
     }

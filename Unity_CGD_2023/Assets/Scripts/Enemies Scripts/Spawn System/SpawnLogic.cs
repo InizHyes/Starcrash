@@ -23,8 +23,12 @@ public class SpawnLogic : MonoBehaviour
     [SerializeField][Tooltip("The maximum range of random Total amount of enemies to spawn")] private int maximumEnemiesSpawned = 20;
     [SerializeField][Tooltip("The maximum amount of enemies to spawn on screen at anytime")] private int spawnCount = 5;
 
+    //Enemy count scales with player count
+    private PlayerManager playerManager;
+    [SerializeField] private int playerCount;
+
     //Control Enemy scaling
-    [SerializeField][Tooltip("Use the slider to control Current enemy spawn scaling")] [Range(1, 10)] private float enemyScale;
+    [Tooltip("Use the slider to control Current enemy spawn scaling")] [Range(1, 10)] private float enemyScale = 1;
 
     #endregion
 
@@ -35,6 +39,8 @@ public class SpawnLogic : MonoBehaviour
     [Tooltip("If true - spawn enemies on a random location in the array below, if false - iterate through the array in order")][SerializeField] private bool spawnRandomly = true;
     private int spawnPointID = 0;
     [Tooltip("Click and drag spawn points on scene for the enemies to spawn at")] public List<Transform> spawnPoints;
+    [Tooltip("Seconds delay before enemies spawn on player collision enter")][SerializeField] private float spawnDelay = 3f;
+    private float spawnDelayCounter = 0;
 
     #endregion
 
@@ -51,6 +57,8 @@ public class SpawnLogic : MonoBehaviour
 
 
     #endregion
+
+    private EnemyClass initiateDeathCheck;
 
     #endregion
 
@@ -76,6 +84,24 @@ public class SpawnLogic : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        // Timer for first time collision enter
+        if (spawnDelayCounter > 0)
+        {
+            spawnDelayCounter -= Time.deltaTime;
+
+            if (spawnDelayCounter < 0)
+            {
+                spawnDelayCounter = 0;
+
+                //Scale with player count
+                playerManager = FindAnyObjectByType(typeof(PlayerManager)) as PlayerManager;
+                playerCount = playerManager.nextPlayerID;
+
+                NPCCounter();
+                boxCollider.enabled = false;
+            }
+        }
+
         // Start wave and NPC spawn after set up is done / whilst keeping to max screen limit
         if (readySpawn == true && nPCCounter < spawnCount)
         {
@@ -90,7 +116,12 @@ public class SpawnLogic : MonoBehaviour
     //Randomise max total number of NPCs to spawn
     public void NPCCounter()
     {
-        nPCTotal = Random.Range(minimumEnemiesSpawned, maximumEnemiesSpawned);
+        if (playerCount == 0)
+        {
+            playerCount = 1;
+        }
+
+        nPCTotal = Random.Range(minimumEnemiesSpawned, maximumEnemiesSpawned) * playerCount;
 
         //Debug.Log("Current enemies spawn: " + nPCTotal + "Enemies");
 
@@ -154,11 +185,6 @@ public class SpawnLogic : MonoBehaviour
             readySpawn = false;
         }
 
-        // Find the GameObject with the DoorManager script attached
-        GameObject doorManagerObject = GameObject.Find("DoorManager");
-        DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
-        // Call LockDoors function after spawning enemy
-        doorManager.LockDoors();
     }
 
     public void NPCdeath()
@@ -176,9 +202,27 @@ public class SpawnLogic : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            NPCCounter();
+            spawnDelayCounter = spawnDelay;
+            // Find the GameObject with the DoorManager script attached
+            GameObject doorManagerObject = GameObject.Find("DoorManager");
+            if (doorManagerObject != null)
+            {
+                DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+                // Call LockDoors function after spawning enemy
+                doorManager.LockDoors();
+            }
+        }
+    }
 
-            boxCollider.enabled = false;
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            initiateDeathCheck = collision.GetComponent<EnemyClass>(); // Find the function
+            initiateDeathCheck.initiateDeath(); // Kill the enemy
+
+            NPCdeath(); // Run function from within this script
+            Debug.Log("Enemy went out side spawn zone");
         }
     }
 
@@ -193,11 +237,14 @@ public class SpawnLogic : MonoBehaviour
 
         // Find the GameObject with the DoorManager script attached
         GameObject doorManagerObject = GameObject.Find("DoorManager");
-        DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+        if (doorManagerObject != null)
+        {
+            DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
 
-        doorManager.OpenDoors();
+            doorManager.OpenDoors();
 
-        print("All enemies dead");
+            print("All enemies dead");
+        }
     }
 
 }

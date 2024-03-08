@@ -29,6 +29,7 @@ public class TbeamBehaviour : MonoBehaviour
             Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
 
             playerRigidbody.constraints = RigidbodyConstraints2D.None;
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             //Debug.Log("Player is not in tractor beam");
         }

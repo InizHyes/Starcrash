@@ -11,7 +11,7 @@ public class HealthBar : MonoBehaviour
         slider = GetComponent<Slider>();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (playerStats != null)
         {

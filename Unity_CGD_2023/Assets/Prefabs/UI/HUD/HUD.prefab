@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 0}
-  m_SizeDelta: {x: 300, y: 70}
+  m_AnchoredPosition: {x: 84, y: 0}
+  m_SizeDelta: {x: 232, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5446530159441865270
 CanvasRenderer:
@@ -341,12 +341,12 @@ GameObject:
   - component: {fileID: 6630117085670187780}
   - component: {fileID: 2882045235613851432}
   m_Layer: 5
-  m_Name: GunImg
+  m_Name: P1_GunIMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2973290533641563718
 RectTransform:
   m_ObjectHideFlags: 0
@@ -420,7 +420,7 @@ MonoBehaviour:
   weaponSprite2: {fileID: 21300000, guid: 48e370beaefc18e4f9b5f86b104bf546, type: 3}
   weaponSprite3: {fileID: 21300000, guid: d0c2ced98cbef1647af150c09f1ea109, type: 3}
   weaponSprite4: {fileID: 21300000, guid: 8c1114c486cb7d647ad2137cad068a7c, type: 3}
-  Player: {fileID: 6087901998665851953, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+  character: {fileID: 0}
 --- !u!1 &3267816110260811734
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,12 +434,12 @@ GameObject:
   - component: {fileID: 2103130175118705061}
   - component: {fileID: 7042637149417483155}
   m_Layer: 5
-  m_Name: Ammo
+  m_Name: P3_AmmoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7689796590696974006
 RectTransform:
   m_ObjectHideFlags: 0
@@ -568,7 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8a7de908a4c484699fce6cbcc6bda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  character: {fileID: 0}
 --- !u!1 &3433758846584966693
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,12 +582,12 @@ GameObject:
   - component: {fileID: 1136590601357916709}
   - component: {fileID: 5288657835062467069}
   m_Layer: 5
-  m_Name: GunImg
+  m_Name: P4_GunIMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5399201554656849410
 RectTransform:
   m_ObjectHideFlags: 0
@@ -597,14 +597,14 @@ RectTransform:
   m_GameObject: {fileID: 3433758846584966693}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6426880471220595805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -131, y: -59}
+  m_AnchoredPosition: {x: -150, y: -86}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2771118399806632717
@@ -661,7 +661,7 @@ MonoBehaviour:
   weaponSprite2: {fileID: 21300000, guid: 48e370beaefc18e4f9b5f86b104bf546, type: 3}
   weaponSprite3: {fileID: 21300000, guid: d0c2ced98cbef1647af150c09f1ea109, type: 3}
   weaponSprite4: {fileID: 21300000, guid: 8c1114c486cb7d647ad2137cad068a7c, type: 3}
-  Player: {fileID: 6087901998665851953, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+  character: {fileID: 0}
 --- !u!1 &3462190165620184373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,8 +1223,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -50, y: 0}
-  m_SizeDelta: {x: 300, y: 70}
+  m_AnchoredPosition: {x: -84, y: 0}
+  m_SizeDelta: {x: 232, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5584636611220717098
 CanvasRenderer:
@@ -1277,12 +1277,12 @@ GameObject:
   - component: {fileID: 457264233021373497}
   - component: {fileID: 6933354652557139029}
   m_Layer: 5
-  m_Name: GunImg
+  m_Name: P3_GunIMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8193483534324004393
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1356,7 +1356,7 @@ MonoBehaviour:
   weaponSprite2: {fileID: 21300000, guid: 48e370beaefc18e4f9b5f86b104bf546, type: 3}
   weaponSprite3: {fileID: 21300000, guid: d0c2ced98cbef1647af150c09f1ea109, type: 3}
   weaponSprite4: {fileID: 21300000, guid: 8c1114c486cb7d647ad2137cad068a7c, type: 3}
-  Player: {fileID: 6087901998665851953, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+  character: {fileID: 0}
 --- !u!1 &5947211217006418089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,8 +1466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -50, y: 0}
-  m_SizeDelta: {x: 300, y: 70}
+  m_AnchoredPosition: {x: -84, y: 0}
+  m_SizeDelta: {x: 232, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7642402924223480334
 CanvasRenderer:
@@ -1729,12 +1729,12 @@ GameObject:
   - component: {fileID: 4130364757875066647}
   - component: {fileID: 8330786697805450454}
   m_Layer: 5
-  m_Name: Ammo
+  m_Name: P2_AmmoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &267651972750304621
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1809,8 +1809,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1863,7 +1863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8a7de908a4c484699fce6cbcc6bda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  character: {fileID: 0}
 --- !u!1 &7475354285735131238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1952,12 +1952,12 @@ GameObject:
   - component: {fileID: 3951245312325109281}
   - component: {fileID: 7696280909022206026}
   m_Layer: 5
-  m_Name: Ammo
+  m_Name: P4_AmmoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2841908726698228236
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1974,7 +1974,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 91, y: -85}
+  m_AnchoredPosition: {x: 75, y: -100}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6933546981787053331
@@ -2032,8 +2032,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2086,7 +2086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8a7de908a4c484699fce6cbcc6bda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  character: {fileID: 0}
 --- !u!1 &8048092154571489197
 GameObject:
   m_ObjectHideFlags: 0
@@ -2100,12 +2100,12 @@ GameObject:
   - component: {fileID: 6975564148484517796}
   - component: {fileID: 2152747205331295507}
   m_Layer: 5
-  m_Name: GunImg
+  m_Name: P2_GunIMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6851124554514151400
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2179,7 +2179,7 @@ MonoBehaviour:
   weaponSprite2: {fileID: 21300000, guid: 48e370beaefc18e4f9b5f86b104bf546, type: 3}
   weaponSprite3: {fileID: 21300000, guid: d0c2ced98cbef1647af150c09f1ea109, type: 3}
   weaponSprite4: {fileID: 21300000, guid: 8c1114c486cb7d647ad2137cad068a7c, type: 3}
-  Player: {fileID: 6087901998665851953, guid: bb8b524f01a90884787e895bd4763264, type: 3}
+  character: {fileID: 0}
 --- !u!1 &8418794059055270794
 GameObject:
   m_ObjectHideFlags: 0
@@ -2193,12 +2193,12 @@ GameObject:
   - component: {fileID: 3099420801623199039}
   - component: {fileID: 4093005422578364287}
   m_Layer: 5
-  m_Name: Ammo
+  m_Name: P1_AmmoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5777607444570050030
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2273,8 +2273,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2327,7 +2327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8a7de908a4c484699fce6cbcc6bda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  character: {fileID: 0}
 --- !u!1 &8575271023323819088
 GameObject:
   m_ObjectHideFlags: 0
@@ -2602,8 +2602,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 0}
-  m_SizeDelta: {x: 300, y: 70}
+  m_AnchoredPosition: {x: 84, y: 0}
+  m_SizeDelta: {x: 232, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1995149984006989395
 CanvasRenderer:

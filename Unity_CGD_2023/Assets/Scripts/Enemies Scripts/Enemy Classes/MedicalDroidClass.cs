@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class MedicalDroidClass: EnemyClass
 {
-    AudioSource sound;
+
 
     [Header("Medical Droid Specific")]
     [SerializeField] public GameObject HealATK;
-    public AudioClip spawnsound;
-    public AudioClip medicalDroidsound;
+    
     private int attackType;
 
     private Animator animator;
@@ -19,10 +18,8 @@ public class MedicalDroidClass: EnemyClass
     {
         // Set starting state and variables
         animator = GetComponent<Animator>();
-        sound = GetComponent<AudioSource>();
         initiateEnemy();
-        sound.clip = spawnsound;
-        sound.Play();
+
 
         animator.SetBool("isMoving", false); // Enemey Moving animation bool
         animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
@@ -54,12 +51,14 @@ public class MedicalDroidClass: EnemyClass
 
                 if (attackType == 1)
                 {
+                    GetComponent<SFX>().PlaySound("");
                     target = null;
                     targetClosestPlayer();
                 }
 
                 if (attackType == 2)
                 {
+                    GetComponent<SFX>().PlaySound("");
                     target = null;
                     targetClosestEnemy();
                 }
@@ -82,9 +81,7 @@ public class MedicalDroidClass: EnemyClass
 
                 animator.SetBool("isMoving", true);
 
-                HealATK.SetActive(false);
-                sound.Stop();
-                sound.loop = false;
+               
 
 
                 // Check to see if we need to target 
@@ -111,6 +108,7 @@ public class MedicalDroidClass: EnemyClass
                 animator.SetBool("isAttacking", true);
 
                 HealATK.SetActive(true);
+                GetComponent<SFX>().PlaySound("");
 
 
                 // Count-down timer
@@ -127,9 +125,7 @@ public class MedicalDroidClass: EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                sound.loop = true;
-                sound.clip = medicalDroidsound;
-                sound.Play();
+                
 
                 // Make sure death animation plays before enemy destruction 
                 StartCoroutine(WaitForDeathAnimation());

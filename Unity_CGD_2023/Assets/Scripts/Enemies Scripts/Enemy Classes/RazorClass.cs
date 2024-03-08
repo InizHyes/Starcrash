@@ -33,6 +33,8 @@ public class RazorClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
+                razorBlade.gameObject.GetComponent<CircleCollider2D>().enabled = true;
+
                 enemyState = State.Targeting;
                 break;
 
@@ -44,8 +46,10 @@ public class RazorClass : EnemyClass
                 animator.SetBool("isAttacking", false);
 
                 waitExitTimeCounter = waitExitTime;
-                targetClosestPlayer();
-                enemyState = State.Moving;
+                if (targetClosestPlayer())
+                {
+                    enemyState = State.Moving;
+                }
                 break;
 
             case State.Pathfinding:
@@ -92,8 +96,11 @@ public class RazorClass : EnemyClass
                 }
 
                 // look at player
-                Vector3 direction = target.transform.position - transform.position;
-                transform.up = direction;
+                if (target != null)
+                {
+                    Vector3 direction = target.transform.position - transform.position;
+                    transform.up = direction;
+                }
                 break;
 
             case State.Attacking:
@@ -111,11 +118,13 @@ public class RazorClass : EnemyClass
                     pushTowardsTarget();
 
                     // Use pathfinding to wait
+                    GetComponent<SFX>().PlaySound("");
                     attackCooldownValue = attackCooldown;
                     enemyState = State.Pathfinding;
                 }
 
                 // Speed up razor to max
+                GetComponent<SFX>().PlaySound("");
                 if (razorBlade.spinSpeed <= razorBlade.maxSpinSpeed)
                 {
                     razorBlade.spinSpeed += razorBlade.spinSpeed / 100;
@@ -156,6 +165,7 @@ public class RazorClass : EnemyClass
         initiateDeath();
         StopCoroutine(WaitForDeathAnimation());
     }
+
     private void pushTowardsTarget()
     {
         /*
@@ -194,11 +204,15 @@ public class RazorClass : EnemyClass
         {
             rb.velocity = Vector2.zero;
             forceToApply = Vector2.zero;
+            moveForce = Vector2.zero;
 
-            // If in "Pathfinding" state (waiting after attack) change to Targeting state
+            // If in "Pathfinding" state (waiting after attack) change to Initiating state
             if (enemyState == State.Pathfinding)
             {
-                enemyState = State.Targeting;
+                // Turn collider on and off again
+                razorBlade.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+
+                enemyState = State.Initiating;
             }
         }
     }

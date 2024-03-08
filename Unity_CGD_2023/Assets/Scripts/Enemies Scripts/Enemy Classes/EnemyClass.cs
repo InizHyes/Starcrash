@@ -6,9 +6,13 @@ public class EnemyClass : MonoBehaviour
 {
     // Enemy common variables
     [Header("Common Variables")]
-    [Header("Health/Damage")]
-    [SerializeField] protected int health = 10;
+    [Header("Health")]
+    [SerializeField] protected float health = 10;
+    [SerializeField] protected int armour = 0;
+    [SerializeField] protected int meat = 0;
+
     // Attack value
+    [Header("Damage")]
     [SerializeField] private int bumpDamage = 1; // Used when collision with the player
     // Attack cooldown
     [SerializeField] protected float attackCooldown = 5f; // In seconds, can be set in inspector
@@ -64,7 +68,7 @@ public class EnemyClass : MonoBehaviour
         */
     }
 
-    protected void targetClosestPlayer()
+    protected bool targetClosestPlayer()
     {
         /*
          * Finds the closest object with the tag "Player" and sets "target" as that player
@@ -86,7 +90,11 @@ public class EnemyClass : MonoBehaviour
         if (target == null)
         {
             Debug.Log("Add a player to the scene");
+            return false;
         }
+
+        return true;
+
         //---Moved due to Jumper needing constant acceess to this function---
         //enemyState = State.Targeting;
     }
@@ -157,6 +165,11 @@ public class EnemyClass : MonoBehaviour
          */
 
         health -= damage;
+        
+        if (damage > 0)
+        {
+            ChangeEnemyColor();
+        }
 
         // Check if dead after damage detection
         if (health <= 0)
@@ -173,7 +186,7 @@ public class EnemyClass : MonoBehaviour
 
 
 
-    protected void initiateDeath()
+    public void initiateDeath()
     {
         /*
          * Runs general functions for on death
@@ -255,5 +268,28 @@ public class EnemyClass : MonoBehaviour
         }
 
         return false;
+    }
+
+    /*
+     * Enemy colour change on hit
+     */
+    private void ChangeEnemyColor()
+    {
+        GetComponent<SpriteRenderer>().color = Color.red;
+
+        // Alternatively, trigger an animation
+        //anim.SetTrigger("Hit");
+
+        StartCoroutine(ResetHitState());
+    }
+
+    private IEnumerator ResetHitState()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        // Reset the "Hit" trigger
+        //anim.ResetTrigger("Hit");
+
+        GetComponent<SpriteRenderer>().color = Color.white;
     }
 }
