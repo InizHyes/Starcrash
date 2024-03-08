@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossGuruClass : EnemyClass{
     [Header("Slime Movement Values")]
@@ -30,6 +31,11 @@ public class BossGuruClass : EnemyClass{
     private int currentDestinationIndex;
 
     private Animator anim;
+
+    public Image healthBar;
+    public Image ShieldBar;
+    public float healthAmount = 100f;
+    public float ShieldAmount = 10;
 
     private void Start()
     {
@@ -262,7 +268,31 @@ public class BossGuruClass : EnemyClass{
         {
             // Change the enemy color or apply the animation here
             ChangeEnemyColor();
+            TakeDamage(5);
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        healthAmount -= damage;
+        healthBar.fillAmount = healthAmount / 100f;
+        ShieldAmount -= damage;
+        ShieldBar.fillAmount = ShieldAmount / 10f;
+    }
+
+    public void Heal(float healingAmount)
+    {
+        healthAmount += healingAmount;
+        // Sets the min and maz value to 0 and 100
+        healthAmount = Mathf.Clamp(healthAmount, 0, 100);
+
+        healthBar.fillAmount = healthAmount / 100f;
+
+        ShieldAmount += healingAmount;
+        // Sets the min and maz value to 0 and 100
+        ShieldAmount = Mathf.Clamp(ShieldAmount, 0, 10);
+
+        ShieldBar.fillAmount = ShieldAmount / 10f;
     }
 
     private void ChangeEnemyColor()
