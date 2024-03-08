@@ -23,7 +23,7 @@ public class BackgroundRepeating : MonoBehaviour
             // If the layer is out of view, move it to the right to create the illusion of continuous scrolling
             if (newPos.x < -GetLayerWidth(layer.transform))
             {
-                newPos.x += GetLayerWidth(layer.transform) * 2;
+                newPos.x += GetLayerWidth(layer.transform) * 3;
             }
 
             layer.transform.position = newPos;
