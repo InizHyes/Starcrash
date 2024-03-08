@@ -10,6 +10,7 @@ public class PlayerCollisionScript : MonoBehaviour
      */
 
     [Tooltip("Overwrite is not needed if the parent has the EnemyClass script")] [SerializeField] private EnemyClass parentScript;
+    [SerializeField] private bool destroyBullets = false;
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class PlayerCollisionScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Bullet")
+        if (destroyBullets && collision.tag == "Bullet")
         {
             Destroy(collision.gameObject);
         }

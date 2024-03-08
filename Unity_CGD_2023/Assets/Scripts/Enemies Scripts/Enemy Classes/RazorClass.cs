@@ -127,7 +127,7 @@ public class RazorClass : EnemyClass
                 GetComponent<SFX>().PlaySound("");
                 if (razorBlade.spinSpeed <= razorBlade.maxSpinSpeed)
                 {
-                    razorBlade.spinSpeed += razorBlade.spinSpeed / 100;
+                    razorBlade.spinSpeed += (razorBlade.spinSpeed / 100) * razorBlade.spinEcceleration;
                 }
 
                 break;

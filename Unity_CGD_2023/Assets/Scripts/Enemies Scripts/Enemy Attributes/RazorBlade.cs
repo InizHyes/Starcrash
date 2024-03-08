@@ -8,6 +8,7 @@ public class RazorBlade : MonoBehaviour
     [HideInInspector] public int DEFAULTSPINSPEED;
     public int spinSpeed = 250;
     public int maxSpinSpeed = 1000;
+    public int spinEcceleration = 2;
 
     private void Start()
     {
