@@ -11,6 +11,8 @@ public class EnemyBossHealth_UI : MonoBehaviour
     public float healthAmount = 100f;
     public float ShieldAmount = 10;
 
+    BossGuruClass bossGuruClass;
+
     // Update is called once per frame
     void Update()
     {
