@@ -15,7 +15,7 @@ public class GasVentLogic : MonoBehaviour
 
     public float speedReductionInGas = 0.001f;
     public float gasVentDamage = 0.05f;
-    float speedBeforeEnteredGas;
+    //float speedBeforeEnteredGas;
 
     //Audio
     AudioSource audioSource;
@@ -73,9 +73,9 @@ public class GasVentLogic : MonoBehaviour
                 myParticle.Play();
 
                 //Reduce some player stats
-                var plrScript = collision.GetComponent<PlayerController>();
-                speedBeforeEnteredGas = plrScript.MoveSpeed;
-                plrScript.MoveSpeed = speedReductionInGas;
+               // var plrScript = collision.GetComponent<PlayerController>();
+               // speedBeforeEnteredGas = plrScript.MoveSpeed; //Bug
+               // plrScript.MoveSpeed = speedReductionInGas;
             }
         }
     }
@@ -108,7 +108,7 @@ public class GasVentLogic : MonoBehaviour
             if (collision.gameObject.CompareTag("Player"))
             {
                 //Reset to default speed
-                var plrScript = collision.GetComponent<PlayerController>();
+                //var plrScript = collision.GetComponent<PlayerController>();
                 particleDictionary[collision.gameObject].Stop();
 
                 //Removes the current player's key value pair from dictionary and destroys their particleSystem
@@ -126,7 +126,7 @@ public class GasVentLogic : MonoBehaviour
                     audioSource.Stop();
 
                 // Set players speed to normal
-                plrScript.MoveSpeed = speedBeforeEnteredGas;
+                //plrScript = MoveSpeed = speedBeforeEnteredGas; //Bug
             }
         }
     }
