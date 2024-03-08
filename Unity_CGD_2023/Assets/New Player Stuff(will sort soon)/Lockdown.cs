@@ -113,6 +113,7 @@ public class Lockdown : MonoBehaviour
             else if (!isClamped)
             {
                 rb.constraints = RigidbodyConstraints2D.None;
+                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             }
         }

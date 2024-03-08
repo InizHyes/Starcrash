@@ -14,7 +14,7 @@ public class GasVentLogic : MonoBehaviour
     Dictionary<GameObject, ParticleSystem> particleDictionary = new Dictionary<GameObject, ParticleSystem>();
 
     public float speedReductionInGas = 0.001f;
-    public float gasVentDamage = 0.5f;
+    public float gasVentDamage = 0.05f;
     float speedBeforeEnteredGas;
 
     //Audio
