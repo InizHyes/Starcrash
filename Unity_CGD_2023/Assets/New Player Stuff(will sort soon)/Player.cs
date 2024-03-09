@@ -102,7 +102,7 @@ public class Player: MonoBehaviour
         if (lookInput.magnitude > 0.1f)
         {
             float angle = Mathf.Atan2(lookInput.y, lookInput.x) * Mathf.Rad2Deg;
-            rb.rotation = Mathf.LerpAngle(rb.rotation, angle, rotationSpeed * Time.deltaTime);
+            rb.rotation = angle;
         }
     }
     private void FixedUpdate()
