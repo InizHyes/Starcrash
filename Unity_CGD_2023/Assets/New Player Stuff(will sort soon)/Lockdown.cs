@@ -65,6 +65,7 @@ public class Lockdown : MonoBehaviour
 
             // Apply the shake effect
             Vector3 shakeOffset = new Vector3(Random.Range(-shakeIntensity, shakeIntensity), Random.Range(-shakeIntensity, shakeIntensity), 0);
+            
             lockdownIcon.transform.localPosition = originalPosition + shakeOffset;
         }
         // Increase the bar value if the button is not pressed and the value is not at maximum
@@ -100,7 +101,7 @@ public class Lockdown : MonoBehaviour
             isClampingLocked = true;
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
+            GetComponent<SFX>().PlaySound("LockdownBreak");
         }
         else if (currentValue >= maxValue && isClampingLocked)
         {
@@ -130,15 +131,18 @@ public class Lockdown : MonoBehaviour
         if (isCollidingWithFloor && !isClampingLocked)
         {
             isClamped = !isClamped;
+
             if (isClamped)
             {
                 rb.constraints = RigidbodyConstraints2D.FreezePosition;
+                GetComponent<SFX>().PlaySound("Lockdown");
             }
             else if (!isClamped)
             {
                 rb.constraints = RigidbodyConstraints2D.None;
                 rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 Debug.Log("no clamp");
+                GetComponent<SFX>().PlaySound("Lockdown");
             }
         }
     }

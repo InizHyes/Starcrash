@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 5399423798994090826}
   - component: {fileID: 4230567788440632903}
   - component: {fileID: 3126370090489660403}
+  - component: {fileID: 980219969753495060}
   m_Layer: 3
   m_Name: Player (Weapon Balance Testing)
   m_TagString: Player
@@ -625,6 +626,28 @@ MonoBehaviour:
   increaseDelay: 2
   maxShakeIntensity: 0.1
   originalPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &980219969753495060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787805957185436317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5ff4576bf049b47983f3be01f60b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectMode: 1
+  randomizedOrder: 0
+  randomizedPitch: 1
+  minPitch: 0.8
+  maxPitch: 1.2
+  Sounds:
+  - action: Lockdown
+    audiosource: {fileID: 8300000, guid: da60c13f81b124f499f3fd616ef3566c, type: 3}
+  - action: LockdownBreak
+    audiosource: {fileID: 8300000, guid: 24b8780e8a1d25f48a4b861f42d49112, type: 3}
 --- !u!1 &5685095190155850626
 GameObject:
   m_ObjectHideFlags: 0
