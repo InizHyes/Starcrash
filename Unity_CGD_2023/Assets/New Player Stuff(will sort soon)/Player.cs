@@ -39,20 +39,20 @@ public class Player: MonoBehaviour
 
     private void Awake()
     {
-        playerInput = this.GetComponent<PlayerInput>();
-        //pauseMenu = FindObjectOfType<PauseMenu>();
-        playerManager = FindObjectOfType<PlayerManager>();
         
     }
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody2D>();
         lockdownScript = GetComponent<Lockdown>();
+        //pauseMenu = FindObjectOfType<PauseMenu>();
+        playerManager = FindObjectOfType<PlayerManager>();
     }
 
     private void OnEnable()
     {
+        playerInput = this.GetComponent<PlayerInput>();
+
         playerInput.actions["Move"].performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         playerInput.actions["Look"].performed += ctx => lookInput = ctx.ReadValue<Vector2>();
 
