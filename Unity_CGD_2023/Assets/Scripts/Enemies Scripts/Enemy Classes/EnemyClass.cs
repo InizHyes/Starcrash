@@ -10,6 +10,7 @@ public class EnemyClass : MonoBehaviour
     [SerializeField] protected float health = 10;
     [SerializeField] protected int armour = 0;
     [SerializeField] protected int meat = 0;
+    [SerializeField] protected float showHitDuration = 0.2f;
 
     // Attack value
     [Header("Damage")]
@@ -273,7 +274,7 @@ public class EnemyClass : MonoBehaviour
     /*
      * Enemy colour change on hit
      */
-    private void ChangeEnemyColor()
+    protected void ChangeEnemyColor()
     {
         GetComponent<SpriteRenderer>().color = Color.red;
 
@@ -285,7 +286,7 @@ public class EnemyClass : MonoBehaviour
 
     private IEnumerator ResetHitState()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(showHitDuration);
 
         // Reset the "Hit" trigger
         //anim.ResetTrigger("Hit");

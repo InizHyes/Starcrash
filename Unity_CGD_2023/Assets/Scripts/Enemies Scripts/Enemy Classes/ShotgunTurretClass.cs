@@ -64,8 +64,11 @@ public class ShotgunTurretClass : EnemyClass
                     attackTimer = attackTimer + 1;
                 }
 
-                Vector3 direction = target.transform.position - transform.position; // look at player
-                transform.right = direction;
+                if (target != null)
+                {
+                    Vector3 direction = target.transform.position - transform.position; // look at player
+                    transform.right = direction;
+                }
                 break;
 
             case State.Attacking:

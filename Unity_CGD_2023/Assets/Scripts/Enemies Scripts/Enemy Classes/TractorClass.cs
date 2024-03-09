@@ -78,8 +78,11 @@ public class TractorClass : EnemyClass
                 moveTowardsTarget0G();
 
                 // look at player
-                Vector3 direction = target.transform.position - transform.position;
-                transform.up = direction;
+                if (target != null)
+                {
+                    Vector3 direction = target.transform.position - transform.position;
+                    transform.up = direction;
+                }
                 break;
 
 

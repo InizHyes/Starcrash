@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            print("Hit");
+            //print("Hit");
 
             // Get the PlayerHealth component from the colliding GameObject
             PlayerStats playerStats = other.GetComponent<PlayerStats>();

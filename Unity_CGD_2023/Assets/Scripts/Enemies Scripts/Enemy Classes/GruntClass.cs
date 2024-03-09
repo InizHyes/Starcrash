@@ -85,8 +85,12 @@ public class GruntClass : EnemyClass
                 * Maybe check if near to attack, maybe just change state on collision
                 */
                 moveTowardsTarget0G();
-                Vector3 direction = target.transform.position - transform.position; // look at player
-                transform.up = direction;
+
+                if (target != null)
+                {
+                    Vector3 direction = target.transform.position - transform.position; // look at player
+                    transform.up = direction;
+                }
 
                 // Get collision from child triggers
                 Transform atkZoneTransform = transform.Find("DetectAttackZone");

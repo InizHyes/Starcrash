@@ -23,10 +23,13 @@ public class SapperEMPDeath : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
+        if (collision.gameObject.tag == "Player")
+        {
+            Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
 
-        playerRigidbody.constraints = RigidbodyConstraints2D.None;
-        playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+            playerRigidbody.constraints = RigidbodyConstraints2D.None;
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
     }
 
 }

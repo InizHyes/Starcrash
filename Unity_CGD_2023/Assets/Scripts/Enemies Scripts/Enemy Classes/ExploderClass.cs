@@ -149,6 +149,11 @@ public class ExploderClass : EnemyClass
             // On death, explode instead
             health -= damage;
 
+            if (damage > 0)
+            {
+                ChangeEnemyColor();
+            }
+
             if (health <= 0)
             {
                 explode();

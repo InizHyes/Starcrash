@@ -97,8 +97,11 @@ public class WandererClass : EnemyClass
                 moveTowardsTarget0G();
 
                 // look at player
-                Vector3 direction = target.transform.position - transform.position;
-                transform.up = direction;
+                if (target != null)
+                {
+                    Vector3 direction = target.transform.position - transform.position;
+                    transform.up = direction;
+                }
 
                 if (playerInAtkZone == true)
                 {
@@ -178,6 +181,8 @@ public class WandererClass : EnemyClass
     private void fireShot()
     {   
         GameObject firedBullet = Instantiate(bulletPrefab, gunPoint.position, gunPoint.rotation);
+        firedBullet.transform.parent = transform.parent;
+
         Vector2 bulletDir = gunPoint.right ;
         firedBullet.GetComponent<Rigidbody2D>().velocity = bulletDir * bulletSpeed;
 
