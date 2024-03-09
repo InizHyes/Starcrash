@@ -75,11 +75,18 @@ public class EnemyClass : MonoBehaviour
          * Finds the closest object with the tag "Player" and sets "target" as that player
          */
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
         float lowestDistance = 0;
         target = null;
         for (int i = 0; i < players.Length; i++)
         {
-            //If target isnt set or distance is lower for other player, set player as target
+            // If player is downed, skip
+            if (players[i].GetComponent<Down>().downed == true)
+            {
+                continue;
+            }
+
+            // If target isnt set or distance is lower for other player, set player as target
             if (target == null || Vector3.Distance(this.transform.position, players[i].transform.position) < lowestDistance)
             {
                 target = players[i];

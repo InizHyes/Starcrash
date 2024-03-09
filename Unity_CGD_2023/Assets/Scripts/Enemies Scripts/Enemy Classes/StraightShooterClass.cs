@@ -114,7 +114,11 @@ public class StraightShooterClass : EnemyClass
     {
         if (!isInBurst)
         {
-            GetComponent<SFX>().PlaySound("");
+            if (GetComponent<SFX>() != null)
+            {
+                GetComponent<SFX>().PlaySound("");
+            }
+
             isInBurst = true;
             bulletsFired = 0;
             InvokeRepeating("ShootBullet", 0f, shootInterval);

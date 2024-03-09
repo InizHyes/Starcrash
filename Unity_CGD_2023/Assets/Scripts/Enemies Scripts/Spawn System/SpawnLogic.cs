@@ -41,6 +41,7 @@ public class SpawnLogic : MonoBehaviour
     [Tooltip("Click and drag spawn points on scene for the enemies to spawn at")] public List<Transform> spawnPoints;
     [Tooltip("Seconds delay before enemies spawn on player collision enter")][SerializeField] private float spawnDelay = 3f;
     private float spawnDelayCounter = 0;
+    [Tooltip("When all enemies are dead open doors when true")][SerializeField] private bool openDoors = true;
 
     #endregion
 
@@ -235,15 +236,18 @@ public class SpawnLogic : MonoBehaviour
          * E.g. doors opening logic
          */
 
-        // Find the GameObject with the DoorManager script attached
-        GameObject doorManagerObject = GameObject.Find("DoorManager");
-        if (doorManagerObject != null)
+        if (openDoors)
         {
-            DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+            // Find the GameObject with the DoorManager script attached
+            GameObject doorManagerObject = GameObject.Find("DoorManager");
+            if (doorManagerObject != null)
+            {
+                DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
 
-            doorManager.OpenDoors();
+                doorManager.OpenDoors();
 
-            print("All enemies dead");
+                //print("All enemies dead");
+            }
         }
     }
 
