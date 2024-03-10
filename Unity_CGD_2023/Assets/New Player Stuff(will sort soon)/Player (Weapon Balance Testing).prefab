@@ -347,7 +347,7 @@ MonoBehaviour:
   playerInput: {fileID: 0}
   lockdownScript: {fileID: 3126370090489660403}
   rb: {fileID: 0}
-  _thrustForce: 0.25
+  _thrustForce: 0.5
   rotationSpeed: 5
   shootForce: 5
   maxSpeed: 10
@@ -460,90 +460,10 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2fbd117a-c7a4-4a68-95dd-d0641c67ec88
-    m_ActionName: Player/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e43d5267-48fa-4caa-830f-68c25f4c9e40
-    m_ActionName: Player/Look[/XInputControllerWindows/rightStick,/Mouse/delta]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 64c49c66-df66-4d5f-9de6-78b79dda0019
-    m_ActionName: Player/Attack[/XInputControllerWindows/rightTrigger,/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9e8a4bba-1625-481a-a2c5-1b9e71341102
-    m_ActionName: Player/Lockdown[/XInputControllerWindows/buttonEast,/Keyboard/f]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1b80adeb-822f-4778-909d-fe493aff4fba
-    m_ActionName: Player/WeaponSwapLeft[/XInputControllerWindows/leftShoulder,/Keyboard/q]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1c9965a7-7e50-4e3b-96d1-56d83a2dcde7
-    m_ActionName: Player/WeaponSwapRight[/XInputControllerWindows/rightShoulder,/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0ead7501-f54f-4eaa-9a8d-265fdd4a2525
-    m_ActionName: Player/Join[/XInputControllerWindows/buttonSouth,/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 08f8fe51-8c1c-44c2-aeef-2ec131e39010
-    m_ActionName: Player/Pause[/XInputControllerWindows/start,/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 68e039db-658c-407c-bc9c-b3b16b82909b
-    m_ActionName: Player/Reload[/XInputControllerWindows/buttonWest,/Keyboard/r]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e94e543b-2d30-427e-baa4-b175aa86f314
-    m_ActionName: UI/Navigate[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/rightStick/right,/XInputControllerWindows/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a4a9eb66-fcbe-4724-a302-541b53ea37d3
-    m_ActionName: UI/Submit[/Keyboard/enter,/XInputControllerWindows/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 93582334-894b-45a4-be1f-23fbe823471a
-    m_ActionName: UI/Cancel[/Keyboard/escape,/XInputControllerWindows/buttonEast]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b569ad3b-900b-4712-aa77-96e8be2f3330
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c109b2cb-1b6b-449f-bb4b-4d2c4361c29e
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e4479fc1-795c-4a47-a09e-24c8cc044885
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 432e2c64-c532-48dc-8af5-19e48e3a31b0
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2569b3bb-a32f-4dec-b758-9bd496bc1f77
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8336711a-51a2-48d4-883c-d81895dbdf35
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5f88bb58-c695-4680-87d6-4686e063211b
-    m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0c9bc295-6997-4c4d-868f-86a0036b619c
-    m_ActionName: UI/Resume[/XInputControllerWindows/start,/Keyboard/escape]
+  m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!82 &6498188479424763378
