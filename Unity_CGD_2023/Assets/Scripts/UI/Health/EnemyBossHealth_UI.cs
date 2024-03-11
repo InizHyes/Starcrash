@@ -8,7 +8,9 @@ public class EnemyBossHealth_UI : MonoBehaviour
     // Sets the variables 
     public Image healthBar;
     public Image ShieldBar;
-    public float healthAmount = 750f;
+    public float healthAmount = 1500f;
+
+    public GameObject boss;
     //public float ShieldAmount = 10;
 
     // Update is called once per frame
@@ -26,12 +28,27 @@ public class EnemyBossHealth_UI : MonoBehaviour
         //{
             //Heal(5);
         //}
+
+        if (healthBar.fillAmount == 0)
+        {
+            print("BOSS DEAD");
+            boss.SetActive(false);
+            GameObject doorManagerObject = GameObject.Find("DoorManager");
+            if (doorManagerObject != null)
+            {
+                DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+
+                doorManager.OpenDoors();
+
+                //print("All enemies dead");
+            }
+        }
     }
 
     public void TakeDamage(float damage)
     {
         healthAmount -= damage;
-        healthBar.fillAmount = healthAmount / 750f;
+        healthBar.fillAmount = healthAmount / 1500f;
         //ShieldAmount -= damage;
         //ShieldBar.fillAmount = ShieldAmount / 10f;
     }
@@ -40,9 +57,9 @@ public class EnemyBossHealth_UI : MonoBehaviour
     {
         healthAmount += healingAmount;
         // Sets the min and maz value to 0 and 100
-        healthAmount = Mathf.Clamp(healthAmount, 0, 750);
+        healthAmount = Mathf.Clamp(healthAmount, 0, 1500);
 
-        healthBar.fillAmount = healthAmount / 750;
+        healthBar.fillAmount = healthAmount / 1500;
 
         //ShieldAmount += healingAmount;
         // Sets the min and maz value to 0 and 100
