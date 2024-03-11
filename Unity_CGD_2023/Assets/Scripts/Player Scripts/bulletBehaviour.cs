@@ -21,19 +21,24 @@ public class bulletBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        BulletCollision(collision.gameObject);
+    }
+
+    public void BulletCollision(GameObject collision)
+    {
         GetComponent<SFX>().PlaySound("");
 
         //print("Bullet Collided with Object");
         // If collision with enemy, call damageDetection() and deal damage
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<EnemyClass>().damageDetection(damage);
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.forward * knockBackForceFloat, ForceMode2D.Impulse);
+            collision.GetComponent<EnemyClass>().damageDetection(damage);
+            collision.GetComponent<Rigidbody2D>().AddForce(transform.forward * knockBackForceFloat, ForceMode2D.Impulse);
 
-            
+
         }
 
-        
+
 
         Destroy(this.gameObject);
     }

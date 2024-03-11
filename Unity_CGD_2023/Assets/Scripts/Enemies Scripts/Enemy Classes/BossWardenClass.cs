@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossWardenClass : EnemyClass{
 
@@ -22,6 +23,9 @@ public class BossWardenClass : EnemyClass{
     public GameObject reticlePrefab;
 
     public EnemyBossHealth_UI enemybosshealth_ui;
+    public Image healthBar;
+    public float healthAmount = 100f;
+
     private int movespeed = 5;
     private bool spin = true;
 
@@ -186,8 +190,21 @@ public class BossWardenClass : EnemyClass{
                  * Can run death animation before running these functions
                  */
 
-                itemDropLogic();
+                //itemDropLogic();
+
                 initiateDeath();
+
+                // Find the GameObject with the DoorManager script attached
+                GameObject doorManagerObject = GameObject.Find("DoorManager");
+                if (doorManagerObject != null)
+                {
+                    DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+
+                    doorManager.OpenDoors();
+
+                    //print("All enemies dead");
+                }
+
                 break;
         }
     }
@@ -234,6 +251,12 @@ public class BossWardenClass : EnemyClass{
             // Change the enemy color or apply the animation here
             ChangeEnemyColor();
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        healthAmount -= damage;
+        healthBar.fillAmount = healthAmount / health;
     }
 
     private void ChangeEnemyColor()
