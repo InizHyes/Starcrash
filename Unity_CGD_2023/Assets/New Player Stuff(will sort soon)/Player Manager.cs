@@ -6,15 +6,18 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     public Dictionary<int, PlayerInput> players = new Dictionary<int, PlayerInput>();
+    private List<PlayerStats> joinedPlayers = new List<PlayerStats>();
     public int nextPlayerID = 0;
     public List<Sprite> playerSprites;
     PauseMenu pauseMenu;
     HUDManager hudManager;
+    GameManager gameManager;
 
     private void Start()
     {
         pauseMenu = FindObjectOfType<PauseMenu>();
         hudManager = FindObjectOfType<HUDManager>();
+        gameManager = FindObjectOfType<GameManager>();
     }
     private void OnPlayerJoined(PlayerInput playerInput)
     {
@@ -34,6 +37,7 @@ public class PlayerManager : MonoBehaviour
 
         hudManager.AssignPlayersToHealthBars(); // Call to assign players to health bars
         hudManager.AssignPlayersToWeaponHUD(); // Assigns players to corresponding weapon HUD
+        gameManager.CheckPlayers();
     }
 
 
