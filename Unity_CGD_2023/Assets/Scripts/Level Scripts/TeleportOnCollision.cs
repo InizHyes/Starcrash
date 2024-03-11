@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class TeleportOnCollision : MonoBehaviour
 {
     PlayerManager playerManager;
+    PlayerStats stats;
     // Define the destination positions for each teleporter
     public Vector3 Room1 = new Vector3(0f, 0f, 0f);
     public Vector3 Room2 = new Vector3(32f, 0f, 0f);
@@ -35,6 +36,7 @@ public class TeleportOnCollision : MonoBehaviour
         foreach (GameObject player in players)
         {
             TeleportPlayer(player);
+            ResetHealth(player);
         }
     }
 
@@ -49,6 +51,13 @@ public class TeleportOnCollision : MonoBehaviour
 
         player.transform.position = roomDestination;
         Debug.Log("Player Teleported from: " + currentPlayerPosition + " to: " + roomDestination);
+    }
+
+    private void ResetHealth(GameObject player)
+    {
+        stats = player.GetComponent<PlayerStats>();
+        stats.health = stats.maxHealth;
+        Debug.Log(stats.health);
     }
 
     private int GetRoomIndexFromScriptName()
