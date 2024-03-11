@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EnemyBossHealth_UI : MonoBehaviour
@@ -33,6 +34,7 @@ public class EnemyBossHealth_UI : MonoBehaviour
         {
             print("BOSS DEAD");
             boss.SetActive(false);
+
             GameObject doorManagerObject = GameObject.Find("DoorManager");
             if (doorManagerObject != null)
             {
@@ -40,7 +42,7 @@ public class EnemyBossHealth_UI : MonoBehaviour
 
                 doorManager.OpenDoors();
 
-                //print("All enemies dead");
+                SceneManager.LoadScene("Win"); // Load the win screen scene
             }
         }
     }
