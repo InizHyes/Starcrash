@@ -6,12 +6,7 @@ using UnityEngine.InputSystem;
 
 public class TeleportOnCollision : MonoBehaviour
 {
-<<<<<<< Updated upstream
     PlayerManager playerManager;
-=======
-    public bool roomChange;
-
->>>>>>> Stashed changes
     // Define the destination positions for each teleporter
     public Vector3 Room1 = new Vector3(0f, 0f, 0f);
     public Vector3 Room2 = new Vector3(32f, 0f, 0f);
@@ -27,27 +22,9 @@ public class TeleportOnCollision : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-<<<<<<< Updated upstream
             TeleportAllPlayers();
             playerManager = FindObjectOfType<PlayerManager>();
             playerManager.GetComponent<PlayerInputManager>().enabled = false;
-=======
-            roomChange = true;
-
-            Vector3 currentPlayerPosition = collision.gameObject.transform.position;
-            int roomIndex = GetRoomIndexFromScriptName();
-            Vector3 roomDestination = GetRoomPositionByIndex(roomIndex);
-
-            Debug.Log("Script name: " + gameObject.name);
-            Debug.Log("Extracted room index: " + roomIndex);
-
-            collision.gameObject.transform.position = roomDestination;
-            Debug.Log("Player Teleported from: " + currentPlayerPosition + " to: " + roomDestination);
->>>>>>> Stashed changes
-        }
-        else
-        {
-            roomChange = false;
         }
     }
 
