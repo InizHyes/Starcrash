@@ -24,7 +24,8 @@ public class PlayerCollisionScript : MonoBehaviour
     {
         if (destroyBullets && collision.tag == "Bullet")
         {
-            Destroy(collision.gameObject);
+            collision.GetComponent<bulletBehaviour>().BulletCollision(this.gameObject);
+            //Destroy(collision.gameObject);
         }
 
         parentScript.playerCollisionCheck(collision);
