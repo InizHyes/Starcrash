@@ -23,12 +23,14 @@ public class gameOver : MonoBehaviour
     public void Replay()
     {
         ///put reply functionality here
-        SceneManager.LoadScene("Gameplay");
-
+        print("replay");
+        
     }
     public void goToMenu ()
     {
         SceneManager.LoadScene("Menu");
+
+        print("mainmenu");
 
     }
 }
