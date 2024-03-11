@@ -1,7 +1,12 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TeleportOnCollision : MonoBehaviour
 {
+    PlayerManager playerManager;
     // Define the destination positions for each teleporter
     public Vector3 Room1 = new Vector3(0f, 0f, 0f);
     public Vector3 Room2 = new Vector3(32f, 0f, 0f);
@@ -18,6 +23,8 @@ public class TeleportOnCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             TeleportAllPlayers();
+            playerManager = FindObjectOfType<PlayerManager>();
+            playerManager.GetComponent<PlayerInputManager>().enabled = false;
         }
     }
 
