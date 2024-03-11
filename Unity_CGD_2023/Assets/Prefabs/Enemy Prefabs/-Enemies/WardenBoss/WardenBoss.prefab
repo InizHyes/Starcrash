@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 375390463669131796}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8, y: 3.5, z: 0}
+  m_LocalPosition: {x: 7.5, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 941562098420351973}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: -3.5, z: 0}
+  m_LocalPosition: {x: -7.5, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -119,7 +119,7 @@ Transform:
   m_GameObject: {fileID: 4468257962782199589}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8, y: -3.5, z: 0}
+  m_LocalPosition: {x: 7.5, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -186,7 +186,7 @@ Transform:
   m_GameObject: {fileID: 7165040096695750084}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: 3.5, z: 0}
+  m_LocalPosition: {x: -7.5, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 600665875119628557}
   - component: {fileID: 4459520113002928013}
   - component: {fileID: 2373939555440068733}
+  - component: {fileID: 7161104686047252115}
   - component: {fileID: 6200660263472039336}
   m_Layer: 0
   m_Name: WardenBossBody
@@ -376,7 +377,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea723082c250ea840b34642ecd8dd10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
+  health: 750
+  armour: 0
+  meat: 0
+  showHitDuration: 0.2
   bumpDamage: 1
   attackCooldown: 5
   forceMultiplier: 1
@@ -391,9 +395,27 @@ MonoBehaviour:
   botLeft: {fileID: 79002597206122049}
   botRight: {fileID: 3422203862528125144}
   reticlePrefab: {fileID: 1414728712908029590, guid: 53bee1a0b0261c9468c2bce47e86a852, type: 3}
-  enemybosshealth_ui: {fileID: 0}
+  enemybosshealth_ui: {fileID: 7161104686047252115}
+  healthBar: {fileID: 0}
+  healthAmount: 100
   destinationPoints: []
   shootsound: {fileID: 8300000, guid: ed78c2777f88ca34a89503eed9834fd4, type: 3}
+--- !u!114 &7161104686047252115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8403829161535021075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0e87b8ec93fd5342bf1775574c0ee22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  ShieldBar: {fileID: 0}
+  healthAmount: 100
+  ShieldAmount: 10
 --- !u!82 &6200660263472039336
 AudioSource:
   m_ObjectHideFlags: 0
