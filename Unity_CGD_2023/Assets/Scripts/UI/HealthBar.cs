@@ -26,6 +26,7 @@ public class HealthBar : MonoBehaviour
             // Update the slider value based on the player's health
             float fillValue = currentHealth / maxHealth;
             slider.value = fillValue;
+
             /// Sean - this just changes the healthbar empty sprite to be DOWN in all caps, to change the image assign downSprite in the editor
             if (playerStats.health <= 0 )
             {
