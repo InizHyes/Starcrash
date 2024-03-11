@@ -101,7 +101,7 @@ public class Lockdown : MonoBehaviour
             isClampingLocked = true;
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            GetComponent<SFX>().PlaySound("LockdownBreak");
+            GetComponent<SFX>().PlayReversed("Lockdown");
         }
         else if (currentValue >= maxValue && isClampingLocked)
         {
