@@ -95,8 +95,8 @@ public class StraightShooterClass : EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                itemDropLogic();
-                initiateDeath();
+                //itemDropLogic();
+                //initiateDeath();
                 break;
         }
     }

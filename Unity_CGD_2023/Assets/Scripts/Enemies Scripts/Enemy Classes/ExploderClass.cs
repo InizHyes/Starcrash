@@ -34,7 +34,8 @@ public class ExploderClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -43,7 +44,8 @@ public class ExploderClass : EnemyClass
                  */
 
                 targetClosestPlayer();
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -125,8 +127,8 @@ public class ExploderClass : EnemyClass
         yield return new WaitForSeconds(animationLength);
 
         //Now the enemy dies after animation is done.
-        itemDropLogic();
-        initiateDeath();
+        //itemDropLogic();
+        //initiateDeath();
         StopCoroutine(WaitForDeathAnimation());
     }
 
@@ -168,7 +170,8 @@ public class ExploderClass : EnemyClass
     {
         // Set AOE active
         exploderAOE.gameObject.SetActive(true);
-        enemyState = State.Attacking;
+        //enemyState = State.Attacking;
+        changestate(4);
     }
 
     public override void damageDetection(int damage)
@@ -193,6 +196,7 @@ public class ExploderClass : EnemyClass
     public void deathStateChange()
     {
         // Needed by Exploder AOE
-        enemyState = State.Dead;
+        //enemyState = State.Dead;
+        changestate(5);
     }
 }

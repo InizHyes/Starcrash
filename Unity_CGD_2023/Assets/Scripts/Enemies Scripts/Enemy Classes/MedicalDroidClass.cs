@@ -37,7 +37,8 @@ public class MedicalDroidClass: EnemyClass
 
                 HealATK.SetActive(false);
 
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -63,7 +64,8 @@ public class MedicalDroidClass: EnemyClass
                     targetClosestEnemy();
                 }
 
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -114,7 +116,8 @@ public class MedicalDroidClass: EnemyClass
                 // Count-down timer
                 if (attackCooldwonLogic())
                 {
-                    enemyState = State.Targeting;
+                    //enemyState = State.Targeting;
+                    changestate(1);
                 }
 
                 break;
@@ -150,8 +153,8 @@ public class MedicalDroidClass: EnemyClass
         yield return new WaitForSeconds(animationLength);
 
         //Now the enemy dies after animation is done.
-        itemDropLogic();
-        initiateDeath();
+        //itemDropLogic();
+        //initiateDeath();
         StopCoroutine(WaitForDeathAnimation());
     }
 
@@ -176,7 +179,8 @@ public class MedicalDroidClass: EnemyClass
             // Else find somthing to attack
             else
             {
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 Debug.LogWarning("Finding Target");
             }
         }

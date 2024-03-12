@@ -35,7 +35,8 @@ public class RazorClass : EnemyClass
 
                 razorBlade.gameObject.GetComponent<CircleCollider2D>().enabled = true;
 
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -48,7 +49,8 @@ public class RazorClass : EnemyClass
                 waitExitTimeCounter = waitExitTime;
                 if (targetClosestPlayer())
                 {
-                    enemyState = State.Moving;
+                    //enemyState = State.Moving;
+                    changestate(3);
                 }
                 break;
 
@@ -74,7 +76,8 @@ public class RazorClass : EnemyClass
                 }
                 else
                 {
-                    enemyState = State.Targeting;
+                    //enemyState = State.Targeting;
+                    changestate(1);
                 }
 
                 break;
@@ -120,7 +123,8 @@ public class RazorClass : EnemyClass
                     // Use pathfinding to wait
                     GetComponent<SFX>().PlaySound("");
                     attackCooldownValue = attackCooldown;
-                    enemyState = State.Pathfinding;
+                    //enemyState = State.Pathfinding;
+                    changestate(2);
                 }
 
                 // Speed up razor to max
@@ -161,8 +165,8 @@ public class RazorClass : EnemyClass
         yield return new WaitForSeconds(animationLength);
 
         //Now the enemy dies after animation is done.
-        itemDropLogic();
-        initiateDeath();
+        //itemDropLogic();
+        //initiateDeath();
         StopCoroutine(WaitForDeathAnimation());
     }
 
@@ -193,7 +197,8 @@ public class RazorClass : EnemyClass
         {
             rb.velocity = Vector2.zero;
             attackCooldownValue = attackCooldown;
-            enemyState = State.Attacking;
+            //enemyState = State.Attacking;
+            changestate(4);
         }
     }
 
@@ -212,7 +217,8 @@ public class RazorClass : EnemyClass
                 // Turn collider on and off again
                 razorBlade.gameObject.GetComponent<CircleCollider2D>().enabled = false;
 
-                enemyState = State.Initiating;
+                //enemyState = State.Initiating;
+                changestate(0);
             }
         }
     }

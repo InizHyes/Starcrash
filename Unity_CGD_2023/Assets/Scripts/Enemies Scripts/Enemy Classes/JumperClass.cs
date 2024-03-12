@@ -36,7 +36,8 @@ public class JumperClass : EnemyClass
 
                 // Spawn with attack cooldown to prevent insta-jumping
                 attackCooldownValue = attackCooldown / 2;
-                enemyState = State.Attacking;
+                //enemyState = State.Attacking;
+                changestate(4);
                 break;
 
             case State.Targeting:
@@ -49,7 +50,8 @@ public class JumperClass : EnemyClass
                 animator.SetBool("isAttacking", false);
 
                 targetClosestPlayer();
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -69,7 +71,8 @@ public class JumperClass : EnemyClass
 
                 // Start attack cooldown
                 attackCooldownValue = attackCooldown;
-                enemyState = State.Attacking;
+                //enemyState = State.Attacking;
+                changestate(4);
 
                 //moveTowardsTarget0G();
 
@@ -90,7 +93,8 @@ public class JumperClass : EnemyClass
                 // Count-down timer
                 if (attackCooldwonLogic())
                 {
-                    enemyState = State.Targeting;
+                    //enemyState = State.Targeting;
+                    changestate(1);
                 }
 
                 break;
@@ -124,8 +128,8 @@ public class JumperClass : EnemyClass
         yield return new WaitForSeconds(animationLength);
 
         //Now the enemy dies after animation is done.
-        itemDropLogic();
-        initiateDeath();
+        //itemDropLogic();
+        //initiateDeath();
         StopCoroutine(WaitForDeathAnimation());
     }
 

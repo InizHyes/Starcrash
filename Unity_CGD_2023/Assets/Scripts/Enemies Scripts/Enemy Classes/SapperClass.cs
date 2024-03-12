@@ -46,7 +46,8 @@ public class SapperClass : EnemyClass
                     EMPAOE.SetActive(false);
                 }
 
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -70,7 +71,8 @@ public class SapperClass : EnemyClass
                     targetClosestGenerator();
                 }
 
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -129,7 +131,8 @@ public class SapperClass : EnemyClass
                 // Count-down timer
                 if (attackCooldwonLogic())
                 {
-                    enemyState = State.Targeting;
+                    //enemyState = State.Targeting;
+                    changestate(1);
                 }
 
                 break;
@@ -167,8 +170,8 @@ public class SapperClass : EnemyClass
         yield return new WaitForSeconds(animationLength);
 
         //Now the enemy dies after animation is done.
-        itemDropLogic();
-        initiateDeath();
+        //itemDropLogic();
+        //initiateDeath();
         StopCoroutine(WaitForDeathAnimation());
     }
 
@@ -193,7 +196,8 @@ public class SapperClass : EnemyClass
             // Else find somthing to attack
             else
             {
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 Debug.LogWarning("Finding Target");
             }
         }
