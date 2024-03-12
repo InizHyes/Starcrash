@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class WandererClass : EnemyClass
 {
-    private Animator animate;
     AudioSource sound;
     [Header("Wanderer Specific")]
     public GameObject bulletPrefab;
@@ -19,15 +18,23 @@ public class WandererClass : EnemyClass
 
     public bool canAttack;
 
+    private Animator animator;
+
     private void Start()
     {
         // Set starting state and variables
+        animator = GetComponent<Animator>();
         sound = GetComponent<AudioSource>();
         initiateEnemy();
         sound.clip = spawnsound;
         sound.Play();
         canAttack = false;
-        animate = GetComponent<Animator>(); // Maybe move into init function
+
+
+        animator.SetBool("isIdle", false); // Enemey Idle animation bool
+        animator.SetBool("isMoving", false); // Enemey Moving animation bool
+        animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
     }
 
     private void Update()
@@ -52,8 +59,11 @@ public class WandererClass : EnemyClass
                 /*
                  * Starting state, used to run one-off functions for spawning
                  */
+                animator.SetBool("isIdle", true);
 
-                enemyState = State.Targeting;
+
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -63,8 +73,12 @@ public class WandererClass : EnemyClass
                  * But not needed now so im just assuming no LOS block
                  */
                 //targetRangedClosestPlayer();
+
+                animator.SetBool("isAttacking", false);
+                animator.SetBool("isIdle", true);
                 targetClosestPlayer();
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -78,26 +92,35 @@ public class WandererClass : EnemyClass
                 * Maybe check if near to attack, maybe just change state on collision
                 */
 
-
+                animator.SetBool("isIdle", false);
+                animator.SetBool("isMoving", true);
                 // Move towards tartget but stay away at a minimuim length to avoid player fire
 
                 moveTowardsTarget0G();
 
                 // look at player
-                Vector3 direction = target.transform.position - transform.position;
-                transform.up = direction;
+                if (target != null)
+                {
+                    Vector3 direction = target.transform.position - transform.position;
+                    transform.up = direction;
+                }
 
                 if (playerInAtkZone == true)
                 {
                     StartCoroutine(delayShot());
-                    enemyState = State.Attacking;
+                    //enemyState = State.Attacking;
+                    changestate(4);
                 }
 
                 break;
 
 
             case State.Attacking:
-                Debug.Log("attacking");
+                //Debug.Log("attacking");
+
+                animator.SetBool("isIdle", false);
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", true);
 
                 if (canAttack == true)
                 {
@@ -108,7 +131,8 @@ public class WandererClass : EnemyClass
                 if (playerInAtkZone == false)
                 {
                     StopCoroutine(delayShot());
-                    enemyState = State.Targeting;
+                    //enemyState = State.Targeting;
+                    changestate(1);
                 }
                 break;
 
@@ -118,10 +142,33 @@ public class WandererClass : EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                itemDropLogic();
-                initiateDeath();
+                // Make sure death animation plays before enemy destruction 
+                StartCoroutine(WaitForDeathAnimation());
+
                 break;
         }
+    }
+
+    private IEnumerator WaitForDeathAnimation()
+    {
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isDeath", true);
+
+        // Wait for one frame to ensure that the animation has started
+        yield return null;
+
+        // Get the length of the current animation, which will be "isDeath"
+        float animationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Wait for the duration of the enemy death animation
+        yield return new WaitForSeconds(animationLength);
+
+        //Now the enemy dies after animation is done.
+        //itemDropLogic();
+        //initiateDeath();
+        StopCoroutine(WaitForDeathAnimation());
     }
 
     //How long should it take to fire at player
@@ -129,7 +176,7 @@ public class WandererClass : EnemyClass
     {
         canAttack = false;
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
 
         canAttack = true;
     }
@@ -138,6 +185,8 @@ public class WandererClass : EnemyClass
     private void fireShot()
     {   
         GameObject firedBullet = Instantiate(bulletPrefab, gunPoint.position, gunPoint.rotation);
+        firedBullet.transform.parent = transform.parent;
+
         Vector2 bulletDir = gunPoint.right ;
         firedBullet.GetComponent<Rigidbody2D>().velocity = bulletDir * bulletSpeed;
 
@@ -147,6 +196,6 @@ public class WandererClass : EnemyClass
         SpriteRenderer bulletRenderer = firedBullet.GetComponent<SpriteRenderer>();
         bulletRenderer.color = Color.red;
 
-        Debug.Log("shot fired");
+        //Debug.Log("shot fired");
     }
 }

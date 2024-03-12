@@ -8,33 +8,60 @@ using UnityEngine.Tilemaps;
 
 public class GasVentLogic : MonoBehaviour
 {
-    public Tilemap liquidTileMap;
-    public ParticleSystem myParticlePrefab;
-
-    private ParticleSystem.EmissionModule emission;
-    private Dictionary<GameObject, ParticleSystem> particleDictionary = new Dictionary<GameObject, ParticleSystem>();
+    Tilemap liquidTileMap;
+    ParticleSystem myParticlePrefab;
+    ParticleSystem.EmissionModule emission;
+    Dictionary<GameObject, ParticleSystem> particleDictionary = new Dictionary<GameObject, ParticleSystem>();
 
     public float speedReductionInGas = 0.001f;
-    public float gasVentDamage = 0.1f;
-    private float speedBeforeEnteredGas;
+    public float gasVentDamage = 0.05f;
+    //float speedBeforeEnteredGas;
 
     //Audio
-    public AudioSource audioSource;
+    AudioSource audioSource;
+
+    private void Start()
+    {
+        myParticlePrefab = Resources.Load<ParticleSystem>("GasVentParticles/GasRoomParticleSystem") as ParticleSystem;
+
+        liquidTileMap = FindChildWithTag(this.transform, "Floor", "Acid");
+
+        audioSource = this.GetComponent<AudioSource>();
+        audioSource.volume = 0.9f;
+    }
+
+    Tilemap FindChildWithTag(Transform parent, string tag, string childName)
+    {
+        Tilemap child = null;
+
+        foreach (Transform transform in parent)
+        {
+            if (transform.CompareTag(tag) && transform.name == childName)
+            {
+
+                child = transform.GetComponent<Tilemap>();
+                break;
+            }
+        }
+
+        return child;
+    }
 
     // Enter Gas logic
-    private void OnTriggerEnter2D(Collider2D collision) 
+    public void ReceiveOnTriggerEnter(Collider2D collision) 
     {
         if (collision.GetType() == typeof(CircleCollider2D))
         {
-            if (collision.gameObject.tag == "Player")
+            if (collision.gameObject.CompareTag("Player"))
             {
                 //Play gas sound if no players have entered gas yet
                 if (particleDictionary.Count == 0)
-                    audioSource.PlayOneShot(audioSource.clip);
+                    audioSource.Play();
+                    //audioSource.PlayOneShot(audioSource.clip);
 
-                //Instantiate a new particleSystem prefab &
-                //store current player's gameObject and particleSystem as key values in a dictionary
-                ParticleSystem myParticle = Instantiate(
+                    //Instantiate a new particleSystem prefab &
+                    //store current player's gameObject and particleSystem as key values in a dictionary
+                    ParticleSystem myParticle = Instantiate(
                     myParticlePrefab,
                     collision.gameObject.transform.position,
                     Quaternion.identity);
@@ -45,23 +72,23 @@ public class GasVentLogic : MonoBehaviour
                 emission.enabled = true;
                 myParticle.Play();
 
-                // Reduce some player stats 
-                var plrScript = collision.GetComponent<PlayerController>();
-                speedBeforeEnteredGas = plrScript.MoveSpeed;
-                plrScript.MoveSpeed = speedReductionInGas;       
+                //Reduce some player stats
+               // var plrScript = collision.GetComponent<PlayerController>();
+               // speedBeforeEnteredGas = plrScript.MoveSpeed; //Bug
+               // plrScript.MoveSpeed = speedReductionInGas;
             }
         }
     }
 
     // Stay in Gas logic
-    private void OnTriggerStay2D(Collider2D collision)
+    public void ReceiveOnTriggerStay(Collider2D collision)
     {
 
         if (collision.GetType() == typeof(CircleCollider2D)
-            && collision.gameObject.tag == "Player")
+            && collision.gameObject.CompareTag("Player"))
         {
             // Take damage
-            var plrStats = collision.GetComponent<PlayerStats>(); //I know this is not efficient but will do for now
+            var plrStats = collision.GetComponent<PlayerStats>();
             plrStats.TakeDamage(gasVentDamage);
 
             //Prevent clamping in gas
@@ -72,31 +99,34 @@ public class GasVentLogic : MonoBehaviour
             particleDictionary[collision.gameObject].transform.position = collision.gameObject.transform.position;
         }
     }
-    
+
     // Exit Gas logic
-    private void OnTriggerExit2D(Collider2D collision) 
+    public void ReceiveOnTriggerExit(Collider2D collision)
     {
         if (collision.GetType() == typeof(CircleCollider2D))
         {
-            if (collision.gameObject.tag == "Player")
+            if (collision.gameObject.CompareTag("Player"))
             {
                 //Reset to default speed
-                var plrScript = collision.GetComponent<PlayerController>();
+                //var plrScript = collision.GetComponent<PlayerController>();
                 particleDictionary[collision.gameObject].Stop();
 
                 //Removes the current player's key value pair from dictionary and destroys their particleSystem
                 if (particleDictionary.Remove(collision.gameObject, out ParticleSystem particleSystem))
                 {
+
+                    particleSystem.Clear();
                     particleSystem.Stop();
-                    Destroy(particleSystem);
+                    var main = particleSystem.main;
+                    main.stopAction = ParticleSystemStopAction.Destroy;
                 }
 
                 //Stop gas sound if there are no players in gas
                 if (particleDictionary.Count == 0)
-                 audioSource.Stop();
+                    audioSource.Stop();
 
                 // Set players speed to normal
-                plrScript.MoveSpeed = speedBeforeEnteredGas; 
+                //plrScript = MoveSpeed = speedBeforeEnteredGas; //Bug
             }
         }
     }

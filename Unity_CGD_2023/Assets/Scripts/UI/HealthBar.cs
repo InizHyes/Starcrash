@@ -1,29 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class HealthBar : MonoBehaviour
 {
     private Slider slider;
-    //public TextMeshProUGUI healthCounter;
-    public GameObject playerStats;
+    public PlayerStats playerStats; // Assuming PlayerStats is a script
+    public GameObject emptySlider; /// refrence to the empoty health bar so sprite can be changed per player
+    public Sprite sliderSprite; /// refrence of slider sprite so it can be changed back
+    public Sprite downedSprite; /// will be changed to this when downed
 
-    private float currentHealth, maxHealth;
-    void Awake()
+
+    private void Awake()
     {
         slider = GetComponent<Slider>();
     }
 
-    void Update()
+    private void LateUpdate()
     {
-        currentHealth = playerStats.GetComponent<PlayerStats>().health;
-        maxHealth = playerStats.GetComponent<PlayerStats>().maxHealth;
+        if (playerStats != null)
+        {
+            // Access the health and maxHealth values from the PlayerStats script
+            float currentHealth = playerStats.health;
+            float maxHealth = playerStats.maxHealth;
 
-        float fillValue = currentHealth / maxHealth;
-        slider.value = fillValue;
+            // Update the slider value based on the player's health
+            float fillValue = currentHealth / maxHealth;
+            slider.value = fillValue;
 
-        //healthCounter.text = currentHealth + " / " + maxHealth;
+            /// Sean - this just changes the healthbar empty sprite to be DOWN in all caps, to change the image assign downSprite in the editor
+            if (playerStats.health <= 0 )
+            {
+                emptySlider.GetComponent<Image>().sprite = downedSprite;
+
+            }
+            else if (playerStats.health > 0 ) 
+            {
+                emptySlider.GetComponent<Image>().sprite = sliderSprite;
+            }
+        }
     }
 }

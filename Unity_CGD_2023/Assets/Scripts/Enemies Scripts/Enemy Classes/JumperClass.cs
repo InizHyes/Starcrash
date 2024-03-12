@@ -7,17 +7,22 @@ public class JumperClass : EnemyClass
 {
     [Header("Jumper Specific")]
     [SerializeField] private int moveSpeed = 200;
-    AudioSource sound;
-    public AudioClip spawnsound;
-    public AudioClip jumpsound;
+    
+
+    private Animator animator;
+
     private void Start()
     {
-        sound = GetComponent<AudioSource>();
         // Set starting state and variables
+        animator = GetComponent<Animator>();
+        
         initiateEnemy();
-        sound.clip = spawnsound;
-        sound.Play();
+        GetComponent<SFX>().PlaySound("");
         attackCooldownValue = 0f;
+
+        animator.SetBool("isMoving", false); // Enemey Moving animation bool
+        animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
     }
 
     private void Update()
@@ -29,7 +34,10 @@ public class JumperClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                enemyState = State.Targeting;
+                // Spawn with attack cooldown to prevent insta-jumping
+                attackCooldownValue = attackCooldown / 2;
+                //enemyState = State.Attacking;
+                changestate(4);
                 break;
 
             case State.Targeting:
@@ -39,10 +47,11 @@ public class JumperClass : EnemyClass
                  * But not needed now so im just assuming no LOS block
                  */
 
-
+                animator.SetBool("isAttacking", false);
 
                 targetClosestPlayer();
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -56,11 +65,14 @@ public class JumperClass : EnemyClass
                 * Maybe check if near to attack, maybe just change state on collision
                 */
 
+                animator.SetBool("isMoving", true);
+
                 pushTowardsPlayer();
 
                 // Start attack cooldown
                 attackCooldownValue = attackCooldown;
-                enemyState = State.Attacking;
+                //enemyState = State.Attacking;
+                changestate(4);
 
                 //moveTowardsTarget0G();
 
@@ -75,10 +87,14 @@ public class JumperClass : EnemyClass
                  * Used to wait and count down attack timer
                  */
 
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", true);
+
                 // Count-down timer
                 if (attackCooldwonLogic())
                 {
-                    enemyState = State.Targeting;
+                    //enemyState = State.Targeting;
+                    changestate(1);
                 }
 
                 break;
@@ -89,10 +105,32 @@ public class JumperClass : EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                itemDropLogic();
-                initiateDeath();
+                // Make sure death animation plays before enemy destruction 
+                StartCoroutine(WaitForDeathAnimation());
+
                 break;
         }
+    }
+
+    private IEnumerator WaitForDeathAnimation()
+    {
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isDeath", true);
+
+        // Wait for one frame to ensure that the animation has started
+        yield return null;
+
+        // Get the length of the current animation, which will be "isDeath"
+        float animationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Wait for the duration of the enemy death animation
+        yield return new WaitForSeconds(animationLength);
+
+        //Now the enemy dies after animation is done.
+        //itemDropLogic();
+        //initiateDeath();
+        StopCoroutine(WaitForDeathAnimation());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -118,7 +156,6 @@ public class JumperClass : EnemyClass
         rb.velocity = Vector2.zero;
         Vector2 playerDirection = (target.transform.position - this.transform.position).normalized;
         rb.AddForce(playerDirection * moveSpeed);
-        sound.clip = jumpsound;
-        sound.Play();
+        GetComponent<SFX>().PlaySound("");
     }
 }

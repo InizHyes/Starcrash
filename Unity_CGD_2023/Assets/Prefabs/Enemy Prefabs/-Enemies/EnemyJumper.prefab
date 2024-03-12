@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3469607613227155108}
   - component: {fileID: 4415298594212500451}
   - component: {fileID: -3327968747007741377}
+  - component: {fileID: -1491557388524067258}
   m_Layer: 0
   m_Name: EnemyJumper
   m_TagString: Enemy
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1595277615, guid: de98ff19fbe309c4ea26ec0e03bb733d, type: 3}
+  m_Sprite: {fileID: 414881286, guid: ddf72a5bddcc34f479fd0ec7c98bfff5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -102,17 +103,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dec4a7285380044b8d013f975835042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 30
+  armour: 0
+  meat: 0
+  showHitDuration: 0.2
+  bumpDamage: 1
+  attackCooldown: 5
   forceMultiplier: 1
   maxVelocity: {x: 100, y: 100}
-  spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
-  droppedObejcts:
-  - {fileID: 4249462830458335497, guid: 7fa2961ff40a8ba4d86515543563d845, type: 3}
+  moveForce: {x: 0, y: 0}
+  NPCdeathCheck: {fileID: 0}
+  droppedObejcts: []
   dropOdds: 1
-  attackCooldown: 5
-  moveSpeed: 200
-  spawnsound: {fileID: 8300000, guid: d6ec520119f200f47b6e145806baa424, type: 3}
-  jumpsound: {fileID: 8300000, guid: 4114d53b65b13c74d9d4a47ca17f50a2, type: 3}
+  moveSpeed: 400
 --- !u!50 &4771733949618339815
 Rigidbody2D:
   serializedVersion: 4
@@ -172,9 +175,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.01}
+  m_Offset: {x: 0, y: -0.13386181}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.56
 --- !u!95 &4415298594212500451
 Animator:
   serializedVersion: 5
@@ -185,7 +188,7 @@ Animator:
   m_GameObject: {fileID: 5551923173195952751}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bdc760a4950cbe34889faa93224c14ee, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -292,6 +295,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-1491557388524067258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5551923173195952751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5ff4576bf049b47983f3be01f60b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectMode: 0
+  randomizedOrder: 1
+  randomizedPitch: 1
+  minPitch: 0.75
+  maxPitch: 1.25
+  Sounds:
+  - action: 
+    audiosource: {fileID: 8300000, guid: 4114d53b65b13c74d9d4a47ca17f50a2, type: 3}
 --- !u!1001 &322799328100925177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -343,6 +366,18 @@ PrefabInstance:
     - target: {fileID: 4673264467691213418, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.13386181
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

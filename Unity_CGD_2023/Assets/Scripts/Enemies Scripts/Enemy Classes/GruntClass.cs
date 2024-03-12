@@ -7,22 +7,26 @@ public class GruntClass : EnemyClass
 {
     // Variable to store hitbox prefab
     private GameObject superHitbox;
-    AudioSource sound;
     [Header("Grunt Specific")]
     [SerializeField] private int attackTimer = 41;
+    [SerializeField] private int attackDamage = 2;
     private bool playerInAtkZone = false;
     private bool playerInConeZone = false;
     private Animator animate;
     //private BoxCollider2D playerDetect;
-    public AudioClip spawnsound;
-    public AudioClip swipe;
+
+    private Animator animator;
+
     void Start()
     {
-        sound = GetComponent<AudioSource>();
+        // Set starting state and variables
+        animator = GetComponent<Animator>();
         initiateEnemy();
         animate = GetComponent<Animator>(); // Maybe move into init function
-        sound.clip = spawnsound;
-        sound.Play();
+
+        animator.SetBool("isMoving", false); // Enemey Moving animation bool
+        animator.SetBool("isAttacking", false); // Enemey Attacking animation bool
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
     }
 
     private void Update()
@@ -31,7 +35,8 @@ public class GruntClass : EnemyClass
         {
             case State.Initiating:
                 targetClosestPlayer();
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -41,7 +46,10 @@ public class GruntClass : EnemyClass
                  * But not needed now so im just assuming no LOS block
                  */
 
-                enemyState = State.Moving;
+                animator.SetBool("isAttacking", false);
+
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -50,6 +58,9 @@ public class GruntClass : EnemyClass
                 break;
 
             case State.Moving:
+
+                animator.SetBool("isMoving", true);
+
                 // Attack timer logic
                 if (attackTimer < 100)
                 {
@@ -61,7 +72,8 @@ public class GruntClass : EnemyClass
                     {
                         animate.SetTrigger("gruntATTACK");
                         attackTimer = 0;
-                        enemyState = State.Attacking;
+                        //enemyState = State.Attacking;
+                        changestate(4);
                     }
                 }
                 
@@ -76,8 +88,12 @@ public class GruntClass : EnemyClass
                 * Maybe check if near to attack, maybe just change state on collision
                 */
                 moveTowardsTarget0G();
-                Vector3 direction = target.transform.position - transform.position; // look at player
-                transform.up = direction;
+
+                if (target != null)
+                {
+                    Vector3 direction = target.transform.position - transform.position; // look at player
+                    transform.up = direction;
+                }
 
                 // Get collision from child triggers
                 Transform atkZoneTransform = transform.Find("DetectAttackZone");
@@ -105,6 +121,10 @@ public class GruntClass : EnemyClass
                 break;
 
             case State.Attacking:
+
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", true);
+
                 if (attackTimer == 2)
                 {
                     lungeForward();
@@ -114,8 +134,7 @@ public class GruntClass : EnemyClass
                 {
                     if (attackTimer == 45)
                     {
-                        sound.clip = swipe;
-                        sound.Play();
+                        GetComponent<SFX>().PlaySound("");
                         /* before the animation finishes, 
                          * will spawn a hitbox prefab (ideally 0.25 seconds) in
                          * that damages the player tag & self deletes */
@@ -125,7 +144,8 @@ public class GruntClass : EnemyClass
                 }
                 else
                 {
-                    enemyState = State.Moving;
+                    //enemyState = State.Moving;
+                    changestate(3);
                     attackTimer = 0;
                 }
 
@@ -137,11 +157,34 @@ public class GruntClass : EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                itemDropLogic();
-                initiateDeath();
+                // Make sure death animation plays before enemy destruction 
+                StartCoroutine(WaitForDeathAnimation());
+
                 break;
         }
     }
+
+    private IEnumerator WaitForDeathAnimation()
+    {
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isDeath", true);
+
+        // Wait for one frame to ensure that the animation has started
+        yield return null;
+
+        // Get the length of the current animation, which will be "isDeath"
+        float animationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Wait for the duration of the enemy death animation
+        yield return new WaitForSeconds(animationLength);
+
+        //Now the enemy dies after animation is done.
+        //itemDropLogic();
+        //initiateDeath();
+        StopCoroutine(WaitForDeathAnimation());
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -170,7 +213,7 @@ public class GruntClass : EnemyClass
             if (hitboxScript != null)
             {
                 // Set relevant variable information for the hitbox (IMPORTANT)
-                hitboxScript.damageAmount = 10;
+                hitboxScript.damageAmount = attackDamage;
                 hitboxScript.size = new Vector2(0.6f, 0.8f); // these numbers need to be very small lol
                 hitboxScript.rotationAngle = transform.eulerAngles.z;
                 hitboxScript.offsetAmount = new Vector2(0f, 0.2f);

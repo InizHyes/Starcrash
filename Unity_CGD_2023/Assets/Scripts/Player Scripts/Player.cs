@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     public float SpeedCap = 10;
     public int player = 0;
-    [SerializeField] private InputActionReference movement, attack, rotate, stickToSurface, WeaponSwapDown, WeaponSwapUp;
+    [SerializeField] private InputActionReference movement, attack, rotate, stickToSurface, WeaponSwapDown, WeaponSwapUp, Reload;
     private bool shoot = false;
 
     [SerializeField] public PlayerInput playerinput;
@@ -40,18 +40,21 @@ public class PlayerController : MonoBehaviour
     private InputAction look;
 
     PauseMenu pauseMenu;
-    Interactable currentInteractable;
+/*    Interactable currentInteractable;*/
 
     /// Bullet work again, whilst very angry due to github eating all my work, apologies if it doesn't work yet - Arch
     shootingScript shooting;
 
-    // Weapon swapping using player controls - Arch
+    // Weapon swapping and reloading using player controls - Arch
     private InputAction swapBack;
     private InputAction swapForward;
+    private InputAction reloadInput;
     private bool swapForwardButton = false;
     private bool swapBackButton = false;
+    private bool reloadButton = false;
     public bool swapForwardTriggered = false;
     public bool swapBackTriggered = false;
+    public bool reloadTriggered = false;
 
     //Audio
     public AudioSource audioSource; // Add ClampSound as audio source
@@ -63,6 +66,7 @@ public class PlayerController : MonoBehaviour
         playerControl = inputAsset.FindActionMap("PlayerControls");
         menuControl = inputAsset.FindActionMap("MenuControls"); /// only janky thing about it is the "" for each control map variable name, but it works!
         pauseMenu = FindObjectOfType<PauseMenu>();
+        
     }
 
 
@@ -74,11 +78,11 @@ public class PlayerController : MonoBehaviour
         look = playerControl.FindAction("Look");
         playerControl.FindAction("Pause").started += i => Pause();
         menuControl.FindAction("Resume").started += i => Resume();
-        playerControl.FindAction("Interact").started += i => Interact();
+/*        playerControl.FindAction("Interact").started += i => Interact();*/
         playerControl.FindAction("Lockdown").started += stickingToSurface;
         playerControl.FindAction("WeaponSwapUp").started += WeaponSwappingUp;
         playerControl.FindAction("WeaponSwapDown").started += WeaponSwappingDown;
-
+        playerControl.FindAction("Reload").started += ReloadPressed;
 
     }
 
@@ -89,9 +93,10 @@ public class PlayerController : MonoBehaviour
         playerControl.FindAction("Lockdown").started -= stickingToSurface;
         playerControl.FindAction("Pause").started -= i => Pause();
         menuControl.FindAction("Resume").started -= i => Resume();
-        playerControl.FindAction("Interact").started -= i => Interact();
+/*        playerControl.FindAction("Interact").started -= i => Interact();*/
         playerControl.FindAction("WeaponSwapUp").started -= WeaponSwappingUp;
         playerControl.FindAction("WeaponSwapDown").started -= WeaponSwappingDown;
+        playerControl.FindAction("Reload").started -= ReloadPressed;
     }
 
 
@@ -117,13 +122,18 @@ public class PlayerController : MonoBehaviour
         swapBackButton = true;
     }
 
-    private void Interact()
+    private void ReloadPressed(InputAction.CallbackContext context)
+    {
+        reloadButton = true;
+    }
+
+ /*   private void Interact()
     {
         if (currentInteractable != null)
         {
             currentInteractable.Interact();
         }
-    }
+    }*/
     public void SwitchActionMapToPlayer()
     {
         playerinput.SwitchCurrentActionMap("PlayerControls");
@@ -136,16 +146,14 @@ public class PlayerController : MonoBehaviour
     private void AttackPressed(InputAction.CallbackContext context) ///makes shoot true which makes the chcrater shoot in update
     {
         shoot = true;
-        
     }
 
     private void AttackReleased(InputAction.CallbackContext context) ///makes shoot flase on release
     {
         shoot = false;
-
-
-
     }
+
+
     //Make clamp sound here
     private void stickingToSurface(InputAction.CallbackContext context) ///used to make the player "stick" to the ground. Starts timer to initilise 
     {
@@ -171,10 +179,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentInteractable = FindAnyObjectByType<Interactable>();
+/*        currentInteractable = FindAnyObjectByType<Interactable>();*/
         lastVelocity = rb.velocity;
+
+        if (reloadButton)
+        {
+            reloadTriggered = true;
+            reloadButton = false;
+        }
+
         shooting = GetComponentInChildren<shootingScript>();
-        shooting.Shoot(player, shoot);
+        shooting.Shoot(shoot, reloadTriggered);
 
         if (!sticking)
         {

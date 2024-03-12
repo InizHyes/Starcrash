@@ -11,16 +11,14 @@ public class LaserSniperClass : EnemyClass
     public int laserDamage = 1; // This is public but should not be accessed outside of Laserdetection Script
     //bool laserReference = false;
     //private BoxCollider2D playerDetect;
-    AudioSource sound;
-    public AudioClip spawnsound;
-    public AudioClip shootsound;
+    
+    
     private void Start()
     {
         // Set starting state and variables
-        sound = GetComponent<AudioSource>();
+
         initiateEnemy();
-        sound.clip = spawnsound;
-        sound.Play();
+
     }
 
     private void Update()
@@ -29,7 +27,8 @@ public class LaserSniperClass : EnemyClass
         {
             case State.Initiating:
                 targetClosestPlayer();
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -39,7 +38,8 @@ public class LaserSniperClass : EnemyClass
                  * But not needed now so im just assuming no LOS block
                  */
 
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -50,15 +50,19 @@ public class LaserSniperClass : EnemyClass
                 if (attackTimer > 199)
                 {
                     attackTimer = 0;
-                    enemyState = State.Attacking;
+                    //enemyState = State.Attacking;
+                    changestate(4);
                 }
                 if (attackTimer < 200)
                 {
                     attackTimer = attackTimer + 1;
                 }
 
-                Vector3 direction = target.transform.position - transform.position; // look at player
-                transform.right = direction;
+                if (target != null)
+                {
+                    Vector3 direction = target.transform.position - transform.position; // look at player
+                    transform.right = direction;
+                }
                 break;
 
             case State.Attacking:
@@ -75,14 +79,15 @@ public class LaserSniperClass : EnemyClass
                         script.laserState = 2;
                         if (attackTimer == 251)
                         {
-                            sound.clip = shootsound;
-                            sound.Play();
+                            GetComponent<SFX>().PlaySound("");
                         }
                         if (attackTimer > 400)
                         {
                             script.laserState = 0;
                             attackTimer = 1;
-                            enemyState = State.Targeting;
+                            //enemyState = State.Targeting;
+                            changestate(1);
+                            targetClosestPlayer();
                         }
                     }
                 }
@@ -100,8 +105,8 @@ public class LaserSniperClass : EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                itemDropLogic();
-                initiateDeath();
+                //itemDropLogic();
+                //initiateDeath();
                 break;
         }
     }

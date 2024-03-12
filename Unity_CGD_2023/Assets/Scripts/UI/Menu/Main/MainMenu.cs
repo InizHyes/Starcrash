@@ -19,6 +19,11 @@ public class MainMenu : MonoBehaviour
             CloseAllScreens();
             menuScreen.SetActive(true);
         }
+/*
+        if (Input.anyKeyDown != false)
+        {
+            GetComponent<SFX>().PlaySound("");
+        }*/
     }
 
     public void CloseAllScreens()

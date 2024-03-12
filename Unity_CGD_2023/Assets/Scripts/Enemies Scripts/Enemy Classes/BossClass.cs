@@ -16,12 +16,12 @@ public class BossClass : EnemyClass
 
     // Damageable
     private bool vulnerable = false; // Use setVulnerability() to change
-    private int maxHealth = 0;
+    private float maxHealth = 0;
     private int threshold = 0;
 
     // Attack zones
     [Header("Boss Specific")]
-    [SerializeField] private float rotationSpeed = 100;
+    //[SerializeField] private float rotationSpeed = 100;
 
     //Death
     [SerializeField] private GameObject fade;
@@ -96,7 +96,11 @@ public class BossClass : EnemyClass
 
                 // Point attack at player
                 //transform.forward = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotationSpeed * Time.deltaTime, 1);
-                transform.right = target.transform.position - transform.position;
+                if (target != null)
+                {
+                    //---Bug: doesnt look at player correctly on the left, re-write code---
+                    transform.right = target.transform.position - transform.position;
+                }
 
                 break;
 

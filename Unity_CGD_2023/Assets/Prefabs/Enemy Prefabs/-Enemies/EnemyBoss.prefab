@@ -187,14 +187,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 99
+  armour: 0
+  meat: 0
   bumpDamage: 1
+  attackCooldown: 5
   forceMultiplier: 1
   maxVelocity: {x: 100, y: 100}
-  spawnLogic: {fileID: 2219450776964173885, guid: 72f2f10fe4052744d94bed680bf2ba48, type: 3}
+  moveForce: {x: 0, y: 0}
+  NPCdeathCheck: {fileID: 0}
   droppedObejcts: []
   dropOdds: 1
-  attackCooldown: 5
-  rotationSpeed: 100
   fade: {fileID: 0}
   bossAttackZone1: {fileID: 4794062844195825640}
   attack1Damage: 1
@@ -259,7 +261,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.03, y: -0.15}
   serializedVersion: 2
   m_Radius: 0.5
 --- !u!95 &5521912966485998993
@@ -427,7 +429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7130343339846119025, guid: 52fd3fa985af96d48833b3a8607f3e9b, type: 3}
       propertyPath: m_Radius
-      value: 0.66
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
