@@ -8,11 +8,13 @@ public class SFX : MonoBehaviour
     {
         RepeatingSound,
         CertainSound,
+        BackgroundMusic
         
     }
 
     public ShowValueEnum SelectMode = ShowValueEnum.RepeatingSound;
 
+    public float volume = 1.0f;
 
     [DrawIf("SelectMode", ShowValueEnum.RepeatingSound)]
     public bool randomizedOrder;
@@ -34,6 +36,7 @@ public class SFX : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = volume;
     }
 
     public void PlaySound(string actionName)
@@ -41,6 +44,7 @@ public class SFX : MonoBehaviour
 
         if (SelectMode == ShowValueEnum.RepeatingSound)
         {
+            audioSource.loop = false;
             if (randomizedOrder)
             {
                 audioSource.clip = Sounds[Random.Range(0, Sounds.Length)].audiosource;
@@ -59,6 +63,7 @@ public class SFX : MonoBehaviour
 
         if (SelectMode == ShowValueEnum.CertainSound)
         {
+            audioSource.loop = false;
             for (int i = 0; i < Sounds.Length; i++)
             {
                 if (actionName == Sounds[i].action)
@@ -74,10 +79,43 @@ public class SFX : MonoBehaviour
             }
         }
 
+        if (SelectMode == ShowValueEnum.BackgroundMusic)
+        {
+            audioSource.loop = true;
+            for (int i = 0; i < Sounds.Length; i++)
+            {
+                if (actionName == Sounds[i].action)
+                {
+                    audioSource.clip = Sounds[i].audiosource;
+                }
+            }
+        }
+
 
         audioSource.Play();
     }
 
+    public void PlayReversed(string actionName)
+    {
+        audioSource.pitch = -1.0f;
+        for (int i = 0; i < Sounds.Length; i++)
+        {
+            if (actionName == Sounds[i].action)
+            {
+                audioSource.clip = Sounds[i].audiosource;
+                audioSource.time = audioSource.clip.length - 0.01f;
+                audioSource.Play();
+            }
+        }
+    }
+
+    public void StopSound()
+    {
+        audioSource.loop = false;
+        audioSource.Stop();
+    }
+
+    
 
     [System.Serializable]
     public class ArrayOfSongs
