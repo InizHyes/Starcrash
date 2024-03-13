@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class shootingScript : MonoBehaviour
 {
@@ -21,6 +19,9 @@ public class shootingScript : MonoBehaviour
 
     [SerializeField]
     private GameObject bullet;
+
+    [SerializeField]
+    public int damagePerHit; //not implemented, change public damage int on corresponding bullet (attached to shootingScript)
 
     [SerializeField]
     private float fireRate;
@@ -69,6 +70,10 @@ public class shootingScript : MonoBehaviour
 
     private bool finishedReload = true;
 
+    private bool noMag;
+
+    private bool reloadStarted;
+
     public bool playMuzzleSmoke;
 
     private Vector3 playerPos;
@@ -93,6 +98,8 @@ public class shootingScript : MonoBehaviour
         playerPos = newPlayer.gameObject.transform.position;
 
         ammoLoaded = magSize;
+        reloadStarted = false;
+        noMag = false;
         totalAmmoAllowed = magSize + maxAmmoReserves;
         totalAmmoHeld = ammoLoaded + ammoReserve;
         maximumAmmoPickup = totalAmmoAllowed - totalAmmoHeld;
@@ -105,18 +112,14 @@ public class shootingScript : MonoBehaviour
 
         if (!finishedReload)
         {
-            return;
-        }
-
-        if (ReloadInput)
-        {
-
-            StartCoroutine(Reload());
+            if(reloadStarted)
+            {
+                StartCoroutine(Reload());
+            }
             return;
 
         }
-
-        if (ammoLoaded > 0)
+        else if (ammoLoaded > 0)
         {
             if (ShootInput)
             {
@@ -128,6 +131,17 @@ public class shootingScript : MonoBehaviour
 
             }
         }
+        else
+        {
+            StartCoroutine(Reload());
+        }
+        /*if (ReloadInput)
+        {
+
+            StartCoroutine(Reload());
+            return;
+
+        }*/
 
     }
 
@@ -138,7 +152,7 @@ public class shootingScript : MonoBehaviour
         for (int i = 0; i < numberOfBullets; i++)
         {
             ForceDir = newPlayer.shootDirection;
-            readyToShoot = Time.time + 1 / fireRate;
+            
             //Player.ForceToApply = (ForceDir * recoilPower * -1.0f); //Part of Sean's recoil scripting         
             newPlayer.rb.AddForce(-ForceDir * recoilPower, ForceMode2D.Impulse);
             GetComponent<SFX>().PlaySound("Gun Shot");
@@ -148,25 +162,39 @@ public class shootingScript : MonoBehaviour
             Vector2 bulletDir = gunPoint.right;
             Vector2 spreader = Vector2.Perpendicular(bulletDir) * Random.Range(-spread, spread);
             firedBullet.GetComponent<Rigidbody2D>().velocity = (bulletDir + spreader) * bulletSpeed; //adds force to the bullet - Arch
+            
         }
+        readyToShoot = Time.time + (1 / fireRate);
     }
 
     private IEnumerator Reload()
     {
-        //Debug.Log("Reload");
+        if(!reloadStarted)
+        {
+            GetComponent<SFX>().PlaySound("Unload");
 
-        GetComponent<SFX>().PlaySound("Unload");
+        }
 
+        reloadStarted = true;
         finishedReload = false;
+        noMag = true;
+
 
         yield return new WaitForSeconds(reloadTime);
 
-        GetComponent<SFX>().PlaySound("Reload");
-
         ammoLoaded = magSize;
         newPlayer.reloadTriggered = false;
+
         finishedReload = true;
+        reloadStarted = false;
         ammoReserve -= (magSize - ammoLoaded);
+
+        if (noMag) { GetComponent<SFX>().PlaySound("Reload"); noMag = false; }
+        
+        
+        
+
+
     }
 }
 
