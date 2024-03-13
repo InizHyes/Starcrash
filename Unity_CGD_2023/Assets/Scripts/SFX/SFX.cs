@@ -27,6 +27,7 @@ public class SFX : MonoBehaviour
     [DrawIf("randomizedPitch", true)]
     public float maxPitch;
 
+    public bool playToCompletion = false; //feature to enable/disable overriding sound playing from a specific source
     
     public ArrayOfSongs[] Sounds;
 
@@ -91,8 +92,14 @@ public class SFX : MonoBehaviour
             }
         }
 
-
-        audioSource.Play();
+        if(playToCompletion)//checks bool setting
+        {
+            audioSource.PlayOneShot(audioSource.clip);//plays clip to completion on trigger
+        }
+        else
+        {
+            audioSource.Play();//plays clip on trigger
+        }
     }
 
     public void PlayReversed(string actionName)
@@ -104,7 +111,14 @@ public class SFX : MonoBehaviour
             {
                 audioSource.clip = Sounds[i].audiosource;
                 audioSource.time = audioSource.clip.length - 0.01f;
-                audioSource.Play();
+                if (playToCompletion)
+                {
+                    audioSource.PlayOneShot(audioSource.clip);
+                }
+                else
+                {
+                    audioSource.Play();
+                }
             }
         }
     }
