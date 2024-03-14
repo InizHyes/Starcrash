@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class shootingScript : MonoBehaviour
 {
@@ -87,6 +88,9 @@ public class shootingScript : MonoBehaviour
 
     private SFX gunSound;
 
+    [SerializeField]
+    private GameObject muzzleLight;
+
     private void Start()
     {
         
@@ -99,6 +103,8 @@ public class shootingScript : MonoBehaviour
         newPlayer = GetComponentInParent<Player>();
 
         gunSound = GetComponent<SFX>();
+
+        muzzleLight.SetActive(false);
 
         playerPos = newPlayer.gameObject.transform.position;
 
@@ -154,9 +160,11 @@ public class shootingScript : MonoBehaviour
 
             if (Time.time > readyToShoot)
             {
+                muzzleLight.SetActive(false);
                 reloadText.SetActive(false);
                 if (ShootInput)
                 {
+                    muzzleFlashStartEffect();
                     FireBullet();
                     //HapticManager.PlayEffect(gunShotRumble, newPlayer.gameObject.transform.position);
                 }
@@ -184,7 +192,7 @@ public class shootingScript : MonoBehaviour
         ForceDir = newPlayer.shootDirection;
         newPlayer.rb.AddForce(-ForceDir * recoilPower, ForceMode2D.Impulse);
         gunSound.PlaySound("Gun Shot");
-
+        
         for (int i = 0; i < numberOfBullets; i++)
         {
             
@@ -221,6 +229,8 @@ public class shootingScript : MonoBehaviour
     {
         if (!reloadStarted)
         {
+            gunSound.maxPitch = 1f;
+            gunSound.minPitch = 1f;
             gunSound.PlaySound("Unload");
             readyToShoot = Time.time + (reload.length);
         }
@@ -245,8 +255,25 @@ public class shootingScript : MonoBehaviour
 
         ammoReserve -= (magSize - ammoLoaded);
 
-        if (noMag) { gunSound.PlaySound("Reload"); noMag = false; }
+        if (noMag) 
+        {
+            gunSound.maxPitch = 1f;
+            gunSound.minPitch = 1f;
+            gunSound.PlaySound("Reload"); 
+            noMag = false; 
+        }
 
+    }
+
+    private void muzzleFlashStartEffect()
+    {
+        muzzleLight.SetActive(true);
+        Invoke("muzzleFlashEndEffect", 0.02f);
+    }
+
+    private void muzzleFlashEndEffect()
+    {
+        muzzleLight.SetActive(false);
     }
 }
 
