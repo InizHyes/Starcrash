@@ -56,7 +56,10 @@ public class TeleportOnCollision : MonoBehaviour
     private void ResetHealth(GameObject player)
     {
         stats = player.GetComponent<PlayerStats>();
-        stats.health = stats.maxHealth;
+        if (stats.health < 70)
+        {
+            stats.health = 70;
+        }
         Debug.Log(stats.health);
     }
 
