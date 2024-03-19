@@ -222,7 +222,7 @@ public class SpawnLogic : MonoBehaviour
             initiateDeathCheck = collision.GetComponent<EnemyClass>(); // Find the function
             initiateDeathCheck.initiateDeath(); // Kill the enemy
 
-            NPCdeath(); // Run function from within this script
+            //NPCdeath(); // Run function from within this script
             Debug.Log("Enemy went out side spawn zone");
         }
     }

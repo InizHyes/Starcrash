@@ -202,7 +202,7 @@ public class EnemyClass : MonoBehaviour
         /*
          * Runs general functions for on death
          */
-        if (NPCdeathCheck != null)
+        if (NPCdeathCheck != null && enemyState != State.Dead)
         {
             NPCdeathCheck.NPCdeath();
         }
