@@ -12,10 +12,15 @@ public class ExploderClass : EnemyClass
     [SerializeField][Tooltip("The higher the number the weaker the slow down on collision")] private float slowDown = 1f;
     public float deathLinger = 1f;
 
+    private Animator animator;
+
     private void Start()
     {
         // Set starting state and variables
+        animator = GetComponent<Animator>();
         initiateEnemy();
+
+        animator.SetBool("isDeath", false); // Enemey Death animation bool
 
         exploderAOE.gameObject.SetActive(false);
     }
@@ -29,7 +34,8 @@ public class ExploderClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -38,7 +44,8 @@ public class ExploderClass : EnemyClass
                  */
 
                 targetClosestPlayer();
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -86,6 +93,10 @@ public class ExploderClass : EnemyClass
                  * Lingers for a while
                  */
 
+                // Make sure death animation plays before enemy destruction 
+                StartCoroutine(WaitForDeathAnimation());
+
+                /*
                 // Wait after death
                 if (deathLinger > 0)
                 {
@@ -96,9 +107,29 @@ public class ExploderClass : EnemyClass
                     itemDropLogic();
                     initiateDeath();
                 }
+                */
 
                 break;
         }
+    }
+
+    private IEnumerator WaitForDeathAnimation()
+    {
+        animator.SetBool("isDeath", true);
+
+        // Wait for one frame to ensure that the animation has started
+        yield return null;
+
+        // Get the length of the current animation, which will be "isDeath"
+        float animationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Wait for the duration of the enemy death animation
+        yield return new WaitForSeconds(animationLength);
+
+        //Now the enemy dies after animation is done.
+        //itemDropLogic();
+        //initiateDeath();
+        StopCoroutine(WaitForDeathAnimation());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -121,7 +152,7 @@ public class ExploderClass : EnemyClass
          * Modified to explode instead
          */
 
-        if (collider.gameObject.tag == "Player")
+                if (collider.gameObject.tag == "Player")
         {
             if (enemyState == State.Moving)
             {
@@ -139,7 +170,8 @@ public class ExploderClass : EnemyClass
     {
         // Set AOE active
         exploderAOE.gameObject.SetActive(true);
-        enemyState = State.Attacking;
+        //enemyState = State.Attacking;
+        changestate(4);
     }
 
     public override void damageDetection(int damage)
@@ -164,6 +196,7 @@ public class ExploderClass : EnemyClass
     public void deathStateChange()
     {
         // Needed by Exploder AOE
-        enemyState = State.Dead;
+        //enemyState = State.Dead;
+        changestate(5);
     }
 }

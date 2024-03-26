@@ -62,7 +62,8 @@ public class WandererClass : EnemyClass
                 animator.SetBool("isIdle", true);
 
 
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -76,7 +77,8 @@ public class WandererClass : EnemyClass
                 animator.SetBool("isAttacking", false);
                 animator.SetBool("isIdle", true);
                 targetClosestPlayer();
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -106,7 +108,8 @@ public class WandererClass : EnemyClass
                 if (playerInAtkZone == true)
                 {
                     StartCoroutine(delayShot());
-                    enemyState = State.Attacking;
+                    //enemyState = State.Attacking;
+                    changestate(4);
                 }
 
                 break;
@@ -128,7 +131,8 @@ public class WandererClass : EnemyClass
                 if (playerInAtkZone == false)
                 {
                     StopCoroutine(delayShot());
-                    enemyState = State.Targeting;
+                    //enemyState = State.Targeting;
+                    changestate(1);
                 }
                 break;
 
@@ -162,8 +166,8 @@ public class WandererClass : EnemyClass
         yield return new WaitForSeconds(animationLength);
 
         //Now the enemy dies after animation is done.
-        itemDropLogic();
-        initiateDeath();
+        //itemDropLogic();
+        //initiateDeath();
         StopCoroutine(WaitForDeathAnimation());
     }
 

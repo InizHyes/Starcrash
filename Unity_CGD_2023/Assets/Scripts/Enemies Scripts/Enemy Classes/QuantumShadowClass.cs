@@ -43,7 +43,8 @@ public class QuantumShadowClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -56,7 +57,8 @@ public class QuantumShadowClass : EnemyClass
                 QSabilityOn();
 
                 targetClosestPlayer();
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -111,7 +113,8 @@ public class QuantumShadowClass : EnemyClass
                 if (attackCooldwonLogic())
                 {
                     hasShot = false;
-                    enemyState = State.Targeting;
+                    //enemyState = State.Targeting;
+                    changestate(1);
                 }
 
                 else
@@ -154,8 +157,8 @@ public class QuantumShadowClass : EnemyClass
         yield return new WaitForSeconds(animationLength);
 
         //Now the enemy dies after animation is done.
-        itemDropLogic();
-        initiateDeath();
+        //itemDropLogic();
+        //initiateDeath();
         StopCoroutine(WaitForDeathAnimation());
     }
     private void QSabilityOn()

@@ -35,7 +35,8 @@ public class GruntClass : EnemyClass
         {
             case State.Initiating:
                 targetClosestPlayer();
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -47,7 +48,8 @@ public class GruntClass : EnemyClass
 
                 animator.SetBool("isAttacking", false);
 
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -70,7 +72,8 @@ public class GruntClass : EnemyClass
                     {
                         animate.SetTrigger("gruntATTACK");
                         attackTimer = 0;
-                        enemyState = State.Attacking;
+                        //enemyState = State.Attacking;
+                        changestate(4);
                     }
                 }
                 
@@ -141,7 +144,8 @@ public class GruntClass : EnemyClass
                 }
                 else
                 {
-                    enemyState = State.Moving;
+                    //enemyState = State.Moving;
+                    changestate(3);
                     attackTimer = 0;
                 }
 
@@ -176,8 +180,8 @@ public class GruntClass : EnemyClass
         yield return new WaitForSeconds(animationLength);
 
         //Now the enemy dies after animation is done.
-        itemDropLogic();
-        initiateDeath();
+        //itemDropLogic();
+        //initiateDeath();
         StopCoroutine(WaitForDeathAnimation());
     }
 

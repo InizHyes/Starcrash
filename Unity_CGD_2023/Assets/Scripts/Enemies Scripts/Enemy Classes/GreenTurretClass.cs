@@ -35,7 +35,8 @@ public class GreenTurretClass : EnemyClass
         {
             case State.Initiating:
                 targetClosestPlayer();
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -45,7 +46,8 @@ public class GreenTurretClass : EnemyClass
                  * But not needed now so im just assuming no LOS block
                  */
 
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -56,7 +58,8 @@ public class GreenTurretClass : EnemyClass
                 if (attackTimer > 19)
                 {
                     attackTimer = 0;
-                    enemyState = State.Attacking;
+                    //enemyState = State.Attacking;
+                    changestate(4);
                 }
                 if (attackTimer < 20)
                 {
@@ -124,7 +127,8 @@ public class GreenTurretClass : EnemyClass
                         {
                             script.laserState = 0;
                             attackTimer = 0;
-                            enemyState = State.Targeting;
+                            //enemyState = State.Targeting;
+                            changestate(1);
                             targetClosestPlayer();
                         }
                     }
@@ -143,8 +147,8 @@ public class GreenTurretClass : EnemyClass
                  * Can run death animation before running these functions
                  */
 
-                itemDropLogic();
-                initiateDeath();
+                //itemDropLogic();
+                //initiateDeath();
                 break;
         }
     }

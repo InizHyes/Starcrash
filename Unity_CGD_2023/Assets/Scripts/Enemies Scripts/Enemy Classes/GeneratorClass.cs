@@ -32,7 +32,8 @@ public class GeneratorClass : EnemyClass
 
                 if (health <= 0 || (Input.GetKeyDown(KeyCode.Backspace)))
                 {
-                    enemyState = State.Dead;
+                    //enemyState = State.Dead;
+                    changestate(5);
                 }
 
                 break;
@@ -67,8 +68,8 @@ public class GeneratorClass : EnemyClass
 
         //Now the enemy dies after animation is done.
         animator.enabled = false;
-        itemDropLogic();
-        initiateDeath();
+        //itemDropLogic();
+        //initiateDeath();
         StopCoroutine(WaitForDeathAnimation());
     }
 }

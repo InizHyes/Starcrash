@@ -58,7 +58,8 @@ public class SlimeClass : EnemyClass
                  * Starting state, used to run one-off functions for spawning
                  */
 
-                enemyState = State.Targeting;
+                //enemyState = State.Targeting;
+                changestate(1);
                 break;
 
             case State.Targeting:
@@ -67,7 +68,8 @@ public class SlimeClass : EnemyClass
                  */
 
                 targetClosestPlayer();
-                enemyState = State.Moving;
+                //enemyState = State.Moving;
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -102,7 +104,8 @@ public class SlimeClass : EnemyClass
                 // Count-down timer
                 if (attackCooldwonLogic())
                 {
-                    enemyState = State.Targeting;
+                    //enemyState = State.Targeting;
+                    changestate(1);
                 }
 
                 break;
@@ -208,8 +211,8 @@ public class SlimeClass : EnemyClass
         yield return new WaitForSeconds(deathAnimationDuration);
 
         // Perform item drop logic and initiate death after the pause
-        itemDropLogic();
-        initiateDeath();
+        //itemDropLogic();
+        //initiateDeath();
     }
 
     private void ChangeEnemyColor()

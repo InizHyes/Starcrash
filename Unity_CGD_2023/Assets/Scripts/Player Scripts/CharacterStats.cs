@@ -11,7 +11,7 @@ public class CharacterStats : MonoBehaviour
     [SerializeField] public float health;
 
     [Header("Stats Flags")]
-    [SerializeField] protected bool isDead;
+    [SerializeField] public bool isDead;
 
     
 

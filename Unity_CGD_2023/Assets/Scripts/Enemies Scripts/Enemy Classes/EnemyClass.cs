@@ -56,7 +56,8 @@ public class EnemyClass : MonoBehaviour
          * Health, state, spawnLogic, etc.
          */
 
-        enemyState = State.Initiating;
+        //enemyState = State.Initiating;
+        changestate(0);
         rb = GetComponent<Rigidbody2D>();
 
         // Set on instantiaion by SpawnLogic instead
@@ -182,7 +183,9 @@ public class EnemyClass : MonoBehaviour
         // Check if dead after damage detection
         if (health <= 0)
         {
-            enemyState = State.Dead;
+            //enemyState = State.Dead;
+            changestate(5);
+
             /*
              * Change state instead, move this to function
              * This is so different enemies can drop different items on death
@@ -231,11 +234,28 @@ public class EnemyClass : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// <para>0 - Initiating</para>
+    /// <para>1 - Targeting</para>
+    /// <para>2 - Pathfinding</para>
+    /// <para>3 - Moving</para>
+    /// <para>4 - Attacking</para>
+    /// <para>5 - Dead</para>
+    /// </summary>
     public void changestate(int stateValue)
     {
-        if (enemyState != State.Dead)
+        if (stateValue == 5)
         {
-            enemyState = (State)Mathf.Clamp(stateValue, 0, 4);
+            // Death state, run one-off death functions
+            itemDropLogic();
+            initiateDeath();
+
+            enemyState = (State)Mathf.Clamp(stateValue, 0, 5);
+        }
+
+        else if (enemyState != State.Dead)
+        {
+            enemyState = (State)Mathf.Clamp(stateValue, 0, 5);
         }
     }
 

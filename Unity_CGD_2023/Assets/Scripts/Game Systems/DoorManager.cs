@@ -5,6 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class DoorManager : MonoBehaviour
 {
+    public RoomManager roomManager; // Reference to the RoomManager script
+
     public void OpenDoors()
     {
         // Find all game objects with the tag "LockedDoor"
@@ -16,6 +18,9 @@ public class DoorManager : MonoBehaviour
             door.GetComponent<TilemapRenderer>().enabled = false;
             door.GetComponent<TilemapCollider2D>().enabled = false;
         }
+
+        // Increment the numberOfRoomsCompleted variable in RoomManager
+        roomManager.numberOfRoomsCompleted++;
     }
 
     public void LockDoors()
