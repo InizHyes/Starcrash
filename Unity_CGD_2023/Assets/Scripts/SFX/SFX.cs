@@ -38,6 +38,10 @@ public class SFX : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = volume;
+        if (SelectMode == ShowValueEnum.BackgroundMusic)
+        {
+            PlaySound("");
+        }
     }
 
     public void PlaySound(string actionName)
