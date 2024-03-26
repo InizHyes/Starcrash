@@ -575,6 +575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1802258937}
   - component: {fileID: 1802258936}
+  - component: {fileID: 1802258938}
   m_Layer: 0
   m_Name: Menu Music
   m_TagString: Untagged
@@ -693,6 +694,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1802258938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802258935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5ff4576bf049b47983f3be01f60b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectMode: 2
+  volume: 1
+  randomizedOrder: 0
+  randomizedPitch: 0
+  minPitch: 0
+  maxPitch: 0
+  playToCompletion: 0
+  Sounds:
+  - action: 
+    audiosource: {fileID: 8300000, guid: f0adb44d84682c043b8e60d0e735f977, type: 3}
 --- !u!1 &1831269332 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7109226623205239092, guid: 9f0bbe279bf686b419b376991e5a496f, type: 3}
