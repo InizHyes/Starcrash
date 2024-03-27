@@ -9,63 +9,63 @@ using UnityEngine;
 
 public class EnemySpawnWarning : MonoBehaviour
 {
+    // Warning prefab
+    GameObject warningPrefab;
+
+    // SPawncontroller object in scene
     GameObject spawnControllerObject;
+
+    // Script object
     SpawnLogic spawnLogic;
 
-    // List to hold enemy spawn transforms
-    public List<Transform> spawnTransforms;
+    // List to hold warningPrefabs
+    public List<GameObject> InstanitedWarningPrefabs = new List<GameObject>();
 
-    Transform eclamationMarkPrefab;
-
-    public List<Transform> InstanitedObjects;
+    bool booleon = false;
 
     // Start is called before the first frame update
     void Start()
     {
         spawnControllerObject = GameObject.Find("SpawnController");
         spawnLogic = spawnControllerObject.GetComponent<SpawnLogic>();
+        warningPrefab = Resources.Load<GameObject>("EnemySpawnWarning/EnemySpawnWarning") as GameObject;
 
-        eclamationMarkPrefab = Resources.Load<Transform>("EnemySpawnWarning/EnemySpawnWarning") as Transform;
-
-        //Loop through all children of this GameObject
-        foreach (Transform child in spawnControllerObject.transform)
-        {
-            // Add the transform of each child to the list
-            Transform warning = Instantiate(eclamationMarkPrefab, child);
-            spawnTransforms.Add(child);
-            InstanitedObjects.Add(warning);
-        }
-
-        //for (int i = 0; i < spawnTransforms.Count; i++)
-        //{
-        //    // Accessing the element at index i
-        //    GameObject element = InstanitedObjects[i];
-        //    Transform OTHER = spawnTransforms[i];
-        //    //element.transform = OTHER;
-        //    Debug.Log("Element at index " + i + ": " + element);
-        //}
-
-        print("worked " + eclamationMarkPrefab.name);
+        print("worked " + warningPrefab.name);
     }
 
-    private void placeWarnings()
+    private void PlaceWarnings()
     {
         foreach (Transform child in spawnControllerObject.transform)
         {
-            // Add the transform of each child to the list
-            Instantiate(eclamationMarkPrefab, child);
-            //Transform warning = Instantiate(eclamationMarkPrefab, child);
-            //spawnTransforms.Add(child);
-            //InstanitedObjects.Add(warning);
+            //Instantiate warning prefab at the spawnPoints transform position
+            GameObject warning = Instantiate(warningPrefab, child.transform);
+
+            // Add to list
+            InstanitedWarningPrefabs.Add(warning);
+        }
+    }
+
+    private void RemoveWarnings()
+    {
+        for (int i = InstanitedWarningPrefabs.Count - 1; i >= 0; i--)
+        {
+            // Destroy the GameObject
+            Destroy(InstanitedWarningPrefabs[i]);
+
+            // Remove the GameObject from the list
+            InstanitedWarningPrefabs.RemoveAt(i);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(spawnLogic.readySpawn)
+        if(!spawnLogic.readySpawn && !booleon)
         {
-           
+            booleon = true;
+           // PlaceWarnings();
+           // RemoveWarnings();
+            print("happens");
         }
         
     }

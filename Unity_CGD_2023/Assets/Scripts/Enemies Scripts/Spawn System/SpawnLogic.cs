@@ -61,6 +61,12 @@ public class SpawnLogic : MonoBehaviour
 
     private EnemyClass initiateDeathCheck;
 
+    // Warning prefab
+    GameObject warningPrefab;
+
+    // List to hold warningPrefabs
+    List<GameObject> InstanitedWarningPrefabs = new List<GameObject>();
+
     #endregion
 
     #region [Start and Update]
@@ -73,12 +79,15 @@ public class SpawnLogic : MonoBehaviour
         boxCollider = GetComponent<Collider2D>();
 
         boxCollider.enabled = true;
+
+        // Place warnings for enemy spawns
+        warningPrefab = Resources.Load<GameObject>("EnemySpawnWarning/EnemySpawnWarning") as GameObject;
+        PlaceWarnings();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
 
     }
 
@@ -100,6 +109,8 @@ public class SpawnLogic : MonoBehaviour
 
                 NPCCounter();
                 boxCollider.enabled = false;
+
+                RemoveWarnings();
             }
         }
 
@@ -251,4 +262,27 @@ public class SpawnLogic : MonoBehaviour
         }
     }
 
+    private void PlaceWarnings()
+    {
+        foreach (Transform child in this.transform)
+        {
+            //Instantiate warning prefab at the spawnPoints transform position
+            GameObject warning = Instantiate(warningPrefab, child.transform);
+
+            // Add to list
+            InstanitedWarningPrefabs.Add(warning);
+        }
+    }
+
+    private void RemoveWarnings()
+    {
+        for (int i = InstanitedWarningPrefabs.Count - 1; i >= 0; i--)
+        {
+            // Destroy the GameObject
+            Destroy(InstanitedWarningPrefabs[i]);
+
+            // Remove the GameObject from the list
+            InstanitedWarningPrefabs.RemoveAt(i);
+        }
+    }
 }
