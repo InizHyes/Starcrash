@@ -7,8 +7,10 @@ public class LaserSniperClass : EnemyClass
 {
     [Header("Laser Sniper Specific")]
     [SerializeField] private GameObject childLaser;
-    [SerializeField] private int attackTimer = 1;
-    public int laserDamage = 1; // This is public but should not be accessed outside of Laserdetection Script
+    public int attackTimer = 1;
+    public bool bossturret = false;
+    public bool activate = true;
+    public float laserDamage = 1; // This is public but should not be accessed outside of Laserdetection Script
     //bool laserReference = false;
     //private BoxCollider2D playerDetect;
     
@@ -18,6 +20,14 @@ public class LaserSniperClass : EnemyClass
         // Set starting state and variables
 
         initiateEnemy();
+        if (!bossturret)
+        {
+            activate = true;
+        }
+        else
+        {
+            attackTimer = 0;
+        }
 
     }
 
@@ -26,7 +36,10 @@ public class LaserSniperClass : EnemyClass
         switch (enemyState)
         {
             case State.Initiating:
-                targetClosestPlayer();
+                if (!bossturret)
+                {
+                    targetClosestPlayer();
+                }
                 //enemyState = State.Targeting;
                 changestate(1);
                 break;
@@ -39,7 +52,10 @@ public class LaserSniperClass : EnemyClass
                  */
 
                 //enemyState = State.Moving;
-                changestate(3);
+                if (activate)
+                {
+                    changestate(3);
+                }
                 break;
 
             case State.Pathfinding:
@@ -60,8 +76,11 @@ public class LaserSniperClass : EnemyClass
 
                 if (target != null)
                 {
-                    Vector3 direction = target.transform.position - transform.position; // look at player
-                    transform.right = direction;
+                    if (!bossturret)
+                    {
+                        Vector3 direction = target.transform.position - transform.position; // look at player
+                        transform.right = direction;
+                    }
                 }
                 break;
 
@@ -87,7 +106,14 @@ public class LaserSniperClass : EnemyClass
                             attackTimer = 1;
                             //enemyState = State.Targeting;
                             changestate(1);
-                            targetClosestPlayer();
+                            if (!bossturret)
+                            {
+                                targetClosestPlayer();
+                            }
+                            else
+                            {
+                                activate = false;
+                            }
                         }
                     }
                 }

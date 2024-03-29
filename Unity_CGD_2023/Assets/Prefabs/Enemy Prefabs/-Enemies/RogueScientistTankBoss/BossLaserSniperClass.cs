@@ -7,10 +7,10 @@ public class BossLaserSniperClass : EnemyClass
 {
     [Header("Laser Sniper Specific")]
     [SerializeField] private GameObject childLaser;
-    public int attackTimer = 1;
-    public int laserDamage = 40; // This is public but should not be accessed outside of Laserdetection Script
-    //bool laserReference = false;
-    //private BoxCollider2D playerDetect;
+    [SerializeField] public int attackTimer = 1;
+    public int laserDamage = 1; // This is public but should not be accessed outside of Laserdetection Script
+                                //bool laserReference = false;
+                                //private BoxCollider2D playerDetect;
 
 
     private void Start()
@@ -26,6 +26,7 @@ public class BossLaserSniperClass : EnemyClass
         switch (enemyState)
         {
             case State.Initiating:
+                targetClosestPlayer();
                 //enemyState = State.Targeting;
                 changestate(1);
                 break;
@@ -38,7 +39,7 @@ public class BossLaserSniperClass : EnemyClass
                  */
 
                 //enemyState = State.Moving;
-                //changestate(3);
+                changestate(3);
                 break;
 
             case State.Pathfinding:
@@ -73,24 +74,24 @@ public class BossLaserSniperClass : EnemyClass
 
                     script.laserState = 1;
                     attackTimer = attackTimer + 1;
-                    if (attackTimer > 100)
+                    if (attackTimer > 250)
                     {
                         script.laserState = 2;
-                        if (attackTimer == 101)
+                        if (attackTimer == 251)
                         {
                             GetComponent<SFX>().PlaySound("");
                         }
-                        if (attackTimer > 300)
+                        if (attackTimer > 400)
                         {
                             script.laserState = 0;
                             attackTimer = 1;
                             //enemyState = State.Targeting;
                             changestate(1);
-                            //targetClosestPlayer();
+                            targetClosestPlayer();
                         }
                     }
                 }
-                
+
                 else
                 {
                     Debug.Log("laserenemy dont work");

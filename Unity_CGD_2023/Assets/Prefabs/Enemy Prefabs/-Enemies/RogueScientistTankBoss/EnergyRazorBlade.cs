@@ -120,22 +120,22 @@ public class EnergyRazorBlade : MonoBehaviour
             // change direction on impact with the Walls
             if (direction == "up")
             {
-                transform.position = new Vector2(transform.position.x, transform.position.y - (speed + 0.05f));
+                transform.position = new Vector2(transform.position.x, transform.position.y - (speed * 2 + 0.05f));
                 direction = "left";
             }
             else if (direction == "left")
             {
-                transform.position = new Vector2(transform.position.x + (speed + 0.05f), transform.position.y);
+                transform.position = new Vector2(transform.position.x + (speed * 2 + 0.05f), transform.position.y);
                 direction = "down";
             }
             else if (direction == "down")
             {
-                transform.position = new Vector2(transform.position.x, transform.position.y + (speed + 0.05f));
+                transform.position = new Vector2(transform.position.x, transform.position.y + (speed * 2 + 0.05f));
                 direction = "right";
             }
             else if (direction == "right")
             {
-                transform.position = new Vector2(transform.position.x - (speed + 0.05f), transform.position.y);
+                transform.position = new Vector2(transform.position.x - (speed * 2 + 0.05f), transform.position.y);
                 direction = "up";
             }
         }

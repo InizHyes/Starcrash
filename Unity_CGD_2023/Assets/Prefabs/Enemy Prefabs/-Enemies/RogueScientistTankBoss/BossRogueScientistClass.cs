@@ -22,6 +22,9 @@ public class BossRogueScientistClass : EnemyClass{
     public GameObject LeftTurret;
     public GameObject RightTurret;
     public GameObject BackTurret;
+    public float turretDMG = 1;
+    private float turretDMGOrig = 1;
+    private float turretDMGBig = 10;
 
     public GameObject slowRazor;
     public GameObject fastRazor;
@@ -56,11 +59,13 @@ public class BossRogueScientistClass : EnemyClass{
     {
         // Set starting state and variables
         initiateEnemy();
+        turretDMGOrig = turretDMG;
+        turretDMGBig = turretDMG * 10;
         sound = GetComponent<AudioSource>();
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (spin)
         {
@@ -79,7 +84,7 @@ public class BossRogueScientistClass : EnemyClass{
         {
             if (!spin)
             {
-                if (LeftTurret.GetComponent<BossLaserSniperClass>().attackTimer < 101)
+                if (FrontTurretLeft.GetComponent<LaserSniperClass>().attackTimer < 201)
                 {
                     if (waitint < 1)
                     {
@@ -151,23 +156,21 @@ public class BossRogueScientistClass : EnemyClass{
                 break;
 
             case State.Attacking:
-                if (atkcounter > 2)
+                if (atkcounter > 1)
                 {
                     spin = true;
+                    SetTurretDmgBig();
                     timer = timer + 1;
-                    if (timer == 600)
+                    if (timer == 150)
                     {
                         ShootTurrets();
                     }
-                    if (timer == 1000)
-                    {
-                        ShootTurrets();
-                    }
-                    if (timer > 1400)
+                    if (timer > 700)
                     {
                         timer = 0;
                         atkcounter = 0;
                         enemyState = State.Targeting;
+                        SetTurretDmgSmall();
                         spin = false;
                     }
 
@@ -216,11 +219,11 @@ public class BossRogueScientistClass : EnemyClass{
 
     private void ShootTurrets()
     {
-        LeftTurret.GetComponent<BossLaserSniperClass>().changestate(4);
-        RightTurret.GetComponent<BossLaserSniperClass>().changestate(4);
-        FrontTurretLeft.GetComponent<BossLaserSniperClass>().changestate(4);
-        FrontTurretRight.GetComponent<BossLaserSniperClass>().changestate(4);
-        BackTurret.GetComponent<BossLaserSniperClass>().changestate(4);
+        LeftTurret.GetComponent<LaserSniperClass>().activate = true;
+        RightTurret.GetComponent<LaserSniperClass>().activate = true;
+        FrontTurretLeft.GetComponent<LaserSniperClass>().activate = true;
+        FrontTurretRight.GetComponent<LaserSniperClass>().activate = true;
+        BackTurret.GetComponent<LaserSniperClass>().activate = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -258,5 +261,22 @@ public class BossRogueScientistClass : EnemyClass{
         //anim.ResetTrigger("Hit");
 
         GetComponent<SpriteRenderer>().color = Color.white;
+    }
+    private void SetTurretDmgBig()
+    {
+        LeftTurret.GetComponent<LaserSniperClass>().laserDamage = turretDMGBig;
+        RightTurret.GetComponent<LaserSniperClass>().laserDamage = turretDMGBig;
+        FrontTurretLeft.GetComponent<LaserSniperClass>().laserDamage = turretDMGBig;
+        FrontTurretRight.GetComponent<LaserSniperClass>().laserDamage = turretDMGBig;
+        BackTurret.GetComponent<LaserSniperClass>().laserDamage = turretDMGBig;
+    }
+
+    private void SetTurretDmgSmall()
+    {
+        LeftTurret.GetComponent<LaserSniperClass>().laserDamage = turretDMGOrig;
+        RightTurret.GetComponent<LaserSniperClass>().laserDamage = turretDMGOrig;
+        FrontTurretLeft.GetComponent<LaserSniperClass>().laserDamage = turretDMGOrig;
+        FrontTurretRight.GetComponent<LaserSniperClass>().laserDamage = turretDMGOrig;
+        BackTurret.GetComponent<LaserSniperClass>().laserDamage = turretDMGOrig;
     }
 }

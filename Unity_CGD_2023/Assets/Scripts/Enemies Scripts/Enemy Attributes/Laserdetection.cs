@@ -48,11 +48,11 @@ public class Laserdetection : MonoBehaviour
             {
                 //DO DAMAGE
                 // Dont do continuous damage
-                if (!hasDamaged)
-                {
-                    laserhit.collider.gameObject.GetComponent<PlayerStats>().TakeDamage(parentScript.laserDamage);
-                    hasDamaged = true;
-                }
+                //if (!hasDamaged)
+                //{
+                laserhit.collider.gameObject.GetComponent<PlayerStats>().TakeDamage(parentScript.laserDamage);
+                hasDamaged = true;
+                //}
             }
         }
         else if (laserState == 1)
