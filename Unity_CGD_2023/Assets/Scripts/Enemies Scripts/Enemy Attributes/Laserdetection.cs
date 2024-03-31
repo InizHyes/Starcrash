@@ -55,7 +55,7 @@ public class Laserdetection : MonoBehaviour
                 if (dmgtimer < 1)
                 {
                     laserhit.collider.gameObject.GetComponent<PlayerStats>().TakeDamage(parentScript.laserDamage);
-                    dmgtimer = 15;
+                    dmgtimer = 25;
                 }
             }
         }

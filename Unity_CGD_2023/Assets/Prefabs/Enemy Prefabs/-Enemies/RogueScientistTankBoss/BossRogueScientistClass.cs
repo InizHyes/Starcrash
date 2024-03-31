@@ -22,6 +22,9 @@ public class BossRogueScientistClass : EnemyClass{
     public GameObject LeftTurret;
     public GameObject RightTurret;
     public GameObject BackTurret;
+
+    public GameObject Flank1;
+    public GameObject Flank2;
     public float turretDMG = 3;
     private float turretDMGOrig = 3;
     private float turretDMGBig = 10;
@@ -167,6 +170,10 @@ public class BossRogueScientistClass : EnemyClass{
                     {
                         ShootTurrets();
                     }
+                    if (timer == 400)
+                    {
+                        ShootFlanks();
+                    }
                     if (timer == 500)
                     {
                         ShootTurrets();
@@ -187,6 +194,10 @@ public class BossRogueScientistClass : EnemyClass{
                     if (timer == 5)
                     {
                         ShootTurrets();
+                    }
+                    if (timer == 100)
+                    {
+                        ShootFlanks();
                     }
                     else if (timer > 350)
                     {
@@ -232,6 +243,13 @@ public class BossRogueScientistClass : EnemyClass{
         BackTurret.GetComponent<LaserSniperClass>().activate = true;
     }
 
+    private void ShootFlanks()
+    {
+        Flank1.GetComponent<RogueScientistFlanks>().activated = true;
+        Flank2.GetComponent<RogueScientistFlanks>().activated = true;
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Bullet")
@@ -275,6 +293,8 @@ public class BossRogueScientistClass : EnemyClass{
         FrontTurretLeft.GetComponent<LaserSniperClass>().laserDamage = turretDMGBig;
         FrontTurretRight.GetComponent<LaserSniperClass>().laserDamage = turretDMGBig;
         BackTurret.GetComponent<LaserSniperClass>().laserDamage = turretDMGBig;
+        Flank1.GetComponent<RogueScientistFlanks>().moves = 20;
+        Flank2.GetComponent<RogueScientistFlanks>().moves = 20;
     }
 
     private void SetTurretDmgSmall()
@@ -284,5 +304,7 @@ public class BossRogueScientistClass : EnemyClass{
         FrontTurretLeft.GetComponent<LaserSniperClass>().laserDamage = turretDMGOrig;
         FrontTurretRight.GetComponent<LaserSniperClass>().laserDamage = turretDMGOrig;
         BackTurret.GetComponent<LaserSniperClass>().laserDamage = turretDMGOrig;
+        Flank1.GetComponent<RogueScientistFlanks>().moves = 3;
+        Flank2.GetComponent<RogueScientistFlanks>().moves = 3;
     }
 }
