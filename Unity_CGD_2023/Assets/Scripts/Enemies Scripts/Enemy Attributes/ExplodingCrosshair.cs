@@ -7,6 +7,7 @@ public class ExplodingCrosshair : MonoBehaviour
     int timer = 0;
     public int damage = 20;
     public SpriteRenderer theSprite;
+    public bool isBlue = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,20 +21,32 @@ public class ExplodingCrosshair : MonoBehaviour
         
         if (theSprite.color == Color.white)
         {
-            theSprite.color = Color.red;
+            if (isBlue)
+            {
+                theSprite.color = Color.blue;
+            }
+            else
+            {
+                theSprite.color = Color.red;
+            }
         }
         else
         {
             theSprite.color = Color.white;
         }
-
-        if (timer == 60)
+        if (!isBlue)
         {
-            summonHitbox();
-        }
-        if (timer > 60)
-        {
-            Object.Destroy(this.gameObject);
+            if (timer == 60)
+            {
+                if (!isBlue)
+                {
+                    summonHitbox();
+                }
+            }
+            if (timer > 60)
+            {
+                Object.Destroy(this.gameObject);
+            }
         }
     }
 

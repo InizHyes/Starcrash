@@ -29,6 +29,11 @@ public class BossRogueScientistClass : EnemyClass{
     private float turretDMGOrig = 3;
     private float turretDMGBig = 10;
 
+    private bool coverLeft = true;
+    private bool doOnce = true;
+    public GameObject coverProp;
+    private GameObject cover;
+
     public GameObject slowRazor;
     public GameObject fastRazor;
     public GameObject RazorPrefab;
@@ -40,7 +45,7 @@ public class BossRogueScientistClass : EnemyClass{
 
     public EnemyBossHealth_UI enemybosshealth_ui;
     public Image healthBar;
-    public float healthAmount = 1000f;
+    public float healthAmount = 1500f;
 
     private int movespeed = 5;
     private bool spin = false;
@@ -161,8 +166,22 @@ public class BossRogueScientistClass : EnemyClass{
                 break;
 
             case State.Attacking:
-                if (atkcounter > 3)
+                if (atkcounter > 2)
                 {
+                    if (doOnce)
+                    {
+                        if (coverLeft)
+                        {
+                            cover = Instantiate(coverProp, topLeft.position, topLeft.rotation);
+                            coverLeft = false;
+                        }
+                        else
+                        {
+                            cover = Instantiate(coverProp, topRight.position, topRight.rotation);
+                            coverLeft = true;
+                        }
+                        doOnce = false;
+                    }
                     spin = true;
                     SetTurretDmgBig();
                     timer = timer + 1;
@@ -185,6 +204,12 @@ public class BossRogueScientistClass : EnemyClass{
                         enemyState = State.Targeting;
                         SetTurretDmgSmall();
                         spin = false;
+                        doOnce = true;
+                        Destroy(cover);
+                        if (cover != null)
+                        {
+                            cover = null;
+                        }
                     }
 
                 }
@@ -293,8 +318,8 @@ public class BossRogueScientistClass : EnemyClass{
         FrontTurretLeft.GetComponent<LaserSniperClass>().laserDamage = turretDMGBig;
         FrontTurretRight.GetComponent<LaserSniperClass>().laserDamage = turretDMGBig;
         BackTurret.GetComponent<LaserSniperClass>().laserDamage = turretDMGBig;
-        Flank1.GetComponent<RogueScientistFlanks>().moves = 20;
-        Flank2.GetComponent<RogueScientistFlanks>().moves = 20;
+        Flank1.GetComponent<RogueScientistFlanks>().moves = 12;
+        Flank2.GetComponent<RogueScientistFlanks>().moves = 12;
     }
 
     private void SetTurretDmgSmall()

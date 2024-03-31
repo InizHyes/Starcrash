@@ -13,7 +13,7 @@ public class RogueScientistFlanks : MonoBehaviour
     bool forward = true;
     private float speed = 0.05f;
     public GameObject bulletPrefab;
-    private float bulletSpeed = 3f;
+    private float bulletSpeed = 4f;
     private int atkCooldown = 0;
     private int stopCooldown = 0;
     public int moves = 6; // the amount of moves back and forth the turrets fire for
@@ -126,7 +126,7 @@ public class RogueScientistFlanks : MonoBehaviour
         GameObject firedBullet = Instantiate(bulletPrefab, gameObject.transform.position, gameObject.transform.rotation);
         firedBullet.transform.localScale = new Vector2(1f, 0.5f);
         Vector2 bulletDir = transform.right;
-        firedBullet.GetComponent<Rigidbody2D>().velocity = bulletDir * bulletSpeed;
+        firedBullet.GetComponent<Rigidbody2D>().velocity = bulletDir * (bulletSpeed + Random.Range(0.2f, -0.2f));
         SpriteRenderer bulletRenderer = firedBullet.GetComponent<SpriteRenderer>();
         firedBullet.GetComponent<Bullet>().damage = 3;
         bulletRenderer.color = Color.cyan;
