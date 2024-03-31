@@ -11,10 +11,10 @@ public class Laserdetection : MonoBehaviour
     private bool doOnce = true;
     private bool doOnce2 = true;
     private bool doOnce3 = true;
+    int dmgtimer = 0;
 
     // Damage stuff
     private LaserSniperClass parentScript;
-    private bool hasDamaged = false;
 
     void Start()
     {
@@ -26,6 +26,10 @@ public class Laserdetection : MonoBehaviour
     {
         float angle = transform.eulerAngles.z * Mathf.Deg2Rad;
         Vector2 dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        if (dmgtimer > 0)
+        {
+            dmgtimer = dmgtimer - 1;
+        }
 
         if (laserState == 2)
         {
@@ -48,11 +52,11 @@ public class Laserdetection : MonoBehaviour
             {
                 //DO DAMAGE
                 // Dont do continuous damage
-                //if (!hasDamaged)
-                //{
-                laserhit.collider.gameObject.GetComponent<PlayerStats>().TakeDamage(parentScript.laserDamage);
-                hasDamaged = true;
-                //}
+                if (dmgtimer < 1)
+                {
+                    laserhit.collider.gameObject.GetComponent<PlayerStats>().TakeDamage(parentScript.laserDamage);
+                    dmgtimer = 15;
+                }
             }
         }
         else if (laserState == 1)
@@ -78,8 +82,6 @@ public class Laserdetection : MonoBehaviour
             }
             transform.localScale = new Vector3(0, transform.localScale.y, 1);
             animate.Play("LaserActive");
-
-            hasDamaged = false; // Reset damage
         }
 
     }

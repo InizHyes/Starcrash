@@ -22,8 +22,8 @@ public class BossRogueScientistClass : EnemyClass{
     public GameObject LeftTurret;
     public GameObject RightTurret;
     public GameObject BackTurret;
-    public float turretDMG = 1;
-    private float turretDMGOrig = 1;
+    public float turretDMG = 3;
+    private float turretDMGOrig = 3;
     private float turretDMGBig = 10;
 
     public GameObject slowRazor;
@@ -60,7 +60,7 @@ public class BossRogueScientistClass : EnemyClass{
         // Set starting state and variables
         initiateEnemy();
         turretDMGOrig = turretDMG;
-        turretDMGBig = turretDMG * 10;
+        turretDMGBig = turretDMG * 3;
         sound = GetComponent<AudioSource>();
 
     }
@@ -84,7 +84,7 @@ public class BossRogueScientistClass : EnemyClass{
         {
             if (!spin)
             {
-                if (FrontTurretLeft.GetComponent<LaserSniperClass>().attackTimer < 201)
+                if (FrontTurretLeft.GetComponent<LaserSniperClass>().attackTimer < 245)
                 {
                     if (waitint < 1)
                     {
@@ -148,7 +148,9 @@ public class BossRogueScientistClass : EnemyClass{
 
 
             case State.Targeting:
+                
                 targetClosestPlayer();
+                
                 enemyState = State.Attacking;
                 break;
 
@@ -156,12 +158,16 @@ public class BossRogueScientistClass : EnemyClass{
                 break;
 
             case State.Attacking:
-                if (atkcounter > 1)
+                if (atkcounter > 3)
                 {
                     spin = true;
                     SetTurretDmgBig();
                     timer = timer + 1;
-                    if (timer == 150)
+                    if (timer == 300)
+                    {
+                        ShootTurrets();
+                    }
+                    if (timer == 500)
                     {
                         ShootTurrets();
                     }
@@ -182,7 +188,7 @@ public class BossRogueScientistClass : EnemyClass{
                     {
                         ShootTurrets();
                     }
-                    else if (timer > 500)
+                    else if (timer > 350)
                     {
                         timer = 0;
                         enemyState = State.Targeting;

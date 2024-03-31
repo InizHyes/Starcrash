@@ -11,6 +11,7 @@ public class LaserSniperClass : EnemyClass
     public bool bossturret = false;
     public bool activate = true;
     public float laserDamage = 1; // This is public but should not be accessed outside of Laserdetection Script
+    int bossModifier = 1;
     //bool laserReference = false;
     //private BoxCollider2D playerDetect;
     
@@ -27,6 +28,7 @@ public class LaserSniperClass : EnemyClass
         else
         {
             attackTimer = 0;
+            bossModifier = 50;
         }
 
     }
@@ -54,7 +56,14 @@ public class LaserSniperClass : EnemyClass
                 //enemyState = State.Moving;
                 if (activate)
                 {
-                    changestate(3);
+                    if (bossturret)
+                    {
+                        changestate(4);
+                    }
+                    else
+                    {
+                        changestate(3);
+                    }
                 }
                 break;
 
@@ -63,6 +72,10 @@ public class LaserSniperClass : EnemyClass
                 break;
 
             case State.Moving:
+                if (bossturret)
+                {
+                    attackTimer = 0; //negates recharging if a boss turret
+                }
                 if (attackTimer > 199)
                 {
                     attackTimer = 0;
