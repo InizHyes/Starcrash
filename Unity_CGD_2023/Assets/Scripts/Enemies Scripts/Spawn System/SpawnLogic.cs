@@ -75,13 +75,6 @@ public class SpawnLogic : MonoBehaviour
         boxCollider.enabled = true;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-
-    }
-
     // Update is called once per frame
     public void Update()
     {
@@ -180,12 +173,11 @@ public class SpawnLogic : MonoBehaviour
 
         nPCCounter += 1;
 
-        // If all NPCs are dead, do not spawn anymore
-        if (nPCTotal <= 0)
+        // Stop spawning enemies on screen, once 5 are on screen
+        if (nPCCounter == 5)
         {
             readySpawn = false;
         }
-
     }
 
     public void NPCdeath()
@@ -193,8 +185,15 @@ public class SpawnLogic : MonoBehaviour
         //If player kills a NPC allow another NPC to spawn if other conditions are vaild 
         nPCCounter -= 1;
 
-        if (nPCCounter <= 0)
+        // if the 5 current enemies are killed, spawn 5 more on screen as long as there are any more total enemies
+        if (nPCCounter == 0 && nPCTotal <= 0)
         {
+            readySpawn = true;
+        }
+
+        if (nPCTotal <= 0)
+        {
+            readySpawn = false;
             AllEnemiesDead();
         }
     }
@@ -249,6 +248,10 @@ public class SpawnLogic : MonoBehaviour
                 //print("All enemies dead");
             }
         }
+
+        //Once all enemies are dead, tell AntiCamp to shut itself down for current room
+        AntiCamp shutdownFunction = GetComponent<AntiCamp>();
+        shutdownFunction.shutdown();
     }
 
 }

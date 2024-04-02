@@ -34,23 +34,48 @@ public class AntiCamp : MonoBehaviour
 
     private int turretSpawnTimer = 5;
 
+    //bool
+
+    private bool enemyOverlap;
+
     #endregion
+
+    private void Awake()
+    {
+
+        enemyOverlap = false;
+    }
 
     #region [OnTrigger]
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        // if player is in the conner and enemy is not overlaping triggerpoints, start countdown
+        if (collision.tag == "Player" && enemyOverlap == false)
         {
             StartCoroutine(WaitSpawn());
         }
+
+        // if enemy is overlaping triggerpoints, set bool to true
+        if (collision.tag == "Enemy")
+        {
+            enemyOverlap = true;
+        }
     }
+
 
     public void OnTriggerExit2D(Collider2D collision)
     {
+        // if player is not in the conner, stop countdown
         if (collision.tag == "Player")
         {
             StopCoroutine(WaitSpawn());
+        }
+
+        // if enemy is not overlaping triggerpoints, set bool to false
+        if (collision.tag == "Enemy")
+        {
+            enemyOverlap = false;
         }
     }
 
@@ -58,8 +83,10 @@ public class AntiCamp : MonoBehaviour
 
     IEnumerator WaitSpawn()
     {
+        //Spawn rate of turrets is based on countdown
         yield return new WaitForSeconds(turretSpawnTimer);
 
+        // When timer is 0, run function to spwan the turrets in list
         spawnTurret();
     }
 
