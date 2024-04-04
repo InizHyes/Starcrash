@@ -93,10 +93,11 @@ public class ExploderClass : EnemyClass
                  * Lingers for a while
                  */
 
+                //---This is broken, commented out for fix---
                 // Make sure death animation plays before enemy destruction 
-                StartCoroutine(WaitForDeathAnimation());
+                //StartCoroutine(WaitForDeathAnimation());
 
-                /*
+                ///*
                 // Wait after death
                 if (deathLinger > 0)
                 {
@@ -107,7 +108,7 @@ public class ExploderClass : EnemyClass
                     itemDropLogic();
                     initiateDeath();
                 }
-                */
+                //*/
 
                 break;
         }
@@ -115,6 +116,7 @@ public class ExploderClass : EnemyClass
 
     private IEnumerator WaitForDeathAnimation()
     {
+        //---Never ran as is broken---
         animator.SetBool("isDeath", true);
 
         // Wait for one frame to ensure that the animation has started
@@ -152,7 +154,7 @@ public class ExploderClass : EnemyClass
          * Modified to explode instead
          */
 
-                if (collider.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "Player")
         {
             if (enemyState == State.Moving)
             {
@@ -196,7 +198,7 @@ public class ExploderClass : EnemyClass
     public void deathStateChange()
     {
         // Needed by Exploder AOE
-        //enemyState = State.Dead;
-        changestate(5);
+        enemyState = State.Dead;
+        //changestate(5);
     }
 }
