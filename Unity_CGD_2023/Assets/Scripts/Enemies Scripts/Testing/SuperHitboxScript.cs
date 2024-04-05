@@ -40,7 +40,7 @@ public class SuperHitboxScript : MonoBehaviour
                 //playerAccess.health = (playerAccess.health - damageAmount);
             }
             */
-            print("A");
+            //print("A");
             other.GetComponent<PlayerStats>().TakeDamage(damageAmount);
 
             if (deleteOnConnect)

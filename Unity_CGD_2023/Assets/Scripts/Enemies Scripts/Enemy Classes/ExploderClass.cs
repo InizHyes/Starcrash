@@ -105,8 +105,18 @@ public class ExploderClass : EnemyClass
                 }
                 else
                 {
-                    itemDropLogic();
-                    initiateDeath();
+                    //itemDropLogic();
+                    //initiateDeath();
+
+                    // -Do manually instead-
+                    NPCdeathCheck.NPCdeath();
+
+                    // Destroy self and parent
+                    Destroy(this.gameObject);
+                    if (transform.parent != null && transform.parent.tag != "SpawnTrigger")
+                    {
+                        Destroy(transform.parent.gameObject);
+                    }
                 }
                 //*/
 
