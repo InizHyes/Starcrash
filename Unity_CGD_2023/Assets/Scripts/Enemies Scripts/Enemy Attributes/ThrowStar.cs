@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ThrowStar : MonoBehaviour
 {
+    [HideInInspector] public int damage;
 
     private void Start()
     {
@@ -25,7 +26,7 @@ public class ThrowStar : MonoBehaviour
             if (collision.gameObject.tag == "Player")
             {
                 //Do large damage to player
-                collision.gameObject.GetComponent<PlayerStats>().TakeDamage(5);
+                collision.gameObject.GetComponent<PlayerStats>().TakeDamage(damage);
             }
 
             Destroy(gameObject);

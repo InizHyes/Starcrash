@@ -18,6 +18,8 @@ public class QuantumShadowClass : EnemyClass
 
     private Animator animator;
 
+    public int starDamage = 25;
+
 
     private void Start()
     {
@@ -177,6 +179,7 @@ public class QuantumShadowClass : EnemyClass
         this.gameObject.layer = 0; // Default layer
 
         var NinjaStar = Instantiate(weapon, aim.position, aim.rotation);
+        NinjaStar.GetComponent<ThrowStar>().damage = starDamage;
 
         Vector2 starDir = aim.right;
         NinjaStar.GetComponent<Rigidbody2D>().velocity = starDir * throwspeed;
