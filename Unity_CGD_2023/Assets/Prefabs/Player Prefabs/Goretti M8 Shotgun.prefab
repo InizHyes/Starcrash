@@ -53,6 +53,7 @@ MonoBehaviour:
   gunShot: {fileID: 8300000, guid: b096c64debbe7c0418beee33bda00974, type: 3}
   unload: {fileID: 8300000, guid: 04d82a4cf1d87cf4cba9ef7a33b0561a, type: 3}
   reload: {fileID: 8300000, guid: dc51b51a42c07d744bfe53a9c3728426, type: 3}
+  dryFire: {fileID: 8300000, guid: 6beb079f584f61b4db84537ea6d1a8b3, type: 3}
   gunPoint: {fileID: 1698640159382196524}
   bullet: {fileID: 9099253716168194602, guid: 70ca23ef80cd04d4381ea38d55307e5d, type: 3}
   damagePerHit: 0
@@ -195,6 +196,8 @@ MonoBehaviour:
     audiosource: {fileID: 8300000, guid: 04d82a4cf1d87cf4cba9ef7a33b0561a, type: 3}
   - action: Reload
     audiosource: {fileID: 8300000, guid: dc51b51a42c07d744bfe53a9c3728426, type: 3}
+  - action: Empty
+    audiosource: {fileID: 8300000, guid: 6beb079f584f61b4db84537ea6d1a8b3, type: 3}
 --- !u!1 &5597418569736140652
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,9 @@ public class shootingScript : MonoBehaviour
     private AudioClip reload;
 
     [SerializeField]
+    private AudioClip dryFire;
+
+    [SerializeField]
     private Transform gunPoint;
 
     [SerializeField]
@@ -91,6 +94,8 @@ public class shootingScript : MonoBehaviour
     [SerializeField]
     private GameObject muzzleLight;
 
+    private int tempAmmoAddedTracker = 0;
+
     private void Start()
     {
         
@@ -123,6 +128,7 @@ public class shootingScript : MonoBehaviour
         totalAmmoHeld = ammoLoaded + ammoReserve;
         maximumAmmoPickup = totalAmmoAllowed - totalAmmoHeld;
 
+        /*
         if (!finishedReload)
         {
             if(reloadStarted)
@@ -132,8 +138,14 @@ public class shootingScript : MonoBehaviour
             reloadText.SetActive(true);
             return;
 
+        }*/
+
+        if (!ShootInput && ammoLoaded < magSize)
+        {
+            StartCoroutine(Reloading());
         }
-        else if (ammoLoaded > 0)
+
+        if (ammoLoaded > 0)
         {
             
             if (ammoLoaded == (magSize))
@@ -157,13 +169,14 @@ public class shootingScript : MonoBehaviour
                 gunSound.minPitch = 1.3f;
             }
 
-
             if (Time.time > readyToShoot)
             {
                 muzzleLight.SetActive(false);
                 reloadText.SetActive(false);
                 if (ShootInput)
                 {
+                    tempAmmoAddedTracker = 0;
+                    newPlayer.reloadTriggered = false;
                     muzzleFlashStartEffect();
                     FireBullet();
                     //HapticManager.PlayEffect(gunShotRumble, newPlayer.gameObject.transform.position);
@@ -172,17 +185,35 @@ public class shootingScript : MonoBehaviour
             }
 
         }
-        else
+        else if (ammoLoaded == 0)
         {
-            StartCoroutine(Reload());
+            gunSound.maxPitch = 2f;
+            gunSound.minPitch = 2f;
+            if (Time.time > readyToShoot)
+            {
+                if (ShootInput)
+                {
+                    tempAmmoAddedTracker = 0;
+                    readyToShoot = Time.time + 0.2f;//(reload.length);
+                    gunSound.PlaySound("Empty");
+                }
+            }
         }
-        /*if (ReloadInput)
-        {
+        /*  else if (ammoLoaded == 0)
+         {
+             StartCoroutine (Reloading());
+         }
+         else
+         {
+             StartCoroutine(Reload());
+         }
+         if (ReloadInput)
+         {
 
-            StartCoroutine(Reload());
-            return;
+             StartCoroutine(Reload());
+             return;
 
-        }*/
+         }*/
 
     }
 
@@ -194,34 +225,142 @@ public class shootingScript : MonoBehaviour
         gunSound.PlaySound("Gun Shot");
         
         for (int i = 0; i < numberOfBullets; i++)
-        {
-            
-            
-            //Player.ForceToApply = (ForceDir * recoilPower * -1.0f); //Part of Sean's recoil scripting         
-            
-            
-            
+        {       
             playMuzzleSmoke = true;
             GameObject firedBullet = Instantiate(bullet, gunPoint.position, gunPoint.rotation); //creates an instance of bullet at the position of the "gun" - Arch
             Vector2 bulletDir = gunPoint.right;
             Vector2 spreader = Vector2.Perpendicular(bulletDir) * Random.Range(-spread, spread);
-            firedBullet.GetComponent<Rigidbody2D>().velocity = (bulletDir + spreader) * bulletSpeed; //adds force to the bullet - Arch
-            
+            firedBullet.GetComponent<Rigidbody2D>().velocity = (bulletDir + spreader) * bulletSpeed; //adds force to the bullet - Arch  
         }
         readyToShoot = Time.time + (1 / fireRate);
     }
 
+    private IEnumerator Reloading()
+    {
+        if (Time.time < readyToShoot)
+        {
+            yield return null;
+        }
+        else
+        {
+            if (ammoLoaded == magSize)
+            {
+                newPlayer.reloadTriggered = false;
+                tempAmmoAddedTracker = 0;
+                yield return null;
+            }
+            else
+            {
+                newPlayer.reloadTriggered = true;
+                if (tempAmmoAddedTracker > magSize / 4)
+                {
+                    readyToShoot = Time.time + (reloadTime / 2);
+                    if ((ammoLoaded + 1) > magSize)
+                    {
+                        ammoLoaded += magSize - ammoLoaded;
+                        tempAmmoAddedTracker += magSize - ammoLoaded;
+                        gunSound.maxPitch = 1f;
+                        gunSound.minPitch = 1f;
+                        gunSound.PlaySound("Reload");
+                    }
+                    else
+                    {
+                        if ((ammoLoaded + 1) == magSize)
+                        {
+                            gunSound.maxPitch = 1f;
+                            gunSound.minPitch = 1f;
+                            gunSound.PlaySound("Reload");
+                        }
+                        else
+                        {
+                            gunSound.maxPitch = (2f + tempAmmoAddedTracker);
+                            gunSound.minPitch = (2f + tempAmmoAddedTracker);
+                            gunSound.PlaySound("Reload");
+                        }
+                        ammoLoaded += 1;
+                        tempAmmoAddedTracker += 1;
+                    }
+                }
+                else if (tempAmmoAddedTracker > magSize / 2)
+                {
+                    readyToShoot = Time.time + (reloadTime / 4);
+                    if ((ammoLoaded + 2) > magSize)
+                    {
+                        ammoLoaded += magSize - ammoLoaded;
+                        tempAmmoAddedTracker += magSize - ammoLoaded;
+                        gunSound.maxPitch = 2f;
+                        gunSound.minPitch = 2f;
+                        gunSound.PlaySound("Reload");
+                    }
+                    else
+                    {
+                        if((ammoLoaded + 2) == magSize)
+                        {
+                            gunSound.maxPitch = 1f;
+                            gunSound.minPitch = 1f;
+                            gunSound.PlaySound("Reload");
+                        }
+                        else
+                        {
+                            gunSound.maxPitch = (2f + tempAmmoAddedTracker);
+                            gunSound.minPitch = (2f + tempAmmoAddedTracker);
+                            gunSound.PlaySound("Reload");
+                        }
+                        ammoLoaded += 2;
+                        tempAmmoAddedTracker += 1;
+
+                    }
+
+                }
+                else
+                {
+                    readyToShoot = Time.time + (reloadTime);
+                    if((ammoLoaded + 1) > magSize)
+                    {
+                        ammoLoaded += magSize - ammoLoaded;
+                        tempAmmoAddedTracker += magSize - ammoLoaded;
+                        gunSound.maxPitch = 1f;
+                        gunSound.minPitch = 1f;
+                        gunSound.PlaySound("Reload");
+                    }
+                    else
+                    {
+                        if ((ammoLoaded + 1) == magSize)
+                        {
+                            gunSound.maxPitch = 1f;
+                            gunSound.minPitch = 1f;
+                            gunSound.PlaySound("Reload");
+                        }
+                        else
+                        {
+                            gunSound.maxPitch = (2f + tempAmmoAddedTracker);
+                            gunSound.minPitch = (2f + tempAmmoAddedTracker);
+                            gunSound.PlaySound("Reload");
+                        }
+                        ammoLoaded += 1;
+                        tempAmmoAddedTracker += 1;
+                    }
+
+                }
+                
+            }
+
+        }
+    }
+
     private IEnumerator Reload()
     {
-        startReload();
+        //startReload();
 
         yield return new WaitForSeconds(reloadTime);
         
         if (Time.time > readyToShoot)
         {
-            finishReloading();
-            finishedReload = true;
+            //finishReloading();
+            StartCoroutine(Reloading());
+            //finishedReload = true;
         }
+
 
     }
 
