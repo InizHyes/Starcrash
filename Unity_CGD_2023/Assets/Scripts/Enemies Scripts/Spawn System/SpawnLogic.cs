@@ -217,7 +217,7 @@ public class SpawnLogic : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
+        if (collision.tag == "Enemy" && collision.gameObject.name != "WardenBossBody")
         {
             initiateDeathCheck = collision.GetComponent<EnemyClass>(); // Find the function
             initiateDeathCheck.initiateDeath(); // Kill the enemy

@@ -19,6 +19,8 @@ public class TeleportOnCollision : MonoBehaviour
     public Vector3 Room8 = new Vector3(32f, 36f, 0f);
     public Vector3 Room9 = new Vector3(64f, 36f, 0f);
 
+    private int reviveHealth = 100;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -55,11 +57,26 @@ public class TeleportOnCollision : MonoBehaviour
 
     private void ResetHealth(GameObject player)
     {
+        /*
+         * Changed due to issues with reviving a player overriding the health change
+         * Player downed scriped runs everyting in the Update() function (-_-) so player will be revived then have health set to 100 instead of 70
+         * Doesn't make a difference anyway since if 70 is the max that can be healed then it may as well be the max health
+         * reviveHealth int made to prevent hard-coding
+         * -OC
+         */
+
         stats = player.GetComponent<PlayerStats>();
-        if (stats.health < 70)
+        if (stats.health < reviveHealth)
         {
-            stats.health = 70;
+            stats.health = reviveHealth;
         }
+
+        // -Revive player too- OC
+        if (player.GetComponent<Down>().downed)
+        {
+            player.GetComponent<Down>().reviveTimer = 0;
+        }
+
         Debug.Log(stats.health);
     }
 

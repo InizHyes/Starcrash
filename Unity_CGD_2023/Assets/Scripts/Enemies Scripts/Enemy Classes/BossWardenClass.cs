@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -44,6 +45,8 @@ public class BossWardenClass : EnemyClass{
 
     AudioSource sound;
 
+    public int stabAttackDamage = 50;
+
     private void Start()
     {
         // Set starting state and variables
@@ -72,7 +75,7 @@ public class BossWardenClass : EnemyClass{
             case State.Targeting:
 
                 // Selects a random corner.
-                int randomNum = Random.Range(1, 5);
+                int randomNum = UnityEngine.Random.Range(1, 5);
                 if (randomNum == lastnum)
                 {
                     if (randomNum == 4)
@@ -297,8 +300,31 @@ public class BossWardenClass : EnemyClass{
 
             if (hitboxScript != null)
             {
+                /*
+                 * Stab attack damage scaling
+                 * 1 player = 1/4 damage
+                 * 2 player = 1/2 damage
+                 * 3/4 player = full damage
+                 */
+
+                int stabDmg = stabAttackDamage;
+                PlayerManager pm = FindAnyObjectByType(typeof(PlayerManager)) as PlayerManager;
+                if (pm.nextPlayerID == 1)
+                {
+                    stabDmg = stabDmg / 2; // AKA 25 dmg
+                }
+                else if (pm.nextPlayerID == 2)
+                {
+                    stabDmg = (int)Math.Ceiling(stabDmg * 0.68); // AKA 34 dmg
+                }
+                else
+                {
+                    // 3/4 players, do nothing, AKA 50 dmg
+                }
+
                 // Set relevant variable information for the hitbox (IMPORTANT)
-                hitboxScript.damageAmount = 50; //HELLO TO ANYONE NERFING THIS GUY THIS IS HIS STAB ATTACK DMG
+                hitboxScript.damageAmount = stabDmg; //HELLO TO ANYONE NERFING THIS GUY THIS IS HIS STAB ATTACK DMG
+
                 hitboxScript.size = new Vector2(0.6f, 1f); // these numbers need to be very small
                 hitboxScript.rotationAngle = transform.eulerAngles.z;
                 hitboxScript.offsetAmount = new Vector2(0f, 0f);
