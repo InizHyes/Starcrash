@@ -9,14 +9,13 @@ public class laserscript : MonoBehaviour
     [SerializeField]
     private float beamLength;
 
-    private PlayerController Player;
 
     private Player newPlayer;
 
     // Start is called before the first frame update
     void Start()
     {
-        Player = GetComponentInParent<PlayerController>();
+
 
         newPlayer = GetComponentInParent<Player>();
     }
