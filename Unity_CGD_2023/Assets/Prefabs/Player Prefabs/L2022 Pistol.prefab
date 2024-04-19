@@ -138,20 +138,20 @@ MonoBehaviour:
   dryFire: {fileID: 8300000, guid: 6beb079f584f61b4db84537ea6d1a8b3, type: 3}
   gunPoint: {fileID: 1698640159382196524}
   bullet: {fileID: 9099253716168194602, guid: 0366f21fadf554043bbf5f23003b72b8, type: 3}
-  damagePerHit: 0
-  fireRate: 3
+  damagePerHit: 7
+  fireRate: 3.25
   readyToShoot: 0
-  recoilPower: 0.5
-  bulletSpeed: 10
+  recoilPower: 5
+  bulletSpeed: 20
   numberOfBullets: 1
-  spread: 0.1
+  spread: 0.025
   ammoLoaded: 0
   ammoReserve: -100
-  magSize: 10
+  magSize: 16
   maxAmmoReserves: 100
   totalAmmoAllowed: 0
   totalAmmoHeld: 0
-  reloadTime: 1
+  reloadTime: 0.1
   maximumAmmoPickup: 0
   gunShotRumble: {fileID: 11400000, guid: cdb2bae115fdd0048bbc41431bb41d03, type: 2}
   playMuzzleSmoke: 0
@@ -165,7 +165,7 @@ AudioSource:
   m_GameObject: {fileID: 1891161243228588003}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3904930038289014217, guid: c7f58a0e677a0234a8f231c206a9bec9, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
