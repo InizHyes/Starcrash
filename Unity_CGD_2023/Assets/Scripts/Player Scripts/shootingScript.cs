@@ -96,6 +96,18 @@ public class shootingScript : MonoBehaviour
 
     private int tempAmmoAddedTracker = 0;
 
+    private bool untilFull = false;
+
+    public void emptyOnSwitchReset()
+    {
+        untilFull = false;
+        reloadStarted = false;
+        newPlayer.reloadTriggered = false;
+        ammoLoaded = magSize;
+        readyToShoot = Time.time;
+        tempAmmoAddedTracker = 0;
+    }
+
     private void Start()
     {
         
@@ -140,80 +152,107 @@ public class shootingScript : MonoBehaviour
 
         }*/
 
-        if (!ShootInput && ammoLoaded < magSize)
-        {
-            StartCoroutine(Reloading());
-        }
 
-        if (ammoLoaded > 0)
+
+
+
+        if (!untilFull)
         {
             
-            if (ammoLoaded == (magSize))
+            if (!ShootInput && ammoLoaded < magSize)
             {
-                gunSound.maxPitch = 1f;
-                gunSound.minPitch = 1f;
-            }
-            else if (ammoLoaded == (magSize / 2))
-            {
-                gunSound.maxPitch = 1.1f;
-                gunSound.minPitch = 1.1f;
-            }
-            else if (ammoLoaded == (magSize / 4))
-            {
-                gunSound.maxPitch = 1.2f;
-                gunSound.minPitch = 1.2f;
-            }
-            else if (ammoLoaded == (1))
-            {
-                gunSound.maxPitch = 1.3f;
-                gunSound.minPitch = 1.3f;
+                StartCoroutine(Reloading());
             }
 
-            if (Time.time > readyToShoot)
+            if (ammoLoaded == 0)
             {
-                muzzleLight.SetActive(false);
-                reloadText.SetActive(false);
-                if (ShootInput)
+                untilFull = true;
+                StartCoroutine(Reloading());
+            }
+            else if (ShootInput && ammoLoaded == 0)
+            {
+                untilFull = true;
+                StartCoroutine(Reloading());
+                /*
+                gunSound.maxPitch = 2f;
+                gunSound.minPitch = 2f;
+                if (Time.time > readyToShoot)
                 {
-                    tempAmmoAddedTracker = 0;
-                    newPlayer.reloadTriggered = false;
-                    muzzleFlashStartEffect();
-                    FireBullet();
-                    //HapticManager.PlayEffect(gunShotRumble, newPlayer.gameObject.transform.position);
+                    if (ShootInput)
+                    {
+                        tempAmmoAddedTracker = 0;
+                        readyToShoot = Time.time + 0.2f;//(reload.length);
+                        gunSound.PlaySound("Empty");
+                    }
+                }*/
+            }
+
+            if (ammoLoaded > 0)
+            {
+
+
+                if (ammoLoaded == (1))
+                {
+                    gunSound.maxPitch = 1.3f;
+                    gunSound.minPitch = 1.3f;
+                }
+                else if (ammoLoaded < (magSize / 4))
+                {
+                    gunSound.maxPitch = 1.2f;
+                    gunSound.minPitch = 1.2f;
+                }
+                else if (ammoLoaded < (magSize / 2))
+                {
+                    gunSound.maxPitch = 1.1f;
+                    gunSound.minPitch = 1.1f;
+                }
+                else
+                {
+                    gunSound.maxPitch = 1f;
+                    gunSound.minPitch = 1f;
+                }
+
+                if (Time.time > readyToShoot)
+                {
+                    muzzleLight.SetActive(false);
+                    reloadText.SetActive(false);
+                    if (ShootInput)
+                    {
+                        tempAmmoAddedTracker = 0;
+                        newPlayer.reloadTriggered = false;
+                        muzzleFlashStartEffect();
+                        FireBullet();
+                        //HapticManager.PlayEffect(gunShotRumble, newPlayer.gameObject.transform.position);
+                    }
+
                 }
 
             }
-
         }
-        else if (ammoLoaded == 0)
+        else
         {
-            gunSound.maxPitch = 2f;
-            gunSound.minPitch = 2f;
-            if (Time.time > readyToShoot)
+            StartCoroutine(Reloading());
+            if (ammoLoaded == magSize)
             {
-                if (ShootInput)
-                {
-                    tempAmmoAddedTracker = 0;
-                    readyToShoot = Time.time + 0.2f;//(reload.length);
-                    gunSound.PlaySound("Empty");
-                }
+                untilFull = false;
             }
         }
+
         /*  else if (ammoLoaded == 0)
-         {
-             StartCoroutine (Reloading());
-         }
-         else
-         {
-             StartCoroutine(Reload());
-         }
-         if (ReloadInput)
-         {
+                 {
+                     StartCoroutine (Reloading());
+                 }
+                 else
+                 {
+                     StartCoroutine(Reload());
+                 }
+                 if (ReloadInput)
+                 {
 
-             StartCoroutine(Reload());
-             return;
+                     StartCoroutine(Reload());
+                     return;
 
-         }*/
+                 }*/
 
     }
 
@@ -222,6 +261,7 @@ public class shootingScript : MonoBehaviour
         ammoLoaded -= 1;
         ForceDir = newPlayer.shootDirection;
         newPlayer.rb.AddForce(-ForceDir * recoilPower, ForceMode2D.Impulse);
+        gunSound.volume = 0.25f;
         gunSound.PlaySound("Gun Shot");
         
         for (int i = 0; i < numberOfBullets; i++)
@@ -237,6 +277,8 @@ public class shootingScript : MonoBehaviour
 
     private IEnumerator Reloading()
     {
+        reloadText.SetActive(true);
+
         if (Time.time < readyToShoot)
         {
             yield return null;
@@ -249,100 +291,14 @@ public class shootingScript : MonoBehaviour
                 tempAmmoAddedTracker = 0;
                 yield return null;
             }
+            else if (untilFull)
+            {
+                reloadSequence();
+
+            }
             else
             {
-                newPlayer.reloadTriggered = true;
-                if (tempAmmoAddedTracker > magSize / 4)
-                {
-                    readyToShoot = Time.time + (reloadTime / 2);
-                    if ((ammoLoaded + 1) > magSize)
-                    {
-                        ammoLoaded += magSize - ammoLoaded;
-                        tempAmmoAddedTracker += magSize - ammoLoaded;
-                        gunSound.maxPitch = 1f;
-                        gunSound.minPitch = 1f;
-                        gunSound.PlaySound("Reload");
-                    }
-                    else
-                    {
-                        if ((ammoLoaded + 1) == magSize)
-                        {
-                            gunSound.maxPitch = 1f;
-                            gunSound.minPitch = 1f;
-                            gunSound.PlaySound("Reload");
-                        }
-                        else
-                        {
-                            gunSound.maxPitch = (2f + tempAmmoAddedTracker);
-                            gunSound.minPitch = (2f + tempAmmoAddedTracker);
-                            gunSound.PlaySound("Reload");
-                        }
-                        ammoLoaded += 1;
-                        tempAmmoAddedTracker += 1;
-                    }
-                }
-                else if (tempAmmoAddedTracker > magSize / 2)
-                {
-                    readyToShoot = Time.time + (reloadTime / 4);
-                    if ((ammoLoaded + 2) > magSize)
-                    {
-                        ammoLoaded += magSize - ammoLoaded;
-                        tempAmmoAddedTracker += magSize - ammoLoaded;
-                        gunSound.maxPitch = 2f;
-                        gunSound.minPitch = 2f;
-                        gunSound.PlaySound("Reload");
-                    }
-                    else
-                    {
-                        if((ammoLoaded + 2) == magSize)
-                        {
-                            gunSound.maxPitch = 1f;
-                            gunSound.minPitch = 1f;
-                            gunSound.PlaySound("Reload");
-                        }
-                        else
-                        {
-                            gunSound.maxPitch = (2f + tempAmmoAddedTracker);
-                            gunSound.minPitch = (2f + tempAmmoAddedTracker);
-                            gunSound.PlaySound("Reload");
-                        }
-                        ammoLoaded += 2;
-                        tempAmmoAddedTracker += 1;
-
-                    }
-
-                }
-                else
-                {
-                    readyToShoot = Time.time + (reloadTime);
-                    if((ammoLoaded + 1) > magSize)
-                    {
-                        ammoLoaded += magSize - ammoLoaded;
-                        tempAmmoAddedTracker += magSize - ammoLoaded;
-                        gunSound.maxPitch = 1f;
-                        gunSound.minPitch = 1f;
-                        gunSound.PlaySound("Reload");
-                    }
-                    else
-                    {
-                        if ((ammoLoaded + 1) == magSize)
-                        {
-                            gunSound.maxPitch = 1f;
-                            gunSound.minPitch = 1f;
-                            gunSound.PlaySound("Reload");
-                        }
-                        else
-                        {
-                            gunSound.maxPitch = (2f + tempAmmoAddedTracker);
-                            gunSound.minPitch = (2f + tempAmmoAddedTracker);
-                            gunSound.PlaySound("Reload");
-                        }
-                        ammoLoaded += 1;
-                        tempAmmoAddedTracker += 1;
-                    }
-
-                }
-                
+                reloadSequence();
             }
 
         }
@@ -414,5 +370,201 @@ public class shootingScript : MonoBehaviour
     {
         muzzleLight.SetActive(false);
     }
+
+    private void reloadSequence()
+    {
+        newPlayer.reloadTriggered = true;
+
+        if (gunSound.maxPitch == 3f)
+        {
+            gunSound.maxPitch = 3f;
+            gunSound.minPitch = 3f;
+        }
+        else
+        {
+            gunSound.maxPitch = (1f + (tempAmmoAddedTracker / 10));
+            gunSound.minPitch = (1f + (tempAmmoAddedTracker / 10));
+        }
+
+        if (untilFull)
+        {
+            if (tempAmmoAddedTracker > magSize / 4)
+            {
+                readyToShoot = Time.time + (reloadTime / 2);
+                if ((ammoLoaded + 1) > magSize)
+                {
+                    ammoLoaded += magSize - ammoLoaded;
+                    tempAmmoAddedTracker += magSize - ammoLoaded;
+                    gunSound.maxPitch = 1f;
+                    gunSound.minPitch = 1f;
+                    gunSound.PlaySound("Reload");
+                }
+                else
+                {
+                    if ((ammoLoaded + 1) == magSize)
+                    {
+                        gunSound.maxPitch = 1f;
+                        gunSound.minPitch = 1f;
+                        gunSound.PlaySound("Reload");
+                    }
+                    else
+                    {
+                        gunSound.PlaySound("Reload");
+                    }
+                    ammoLoaded += 1;
+                    tempAmmoAddedTracker += 1;
+                }
+            }
+            else if (tempAmmoAddedTracker > (magSize / 2))
+            {
+                readyToShoot = Time.time + (reloadTime / 4);
+                if ((ammoLoaded + 2) > magSize)
+                {
+                    ammoLoaded += magSize - ammoLoaded;
+                    tempAmmoAddedTracker += magSize - ammoLoaded;
+                    gunSound.maxPitch = 2f;
+                    gunSound.minPitch = 2f;
+                    gunSound.PlaySound("Reload");
+                }
+                else
+                {
+                    if ((ammoLoaded + 2) == magSize)
+                    {
+                        gunSound.maxPitch = 1f;
+                        gunSound.minPitch = 1f;
+                        gunSound.PlaySound("Reload");
+                    }
+                    else
+                    {
+
+                        gunSound.PlaySound("Reload");
+                    }
+                    ammoLoaded += 2;
+                    tempAmmoAddedTracker += 1;
+
+                }
+
+            }
+            else
+            {
+                readyToShoot = Time.time + (reloadTime);
+                if ((ammoLoaded + 1) > magSize)
+                {
+                    ammoLoaded += magSize - ammoLoaded;
+                    tempAmmoAddedTracker += magSize - ammoLoaded;
+                    gunSound.maxPitch = 1f;
+                    gunSound.minPitch = 1f;
+                    gunSound.PlaySound("Reload");
+                }
+                else
+                {
+                    if ((ammoLoaded + 1) == magSize)
+                    {
+                        gunSound.maxPitch = 1f;
+                        gunSound.minPitch = 1f;
+                        gunSound.PlaySound("Reload");
+                    }
+                    else
+                    {
+                        gunSound.PlaySound("Reload");
+                    }
+                    ammoLoaded += 1;
+                    tempAmmoAddedTracker += 1;
+                }
+
+            }
+        }
+        else if (!untilFull)
+        {
+            if (tempAmmoAddedTracker > magSize / 4)
+            {
+                readyToShoot = Time.time + (reloadTime / 2);
+                if ((ammoLoaded + 1) > magSize)
+                {
+                    ammoLoaded += magSize - ammoLoaded;
+                    tempAmmoAddedTracker += magSize - ammoLoaded;
+                    gunSound.maxPitch = 1f;
+                    gunSound.minPitch = 1f;
+                    gunSound.PlaySound("Reload");
+                }
+                else
+                {
+                    if ((ammoLoaded + 1) == magSize)
+                    {
+                        gunSound.maxPitch = 1f;
+                        gunSound.minPitch = 1f;
+                        gunSound.PlaySound("Reload");
+                    }
+                    else
+                    {
+                        gunSound.PlaySound("Reload");
+                    }
+                    ammoLoaded += 1;
+                    tempAmmoAddedTracker += 1;
+                }
+            }
+            else if (tempAmmoAddedTracker > magSize / 2)
+            {
+                readyToShoot = Time.time + (reloadTime / 4);
+                if ((ammoLoaded + 2) > magSize)
+                {
+                    ammoLoaded += magSize - ammoLoaded;
+                    tempAmmoAddedTracker += magSize - ammoLoaded;
+                    gunSound.maxPitch = 1f;
+                    gunSound.minPitch = 1f;
+                    gunSound.PlaySound("Reload");
+                }
+                else
+                {
+                    if ((ammoLoaded + 2) == magSize)
+                    {
+                        gunSound.maxPitch = 1f;
+                        gunSound.minPitch = 1f;
+                        gunSound.PlaySound("Reload");
+                    }
+                    else
+                    {
+                        gunSound.PlaySound("Reload");
+                    }
+                    ammoLoaded += 2;
+                    tempAmmoAddedTracker += 1;
+
+                }
+
+            }
+            else
+            {
+                readyToShoot = Time.time + (reloadTime);
+                if ((ammoLoaded + 1) > magSize)
+                {
+                    ammoLoaded += magSize - ammoLoaded;
+                    tempAmmoAddedTracker += magSize - ammoLoaded;
+                    gunSound.maxPitch = 1f;
+                    gunSound.minPitch = 1f;
+                    gunSound.PlaySound("Reload");
+                }
+                else
+                {
+                    if ((ammoLoaded + 1) == magSize)
+                    {
+                        gunSound.maxPitch = 1f;
+                        gunSound.minPitch = 1f;
+                        gunSound.PlaySound("Reload");
+                    }
+                    else
+                    {
+
+                        gunSound.PlaySound("Reload");
+                    }
+                    ammoLoaded += 1;
+                    tempAmmoAddedTracker += 1;
+                }
+
+            }
+        }
+
+    }
+
+
 }
 

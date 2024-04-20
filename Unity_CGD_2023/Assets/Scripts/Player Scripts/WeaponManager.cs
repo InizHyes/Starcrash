@@ -54,7 +54,14 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (currentWeaponIndex < (totalWeapons - totalWeapons))
+        {
+
+        }
+        else if (currentWeaponIndex > totalWeapons)
+        {
+
+        }
 
         Swap();
         /*
@@ -112,6 +119,7 @@ public class WeaponManager : MonoBehaviour
         {
             if (currentWeaponIndex < totalWeapons - 1)
             {
+                weapons[currentWeaponIndex].GetComponent<shootingScript>().emptyOnSwitchReset();
                 weapons[currentWeaponIndex].SetActive(false);
                 weapons[currentWeaponIndex].GetComponentInChildren<smokeBehaviour>().resetSpriteFrame();
                 currentWeaponIndex += 1;
@@ -121,6 +129,7 @@ public class WeaponManager : MonoBehaviour
             }
             else if (currentWeaponIndex == totalWeapons - 1)
             {
+                weapons[currentWeaponIndex].GetComponent<shootingScript>().emptyOnSwitchReset();
                 weapons[currentWeaponIndex].SetActive(false);
                 weapons[currentWeaponIndex].GetComponentInChildren<smokeBehaviour>().resetSpriteFrame();
                 currentWeaponIndex = 0;
@@ -133,6 +142,7 @@ public class WeaponManager : MonoBehaviour
         {
             if (currentWeaponIndex > 0)
             {
+                weapons[currentWeaponIndex].GetComponent<shootingScript>().emptyOnSwitchReset();
                 weapons[currentWeaponIndex].SetActive(false);
                 weapons[currentWeaponIndex].GetComponentInChildren<smokeBehaviour>().resetSpriteFrame();
                 currentWeaponIndex -= 1;
@@ -143,6 +153,7 @@ public class WeaponManager : MonoBehaviour
 
             else if (currentWeaponIndex == 0)
             {
+                weapons[currentWeaponIndex].GetComponent<shootingScript>().emptyOnSwitchReset();
                 weapons[currentWeaponIndex].SetActive(false);
                 weapons[currentWeaponIndex].GetComponentInChildren<smokeBehaviour>().resetSpriteFrame();
                 currentWeaponIndex = totalWeapons - 1;
