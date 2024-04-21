@@ -90,7 +90,7 @@ public class ExploderAOE : MonoBehaviour
                     newPlayer.rb.AddForce(forceNormal * exploderAttached.explosionForce * -1f);
 
                     // Deal damage
-                    collision.GetComponent<PlayerStats>().TakeDamage(exploderAttached.explosionDamage);
+                    collision.GetComponent<PlayerStats>().TakeDamage(exploderAttached.playerExplosionDamage);
 
                     // Add to list
                     hitTargets.Add(collision);
@@ -106,7 +106,7 @@ public class ExploderAOE : MonoBehaviour
                     */
 
                     // Deal damage
-                    collision.GetComponentInChildren<EnemyClass>().damageDetection(exploderAttached.explosionDamage);
+                    collision.GetComponentInChildren<EnemyClass>().damageDetection(exploderAttached.enemyExplosionDamage);
 
                     // Add to list
                     hitTargets.Add(collision);
