@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class GreenTurretClass : EnemyClass
 {
@@ -165,5 +166,7 @@ public class GreenTurretClass : EnemyClass
         firedBullet.GetComponent<Rigidbody2D>().velocity = bulletDir * bulletSpeed;
         SpriteRenderer bulletRenderer = firedBullet.GetComponent<SpriteRenderer>();
         bulletRenderer.color = Color.green;
+
+        firedBullet.GetComponent<Light2D>().color = Color.green;
     }
 }
