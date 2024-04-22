@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6599947426146700238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3779825448604790706}
+  - component: {fileID: 9163052446204847030}
+  m_Layer: 0
+  m_Name: GridManager(MediumRooms) AllGrid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3779825448604790706
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599947426146700238}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9163052446204847030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599947426146700238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e457bf3719edd64781d98413ca7aac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridSections:
+  - prefabs:
+    - {fileID: 5832846472658016385, guid: 2e8c0188105680c47ab56dcafe820975, type: 3}
+  - prefabs:
+    - {fileID: 5832846472658016385, guid: 5df40ad339a39b54390fc8c899a3a892, type: 3}
+  - prefabs:
+    - {fileID: 5832846472658016385, guid: 84d3c00ac02510d478cc8ab3a8795288, type: 3}
+  - prefabs:
+    - {fileID: 5832846472658016385, guid: 6f9b99a5dfe2b6f4f8133cf7bce24044, type: 3}
+  - prefabs:
+    - {fileID: 5952834263604477812, guid: f92e2b8f6874ae344a1e5128d6349295, type: 3}
+  - prefabs:
+    - {fileID: 5832846472658016385, guid: 709ba8b755492a74e9ae7b35756ad4f3, type: 3}
+  - prefabs:
+    - {fileID: 5832846472658016385, guid: 1790d45389596674bb9afbd469ff61db, type: 3}
+  - prefabs:
+    - {fileID: 5832846472658016385, guid: 40ab7f87137e0044499c31da3b63e6b6, type: 3}
+  gridSize: {x: 3, y: 3}
+  cellSize: {x: 32, y: 18}
