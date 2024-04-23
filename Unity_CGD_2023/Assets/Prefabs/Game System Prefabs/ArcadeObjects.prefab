@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 3941487944708650577}
   - component: {fileID: 6918948567041679410}
   - component: {fileID: 7239267163552550016}
+  - component: {fileID: 696217547576079748}
   m_Layer: 0
   m_Name: pixil-frame-0 (3)
   m_TagString: Untagged
@@ -147,7 +148,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.20342517, y: 0.035974145}
@@ -175,8 +176,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396a5e5a266c99f48b3fdc86863e280b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 2
-  rotationSpeed: 0.5
+  strength: 10
+  rotationSpeed: 1
+--- !u!50 &696217547576079748
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792240223736279170}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &947676414049010955
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,6 +503,7 @@ GameObject:
   - component: {fileID: 1491553104656482309}
   - component: {fileID: 137782112608374956}
   - component: {fileID: 8804018179322212043}
+  - component: {fileID: 7505043972044000802}
   m_Layer: 0
   m_Name: pixil-frame-0 (2)
   m_TagString: Untagged
@@ -527,7 +556,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.20342517, y: 0.035974145}
@@ -555,8 +584,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396a5e5a266c99f48b3fdc86863e280b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 2
-  rotationSpeed: 0.5
+  strength: 10
+  rotationSpeed: 1
+--- !u!50 &7505043972044000802
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5585946390110102074}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6038537229550703609
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +624,7 @@ GameObject:
   - component: {fileID: 5420475008180112871}
   - component: {fileID: 3030596739219227022}
   - component: {fileID: 8254413798894334046}
+  - component: {fileID: 2236030724354275771}
   m_Layer: 0
   m_Name: pixil-frame-0 (1)
   m_TagString: Untagged
@@ -620,7 +677,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.20342517, y: 0.035974145}
@@ -648,8 +705,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396a5e5a266c99f48b3fdc86863e280b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 2
-  rotationSpeed: 0.5
+  strength: 10
+  rotationSpeed: 1
+--- !u!50 &2236030724354275771
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038537229550703609}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6306091187851631830
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,6 +745,7 @@ GameObject:
   - component: {fileID: 7032930104720538396}
   - component: {fileID: 4911546850354662697}
   - component: {fileID: 3406626791349114795}
+  - component: {fileID: 1362253317485326050}
   m_Layer: 0
   m_Name: pixil-frame-0
   m_TagString: Untagged
@@ -713,7 +798,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.20342517, y: 0.035974145}
@@ -741,5 +826,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396a5e5a266c99f48b3fdc86863e280b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 2
-  rotationSpeed: 0.5
+  strength: 10
+  rotationSpeed: 1
+--- !u!50 &1362253317485326050
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6306091187851631830}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
