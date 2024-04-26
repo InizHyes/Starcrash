@@ -92,4 +92,13 @@ public class MainMenu : MonoBehaviour
         // Quit the game
         Application.Quit();
     }
+
+    public void OpenMenu()
+    {
+        controlScreen.SetActive(false);
+        settingsScreen.SetActive(false);
+        creditScreen.SetActive(false);
+        menuScreen.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+    }
 }
