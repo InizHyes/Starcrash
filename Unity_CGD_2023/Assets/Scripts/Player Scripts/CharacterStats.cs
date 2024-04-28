@@ -27,6 +27,10 @@ public class CharacterStats : MonoBehaviour
     }
     public virtual void CheckStats()
     {
+        if(this.GetComponent<Down>().downed == false)
+        {
+            isDead = false;
+        }
         
         if(health <= 0)
         {
@@ -43,6 +47,7 @@ public class CharacterStats : MonoBehaviour
     {
         this.GetComponent<Down>().downed = true;
         isDead = true;
+
     }
 
     public virtual void SetStatsTo(float healthSetTo)
