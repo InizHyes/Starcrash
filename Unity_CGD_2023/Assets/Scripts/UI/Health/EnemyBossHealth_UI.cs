@@ -108,7 +108,7 @@ public class EnemyBossHealth_UI : MonoBehaviour
 
         yield return new WaitForSeconds(5);
 
-        SceneManager.LoadScene("ArcadeGameBuildLevel2");
+        SceneManager.LoadScene("ArcadeGameLevel2");
     }
 
 
