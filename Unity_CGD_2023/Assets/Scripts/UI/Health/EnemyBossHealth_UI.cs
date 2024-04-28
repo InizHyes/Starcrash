@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,7 +12,14 @@ public class EnemyBossHealth_UI : MonoBehaviour
     public Image ShieldBar;
     public float healthAmount = 1500f;
 
+    public Animator gameOverAnimator;
+
     public GameObject boss;
+    public bool finalRoom = false;
+
+
+
+    public GameObject LevelComplete;
     //public float ShieldAmount = 10;
 
     // Update is called once per frame
@@ -32,17 +40,22 @@ public class EnemyBossHealth_UI : MonoBehaviour
 
         if (healthBar.fillAmount == 0)
         {
-            print("BOSS DEAD");
             boss.SetActive(false);
 
-            GameObject doorManagerObject = GameObject.Find("DoorManager");
-            if (doorManagerObject != null)
+            if (finalRoom == false)
             {
-                DoorManager doorManager = doorManagerObject.GetComponent<DoorManager>();
+                LevelComplete.SetActive(true);
 
-                doorManager.OpenDoors();
+                StartCoroutine(LevelTwoTransition(1));
 
-                SceneManager.LoadScene("Win"); // Load the win screen scene
+            }
+
+            if (finalRoom == true)
+            {
+
+                LevelComplete.SetActive(true);
+                StartCoroutine(WinTransition(1));
+
             }
         }
     }
@@ -77,4 +90,28 @@ public class EnemyBossHealth_UI : MonoBehaviour
             TakeDamage(5);
         }
     }
+
+    IEnumerator WinTransition(int index)
+    {
+        //gameOverTransition.SetActive(true);
+        gameOverAnimator.SetTrigger("Start");
+
+        yield return new WaitForSeconds(5);
+
+        SceneManager.LoadScene("ArcadeWin");
+    }
+
+    IEnumerator LevelTwoTransition(int index)
+    {
+        //gameOverTransition.SetActive(true);
+        gameOverAnimator.SetTrigger("Start");
+
+        yield return new WaitForSeconds(5);
+
+        SceneManager.LoadScene("ArcadeGameBuildLevel2");
+    }
+
+
+
+
 }
