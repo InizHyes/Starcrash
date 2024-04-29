@@ -72,7 +72,6 @@ public class CharacterStats : MonoBehaviour
     public virtual void InitVariables()
     {
         audioPlayer = GetComponent<AudioSource>();
-        maxHealth = 100;
         SetStatsTo(maxHealth);
         isDead = false;
     }
