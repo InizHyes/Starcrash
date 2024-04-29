@@ -110,6 +110,7 @@ public class Down : MonoBehaviour
         {
             ///print("not reviving");
             reviveTimer = reviveTimeTotal;
+            downed = false;
             reviveText.SetActive(false);
         }
 

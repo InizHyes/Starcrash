@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class RogueScientistFlanks : MonoBehaviour
 {
@@ -130,5 +131,6 @@ public class RogueScientistFlanks : MonoBehaviour
         SpriteRenderer bulletRenderer = firedBullet.GetComponent<SpriteRenderer>();
         firedBullet.GetComponent<Bullet>().damage = 3;
         bulletRenderer.color = Color.cyan;
+        firedBullet.GetComponent<Light2D>().color = Color.cyan;
     }
 }

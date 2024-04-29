@@ -8,6 +8,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance; // Singleton instance
+    public GameObject explosions;
+    public GameObject gameOverTransition;
+    public Animator gameOverAnimator;
 
     private List<PlayerStats> players = new List<PlayerStats>(); // List of player characters
 
@@ -64,8 +67,18 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         gameOver = true;
-        Debug.Log("Game Over");
-        SceneManager.LoadScene("GameOver");
+        explosions.SetActive(true);
+        StartCoroutine(GameOverTransition(1));
         // Add your game over logic here, such as showing a game over screen or restarting the level.
+    }
+
+    IEnumerator GameOverTransition(int index)
+    {
+        //gameOverTransition.SetActive(true);
+        gameOverAnimator.SetTrigger("Start");
+
+        yield return new WaitForSeconds(5);
+
+        SceneManager.LoadScene("ArcadeGameOver");
     }
 }

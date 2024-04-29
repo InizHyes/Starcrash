@@ -40,8 +40,10 @@ public class Pinball : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        print(collision.name);
         if (collision.gameObject.tag == "Player" && !rotating && !rotatingBack)
         {
             Vector3 Dir = transform.up + (-transform.right);
@@ -50,6 +52,5 @@ public class Pinball : MonoBehaviour
 
         }
     }
-
     
 }
